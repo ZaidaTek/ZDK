@@ -7,4 +7,4 @@ This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 Inte
 
 For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 
-Compiling the Code::Blocks project requires the zlib source code to be placed in "../__lib/zlib/*"
+Compiling the Code::Blocks projects requires the zlib source code to be placed in "../__lib/zlib/*"
