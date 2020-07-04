@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="ZTK" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="dll">
+				<Option output="../../ZTK" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option projectCompilerOptionsRelation="0" />
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-fno-exceptions" />
+			<Add option="-fexpensive-optimizations" />
+			<Add option="-flto" />
+			<Add option="-O3" />
+			<Add option="-Wfatal-errors" />
+			<Add option="-Wextra" />
+			<Add option="-Wall" />
+			<Add directory="../ZTL" />
+			<Add directory="../ZTM" />
+		</Compiler>
+		<Linker>
+			<Add option="-O3" />
+			<Add option="-flto" />
+			<Add option="-s" />
+			<Add option="-lZTM -lZTL -lwinmm -lgdi32 -lmsimg32" />
+			<Add directory="../.." />
+		</Linker>
+		<Unit filename="ZTK.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZTK.h" />
+		<Unit filename="ZTK/ZTK__Defaults.h" />
+		<Unit filename="ZTK/ZTK__Defines.h" />
+		<Unit filename="ZTK/ZTK__Event.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZTK/ZTK__Event.h" />
+		<Unit filename="ZTK/ZTK__ID.h" />
+		<Unit filename="ZTK/ZTK__MSG.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZTK/ZTK__MSG.h" />
+		<Unit filename="ZTK/ZTK__Runtime.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZTK/ZTK__Runtime.h" />
+		<Unit filename="ZTK/ZTK__RuntimePrinter.h" />
+		<Unit filename="ZTK/ZTW32/ZTW32.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZTK/ZTW32/ZTW32.h" />
+		<Unit filename="ZTK/ZTW32/ZTW32/ZTW32__Debug.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZTK/ZTW32/ZTW32/ZTW32__Debug.h" />
+		<Unit filename="ZTK/ZTW32/ZTW32/ZTW32__Runtime.h" />
+		<Unit filename="ZTK/ZTW32/ZTW32_Draw.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZTK/ZTW32/ZTW32_Draw.h" />
+		<Unit filename="ZTK/ZTW32/ZTW32_Timer.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZTK/ZTW32/ZTW32_Timer.h" />
+		<Unit filename="ZTK_Define.h" />
+		<Unit filename="ZTK_Printer.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZTK_Printer.h" />
+		<Unit filename="ZTK_Types.h" />
+		<Unit filename="ZT_Sprite.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZT_Sprite.h" />
+		<Unit filename="ZUI/ZUI.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZUI/ZUI.h" />
+		<Unit filename="ZUI/ZUI/ZUI__Defaults.h" />
+		<Unit filename="ZUI/ZUI/ZUI__Defines.h" />
+		<Unit filename="ZUI/ZUI/ZUI__Element.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZUI/ZUI/ZUI__Element.h" />
+		<Unit filename="ZUI/ZUI/ZUI__Runtime.h" />
+		<Unit filename="ZUI/ZUI/ZUI__UI.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZUI/ZUI/ZUI__UI.h" />
+		<Unit filename="ZUI/ZUI_Box.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZUI/ZUI_Box.h" />
+		<Unit filename="ZUI/ZUI_Button.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZUI/ZUI_Button.h" />
+		<Unit filename="ZUI/ZUI_Counter.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZUI/ZUI_Counter.h" />
+		<Unit filename="ZUI/ZUI_Label.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZUI/ZUI_Label.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="ZTM" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="dll">
+				<Option output="../../ZTM" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option projectCompilerOptionsRelation="0" />
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-fexpensive-optimizations" />
+			<Add option="-flto" />
+			<Add option="-O3" />
+			<Add option="-Wfatal-errors" />
+			<Add option="-Wextra" />
+			<Add option="-Wall" />
+			<Add option="-fno-exceptions" />
+		</Compiler>
+		<Linker>
+			<Add option="-O3" />
+			<Add option="-flto" />
+			<Add option="-s" />
+		</Linker>
+		<Unit filename="ZTM.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZTM.h" />
+		<Unit filename="ZTMIO/ZTMIO.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZTMIO/ZTMIO.h" />
+		<Unit filename="ZTMKY/ZTMKY.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZTMKY/ZTMKY.h" />
+		<Unit filename="ZTMWV/ZTMWV.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZTMWV/ZTMWV.h" />
+		<Unit filename="ZTM_Operators.cpp" />
+		<Unit filename="ZTM_Operators.h" />
+		<Unit filename="ZTM__Environment.h" />
+		<Unit filename="ZTM__Runtime.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZTM__Runtime.h" />
+		<Unit filename="ZT_Char.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZT_Char.h" />
+		<Unit filename="ZT_Color.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZT_Color.h" />
+		<Unit filename="ZT_ColorVGA.h" />
+		<Unit filename="ZT_ColorX11.h" />
+		<Unit filename="ZT_Hash.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZT_Hash.h" />
+		<Unit filename="ZT_Hash_MD5.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZT_List.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZT_List.h" />
+		<Unit filename="ZT_Pixel.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZT_Pixel.h" />
+		<Unit filename="ZT_Surface.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZT_Surface.h" />
+		<Unit filename="ZT_Time.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZT_Time.h" />
+		<Unit filename="ZT_Types.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

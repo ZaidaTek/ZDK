@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="ZTL" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="dll">
+				<Option output="../../ZTL" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option projectCompilerOptionsRelation="0" />
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-fno-exceptions" />
+			<Add option="-fexpensive-optimizations" />
+			<Add option="-flto" />
+			<Add option="-O3" />
+			<Add option="-Wfatal-errors" />
+			<Add option="-Wextra" />
+			<Add option="-Wall" />
+			<Add directory="../ZTM" />
+		</Compiler>
+		<Linker>
+			<Add option="-O3" />
+			<Add option="-flto" />
+			<Add option="-s" />
+			<Add option="-lZTM -lzlib" />
+			<Add directory="../.." />
+		</Linker>
+		<Unit filename="ZTL.h" />
+		<Unit filename="ZTLZP/ZTLZP.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZTLZP/ZTLZP.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
