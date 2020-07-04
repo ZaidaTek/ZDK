@@ -59,6 +59,8 @@ ZT_I ZUI_GetX(ZUI_ELEMENT* iElement);
 ZT_I ZUI_GetY(ZUI_ELEMENT* iElement);
 ZT_I ZUI_GetXCenter(ZUI_ELEMENT* iElement);
 ZT_I ZUI_GetYCenter(ZUI_ELEMENT* iElement);
+ZT_I ZUI_GetXRight(ZUI_ELEMENT* iElement);
+ZT_I ZUI_GetYBottom(ZUI_ELEMENT* iElement);
 ZT_I ZUI_GetWidth(ZUI_ELEMENT* iElement);
 ZT_I ZUI_GetHeight(ZUI_ELEMENT* iElement);
 const ZT_RECT* ZUI_GetRect(ZUI_ELEMENT* iElement);
