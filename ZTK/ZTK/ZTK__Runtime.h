@@ -201,7 +201,7 @@ void ZTK_RuntimeDrawSprite(ZT_SPRITE* iSprite, const ZT_RECT* iTarget);
 void ZTK_RuntimeDrawText(const ZT_U8* iText, const ZT_RECT* iTextBox);
 void ZTK_RuntimeGetDrawTextSize(const ZT_CHAR* iText, ZT_POINT* oTextSize);
 void ZTK_RuntimeSpriteFree(ZT_SPRITE* iSprite);
-void ZTK_RuntimeSpriteOptimize(ZT_SPRITE* iSprite, const void* iSource, const ZT_POINT* iBlock, ZT_FLAG iType, ZT_FLAG iPalette);
+ZT_SPRITE* ZTK_RuntimeSpriteOptimize(ZT_SPRITE* iSprite, const void* iSource, const ZT_POINT* iBlock, ZT_FLAG iType, ZT_FLAG iPalette);
 ZT_INDEX ZTK_RuntimeMessages(void);
 ZT_SURFACE* ZTK_RuntimeSurfaceFromBitmap(const ZT_CHAR* iPath, ZT_COLOR iTransparent, ZT_INDEX iOpacity, ZT_FLAG* oPalette);
 ZT_SURFACE* ZTK_RuntimeSurfaceFromFont(const ZT_CHAR* iText, ZT_FONT* iFont, ZT_FLAG* oPalette);

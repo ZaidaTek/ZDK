@@ -9,7 +9,7 @@
 #include "ZTK__Runtime.h"
 
 #ifndef ZTK_MACRO
-#if (ZTM_ARCH_OS == WINDOWS)
+#ifdef ZTM_ARCH__WIN
 ZT_TIME ZTK_RuntimeTicks(void) {return ZTW32_Ticks();}
 ZT_I ZTK_RuntimeGetScreenWidth(void) {return ZTW32_ScreenWidth();}
 ZT_I ZTK_RuntimeGetScreenHeight(void) {return ZTW32_ScreenHeight();}
@@ -41,12 +41,12 @@ void ZTK_RuntimeDrawSprite(ZT_SPRITE* iSprite, const ZT_RECT* iTarget) {ZTW32_Dr
 void ZTK_RuntimeDrawText(const ZT_CHAR* iText, const ZT_RECT* iTextBox) {ZTW32_DrawText(iText, iTextBox);}
 void ZTK_RuntimeGetDrawTextSize(const ZT_CHAR* iText, ZT_POINT* oTextSize) {ZTW32_GetDrawTextSize(iText, oTextSize);}
 void ZTK_RuntimeSpriteFree(ZT_SPRITE* iSprite) {ZTW32_SpriteFree_W32(iSprite);}
-void ZTK_RuntimeSpriteOptimize(ZT_SPRITE* iSprite, void* iSource, const ZT_POINT* iBlock, ZT_FLAG iType, ZT_FLAG iPalette) {ZTW32_Sprite_W32(iSprite, iSource, iBlock, iType, iPalette);}
+ZT_SPRITE* ZTK_RuntimeSpriteOptimize(ZT_SPRITE* iSprite, const void* iSource, const ZT_POINT* iBlock, ZT_FLAG iType, ZT_FLAG iPalette) {return ZTW32_Sprite_W32(iSprite, iSource, iBlock, iType, iPalette);}
 ZT_INDEX ZTK_RuntimeMessages(void) {return ZTW32_HostMessages();}
 ZT_SURFACE* ZTK_RuntimeSurfaceFromBitmap(const ZT_CHAR* iPath, ZT_COLOR iTransparent, ZT_INDEX iOpacity, ZT_FLAG* oPalette) {return ZTW32_SurfaceFromBitmapFile(iPath, iTransparent, iOpacity, oPalette);}
 ZT_SURFACE* ZTK_RuntimeSurfaceFromFont(const ZT_CHAR* iText, ZT_FONT* iFont, ZT_FLAG* oPalette) {return ZTW32_SurfaceFromFont(iText, iFont, oPalette);}
 void ZTK_RuntimeSizeFromFont(const ZT_CHAR* iText, ZT_FONT* iFont, ZT_POINT* oSize) {ZTW32_SizeFromFont(iText, iFont, oSize);}
-#endif // ZTM_ARCH_OS
+#endif // ZTM_ARCH__WIN
 #endif // ZTK_MACRO
 
 
