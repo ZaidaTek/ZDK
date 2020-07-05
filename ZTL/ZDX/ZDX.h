@@ -30,7 +30,7 @@ ZT_FLAG ZDX_GetChannels(ZDX_DEVICE* iDevice);
 
 ZDX_TRIGGER* ZDX_TriggerNew(void);
 void ZDX_TriggerFree(ZDX_TRIGGER* iTrigger);
-ZT_FLAG ZDX_TriggerCheck(ZDX_TRIGGER* iTrigger, ZDX_DATA* iData, ZT_INDEX iChannel);
+ZT_INDEX ZDX_TriggerCheck(ZDX_TRIGGER* iTrigger, ZDX_DATA* iData, ZT_INDEX iChannel);
 #ifdef __cplusplus
 }
 #endif // __cplusplus

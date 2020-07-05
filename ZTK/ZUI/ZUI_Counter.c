@@ -200,28 +200,35 @@ ZUI_HOST_ELEMENT* ZUI_CounterSize(ZUI_HOST_ELEMENT* iElement, const ZT_POINT* iS
             }
             if (iElement->trunk->branch != NULL) {
                 ZT_RECT lRect;
-                for (ZT_INDEX i = 0; i < lPairs; i++) {
-                    if (iElement->trunk->flag & ZUI_ELEMENT_TRUNK_FLAG_VERTICAL) {
-                        ZT_I lButtonHeight = ((iElement->rect.w / (ZT_I)lPairs) > (iElement->rect.h / 2)) ? (iElement->rect.h / 2) : (iElement->rect.w / (ZT_I)lPairs);
+                if (iElement->trunk->flag & ZUI_ELEMENT_TRUNK_FLAG_VERTICAL) {
+                    ZT_I lButtonHeightMax = (iElement->rect.h - iElement->UI.font->height) / 2;
+                    if (lButtonHeightMax < 1) {lButtonHeightMax = 1;}
+                    ZT_I lButtonHeight = ((iElement->rect.w / (ZT_I)lPairs) > lButtonHeightMax) ? lButtonHeightMax : (iElement->rect.w / (ZT_I)lPairs);
+                    for (ZT_INDEX i = 0; i < lPairs; i++) {
+                        //ZT_I lButtonHeight = ((iElement->rect.w / (ZT_I)lPairs) > (iElement->rect.h / 2)) ? (iElement->rect.h / 2) : (iElement->rect.w / (ZT_I)lPairs);
                         lRect.x = iElement->rect.x + (iElement->rect.w / lPairs) * (lPairs - (i + 1));
                         lRect.y = iElement->rect.y;
                         ZTM_RectSizeFromIntegers(&lRect, (iElement->rect.w / lPairs), lButtonHeight);
                         ZUI_Rect(iElement->trunk->branch[((iElement->trunk->flag & ZUI_ELEMENT_TRUNK_FLAG_FLIP) ? 1 : 0) + 2 * i], &lRect);
                         lRect.y = (iElement->rect.y + iElement->rect.h - lButtonHeight);
                         ZUI_Rect(iElement->trunk->branch[((iElement->trunk->flag & ZUI_ELEMENT_TRUNK_FLAG_FLIP) ? 0 : 1) + 2 * i], &lRect);
-                        ZUI_UISpritesNew(iElement);
-                    } else {
-                        ZT_I lButtonWidth = (iElement->rect.h > (iElement->rect.w / (2 * (ZT_I)lPairs))) ? (iElement->rect.w / (2 * (ZT_I)lPairs)) : iElement->rect.h;
+                        //ZUI_UISpritesNew(iElement);
+                    }
+                } else {
+                    ZT_I lButtonWidth = (iElement->rect.h > (iElement->rect.w / (2 * (ZT_I)lPairs))) ? (iElement->rect.w / (2 * (ZT_I)lPairs)) : iElement->rect.h;
+                    for (ZT_INDEX i = 0; i < lPairs; i++) {
+                        //ZT_I lButtonWidth = (iElement->rect.h > (iElement->rect.w / (2 * (ZT_I)lPairs))) ? (iElement->rect.w / (2 * (ZT_I)lPairs)) : iElement->rect.h;
                         lRect.x = iElement->rect.x + lButtonWidth * (lPairs - (i + 1));
                         lRect.y = iElement->rect.y;
                         ZTM_RectSizeFromIntegers(&lRect, lButtonWidth, iElement->rect.h);
                         ZUI_Rect(iElement->trunk->branch[((iElement->trunk->flag & ZUI_ELEMENT_TRUNK_FLAG_FLIP) ? 1 : 0) + 2 * i], &lRect);
                         lRect.x = (iElement->rect.x + iElement->rect.w - lButtonWidth * (lPairs - i));
                         ZUI_Rect(iElement->trunk->branch[((iElement->trunk->flag & ZUI_ELEMENT_TRUNK_FLAG_FLIP) ? 0 : 1) + 2 * i], &lRect);
-                        ZUI_UISpritesNew(iElement);
+                        //ZUI_UISpritesNew(iElement);
                     }
                 }
             }
+            ZUI_UISpritesNew(iElement);
         }
     }
     return iElement;

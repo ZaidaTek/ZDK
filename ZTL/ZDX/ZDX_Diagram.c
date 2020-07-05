@@ -29,12 +29,16 @@ ZDX_DIAGRAM* ZDX_DiagramNew(ZT_FLAG iType) {
 		lDiagram->grid.minor = NULL;
 		lDiagram->data.trigger = NULL;
 		lDiagram->data.offset = NULL;
-		lDiagram->color.background = NULL;//ZDX_DIAGRAM_COLOR_BACKGROUND;
-		lDiagram->color.trigger = NULL;//ZDX_DIAGRAM_COLOR_TRIGGER;
-		lDiagram->color.cursor = NULL;//ZDX_DIAGRAM_COLOR_CURSOR;
-		lDiagram->color.plot = NULL;
+		lDiagram->data.cursor.horizontal = NULL;
+		lDiagram->data.cursor.vertical = NULL;
 		lDiagram->color.grid.major = NULL;//ZDX_DIAGRAM_COLOR_GRID_MAJOR;
 		lDiagram->color.grid.minor = NULL;//ZDX_DIAGRAM_COLOR_GRID_MINOR;
+		lDiagram->color.cursor.data = NULL;//ZDX_DIAGRAM_COLOR_CURSOR;
+		lDiagram->color.cursor.first = NULL;
+		lDiagram->color.cursor.second = NULL;
+		lDiagram->color.background = NULL;//ZDX_DIAGRAM_COLOR_BACKGROUND;
+		lDiagram->color.trigger = NULL;//ZDX_DIAGRAM_COLOR_TRIGGER;
+		lDiagram->color.plot = NULL;
 	}
 	return lDiagram;
 }
@@ -51,7 +55,9 @@ void ZDX_DiagramRender(ZDX_DIAGRAM* iDiagram, ZDX_DATA* iData, ZT_SURFACE* oSurf
             ZT_INDEX lImageWidth = oSurface->block.xU;
             ZT_COLOR lColorBackground = (iDiagram->color.background != NULL) ? *(iDiagram->color.background) : ZDX_DIAGRAM_COLOR_BACKGROUND;
             ZT_COLOR lColorTrigger = (iDiagram->color.trigger != NULL) ? *(iDiagram->color.trigger) : ZDX_DIAGRAM_COLOR_TRIGGER;
-            ZT_COLOR lColorCursor = (iDiagram->color.cursor != NULL) ? *(iDiagram->color.cursor) : ZDX_DIAGRAM_COLOR_CURSOR;
+            ZT_COLOR lColorCursorData = (iDiagram->color.cursor.data != NULL) ? *(iDiagram->color.cursor.data) : ZDX_DIAGRAM_COLOR_CURSOR_DATA;
+            ZT_COLOR lColorCursorFirst = (iDiagram->color.cursor.first != NULL) ? *(iDiagram->color.cursor.first) : ZDX_DIAGRAM_COLOR_CURSOR_FIRST;
+            ZT_COLOR lColorCursorSecond = (iDiagram->color.cursor.second != NULL) ? *(iDiagram->color.cursor.second) : ZDX_DIAGRAM_COLOR_CURSOR_SECOND;
             ZT_COLOR lColorGridMajor = (iDiagram->color.grid.major != NULL) ? *(iDiagram->color.grid.major) : ZDX_DIAGRAM_COLOR_GRID_MAJOR;
             ZT_COLOR lColorGridMinor = (iDiagram->color.grid.minor != NULL) ? *(iDiagram->color.grid.minor) : ZDX_DIAGRAM_COLOR_GRID_MINOR;
             ZT_INDEX lDataCursor = 0;
@@ -73,7 +79,6 @@ void ZDX_DiagramRender(ZDX_DIAGRAM* iDiagram, ZDX_DATA* iData, ZT_SURFACE* oSurf
                 }
             }
             //lDataIndex = lDataOffset;
-            ZT_FLAG lPlotData = 0x1;
             for (; lImageX < lImageWidth; lImageX++) {
                 ZT_COLOR lBackground = lColorBackground;
                 if (iData != NULL) {
@@ -128,27 +133,31 @@ void ZDX_DiagramRender(ZDX_DIAGRAM* iDiagram, ZDX_DATA* iData, ZT_SURFACE* oSurf
                 if (iData != NULL) {
                     if (iDiagram->flag & ZDX_DIAGRAM_FLAG_TRIGGER) {
                         if (iDiagram->data.trigger != NULL) {
-                            if (lPlotData && lDataIndex == iDiagram->data.trigger->xU) {for (ZT_INDEX y = 1; y < lImageHeight; y += 2) {oSurface->pixels[lImageX + y * lImageWidth] = lColorTrigger;}}
+                            if (lDataIndex == iDiagram->data.trigger->xU) {for (ZT_INDEX y = 1; y < lImageHeight; y += 2) {oSurface->pixels[lImageX + y * lImageWidth] = lColorTrigger;}}
                             if (lImageX % 2) {oSurface->pixels[lImageX + (lImageHeight - (1 + ((iDiagram->data.trigger->yU * lImageHeight) >> iData->resolution))) * lImageWidth] = lColorTrigger;}
                         }
                     }
-                    if (lPlotData) {
-                        for (ZT_INDEX lChannel = 0; lChannel < lDataChannels; lChannel++) {
-                            ZT_COLOR lColorPlot = (iDiagram->color.plot != NULL) ? iDiagram->color.plot[lChannel] : ZDX_DiagramColor(lChannel);
-                            ZT_INDEX lPlot = lImageHeight - (1 + ((iData->data[lDataIndex * lDataChannels + lChannel] * lImageHeight) >> iData->resolution));
-                            ZT_INDEX lPlotPrev = lImageHeight - (1 + ((iData->data[lDataIndexPrev * lDataChannels + lChannel] * lImageHeight) >> iData->resolution));
-                            ZT_INDEX lStart = lPlotPrev;
-                            ZT_INDEX lStop = lPlot + ((lPlot == lPlotPrev) ? 1 : 0);
-                            if (lPlot < lPlotPrev) {
-                                lStart = lPlot;
-                                lStop = lPlotPrev;
-                            }
-                            for (ZT_INDEX y = lStart; y < lStop; y++) {oSurface->pixels[lImageX + y * lImageWidth] = lColorPlot;}
+                    for (ZT_INDEX lChannel = 0; lChannel < lDataChannels; lChannel++) {
+                        ZT_COLOR lColorPlot = (iDiagram->color.plot != NULL) ? iDiagram->color.plot[lChannel] : ZDX_DiagramColor(lChannel);
+                        ZT_INDEX lPlot = lImageHeight - (1 + ((iData->data[lDataIndex * lDataChannels + lChannel] * lImageHeight) >> iData->resolution));
+                        ZT_INDEX lPlotPrev = lImageHeight - (1 + ((iData->data[lDataIndexPrev * lDataChannels + lChannel] * lImageHeight) >> iData->resolution));
+                        ZT_INDEX lStart = lPlotPrev;
+                        ZT_INDEX lStop = lPlot + ((lPlot == lPlotPrev) ? 1 : 0);
+                        if (lPlot < lPlotPrev) {lStart = lPlot; lStop = lPlotPrev;}
+                        for (ZT_INDEX y = lStart; y < lStop; y++) {oSurface->pixels[lImageX + y * lImageWidth] = lColorPlot;}
+                    }
+                    if (iDiagram->data.cursor.horizontal != NULL) {
+                        if (lDataIndex == ((lDataOffset + iDiagram->data.cursor.horizontal->xU) % lDataWidth)) {for (ZT_INDEX y = 1; y < lImageHeight; y += 2) {oSurface->pixels[lImageX + y * lImageWidth] = lColorCursorFirst;}}
+                        if (lDataIndex == ((lDataOffset + iDiagram->data.cursor.horizontal->yU) % lDataWidth)) {for (ZT_INDEX y = 1; y < lImageHeight; y += 2) {oSurface->pixels[lImageX + y * lImageWidth] = lColorCursorSecond;}}
+                    }
+                    if (iDiagram->data.cursor.vertical != NULL) {
+                        if (lImageX % 2) {
+                            oSurface->pixels[lImageX + (lImageHeight - (1 + ((iDiagram->data.cursor.vertical->xU * lImageHeight) >> iData->resolution))) * lImageWidth] = lColorCursorFirst;
+                            oSurface->pixels[lImageX + (lImageHeight - (1 + ((iDiagram->data.cursor.vertical->yU * lImageHeight) >> iData->resolution))) * lImageWidth] = lColorCursorSecond;
                         }
                     }
-                    if (lDataIndex == lDataCursor) {
-                        //lPlotData = 0x0;
-                        if (iDiagram->flag & ZDX_DIAGRAM_FLAG_CURSOR) {for (ZT_INDEX y = 0; y < lImageHeight; y++) {oSurface->pixels[lImageX + y * lImageWidth] = lColorCursor;}}
+                    if (iDiagram->flag & ZDX_DIAGRAM_FLAG_CURSOR_DATA) {
+                        if (lDataIndex == lDataCursor || lDataIndex == lDataCursor + 1) {for (ZT_INDEX y = 0; y < lImageHeight; y++) {oSurface->pixels[lImageX + y * lImageWidth] = lColorCursorData;}}
                     }
                 }
             }

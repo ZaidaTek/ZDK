@@ -118,8 +118,8 @@ ZDX_TRIGGER* ZDX_TriggerNew(void) {
     return lTrigger;
 }
 
-ZT_FLAG ZDX_TriggerCheck(ZDX_TRIGGER* iTrigger, ZDX_DATA* iData, ZT_INDEX iChannel) {
-    ZT_FLAG lTriggered = 0x0;
+ZT_INDEX ZDX_TriggerCheck(ZDX_TRIGGER* iTrigger, ZDX_DATA* iData, ZT_INDEX iChannel) {
+    ZT_INDEX lTriggered = 0;
     if (iTrigger != NULL && iData != NULL) {
         ZT_INDEX lChannels = iData->block.xU;
         if (iChannel < lChannels) {
@@ -129,12 +129,12 @@ ZT_FLAG ZDX_TriggerCheck(ZDX_TRIGGER* iTrigger, ZDX_DATA* iData, ZT_INDEX iChann
                 if (iTrigger->cursor == iTrigger->level.xU) {iTrigger->level.xU = -1;}
                 if (iTrigger->type & ZDX_TRIGGER_TYPE_FALLING) {
                     if (iData->data[iTrigger->cursor * lChannels + iChannel] <= iTrigger->level.yU && iData->data[lIndexPrev * lChannels + iChannel] > iTrigger->level.yU) {
-                        lTriggered = 0x1;
+                        lTriggered++;
                         iTrigger->level.xU = iTrigger->cursor;
                     }
                 } else if (iTrigger->type & ZDX_TRIGGER_TYPE_RISING) {
                     if (iData->data[iTrigger->cursor * lChannels + iChannel] >= iTrigger->level.yU && iData->data[lIndexPrev * lChannels + iChannel] < iTrigger->level.yU) {
-                        lTriggered = 0x1;
+                        lTriggered++;
                         iTrigger->level.xU = iTrigger->cursor;
                     }
                 }

@@ -15,24 +15,32 @@ typedef struct {
     struct {
         const ZT_UPOINT* trigger;
         const ZT_UPOINT* offset;
+        struct {
+            const ZT_UPOINT* horizontal;
+            const ZT_UPOINT* vertical;
+        } cursor;
     } data;
 	struct {
 		struct {
 			const ZT_COLOR* major;
 			const ZT_COLOR* minor;
 		} grid;
+	    struct {
+            const ZT_COLOR* data;
+	        const ZT_COLOR* first;
+	        const ZT_COLOR* second;
+	    } cursor;
 		const ZT_COLOR* background;
 		const ZT_COLOR* trigger;
-		const ZT_COLOR* cursor;
 		const ZT_COLOR* plot;
 	} color;
 } ZDX_DIAGRAM;
 
 typedef struct {
 	ZT_UPOINT block;
-	ZT_U* data;
     ZT_INDEX cursor;
     ZT_INDEX resolution;
+	ZT_U* data;
 } ZDX_DATA;
 
 typedef struct {
