@@ -8,8 +8,13 @@
 #include "ZTM__Runtime.h"
 #include ZTM__INCL__MAIN
 
-void ZTM_SRand(ZT_INDEX iSeed) {srand(iSeed);}
-ZT_INDEX ZTM_Rand(ZT_INDEX iModulo) {return (iModulo ? ((ZT_INDEX)rand() % iModulo) : (ZT_INDEX)rand());}
+void ZTM_SRand(ZT_U32 iSeed) {rZTM__SEED = iSeed;}
+ZT_U32 ZTM_Rand(ZT_U32 iModulo) {
+	rZTM__SEED ^= rZTM__SEED << 13;
+	rZTM__SEED ^= rZTM__SEED >> 17;
+	rZTM__SEED ^= rZTM__SEED << 5;
+	return (iModulo ? (rZTM__SEED % iModulo) : rZTM__SEED);
+}
 ZT_FLAG ZTM_LSB(ZT_FLAG iFlag) {
     ZT_FLAG lMask = 0x0;
     ZT_INDEX lIndex = -1;
@@ -192,7 +197,7 @@ ZT_BOOL ZTM8_Match(const void* iSource, const void* iTarget, ZT_INDEX iLength) {
     while (++lIndex < iLength) {if (((const ZT_U8*)iTarget)[lIndex] != ((const ZT_U8*)iSource)[lIndex]) {return ZT_FALSE;}}
     return ZT_TRUE;
 }
-void ZTM8_DataFree(ZT_DATA_U8* iData) {
+/*void ZTM8_DataFree(ZT_DATA_U8* iData) {
 	if (iData != NULL) {ZTM8_Free(iData->payload);}
 }
 ZT_DATA_U8* ZTM8_DataNull(ZT_DATA_U8* iData) {
@@ -208,5 +213,70 @@ ZT_DATA_U8* ZTM8_DataZero(ZT_DATA_U8* iData) {
 		iData->length = 0;
 	}
 	return iData;
+}*/
+ZT_DATA* ZTM_DataNew(ZT_SIZE iLength) {
+	ZT_DATA* lData;
+	if ((lData = ZTM8_New(sizeof(ZT_DATA))) != NULL) {
+		if ((lData->length = iLength)) {
+			if ((lData->byte = ZTM8_New(lData->length)) != NULL) {return lData;}
+			ZTM8_Free(lData);
+		} else {
+			lData->payload = NULL;
+			return lData;
+		}
+	}
+    return NULL;
+}
+ZT_DATA* ZTM_DataNewCopy(const ZT_U8* iData, ZT_SIZE iLength) {
+	if (iData != NULL) {
+		ZT_DATA* lData;
+		if ((lData = ZTM_DataNew(iLength)) != NULL) {
+			ZTM8_Copy(iData, lData->byte, iLength);
+			return lData;
+		}
+	}
+	return NULL;
+}
+ZT_DATA* ZTM_DataNewWrap(ZT_U8* iData, ZT_SIZE iLength) {
+	if (iData != NULL) {
+		ZT_DATA* lData;
+		if ((lData = ZTM_DataNew(0)) != NULL) {
+			lData->payload = iData;
+			lData->length = iLength;
+			return lData;
+		}
+	}
+	return NULL;
+}
+void ZTM_DataFreePayloadSecure(ZT_DATA* iData) {
+    if (iData != NULL) {
+		ZTM8_Zero(iData->payload, iData->length);
+        ZTM_FreeNull(iData->payload);
+		iData->length = 0;
+    }
+}
+void ZTM_DataFreeSecure(ZT_DATA* iData) {
+    if (iData != NULL) {
+		ZTM8_Zero(iData->payload, iData->length);
+        ZTM8_Free(iData->payload);
+        ZTM8_Free(iData);
+    }
+}
+void ZTM_DataFreePayload(ZT_DATA* iData) {
+    if (iData != NULL) {
+        ZTM_FreeNull(iData->payload);
+		iData->length = 0;
+    }
+}
+void ZTM_DataFreeWrap(ZT_DATA* iData) {
+    if (iData != NULL) {
+        ZTM8_Free(iData);
+    }
+}
+void ZTM_DataFree(ZT_DATA* iData) {
+    if (iData != NULL) {
+        ZTM8_Free(iData->payload);
+        ZTM8_Free(iData);
+    }
 }
 #endif // ZTM_C_INCLUDED

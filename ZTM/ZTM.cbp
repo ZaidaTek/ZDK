@@ -44,8 +44,6 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="ZTMWV/ZTMWV.h" />
-		<Unit filename="ZTM_Operators.cpp" />
-		<Unit filename="ZTM_Operators.h" />
 		<Unit filename="ZTM__Environment.h" />
 		<Unit filename="ZTM__Runtime.c">
 			<Option compilerVar="CC" />
@@ -65,9 +63,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="ZT_Hash.h" />
-		<Unit filename="ZT_Hash_MD5.c">
+		<Unit filename="ZT_HashMD5.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="ZT_HashMD5.h" />
 		<Unit filename="ZT_List.c">
 			<Option compilerVar="CC" />
 		</Unit>

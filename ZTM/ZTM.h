@@ -17,7 +17,7 @@
 #define ZTM_CHAR_MACRO
 // ZTM MANDATORY
 #include "ZT_Types.h"
-// ZTM MACRO 
+// ZTM MACRO
 #define ZTM_CoerceIfZero(VAR, VAL) ((!(VAR)) ? ((VAR) = (VAL)) : (VAR))
 #define ZTM_CoerceIfNotZero(VAR, VAL) ((VAR) ? ((VAR) = (VAL)) : (VAR))
 #define ZTM_CoerceIfLess(VAR, VAL) (((VAR) < (VAL)) ? ((VAR) = (VAL)) : (VAR))
@@ -44,8 +44,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif // __cplusplus
-void ZTM_SRand(ZT_INDEX iSeed);
-ZT_INDEX ZTM_Rand(ZT_INDEX iModulo);
+void ZTM_SRand(ZT_U32 iSeed);
+ZT_U32 ZTM_Rand(ZT_U32 iModulo);
 ZT_FLAG ZTM_LSB(ZT_FLAG iFlag);
 ZT_FLAG ZTM_MSB(ZT_FLAG iFlag);
 ZT_FLAG ZTM_BitFillLeft(ZT_INDEX iCount);
@@ -145,9 +145,17 @@ void* ZTM32_MoveBlock(void* iSource, void* iTarget, const ZT_UPOINT* iSize);
 void* ZTM32_SetBlock(void* iData, ZT_U32 iValue, const ZT_UPOINT* iSize);
 void* ZTM32_InitBlock(const ZT_UPOINT* iSize, ZT_U32 iValue);
 ZT_BOOL ZTM8_Match(const void* iSource, const void* iTarget, ZT_INDEX iLength);
-void ZTM8_DataFree(ZT_DATA_U8* iData);
+/*void ZTM8_DataFree(ZT_DATA_U8* iData);
 ZT_DATA_U8* ZTM8_DataNull(ZT_DATA_U8* iData);
-ZT_DATA_U8* ZTM8_DataZero(ZT_DATA_U8* iData);
+ZT_DATA_U8* ZTM8_DataZero(ZT_DATA_U8* iData);*/
+ZT_DATA* ZTM_DataNew(ZT_SIZE iLength);
+ZT_DATA* ZTM_DataNewCopy(const ZT_U8* iData, ZT_SIZE iLength);
+ZT_DATA* ZTM_DataNewWrap(ZT_U8* iData, ZT_SIZE iLength);
+void ZTM_DataFreePayloadSecure(ZT_DATA* iData);
+void ZTM_DataFreeSecure(ZT_DATA* iData);
+void ZTM_DataFreePayload(ZT_DATA* iData);
+void ZTM_DataFreeWrap(ZT_DATA* iData);
+void ZTM_DataFree(ZT_DATA* iData);
 #ifdef __cplusplus
 }
 // ZTM CPP ONLY
@@ -161,7 +169,7 @@ ZT_DATA_U8* ZTM8_DataZero(ZT_DATA_U8* iData);
 #include "ZT_Color.h"
 #include "ZT_Pixel.h"
 #include "ZT_Surface.h"
-//#include "ZT_Sprite.h"
+//#include "ZT_Sprite.h" // moved to ZTK
 #include "ZTMIO/ZTMIO.h"
 #include "ZTMKY/ZTMKY.h"
 #include "ZTMWV/ZTMWV.h"

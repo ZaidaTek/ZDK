@@ -17,10 +17,10 @@ const ZT_U8* ZTC8__DATE__Set(const ZT_U8* i__DATE__, const ZT_U8* i__TIME__) {
 		rZTC8__ISO8601__[2] = i__DATE__[9];
 		rZTC8__ISO8601__[3] = i__DATE__[10];
 		rZTC8__ISO8601__[4] = ZTM_CHAR_MINUS;
-		rZTC8__ISO8601__[5] = 0x30 + (lMonth / 10);
-		rZTC8__ISO8601__[6] = 0x30 + (lMonth % 10);
+		rZTC8__ISO8601__[5] = ZTM_CHAR_0 + (lMonth / 10);
+		rZTC8__ISO8601__[6] = ZTM_CHAR_0 + (lMonth % 10);
 		rZTC8__ISO8601__[7] = ZTM_CHAR_MINUS;
-		rZTC8__ISO8601__[8] = (i__DATE__[4] != 0x20) ? i__DATE__[4] : 0x30;
+		rZTC8__ISO8601__[8] = (i__DATE__[4] != ' ') ? i__DATE__[4] : ZTM_CHAR_0;
 		rZTC8__ISO8601__[9] = i__DATE__[5];
 		rZTC8__ISO8601__[10] = ZTM_CHAR_SPACE;
 		rZTC8__ISO8601__[11] = i__TIME__[0];
@@ -222,19 +222,19 @@ ZT_DBL ZTC8_ReadDouble(const ZT_U8* iText) {
     return lDouble;
 }
 void ZTC8_ReadDate_ANSI_C(const ZT_U8* iText, ZT_DATE* oDate) {
-	oDate->year = iText[10] - 0x30;
-	oDate->year += (iText[9] - 0x30) * 10;
-	oDate->year += (iText[8] - 0x30) * 100;
-	oDate->year += (iText[7] - 0x30) * 1000;
-	oDate->day = iText[5] - 0x30;
-	if (iText[4] != 0x20) {oDate->day += ((iText[4] - 0x30) * 10);}
+	oDate->year = iText[10] - '0';
+	oDate->year += (iText[9] - '0') * 10;
+	oDate->year += (iText[8] - '0') * 100;
+	oDate->year += (iText[7] - '0') * 1000;
+	oDate->day = iText[5] - '0';
+	if (iText[4] != ' ') {oDate->day += ((iText[4] - '0') * 10);}
 	oDate->month = 0;
 	while ((oDate->month < 12) && !ZTC8_Match(iText, rZTC8__MONTH[oDate->month++]));
 }
 void ZTC8_ReadTime_ANSI_C(const ZT_U8* iText, ZT_DATE* oDate) {
-	oDate->hour = (iText[0] - 0x30) * 10 + (iText[1] - 0x30);
-	oDate->minute = (iText[3] - 0x30) * 10 + (iText[4] - 0x30);
-	oDate->second = (iText[6] - 0x30) * 10 + (iText[7] - 0x30);
+	oDate->hour = (iText[0] - '0') * 10 + (iText[1] - '0');
+	oDate->minute = (iText[3] - '0') * 10 + (iText[4] - '0');
+	oDate->second = (iText[6] - '0') * 10 + (iText[7] - '0');
 }
 const ZT_U8* ZTC8_CopyTarget(const ZT_U8* iSource, ZT_U8* oTarget) {ZT_INDEX lCursor = -1; while ((oTarget[++lCursor] = iSource[lCursor]) != ZTM_CHAR_NT); return iSource;}
 ZT_U8* ZTC8_CopyLength(const ZT_U8* iText, ZT_INDEX iLength) {
@@ -308,7 +308,29 @@ ZT_U8* ZTC8_Hex(ZT_U iInteger) {return ZTC8_UnsignedBase(iInteger, 0x10);}
 ZT_U8* ZTC8_HexSigned(ZT_I iInteger) {return ZTC8_IntegerBase(iInteger, 0x10);}
 ZT_U8* ZTC8_Binary(ZT_U iInteger) {return ZTC8_UnsignedBase(iInteger, 0x2);}
 ZT_U8* ZTC8_BinarySigned(ZT_I iInteger) {return ZTC8_IntegerBase(iInteger, 0x2);}
-ZT_U8* ZTC8_HashString(const void* iHash, const ZT_U8* iDelimiter, ZT_INDEX iBits, ZT_INDEX iGrouping) {
+ZT_U8* ZTC8_ByteString(const ZT_U8* iBytes, ZT_INDEX iLength, const ZT_U8* iDelimiter, ZT_INDEX iGrouping) {
+    ZT_INDEX lLengthDelimit = (iDelimiter != NULL) ? ZTC8_GetLength(iDelimiter) : 0;
+    ZT_INDEX lChars = (iLength << 1);
+    if (iDelimiter != NULL && iGrouping) {lChars += ((iLength - 1) / iGrouping) * lLengthDelimit;}
+    ZT_U8* lString = ZTM8_New(lChars + 1);
+    ZT_INDEX lCursor = 0;
+    ZT_INDEX lIndex = -1;
+    while (++lIndex < iLength) {
+        if (iDelimiter != NULL && iGrouping) {if (!(lIndex % iGrouping) && lIndex) {ZTC8_CopyTarget(iDelimiter, &lString[lCursor]); lCursor += lLengthDelimit;}}
+        ZT_U8 lNibble = iBytes[lIndex] >> 4;
+        lString[lCursor++] = (lNibble > 9) ? (lNibble + ZTM_CHAR_HEX_aOFF) : (lNibble + 0x30);
+        lNibble = iBytes[lIndex] & 0xf;
+        lString[lCursor++] = (lNibble > 9) ? (lNibble + ZTM_CHAR_HEX_aOFF) : (lNibble + 0x30);
+    }
+    lString[lChars] = ZTM_CHAR_NT;
+    return lString;
+}
+ZT_U8* ZTC8_HashString(const void* iHash, ZT_INDEX iBits, const ZT_U8* iDelimiter, ZT_INDEX iGrouping) {
+    const ZT_HASH1024* lHash = iHash;
+    ZT_INDEX lLength = ((iBits + 7) >> 3);
+	return ZTC8_ByteString(lHash->byte, lLength, iDelimiter, iGrouping);
+}
+/*ZT_U8* ZTC8_HashString(const void* iHash, const ZT_U8* iDelimiter, ZT_INDEX iBits, ZT_INDEX iGrouping) {
     const ZT_HASH1024* lHash = iHash;
     ZT_INDEX lLengthDelimit = (iDelimiter != NULL) ? ZTC8_GetLength(iDelimiter) : 0;
     ZT_INDEX lBytes = ((iBits + 7) >> 3);
@@ -326,6 +348,31 @@ ZT_U8* ZTC8_HashString(const void* iHash, const ZT_U8* iDelimiter, ZT_INDEX iBit
     }
     lString[lChars] = ZTM_CHAR_NT;
     return lString;
+}*/
+ZT_U8* ZTC8_Printable(const ZT_U8* iData, ZT_INDEX iLength, ZT_U8 iReplacement) {
+	if (iData != NULL) {
+		ZT_U8* lPrintable;
+		if ((lPrintable = ZTM8_New(iLength + 1)) != NULL) {
+			ZT_INDEX lCursor = -1;
+			while (++lCursor < iLength) {
+				ZT_U8 lChar = iData[lCursor];
+				if (lChar > ZTM_CHAR_PRINT_MAX) {
+					lPrintable[lCursor] = iReplacement;
+				} else if (lChar < ZTM_CHAR_PRINT_MIN) {
+					if ((lChar == ZTM_CHAR_CR) ? (((lCursor + 1) < iLength) ? (iData[lCursor + 1] == ZTM_CHAR_LF) : 0x0) : (lChar == ZTM_CHAR_LF)) {
+						lPrintable[lCursor] = lChar;
+					} else {
+						lPrintable[lCursor] = iReplacement;
+					}
+				} else {
+					lPrintable[lCursor] = lChar;
+				}
+			}
+			lPrintable[iLength] = ZTM_CHAR_NT;
+			return lPrintable;
+		}
+	}
+	return NULL;
 }
 ZT_U8* ZTC8_DateISO8601(ZT_TIME iUnix) {
     ZT_U8* lDate = ZTM8_New(20);

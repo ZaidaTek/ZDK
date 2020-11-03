@@ -19,8 +19,8 @@
 #define ZTM_ARCH__BIT 32
 #endif // ZTM_ARCH__
 
-#define ZTM__INCL__MAIN <stdlib.h> // rand(), srand(), malloc(), realloc(), free()
-#define ZTM__INCL__TIME <time.h> // time(),
+#define ZTM__INCL__MAIN <stdlib.h> // malloc(), realloc(), free()
+#define ZTM__INCL__TIME <time.h> // time(), gmtime(), mktime(), struct tm
 #define ZTM__INCL__LIST <stdlib.h> // qsort()
 
 #endif // ZTM__ENVIRONMENT_H_INCLUDED

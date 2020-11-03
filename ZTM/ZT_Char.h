@@ -16,18 +16,20 @@
 #define ZTM_CHAR_NT 			0x00
 #define ZTM_CHAR_CR 			0x0d
 #define ZTM_CHAR_LF 			0x0a
+#define ZTM_CHAR_SPACE 			0x20
 #define ZTM_CHAR_QUOTES 		0x22
 #define ZTM_CHAR_QUOTE 			0x27
-#define ZTM_CHAR_SPACE 			0x20
-#define ZTM_CHAR_MINUS 			0x2d
 #define ZTM_CHAR_COLON 			0x3a
-#define ZTM_CHAR_COMMA 			','
+#define ZTM_CHAR_COMMA 			0x2c
 #define ZTM_CHAR_DOT 			0x2e
+#define ZTM_CHAR_MINUS 			0x2d
 #define ZTM_CHAR_SLASH 			0x2f
 #define ZTM_CHAR_BACKSLASH		0x5c
 #define ZTM_CHAR_0 				0x30
 #define ZTM_CHAR_A 				0x41
 #define ZTM_CHAR_a 				0x61
+#define ZTM_CHAR_PRINT_MIN		0x20
+#define ZTM_CHAR_PRINT_MAX		0x7E
 #define ZTM_CHAR_ZERO			ZTM_CHAR_0
 #define ZTM_CHAR_b 				(ZTM_CHAR_a + 1)
 #define ZTM_CHAR_x 				(ZTM_CHAR_a + 23) // YETI Uppercase hex-keys, as in 0XFFBBCCEF? Same for binary.
@@ -229,7 +231,10 @@ ZT_U8* ZTC8_Hex(ZT_U iInteger);
 ZT_U8* ZTC8_HexSigned(ZT_I iInteger);
 ZT_U8* ZTC8_Binary(ZT_U iInteger);
 ZT_U8* ZTC8_BinarySigned(ZT_I iInteger);
-ZT_U8* ZTC8_HashString(const void* iHash, const ZT_U8* iDelimiter, ZT_INDEX iBits, ZT_INDEX iGrouping);
+ZT_U8* ZTC8_ByteString(const ZT_U8* iBytes, ZT_INDEX iLength, const ZT_U8* iDelimiter, ZT_INDEX iGrouping);
+ZT_U8* ZTC8_HashString(const void* iHash, ZT_INDEX iBits, const ZT_U8* iDelimiter, ZT_INDEX iGrouping);
+//ZT_U8* ZTC8_HashString(const void* iHash, const ZT_U8* iDelimiter, ZT_INDEX iBits, ZT_INDEX iGrouping);
+ZT_U8* ZTC8_Printable(const ZT_U8* iData, ZT_INDEX iLength, ZT_U8 iReplacement);
 ZT_U8* ZTC8_DateISO8601(ZT_TIME iUnix);
 ZT_U8* ZTC8_DateRFC1123(ZT_TIME iUnix);
 ZT_U8* ZTC8_Replace(const ZT_U8* iHaystack, const ZT_U8* iNeedle, const ZT_U8* iReplacement);

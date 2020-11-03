@@ -7,7 +7,7 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="dll">
-				<Option output="../../../ZDX" prefix_auto="1" extension_auto="1" />
+				<Option output="../../ZDX" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/" />
 				<Option type="3" />
 				<Option compiler="gcc" />
@@ -21,14 +21,14 @@
 			<Add option="-Wfatal-errors" />
 			<Add option="-Wextra" />
 			<Add option="-Wall" />
-			<Add directory="../../ZTM" />
+			<Add directory="../ZTM" />
 		</Compiler>
 		<Linker>
 			<Add option="-O3" />
 			<Add option="-flto" />
 			<Add option="-s" />
 			<Add option="-lZTM" />
-			<Add directory="../../.." />
+			<Add directory="../.." />
 		</Linker>
 		<Unit filename="ZDX.c">
 			<Option compilerVar="CC" />
