@@ -44,8 +44,15 @@
 #ifdef __cplusplus
 extern "C" {
 #endif // __cplusplus
-void ZTM_SRand(ZT_U32 iSeed);
-ZT_U32 ZTM_Rand(ZT_U32 iModulo);
+ZT_U32 ZTM_Seed_32(ZT_U32 iSeed); // returns previous seed
+ZT_U32 ZTM_Random_32(ZT_U32 iModulo);
+ZT_U32 ZTM_Randomize_32(ZT_U32* ioSeed, ZT_U32 iModulo);
+ZT_U64 ZTM_Seed_64(ZT_U64 iSeed); // returns previous seed
+ZT_U64 ZTM_Random_64(ZT_U64 iModulo);
+ZT_U64 ZTM_Randomize_64(ZT_U64* ioSeed, ZT_U64 iModulo);
+#define ZTM_Seed(SEED) ZTM_Seed_32(SEED)
+#define ZTM_Random(MODULO) ZTM_Random_32(MODULO)
+#define ZTM_Randomize(SEED,MODULO) ZTM_Randomize_32(SEED, MODULO)
 ZT_FLAG ZTM_LSB(ZT_FLAG iFlag);
 ZT_FLAG ZTM_MSB(ZT_FLAG iFlag);
 ZT_FLAG ZTM_BitFillLeft(ZT_INDEX iCount);

@@ -58,6 +58,7 @@ typedef struct {
         const ZUI_HOST_ELEMENT* focus;
     } element;
 	ZT_FLAG flag;
+	ZT_U32 seed;
 	struct {
 	    ZT_TIME now;
 	    ZT_TIME modulator;

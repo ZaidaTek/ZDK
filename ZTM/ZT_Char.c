@@ -35,20 +35,52 @@ const ZT_U8* ZTC8__DATE__Set(const ZT_U8* i__DATE__, const ZT_U8* i__TIME__) {
 	}
 	return rZTC8__ISO8601__;
 }
+/*void ZTC8_ReadDate_ANSI_C(const ZT_U8* iText, ZT_DATE* oDate) {
+	oDate->year = iText[10] - '0';
+	oDate->year += (iText[9] - '0') * 10;
+	oDate->year += (iText[8] - '0') * 100;
+	oDate->year += (iText[7] - '0') * 1000;
+	oDate->day = iText[5] - '0';
+	if (iText[4] != ' ') {oDate->day += ((iText[4] - '0') * 10);}
+	oDate->month = 0;
+	while ((oDate->month < 12) && !ZTC8_Match(iText, rZTC8__MONTH[oDate->month++]));
+}
+void ZTC8_ReadTime_ANSI_C(const ZT_U8* iText, ZT_DATE* oDate) {
+	oDate->hour = (iText[0] - '0') * 10 + (iText[1] - '0');
+	oDate->minute = (iText[3] - '0') * 10 + (iText[4] - '0');
+	oDate->second = (iText[6] - '0') * 10 + (iText[7] - '0');
+}*/
 #ifndef ZTM_CHAR_MACRO
 ZT_INDEX ZTC8_GetLength(const ZT_U8* iText) {ZT_INDEX lCursor = -1; while (iText[++lCursor] != ZTM_CHAR_NT); return lCursor;}
+ZT_INDEX ZTC8_CountChar(const ZT_U8* iHaystack, ZT_U8 iNeedle) {// UNTESTED!
+	ZT_INDEX lCount = 0; ZT_INDEX lCursor = -1;
+	while (iHaystack[++lCursor] != ZTM_CHAR_NT) {if (iHaystack[lCursor] == iNeedle) {++lCount;}}
+	return lCount;
+}
 ZT_INDEX ZTC8_CountCharVerbatim(const ZT_U8* iHaystack, ZT_INDEX iLength, ZT_U8 iNeedle) {
-	ZT_INDEX lCount = 0;
-	ZT_INDEX lCursor = -1;
+	ZT_INDEX lCount = 0; ZT_INDEX lCursor = -1;
 	while (++lCursor < iLength) {if (iHaystack[lCursor] == iNeedle) {++lCount;}}
 	return lCount;
 }
+ZT_INDEX ZTC8_Count(const ZT_U8* iHaystack, const ZT_U8* iNeedle) {// UNTESTED!
+	ZT_INDEX lCount = 0; ZT_INDEX lCursor = -1;
+	while (iHaystack[++lCursor] != ZTM_CHAR_NT) {if (ZTC8_Match(iHaystack, iNeedle)) {++lCount;}}
+	return lCount;
+}
+ZT_INDEX ZTC8_CountVerbatim(const ZT_U8* iHaystack, ZT_INDEX iLength, const ZT_U8* iNeedle) {// UNTESTED!
+	ZT_INDEX lCount = 0; ZT_INDEX lCursor = -1;
+	while (++lCursor < iLength) {if (ZTC8_Match(iHaystack, iNeedle)) {++lCount;}}
+	return lCount;
+}
+void ZTC8_GetDimensions(const ZT_U8* iText, ZT_UPOINT* oDimensions) {// UNTESTED!
+	if (oDimensions != NULL) {
+		oDimensions->xU = 0; oDimensions->yU = 0; ZT_INDEX lLine = 0; ZT_INDEX lCursor = -1;
+		while (iText[++lCursor] != ZTM_CHAR_NT) {++lLine; if (iText[lCursor] == ZTM_CHAR_LF) {if (oDimensions->xU < lLine) {oDimensions->xU = lLine;} lLine = 0; ++(oDimensions->yU);}}
+	}
+}
 void ZTC8_GetDimensionsVerbatim(const ZT_U8* iText, ZT_INDEX iLength, ZT_UPOINT* oDimensions) {
 	if (oDimensions != NULL) {
-		ZT_INDEX lLine = 0;
-		oDimensions->xU = 0;
-		oDimensions->yU = 0;
-		ZT_INDEX lCursor = -1;
+		oDimensions->xU = 0; oDimensions->yU = 0; ZT_INDEX lLine = 0; ZT_INDEX lCursor = -1;
 		while (++lCursor < iLength) {++lLine; if (iText[lCursor] == ZTM_CHAR_NL) {if (oDimensions->xU < lLine) {oDimensions->xU = lLine;} lLine = 0; ++(oDimensions->yU);}}
 	}
 }
@@ -69,7 +101,8 @@ ZT_BOOL ZTC8_SeekCursorMax(const ZT_U8* iText, const ZT_U8* iSearch, ZT_INDEX* o
     ZT_INDEX lCursor = (oCursor != NULL) ? *(oCursor) : 0;
     ZT_INDEX start = lCursor;
     while (ZTC8_CursorValidMax(iText, lCursor, iByteMax)) {if ((lCursor - start) >= lengthTerm) {if (ZTC8_Match(&iText[lCursor - lengthTerm], iSearch)) {
-        if (oCursor != NULL) {*(oCursor) = (lCursor - lengthTerm);} return 0x1;}} ++lCursor;}
+        if (oCursor != NULL) {*(oCursor) = (lCursor - lengthTerm);} return 0x1;}} ++lCursor;
+	}
     return 0x0;
 }
 ZT_FLAG ZTC8_Escape(ZT_FLAG iEscape, ZT_CHAR iChar) {
@@ -91,27 +124,6 @@ ZT_FLAG ZTC8_Escape(ZT_FLAG iEscape, ZT_CHAR iChar) {
 	return iEscape;
 }
 #endif // ZTM_CHAR_MACRO
-/*ZT_INDEX ZTC8_Count(const ZT_U8* iHaystack, const ZT_U8* iNeedle) {// UNTESTED!
-	ZT_INDEX lCount = 0;
-	ZT_INDEX lCursor = -1;
-	while (iHaystack[++lCursor] != ZTM_CHAR_NT) {if (ZTC8_Match(iNeedle, iHaystack)) {lCount++;}}
-	return lCount;
-}*/
-ZT_INDEX ZTC8_CountChar(const ZT_U8* iHaystack, ZT_U8 iNeedle) {// UNTESTED!
-	ZT_INDEX lCount = 0;
-	ZT_INDEX lCursor = -1;
-	while (iHaystack[++lCursor] != ZTM_CHAR_NT) {if (iHaystack[lCursor] == iNeedle) {++lCount;}}
-	return lCount;
-}
-void ZTC8_GetDimensions(const ZT_U8* iText, ZT_UPOINT* oDimensions) {// UNTESTED!
-	if (oDimensions != NULL) {
-		ZT_INDEX lLine = 0;
-		oDimensions->xU = 0;
-		oDimensions->yU = 0;
-		ZT_INDEX lCursor = -1;
-		while (iText[++lCursor] != ZTM_CHAR_NT) {++lLine; if (iText[lCursor] == ZTM_CHAR_LF) {if (oDimensions->xU < lLine) {oDimensions->xU = lLine;} lLine = 0; ++(oDimensions->yU);}}
-	}
-}
 ZT_BOOL ZTC8_SeekDigitCursorMax(const ZT_U8* iText, ZT_INDEX* oCursor, ZT_INDEX iByteMax) {
     ZT_INDEX lCursor = (oCursor != NULL) ? *(oCursor) : 0;
     while (ZTC8_CursorValidMax(iText, lCursor, iByteMax)) {if (ZTC8_IsDigit(&iText[lCursor])) {if (oCursor != NULL) {*(oCursor) = lCursor;} return 0x1;} ++lCursor;}
@@ -221,21 +233,6 @@ ZT_DBL ZTC8_ReadDouble(const ZT_U8* iText) {
     if (lFlag & ZTM_TEXT_DETECT_NGT) {lDouble = -lDouble;}
     return lDouble;
 }
-void ZTC8_ReadDate_ANSI_C(const ZT_U8* iText, ZT_DATE* oDate) {
-	oDate->year = iText[10] - '0';
-	oDate->year += (iText[9] - '0') * 10;
-	oDate->year += (iText[8] - '0') * 100;
-	oDate->year += (iText[7] - '0') * 1000;
-	oDate->day = iText[5] - '0';
-	if (iText[4] != ' ') {oDate->day += ((iText[4] - '0') * 10);}
-	oDate->month = 0;
-	while ((oDate->month < 12) && !ZTC8_Match(iText, rZTC8__MONTH[oDate->month++]));
-}
-void ZTC8_ReadTime_ANSI_C(const ZT_U8* iText, ZT_DATE* oDate) {
-	oDate->hour = (iText[0] - '0') * 10 + (iText[1] - '0');
-	oDate->minute = (iText[3] - '0') * 10 + (iText[4] - '0');
-	oDate->second = (iText[6] - '0') * 10 + (iText[7] - '0');
-}
 const ZT_U8* ZTC8_CopyTarget(const ZT_U8* iSource, ZT_U8* oTarget) {ZT_INDEX lCursor = -1; while ((oTarget[++lCursor] = iSource[lCursor]) != ZTM_CHAR_NT); return iSource;}
 ZT_U8* ZTC8_CopyLength(const ZT_U8* iText, ZT_INDEX iLength) {
     ZT_INDEX lLengthSource = ZTC8_GetLength(iText);
@@ -259,16 +256,48 @@ ZT_U8* ZTC8_Merge(const ZT_U8* iRoot, const ZT_U8* iBranch) {
     ZT_INDEX lRootLength = ZTC8_GetLength(iRoot);
     ZT_INDEX lBranchLength = ZTC8_GetLength(iBranch);
     ZT_INDEX lLength = lRootLength + lBranchLength;
-    ZT_U8* newCopy = ZTC8_CopyLength(iRoot, lLength);
-    for (ZT_INDEX i = 0; i < lBranchLength; i++) {newCopy[lRootLength + i] = iBranch[i];}
-    newCopy[lLength] = ZTM_CHAR_NT;
-    return newCopy;
+    ZT_U8* lCopy = ZTC8_CopyLength(iRoot, lLength);
+    for (ZT_INDEX i = 0; i < lBranchLength; i++) {lCopy[lRootLength + i] = iBranch[i];}
+    lCopy[lLength] = ZTM_CHAR_NT;
+    return lCopy;
 }
-ZT_U8* ZTC8_MergeFreeR(ZT_U8* iRoot, const ZT_U8* iBranch) {ZT_U8* newCopy = ZTC8_Merge(iRoot, iBranch); ZTM8_Free(iRoot); return newCopy;}
-ZT_U8* ZTC8_MergeFreeB(const ZT_U8* iRoot, ZT_U8* iBranch) {ZT_U8* newCopy = ZTC8_Merge(iRoot, iBranch); ZTM8_Free(iBranch); return newCopy;}
-ZT_U8* ZTC8_MergeFree(ZT_U8* iRoot, ZT_U8* iBranch) {ZT_U8* newCopy = ZTC8_Merge(iRoot, iBranch); ZTM8_Free(iRoot); ZTM8_Free(iBranch); return newCopy;}
+ZT_U8* ZTC8_MergeFreeR(ZT_U8* iRoot, const ZT_U8* iBranch) {ZT_U8* lCopy = ZTC8_Merge(iRoot, iBranch); ZTM8_Free(iRoot); return lCopy;}
+ZT_U8* ZTC8_MergeFreeB(const ZT_U8* iRoot, ZT_U8* iBranch) {ZT_U8* lCopy = ZTC8_Merge(iRoot, iBranch); ZTM8_Free(iBranch); return lCopy;}
+ZT_U8* ZTC8_MergeFree(ZT_U8* iRoot, ZT_U8* iBranch) {ZT_U8* lCopy = ZTC8_Merge(iRoot, iBranch); ZTM8_Free(iRoot); ZTM8_Free(iBranch); return lCopy;}
 ZT_U8* ZTC8_DeleteAndCopy(ZT_U8* iDelete, const ZT_U8* iCopy) {ZTM8_Free(iDelete); return ZTC8_Copy(iCopy);}
 ZT_U8* ZTC8_CopyAndDelete(const ZT_U8* iCopy, ZT_U8* iDelete) {ZT_U8* lCopy = ZTC8_Copy(iCopy); ZTM8_Free(iDelete); return lCopy;}
+ZT_INDEX ZTC8_ReplaceGetLength(const ZT_U8* iHaystack, const ZT_U8* iNeedle, const ZT_U8* iReplacement) {
+	ZT_INDEX lLengthNeedle = ZTC8_GetLength(iNeedle);
+	ZT_INDEX lLengthReplace = (iReplacement != NULL) ? ZTC8_GetLength(iReplacement) : 0;
+	ZT_INDEX lCount = 0;
+	ZT_INDEX lCursor = 0;
+	while (ZTC8_SeekCursor(iHaystack, iNeedle, &lCursor)) {++lCount;}
+	if (lCount) {return (lCursor - (lCount * lLengthNeedle) + (lCount * lLengthReplace));}
+	return 0;
+}
+ZT_U8* ZTC8_Replace(const ZT_U8* iHaystack, const ZT_U8* iNeedle, const ZT_U8* iReplacement) {
+	ZT_INDEX lLength;
+	if ((lLength = ZTC8_ReplaceGetLength(iHaystack, iNeedle, iReplacement))) {
+		ZT_U8* lTextReplaced = ZTM8_New(lLength + 1);
+		ZT_INDEX lLengthNeedle = ZTC8_GetLength(iNeedle);
+		ZT_INDEX lLengthReplace = (iReplacement != NULL) ? ZTC8_GetLength(iReplacement) : 0;
+		ZT_INDEX lRead = 0;
+		ZT_INDEX lWrite = 0;
+		ZT_INDEX lCursor = 0;
+		while (ZTC8_SeekCursor(iHaystack, iNeedle, &lCursor)) {
+			ZTM8_Copy(&iHaystack[lRead], &lTextReplaced[lWrite], lCursor - lRead);
+			lWrite += (lCursor - lRead);
+			if (iReplacement != NULL) {
+				ZTM8_Copy(iReplacement, &lTextReplaced[lWrite], lLengthReplace);
+				lWrite += lLengthReplace;
+			}
+			lRead = lCursor + lLengthNeedle;
+		}
+		lTextReplaced[lLength] = ZTM_CHAR_NT;
+		return lTextReplaced;
+	}
+	return NULL;
+}
 ZT_U8* ZTC8_UnsignedBase(ZT_U iInteger, ZT_U iBase) {
     ZT_U8* lNumber = NULL;
     ZT_INDEX lMagnitude = 1;
@@ -308,7 +337,228 @@ ZT_U8* ZTC8_Hex(ZT_U iInteger) {return ZTC8_UnsignedBase(iInteger, 0x10);}
 ZT_U8* ZTC8_HexSigned(ZT_I iInteger) {return ZTC8_IntegerBase(iInteger, 0x10);}
 ZT_U8* ZTC8_Binary(ZT_U iInteger) {return ZTC8_UnsignedBase(iInteger, 0x2);}
 ZT_U8* ZTC8_BinarySigned(ZT_I iInteger) {return ZTC8_IntegerBase(iInteger, 0x2);}
-ZT_U8* ZTC8_ByteString(const ZT_U8* iBytes, ZT_INDEX iLength, const ZT_U8* iDelimiter, ZT_INDEX iGrouping) {
+ZT_U8* ZTC8_Date(ZT_TIME iUnix, ZT_FLAG iFormat) {
+	switch (iFormat) {
+		case ZTM_DATE_ISO: return ZTC8_DateISO(iUnix);
+		case ZTM_DATE_INTL: return ZTC8_DateINTL(iUnix);
+		case ZTM_DATE_DE: return ZTC8_DateDE(iUnix);
+		case ZTM_DATE_US: return ZTC8_DateUS(iUnix);
+		case ZTM_DATE_ANSI: return ZTC8_DateANSI(iUnix);
+		default: return NULL;
+	}
+}
+#define ZTC8_DATEISO(TEXT_OUT) \
+    (TEXT_OUT)[0] = ZTM_CHAR_0 + (lDate.year % 10000) / 1000;\
+    (TEXT_OUT)[1] = ZTM_CHAR_0 + (lDate.year % 1000) / 100;\
+    (TEXT_OUT)[2] = ZTM_CHAR_0 + (lDate.year % 100) / 10;\
+    (TEXT_OUT)[3] = ZTM_CHAR_0 + (lDate.year % 10);\
+    (TEXT_OUT)[4] = ZTM_CHAR_MINUS;\
+    (TEXT_OUT)[5] = ZTM_CHAR_0 + (lDate.month % 100) / 10;\
+    (TEXT_OUT)[6] = ZTM_CHAR_0 + (lDate.month % 10);\
+    (TEXT_OUT)[7] = ZTM_CHAR_MINUS;\
+    (TEXT_OUT)[8] = ZTM_CHAR_0 + (lDate.day % 100) / 10;\
+    (TEXT_OUT)[9] = ZTM_CHAR_0 + (lDate.day % 10)
+ZT_U8* ZTC8_DateISO(ZT_TIME iUnix) {
+    ZT_U8* lISO = ZTM8_New(11);
+    ZT_DATE lDate;
+    ZTM_Date(iUnix, &lDate);
+	ZTC8_DATEISO(lISO);
+    lISO[10] = ZTM_CHAR_NT;
+	return lISO;
+}
+ZT_U8* ZTC8_DateINTL(ZT_TIME iUnix) {
+    ZT_U8* lINTL = ZTM8_New(11);
+    ZT_DATE lDate;
+    ZTM_Date(iUnix, &lDate);
+    lINTL[0] = ZTM_CHAR_0 + (lDate.day % 100) / 10;
+    lINTL[1] = ZTM_CHAR_0 + (lDate.day % 10);
+	lINTL[2] = ZTM_CHAR_SLASH;
+	lINTL[3] = ZTM_CHAR_0 + (lDate.month % 100) / 10;
+	lINTL[4] = ZTM_CHAR_0 + (lDate.month % 10);
+	lINTL[5] = ZTM_CHAR_SLASH;
+    lINTL[6] = ZTM_CHAR_0 + (lDate.year % 10000) / 1000;
+    lINTL[7] = ZTM_CHAR_0 + (lDate.year % 1000) / 100;
+    lINTL[8] = ZTM_CHAR_0 + (lDate.year % 100) / 10;
+    lINTL[9] = ZTM_CHAR_0 + (lDate.year % 10);
+	lINTL[10] = ZTM_CHAR_NT;
+	return lINTL;
+}
+ZT_U8* ZTC8_DateDE(ZT_TIME iUnix) {
+    ZT_U8* lDE = ZTM8_New(11);
+    ZT_DATE lDate;
+    ZTM_Date(iUnix, &lDate);
+    lDE[0] = ZTM_CHAR_0 + (lDate.day % 100) / 10;
+    lDE[1] = ZTM_CHAR_0 + (lDate.day % 10);
+	lDE[2] = ZTM_CHAR_DOT;
+	lDE[3] = ZTM_CHAR_0 + (lDate.month % 100) / 10;
+	lDE[4] = ZTM_CHAR_0 + (lDate.month % 10);
+	lDE[5] = ZTM_CHAR_DOT;
+    lDE[6] = ZTM_CHAR_0 + (lDate.year % 10000) / 1000;
+    lDE[7] = ZTM_CHAR_0 + (lDate.year % 1000) / 100;
+    lDE[8] = ZTM_CHAR_0 + (lDate.year % 100) / 10;
+    lDE[9] = ZTM_CHAR_0 + (lDate.year % 10);
+	lDE[10] = ZTM_CHAR_NT;
+	return lDE;
+}
+ZT_U8* ZTC8_DateUS(ZT_TIME iUnix) {
+    ZT_U8* lUS = ZTM8_New(11);
+    ZT_DATE lDate;
+    ZTM_Date(iUnix, &lDate);
+	lUS[0] = ZTM_CHAR_0 + (lDate.month % 100) / 10;
+	lUS[1] = ZTM_CHAR_0 + (lDate.month % 10);
+	lUS[2] = ZTM_CHAR_SLASH;
+    lUS[3] = ZTM_CHAR_0 + (lDate.day % 100) / 10;
+    lUS[4] = ZTM_CHAR_0 + (lDate.day % 10);
+	lUS[5] = ZTM_CHAR_SLASH;
+    lUS[6] = ZTM_CHAR_0 + (lDate.year % 10000) / 1000;
+    lUS[7] = ZTM_CHAR_0 + (lDate.year % 1000) / 100;
+    lUS[8] = ZTM_CHAR_0 + (lDate.year % 100) / 10;
+    lUS[9] = ZTM_CHAR_0 + (lDate.year % 10);
+	lUS[10] = ZTM_CHAR_NT;
+	return lUS;
+}
+ZT_U8* ZTC8_DateANSI(ZT_TIME iUnix) {
+    ZT_U8* lANSI = ZTM8_New(12);
+    ZT_DATE lDate;
+    ZTM_Date(iUnix, &lDate);
+	const ZT_U8* lMonth = rZTC8__MONTH[lDate.month - 1];
+	lANSI[0] = lMonth[0];
+	lANSI[1] = lMonth[1];
+	lANSI[2] = lMonth[2];
+	lANSI[3] = ZTM_CHAR_SPACE;
+    lANSI[4] = ZTM_CHAR_0 + (lDate.day % 100) / 10;
+    lANSI[5] = ZTM_CHAR_0 + (lDate.day % 10);
+	lANSI[6] = ZTM_CHAR_SPACE;
+    lANSI[7] = ZTM_CHAR_0 + (lDate.year % 10000) / 1000;
+    lANSI[8] = ZTM_CHAR_0 + (lDate.year % 1000) / 100;
+    lANSI[9] = ZTM_CHAR_0 + (lDate.year % 100) / 10;
+    lANSI[10] = ZTM_CHAR_0 + (lDate.year % 10);
+	lANSI[11] = ZTM_CHAR_NT;
+	return lANSI;
+}
+#define ZTC8_TIME24HHMMSS(TEXT_OUT) \
+    (TEXT_OUT)[0] = ZTM_CHAR_0 + (lDate.hour % 100) / 10;\
+    (TEXT_OUT)[1] = ZTM_CHAR_0 + (lDate.hour % 10);\
+    (TEXT_OUT)[2] = ZTM_CHAR_COLON;\
+    (TEXT_OUT)[3] = ZTM_CHAR_0 + (lDate.minute % 100) / 10;\
+    (TEXT_OUT)[4] = ZTM_CHAR_0 + (lDate.minute % 10);\
+    (TEXT_OUT)[5] = ZTM_CHAR_COLON;\
+    (TEXT_OUT)[6] = ZTM_CHAR_0 + (lDate.second % 100) / 10;\
+    (TEXT_OUT)[7] = ZTM_CHAR_0 + (lDate.second % 10)
+ZT_U8* ZTC8_Time24Hhmmss(ZT_TIME iUnix) {
+    ZT_U8* l24Hhmmss = ZTM8_New(9);
+    ZT_DATE lDate;
+    ZTM_Date(iUnix, &lDate);
+	ZTC8_TIME24HHMMSS(l24Hhmmss);
+    l24Hhmmss[8] = ZTM_CHAR_NT;
+	return l24Hhmmss;
+}
+ZT_U8* ZTC8_Time24Hhmm(ZT_TIME iUnix) {
+    ZT_U8* l24Hhmm = ZTM8_New(6);
+    ZT_DATE lDate;
+    ZTM_Date(iUnix, &lDate);
+    l24Hhmm[0] = ZTM_CHAR_0 + (lDate.hour % 100) / 10;
+    l24Hhmm[1] = ZTM_CHAR_0 + (lDate.hour % 10);
+    l24Hhmm[2] = ZTM_CHAR_COLON;
+    l24Hhmm[3] = ZTM_CHAR_0 + (lDate.minute % 100) / 10;
+    l24Hhmm[4] = ZTM_CHAR_0 + (lDate.minute % 10);
+    l24Hhmm[5] = ZTM_CHAR_NT;
+	return l24Hhmm;
+}
+ZT_U8* ZTC8_Time12Hhmmss(ZT_TIME iUnix) {
+    ZT_U8* l12Hhmmss = ZTM8_New(12);
+    ZT_DATE lDate;
+    ZTM_Date(iUnix, &lDate);
+	ZT_U8 lHour = lDate.hour ? ((lDate.hour > 12) ? (lDate.hour - 12) : lDate.hour) : 12;
+    l12Hhmmss[0] = ZTM_CHAR_0 + (lHour % 100) / 10;
+    l12Hhmmss[1] = ZTM_CHAR_0 + (lHour % 10);
+    l12Hhmmss[2] = ZTM_CHAR_COLON;
+    l12Hhmmss[3] = ZTM_CHAR_0 + (lDate.minute % 100) / 10;
+    l12Hhmmss[4] = ZTM_CHAR_0 + (lDate.minute % 10);
+    l12Hhmmss[5] = ZTM_CHAR_COLON;
+    l12Hhmmss[6] = ZTM_CHAR_0 + (lDate.second % 100) / 10;
+    l12Hhmmss[7] = ZTM_CHAR_0 + (lDate.second % 10);
+    l12Hhmmss[8] = ZTM_CHAR_SPACE;
+    l12Hhmmss[9] = (lDate.hour > 12) ? (ZTM_CHAR_A + 15) : (ZTM_CHAR_A);
+    l12Hhmmss[10] = ZTM_CHAR_A + 12;
+    l12Hhmmss[11] = ZTM_CHAR_NT;
+	return l12Hhmmss;
+}
+ZT_U8* ZTC8_Time12Hhmm(ZT_TIME iUnix) {
+    ZT_U8* l12Hhmmss = ZTM8_New(9);
+    ZT_DATE lDate;
+    ZTM_Date(iUnix, &lDate);
+	ZT_U8 lHour = lDate.hour ? ((lDate.hour > 12) ? (lDate.hour - 12) : lDate.hour) : 12;
+    l12Hhmmss[0] = ZTM_CHAR_0 + (lHour % 100) / 10;
+    l12Hhmmss[1] = ZTM_CHAR_0 + (lHour % 10);
+    l12Hhmmss[2] = ZTM_CHAR_COLON;
+    l12Hhmmss[3] = ZTM_CHAR_0 + (lDate.minute % 100) / 10;
+    l12Hhmmss[4] = ZTM_CHAR_0 + (lDate.minute % 10);
+    l12Hhmmss[5] = ZTM_CHAR_SPACE;
+    l12Hhmmss[6] = (lDate.hour > 12) ? (ZTM_CHAR_A + 15) : (ZTM_CHAR_A);
+    l12Hhmmss[7] = ZTM_CHAR_A + 12;
+    l12Hhmmss[8] = ZTM_CHAR_NT;
+	return l12Hhmmss;
+}
+ZT_U8* ZTC8_ISO8601(ZT_TIME iUnix) {
+    ZT_U8* lISO8601 = ZTM8_New(20);
+    ZT_DATE lDate;
+    ZTM_Date(iUnix, &lDate);
+	ZTC8_DATEISO(lISO8601);
+    lISO8601[10] = ZTM_CHAR_SPACE;
+	ZTC8_TIME24HHMMSS(&lISO8601[11]);
+    lISO8601[19] = ZTM_CHAR_NT;
+    return lISO8601;
+}
+ZT_U8* ZTC8_ISO8601T(ZT_TIME iUnix) {
+    ZT_U8* lISO8601 = ZTM8_New(20);
+    ZT_DATE lDate;
+    ZTM_Date(iUnix, &lDate);
+	ZTC8_DATEISO(lISO8601);
+    lISO8601[10] = ZTM_CHAR_A + 19;
+	ZTC8_TIME24HHMMSS(&lISO8601[11]);
+    lISO8601[19] = ZTM_CHAR_NT;
+    return lISO8601;
+}
+ZT_U8* ZTC8_RFC1123(ZT_TIME iUnixUTC) {
+    ZT_U8* lRFC1123 = ZTM8_New(30);
+    ZT_DATE_EXTRA lDate;
+    ZTM_DateExtra(iUnixUTC, &lDate);
+	const ZT_U8* lDay = rZTC8__DAY[lDate.extra.weekday];
+	const ZT_U8* lMonth = rZTC8__MONTH[lDate.month - 1];
+    lRFC1123[0] = lDay[0];
+    lRFC1123[1] = lDay[1];
+    lRFC1123[2] = lDay[2];
+    lRFC1123[3] = ZTM_CHAR_COMMA;
+    lRFC1123[4] = ZTM_CHAR_SPACE;
+    lRFC1123[5] = ZTM_CHAR_0 + (lDate.day % 100) / 10;
+    lRFC1123[6] = ZTM_CHAR_0 + (lDate.day % 10);
+    lRFC1123[7] = ZTM_CHAR_SPACE;
+    lRFC1123[8] = lMonth[0];
+    lRFC1123[9] = lMonth[1];
+    lRFC1123[10] = lMonth[2];
+    lRFC1123[11] = ZTM_CHAR_SPACE;
+    lRFC1123[12] = ZTM_CHAR_0 + (lDate.year % 10000) / 1000;
+    lRFC1123[13] = ZTM_CHAR_0 + (lDate.year % 1000) / 100;
+    lRFC1123[14] = ZTM_CHAR_0 + (lDate.year % 100) / 10;
+    lRFC1123[15] = ZTM_CHAR_0 + (lDate.year % 10);
+    lRFC1123[16] = ZTM_CHAR_SPACE;
+    lRFC1123[17] = ZTM_CHAR_0 + (lDate.hour % 100) / 10;
+    lRFC1123[18] = ZTM_CHAR_0 + (lDate.hour % 10);
+    lRFC1123[19] = ZTM_CHAR_COLON;
+    lRFC1123[20] = ZTM_CHAR_0 + (lDate.minute % 100) / 10;
+    lRFC1123[21] = ZTM_CHAR_0 + (lDate.minute % 10);
+    lRFC1123[22] = ZTM_CHAR_COLON;
+    lRFC1123[23] = ZTM_CHAR_0 + (lDate.second % 100) / 10;
+    lRFC1123[24] = ZTM_CHAR_0 + (lDate.second % 10);
+    lRFC1123[25] = ZTM_CHAR_SPACE;
+    lRFC1123[26] = ZTM_CHAR_A + 6;
+    lRFC1123[27] = ZTM_CHAR_A + 12;
+    lRFC1123[28] = ZTM_CHAR_A + 19;
+    lRFC1123[29] = ZTM_CHAR_NT;
+    return lRFC1123;
+}
+ZT_U8* ZTC8_Bytes(const ZT_U8* iBytes, ZT_INDEX iLength, const ZT_U8* iDelimiter, ZT_INDEX iGrouping) {
     ZT_INDEX lLengthDelimit = (iDelimiter != NULL) ? ZTC8_GetLength(iDelimiter) : 0;
     ZT_INDEX lChars = (iLength << 1);
     if (iDelimiter != NULL && iGrouping) {lChars += ((iLength - 1) / iGrouping) * lLengthDelimit;}
@@ -318,37 +568,18 @@ ZT_U8* ZTC8_ByteString(const ZT_U8* iBytes, ZT_INDEX iLength, const ZT_U8* iDeli
     while (++lIndex < iLength) {
         if (iDelimiter != NULL && iGrouping) {if (!(lIndex % iGrouping) && lIndex) {ZTC8_CopyTarget(iDelimiter, &lString[lCursor]); lCursor += lLengthDelimit;}}
         ZT_U8 lNibble = iBytes[lIndex] >> 4;
-        lString[lCursor++] = (lNibble > 9) ? (lNibble + ZTM_CHAR_HEX_aOFF) : (lNibble + 0x30);
+        lString[lCursor++] = (lNibble > 9) ? (lNibble + ZTM_CHAR_HEX_aOFF) : (lNibble + ZTM_CHAR_0);
         lNibble = iBytes[lIndex] & 0xf;
-        lString[lCursor++] = (lNibble > 9) ? (lNibble + ZTM_CHAR_HEX_aOFF) : (lNibble + 0x30);
+        lString[lCursor++] = (lNibble > 9) ? (lNibble + ZTM_CHAR_HEX_aOFF) : (lNibble + ZTM_CHAR_0);
     }
     lString[lChars] = ZTM_CHAR_NT;
     return lString;
 }
-ZT_U8* ZTC8_HashString(const void* iHash, ZT_INDEX iBits, const ZT_U8* iDelimiter, ZT_INDEX iGrouping) {
+ZT_U8* ZTC8_Hash(const void* iHash, ZT_INDEX iBits, const ZT_U8* iDelimiter, ZT_INDEX iGrouping) {
     const ZT_HASH1024* lHash = iHash;
     ZT_INDEX lLength = ((iBits + 7) >> 3);
-	return ZTC8_ByteString(lHash->byte, lLength, iDelimiter, iGrouping);
+	return ZTC8_Bytes(lHash->byte, lLength, iDelimiter, iGrouping);
 }
-/*ZT_U8* ZTC8_HashString(const void* iHash, const ZT_U8* iDelimiter, ZT_INDEX iBits, ZT_INDEX iGrouping) {
-    const ZT_HASH1024* lHash = iHash;
-    ZT_INDEX lLengthDelimit = (iDelimiter != NULL) ? ZTC8_GetLength(iDelimiter) : 0;
-    ZT_INDEX lBytes = ((iBits + 7) >> 3);
-    ZT_INDEX lChars = (lBytes << 1);
-    if (iDelimiter != NULL && iGrouping) {lChars += ((lBytes - 1) / iGrouping) * lLengthDelimit;}
-    ZT_U8* lString = ZTM8_New(lChars + 1);
-    ZT_INDEX lCursor = 0;
-    ZT_INDEX lIndex = -1;
-    while (++lIndex < lBytes) {
-        if (iDelimiter != NULL && iGrouping) {if (!(lIndex % iGrouping) && lIndex) {ZTC8_CopyTarget(iDelimiter, &lString[lCursor]); lCursor += lLengthDelimit;}}
-        ZT_U8 lNibble = lHash->byte[lIndex] >> 4;
-        lString[lCursor++] = (lNibble > 9) ? (lNibble + ZTM_CHAR_HEX_aOFF) : (lNibble + 0x30);
-        lNibble = lHash->byte[lIndex] & 0xf;
-        lString[lCursor++] = (lNibble > 9) ? (lNibble + ZTM_CHAR_HEX_aOFF) : (lNibble + 0x30);
-    }
-    lString[lChars] = ZTM_CHAR_NT;
-    return lString;
-}*/
 ZT_U8* ZTC8_Printable(const ZT_U8* iData, ZT_INDEX iLength, ZT_U8 iReplacement) {
 	if (iData != NULL) {
 		ZT_U8* lPrintable;
@@ -360,7 +591,7 @@ ZT_U8* ZTC8_Printable(const ZT_U8* iData, ZT_INDEX iLength, ZT_U8 iReplacement) 
 					lPrintable[lCursor] = iReplacement;
 				} else if (lChar < ZTM_CHAR_PRINT_MIN) {
 					if ((lChar == ZTM_CHAR_CR) ? (((lCursor + 1) < iLength) ? (iData[lCursor + 1] == ZTM_CHAR_LF) : 0x0) : (lChar == ZTM_CHAR_LF)) {
-						lPrintable[lCursor] = lChar;
+						lPrintable[lCursor] = lChar; // maybe if LF check if prev CR as optimization?
 					} else {
 						lPrintable[lCursor] = iReplacement;
 					}
@@ -371,100 +602,6 @@ ZT_U8* ZTC8_Printable(const ZT_U8* iData, ZT_INDEX iLength, ZT_U8 iReplacement) 
 			lPrintable[iLength] = ZTM_CHAR_NT;
 			return lPrintable;
 		}
-	}
-	return NULL;
-}
-ZT_U8* ZTC8_DateISO8601(ZT_TIME iUnix) {
-    ZT_U8* lDate = ZTM8_New(20);
-    ZT_DATE lTimestamp;
-    ZTM_DateRead(iUnix, &lTimestamp);
-    lDate[0] = 0x30 + (lTimestamp.year % 10000) / 1000;
-    lDate[1] = 0x30 + (lTimestamp.year % 1000) / 100;
-    lDate[2] = 0x30 + (lTimestamp.year % 100) / 10;
-    lDate[3] = 0x30 + (lTimestamp.year % 10);
-    lDate[4] = ZTM_CHAR_MINUS;
-    lDate[5] = 0x30 + (lTimestamp.month % 100) / 10;
-    lDate[6] = 0x30 + (lTimestamp.month % 10);
-    lDate[7] = ZTM_CHAR_MINUS;
-    lDate[8] = 0x30 + (lTimestamp.day % 100) / 10;
-    lDate[9] = 0x30 + (lTimestamp.day % 10);
-    lDate[10] = ZTM_CHAR_SPACE;
-    lDate[11] = 0x30 + (lTimestamp.hour % 100) / 10;
-    lDate[12] = 0x30 + (lTimestamp.hour % 10);
-    lDate[13] = ZTM_CHAR_COLON;
-    lDate[14] = 0x30 + (lTimestamp.minute % 100) / 10;
-    lDate[15] = 0x30 + (lTimestamp.minute % 10);
-    lDate[16] = ZTM_CHAR_COLON;
-    lDate[17] = 0x30 + (lTimestamp.second % 100) / 10;
-    lDate[18] = 0x30 + (lTimestamp.second % 10);
-    lDate[19] = ZTM_CHAR_NT;
-    return lDate;
-}
-ZT_U8* ZTC8_DateRFC1123(ZT_TIME iUnix) {
-    ZT_U8* lDate = ZTM8_New(30);
-    ZT_DATE_EXTRA lTimestamp;
-    ZTM_DateExtraRead(&lTimestamp, iUnix);
-    lDate[0] = (rZTC8__DAY[lTimestamp.extra.weekday])[0];
-    lDate[1] = (rZTC8__DAY[lTimestamp.extra.weekday])[1];
-    lDate[2] = (rZTC8__DAY[lTimestamp.extra.weekday])[2];
-    lDate[3] = ZTM_CHAR_COMMA;
-    lDate[4] = ZTM_CHAR_SPACE;
-    lDate[5] = 0x30 + (lTimestamp.day % 100) / 10;
-    lDate[6] = 0x30 + (lTimestamp.day % 10);
-    lDate[7] = ZTM_CHAR_SPACE;
-    lDate[8] = (rZTC8__MONTH[lTimestamp.month - 1])[0];
-    lDate[9] = (rZTC8__MONTH[lTimestamp.month - 1])[1];
-    lDate[10] = (rZTC8__MONTH[lTimestamp.month - 1])[2];
-    lDate[11] = ZTM_CHAR_SPACE;
-    lDate[12] = 0x30 + (lTimestamp.year % 10000) / 1000;
-    lDate[13] = 0x30 + (lTimestamp.year % 1000) / 100;
-    lDate[14] = 0x30 + (lTimestamp.year % 100) / 10;
-    lDate[15] = 0x30 + (lTimestamp.year % 10);
-    lDate[16] = ZTM_CHAR_SPACE;
-    lDate[17] = 0x30 + (lTimestamp.hour % 100) / 10;
-    lDate[18] = 0x30 + (lTimestamp.hour % 10);
-    lDate[19] = ZTM_CHAR_COLON;
-    lDate[20] = 0x30 + (lTimestamp.minute % 100) / 10;
-    lDate[21] = 0x30 + (lTimestamp.minute % 10);
-    lDate[22] = ZTM_CHAR_COLON;
-    lDate[23] = 0x30 + (lTimestamp.second % 100) / 10;
-    lDate[24] = 0x30 + (lTimestamp.second % 10);
-    lDate[25] = ZTM_CHAR_SPACE;
-    lDate[26] = 'G';
-    lDate[27] = 'M';
-    lDate[28] = 'T';
-    lDate[29] = ZTM_CHAR_NT;
-    return lDate;
-}
-ZT_INDEX ZTC8_ReplaceGetLength(const ZT_U8* iHaystack, const ZT_U8* iNeedle, const ZT_U8* iReplacement) {
-	ZT_INDEX lLengthNeedle = ZTC8_GetLength(iNeedle);
-	ZT_INDEX lLengthReplace = (iReplacement != NULL) ? ZTC8_GetLength(iReplacement) : 0;
-	ZT_INDEX lCount = 0;
-	ZT_INDEX lCursor = 0;
-	while (ZTC8_SeekCursor(iHaystack, iNeedle, &lCursor)) {++lCount;}
-	if (lCount) {return (lCursor - (lCount * lLengthNeedle) + (lCount * lLengthReplace));}
-	return 0;
-}
-ZT_U8* ZTC8_Replace(const ZT_U8* iHaystack, const ZT_U8* iNeedle, const ZT_U8* iReplacement) {
-	ZT_INDEX lLength;
-	if ((lLength = ZTC8_ReplaceGetLength(iHaystack, iNeedle, iReplacement))) {
-		ZT_U8* lTextReplaced = ZTM8_New(lLength + 1);
-		ZT_INDEX lLengthNeedle = ZTC8_GetLength(iNeedle);
-		ZT_INDEX lLengthReplace = (iReplacement != NULL) ? ZTC8_GetLength(iReplacement) : 0;
-		ZT_INDEX lRead = 0;
-		ZT_INDEX lWrite = 0;
-		ZT_INDEX lCursor = 0;
-		while (ZTC8_SeekCursor(iHaystack, iNeedle, &lCursor)) {
-			ZTM8_Copy(&iHaystack[lRead], &lTextReplaced[lWrite], lCursor - lRead);
-			lWrite += (lCursor - lRead);
-			if (iReplacement != NULL) {
-				ZTM8_Copy(iReplacement, &lTextReplaced[lWrite], lLengthReplace);
-				lWrite += lLengthReplace;
-			}
-			lRead = lCursor + lLengthNeedle;
-		}
-		lTextReplaced[lLength] = ZTM_CHAR_NT;
-		return lTextReplaced;
 	}
 	return NULL;
 }

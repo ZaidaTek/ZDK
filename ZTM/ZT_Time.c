@@ -8,11 +8,30 @@
 #include "ZTM__Runtime.h"
 #include ZTM__INCL__TIME
 
-ZT_TIME ZTM_TimeGet(const ZT_DATE* iDate) {
-    ZT_TIME lTime = 0;
-	if (iDate == NULL && rZTM_TIME__ZONE_INIT) {
-	    lTime = time(NULL) + rZTM_TIME__ZONE;
-	} else if (iDate != NULL) {
+ZT_TIME ZTM_Tick(void) {
+	return clock() / (CLOCKS_PER_SEC / 1000);
+}
+
+void ZTM_TimeInit(void) {
+	const time_t lFixed = 864000;
+	struct tm* lUTC = gmtime(&lFixed); // changes time value if time() returns local
+	rZTM_TIME__ZONE = lFixed - (ZT_TIME)mktime(lUTC); // changes time value if time() returns UTC
+	struct tm lFixedDate = {0x0};
+	lFixedDate.tm_year = 70;
+	lFixedDate.tm_mday = 11;
+	rZTM_TIME__UTC = ((rZTM_TIME__LOCAL = lFixed - (ZT_TIME)mktime(&lFixedDate))) ? 0 : -rZTM_TIME__ZONE; // rZTM_TIME__LOCAL should be zero if time() returns local
+	rZTM_TIME__INIT = 0x0;
+}
+ZT_TIME ZTM_Time(void) {
+	if (rZTM_TIME__INIT) {ZTM_TimeInit();}
+	return (time(NULL) + rZTM_TIME__LOCAL);
+}
+ZT_TIME ZTM_TimeUTC(void) {
+	if (rZTM_TIME__INIT) {ZTM_TimeInit();}
+	return (time(NULL) + rZTM_TIME__UTC);
+}
+ZT_TIME ZTM_TimeDate(const ZT_DATE* iDate) {
+	if (iDate != NULL) {
 		// year > 1969 : assume YYYY-input, else assume YY-input
 		ZT_TIME lYear = (iDate->year > 1969) ? (iDate->year - 1970) : ((iDate->year < 70) ? (iDate->year + 30) : (iDate->year - 70));
 		ZT_TIME lLeap = (lYear / 4); // calculate leap years since 1970 ('72 was leap)
@@ -21,7 +40,7 @@ ZT_TIME ZTM_TimeGet(const ZT_DATE* iDate) {
 			case 2: if (iDate->month > 2) {++lLeap;} break; // is it before or after feb 29?
 			case 3: ++lLeap; break;
 		}
-		lTime = -1; // start with -1, to offset that day is human friendly starting with 1
+		ZT_TIME lTime = -1; // start with -1, to offset that day is human friendly starting with 1
 		for (ZT_INDEX i = 1; i < iDate->month; i++) {lTime += rZTM_TIME__DAYSPERMONTH[i - 1];} // lTime now contains days of ***preceding*** months of current year
 		lTime += iDate->day; // add current day to day-count
 		lTime += lLeap; // add leap days
@@ -32,19 +51,14 @@ ZT_TIME ZTM_TimeGet(const ZT_DATE* iDate) {
 		lTime += iDate->minute ;
 		lTime *= 60; // *60 for seconds til now
 		lTime += iDate->second;
+		return lTime;
 	} else {
-		time_t lNow = time(NULL);
-		struct tm* lDate = gmtime(&lNow);
-		lDate->tm_isdst = -1;
-		time_t lNowLocal = mktime(lDate);
-		rZTM_TIME__ZONE = ((time_t)(lNow - lNowLocal));
-		rZTM_TIME__ZONE_INIT |= 0x1;
-		lTime = lNowLocal;
+		return 0;
 	}
-	return lTime;
 }
-ZT_DATE* ZTM_DateGet(ZT_TIME iTime) {return ZTM_DateRead(iTime, ZTM8_New(sizeof(ZT_DATE)));}
-ZT_DATE* ZTM_DateRead(ZT_TIME iTime, ZT_DATE* oDate) {
+ZT_TIME ZTM_TimeZone(void) {return rZTM_TIME__ZONE;}
+ZT_INDEX ZTM_TimeWeekday(ZT_INDEX iTime) {return (((iTime / 86400) + 4) % 7);}
+void ZTM_Date(ZT_TIME iTime, ZT_DATE* oDate) {
 	if (oDate != NULL) {
 		ZT_TIME lUnixtime = iTime;
 		oDate->second = lUnixtime % 60;
@@ -74,24 +88,28 @@ ZT_DATE* ZTM_DateRead(ZT_TIME iTime, ZT_DATE* oDate) {
 		oDate->month = lMonthIndex;
 		oDate->day = lUnixtime + 1;
 	}
-	return oDate;
 }
-ZT_INDEX ZTM_WeekDay(ZT_INDEX iTime) {
-	return (((iTime / 86400) + 4) % 7);
-}
-ZT_DATE_EXTRA* ZTM_DateExtraGet(ZT_TIME iTime) {return ZTM_DateExtraRead(ZTM8_New(sizeof(ZT_DATE_EXTRA)), iTime);}
-ZT_DATE_EXTRA* ZTM_DateExtraRead(ZT_DATE_EXTRA* oDate, ZT_TIME iTime) {
+void ZTM_DateExtra(ZT_TIME iTime, ZT_DATE_EXTRA* oDate) {
 	if (oDate != NULL) {
-		ZTM_DateRead((oDate->extra.timestamp = iTime), (ZT_DATE*)oDate);
+		ZTM_Date((oDate->extra.timestamp = iTime), (ZT_DATE*)oDate);
 		ZT_INDEX lIndex = -1;
 		oDate->extra.ordinal = oDate->day;
 		while (++lIndex < ((ZT_INDEX)oDate->month - 1)) {oDate->extra.ordinal += rZTM_TIME__DAYSPERMONTH[lIndex];}
 		if (!(oDate->year % 4) && (oDate->month > 2)) {++oDate->extra.ordinal;}
-		oDate->extra.weekday = ZTM_WeekDay(oDate->extra.timestamp);
-		oDate->extra.week = 1 + (oDate->extra.ordinal + ZTM_WeekDay(oDate->extra.timestamp - ((oDate->extra.ordinal - 1) * 86400))) / 7;
+		oDate->extra.weekday = ZTM_TimeWeekday(oDate->extra.timestamp);
+		oDate->extra.week = 1 + (oDate->extra.ordinal + ZTM_TimeWeekday(oDate->extra.timestamp - ((oDate->extra.ordinal - 1) * 86400))) / 7;
 		oDate->extra.timezone = rZTM_TIME__ZONE;
 	}
-	return oDate;
+}
+ZT_DATE* ZTM_DateNew(ZT_TIME iTime) {
+	ZT_DATE* lDate = ZTM8_New(sizeof(ZT_DATE));
+	ZTM_Date(iTime, lDate);
+	return lDate;
+}
+ZT_DATE_EXTRA* ZTM_DateExtraNew(ZT_TIME iTime) {
+	ZT_DATE_EXTRA* lDateExtra = ZTM8_New(sizeof(ZT_DATE_EXTRA));
+	ZTM_DateExtra(iTime, lDateExtra);
+	return lDateExtra;
 }
 /*
 ZT_FLAG ZTM_DateValid(const ZT_DATE* iDate) {

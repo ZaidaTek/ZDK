@@ -130,6 +130,11 @@ void ZUI_HostNew(void) {
 			gZUI_RTime->element.length = 0;
 			gZUI_RTime->element.focus = NULL;
 			gZUI_RTime->flag = ZUI_DEFAULT_FLAG;
+            #if ZUI_COLOR_MOD_SEED > 0
+			gZUI_RTime->seed = ZUI_COLOR_MOD_SEED;
+            #else
+			gZUI_RTime->seed = ZTM_Time();
+			#endif // ZUI_COLOR_MOD_SEED
 			gZUI_RTime->timestamp.now = ZTK_GetTicks();
 			gZUI_RTime->timestamp.modulator = gZUI_RTime->timestamp.now;
 			gZUI_RTime->timestamp.cursor = gZUI_RTime->timestamp.now;
@@ -171,7 +176,7 @@ ZT_COLOR ZUI_HostGetRandomColor(void) {
     if (gZUI_RTime != NULL) {
         for (ZT_INDEX i = 0; i < 3; i++) {
             lColor <<= 8;
-            ZT_INDEX lRandom = ZTM_Rand(0x100);
+            ZT_INDEX lRandom = ZTM_Randomize_32(&gZUI_RTime->seed, 0x100);
             lRandom = (lRandom < ZUI_COLOR_MOD_MIN) ? (ZUI_COLOR_MOD_MAX - (ZUI_COLOR_MOD_MIN - lRandom)) : (lRandom > ZUI_COLOR_MOD_MAX) ? (ZUI_COLOR_MOD_MIN + (lRandom - ZUI_COLOR_MOD_MAX)) : lRandom;
             lColor |= (lRandom & 0xff);
         }

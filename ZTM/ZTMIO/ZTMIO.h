@@ -16,7 +16,7 @@
 #define ZIO_MODE_CHANGE (ZIO_MODE_APPEND | ZIO_MODE_WRITE)
 
 typedef struct {
-	ZT_DATA_U8 data;
+	ZT_DATA data;
 	void* handle;
 	ZT_CHAR* path;
     ZT_FLAG flag;

@@ -206,7 +206,7 @@ typedef union {
     ZT_U16 word[4];
     ZT_U32 data[2];
     ZT_U64 quad[1];
-    ZT_U64 dummy64;
+    //ZT_U64 dummy64; //???
 } ZT_HASH64;
 typedef union {
     ZT_U8 byte[16];
@@ -244,7 +244,7 @@ typedef struct {
 		ZT_U8* byte;
 		void* payload;
 	};
-} ZT_DATA, ZT_DATA_U8, ZT_DATA_U16, ZT_DATA_U32, ZT_DATA_U64;
+} ZT_DATA;// ZT_DATA_U8, ZT_DATA_U16, ZT_DATA_U32, ZT_DATA_U64;
 
 typedef struct {
     ZT_POINT block;

@@ -7,29 +7,51 @@
 
 #include "ZTM.h"
 
+#define ZTM_CHAR_MAP_ANSI 0x0
+#define ZTM_CHAR_MAP ZTM_CHAR_MAP_ANSI
 // USED FOR GENERATING SPRITES OF FONTS
 #define ZTM_CHAR_MASK ((ZT_CHAR)~0x0)
 #define ZTM_CHAR_SET (ZTM_CHAR_MASK + 1)
-// OVERFLOW PENDING REMOVAL
-#define ZTM_TEXT_MAX_LENGTH 8192 // overflow protection
-// CHAR DEFINES
-#define ZTM_CHAR_NT 			0x00
-#define ZTM_CHAR_CR 			0x0d
-#define ZTM_CHAR_LF 			0x0a
-#define ZTM_CHAR_SPACE 			0x20
-#define ZTM_CHAR_QUOTES 		0x22
-#define ZTM_CHAR_QUOTE 			0x27
-#define ZTM_CHAR_COLON 			0x3a
-#define ZTM_CHAR_COMMA 			0x2c
-#define ZTM_CHAR_DOT 			0x2e
-#define ZTM_CHAR_MINUS 			0x2d
-#define ZTM_CHAR_SLASH 			0x2f
-#define ZTM_CHAR_BACKSLASH		0x5c
-#define ZTM_CHAR_0 				0x30
-#define ZTM_CHAR_A 				0x41
-#define ZTM_CHAR_a 				0x61
-#define ZTM_CHAR_PRINT_MIN		0x20
-#define ZTM_CHAR_PRINT_MAX		0x7E
+#define ZTM_TEXT_MAX_LENGTH 8192 // fallback-length for some functions if no length parameter is passed
+// CHAR MAPPING ANSI
+#define ZTM_CHAR_ANSI_NT 			0x00
+#define ZTM_CHAR_ANSI_CR 			0x0d
+#define ZTM_CHAR_ANSI_LF 			0x0a
+#define ZTM_CHAR_ANSI_SPACE 		0x20
+#define ZTM_CHAR_ANSI_QUOTES 		0x22
+#define ZTM_CHAR_ANSI_QUOTE 		0x27
+#define ZTM_CHAR_ANSI_COLON 		0x3a
+#define ZTM_CHAR_ANSI_COMMA 		0x2c
+#define ZTM_CHAR_ANSI_DOT 			0x2e
+#define ZTM_CHAR_ANSI_MINUS 		0x2d
+#define ZTM_CHAR_ANSI_SLASH 		0x2f
+#define ZTM_CHAR_ANSI_BACKSLASH		0x5c
+#define ZTM_CHAR_ANSI_0 			0x30
+#define ZTM_CHAR_ANSI_A 			0x41
+#define ZTM_CHAR_ANSI_a 			0x61
+#define ZTM_CHAR_ANSI_PRINT_MIN		0x20
+#define ZTM_CHAR_ANSI_PRINT_MAX		0x7E
+// CHAR MAPPING
+#if (ZTM_CHAR_MAP == ZTM_CHAR_MAP_ANSI)
+#define ZTM_CHAR_NT 			ZTM_CHAR_ANSI_NT
+#define ZTM_CHAR_CR 			ZTM_CHAR_ANSI_CR
+#define ZTM_CHAR_LF 			ZTM_CHAR_ANSI_LF
+#define ZTM_CHAR_SPACE 			ZTM_CHAR_ANSI_SPACE
+#define ZTM_CHAR_QUOTES 		ZTM_CHAR_ANSI_QUOTES
+#define ZTM_CHAR_QUOTE 			ZTM_CHAR_ANSI_QUOTE
+#define ZTM_CHAR_COLON 			ZTM_CHAR_ANSI_COLON
+#define ZTM_CHAR_COMMA 			ZTM_CHAR_ANSI_COMMA
+#define ZTM_CHAR_DOT 			ZTM_CHAR_ANSI_DOT
+#define ZTM_CHAR_MINUS 			ZTM_CHAR_ANSI_MINUS
+#define ZTM_CHAR_SLASH 			ZTM_CHAR_ANSI_SLASH
+#define ZTM_CHAR_BACKSLASH		ZTM_CHAR_ANSI_BACKSLASH
+#define ZTM_CHAR_0 				ZTM_CHAR_ANSI_0
+#define ZTM_CHAR_A 				ZTM_CHAR_ANSI_A
+#define ZTM_CHAR_a 				ZTM_CHAR_ANSI_a
+#define ZTM_CHAR_PRINT_MIN		ZTM_CHAR_ANSI_PRINT_MIN
+#define ZTM_CHAR_PRINT_MAX		ZTM_CHAR_ANSI_PRINT_MAX
+#endif // ZTM_CHAR_MAP
+// CHAR RELATIONAL MAPPING
 #define ZTM_CHAR_ZERO			ZTM_CHAR_0
 #define ZTM_CHAR_b 				(ZTM_CHAR_a + 1)
 #define ZTM_CHAR_x 				(ZTM_CHAR_a + 23) // YETI Uppercase hex-keys, as in 0XFFBBCCEF? Same for binary.
@@ -78,11 +100,12 @@
 #define ZTM_TEXT_TYPE_NONE		ZTM_TEXT_TYPE_ASCII
 #define ZTM_TEXT_BOM_ABORT		16
 
-#define ZTM_DATE_ISO8601 0x1
-#define ZTM_DATE_INTERNATIONAL 0x2 // DDMMYYYY
-#define ZTM_DATE_AMERICAN 0x4 // MMDDYYYY
-#define ZTM_DATE_ANSI_C 0x8 // MMM DD YYYY, (D < 10) ? "DD" = " D" 
-#define ZTM_DATE_COMPILER ZTM_DATE_ANSI_C
+#define ZTM_DATE_ISO 0x1 // YYYY-MM-DD
+#define ZTM_DATE_INTL 0x2 // DD/MM/YYYY
+#define ZTM_DATE_DE 0x4 // DD.MM.YYYY
+#define ZTM_DATE_US 0x8 // MM/DD/YYYY
+#define ZTM_DATE_ANSI 0x10 // MMM DD YYYY, (D < 10) ? " D" : "DD"
+#define ZTM_DATE_COMPILER ZTM_DATE_ANSI
 
 #define ZTM_FONT_STYLE_NORMAL 0x0
 #define ZTM_FONT_STYLE_BOLD 0x1
@@ -140,9 +163,15 @@ extern "C" {
 #endif // __cplusplus
 const ZT_U8* ZTC8__DATE__(void);
 const ZT_U8* ZTC8__DATE__Set(const ZT_U8* i__DATE__, const ZT_U8* i__TIME__); // if no call, ZTC8__DATE__() returns ZTM_CHAR_NT
+/*void ZTC8_ReadDate_ANSI_C(const ZT_U8* iText, ZT_DATE* oDate);
+void ZTC8_ReadTime_ANSI_C(const ZT_U8* iText, ZT_DATE* oDate);*/
 #ifndef ZTM_CHAR_MACRO
 ZT_INDEX ZTC8_GetLength(const ZT_U8* iText); // gets number of characters in array - does not include NT
+ZT_INDEX ZTC8_CountChar(const ZT_U8* iHaystack, ZT_U8 iNeedle);// UNTESTED!
 ZT_INDEX ZTC8_CountCharVerbatim(const ZT_U8* iHaystack, ZT_INDEX iLength, ZT_U8 iNeedle);
+ZT_INDEX ZTC8_Count(const ZT_U8* iHaystack, const ZT_U8* iNeedle);// UNTESTED!
+ZT_INDEX ZTC8_CountVerbatim(const ZT_U8* iHaystack, ZT_INDEX iLength, const ZT_U8* iNeedle);// UNTESTED!
+void ZTC8_GetDimensions(const ZT_U8* iText, ZT_POINT* oDimensions);// UNTESTED!
 void ZTC8_GetDimensionsVerbatim(const ZT_U8* iText, ZT_INDEX iLength, ZT_POINT* oDimensions);
 ZT_BOOL ZTC8_Match(const ZT_U8* iHaystack, const ZT_U8* iNeedle); // returns false if NT is first found in iHaystack or if no match
 ZT_BOOL ZTC8_MatchExact(const ZT_U8* iText1, const ZT_U8* iText2); // returns true only if completely identical, including NT, ergo length
@@ -151,10 +180,19 @@ ZT_BOOL ZTC8_SeekCursorMax(const ZT_U8* iText, const ZT_U8* iSearch, ZT_INDEX* o
 ZT_FLAG ZTC8_Escape(ZT_FLAG iEscape, ZT_CHAR iChar);
 #else
 #define ZTC8_GetLength(TEXT) ({ZT_INDEX rGETLENGTH_n = -1; while ((TEXT)[++rGETLENGTH_n] != ZTM_CHAR_NT); rGETLENGTH_n;})
+#define ZTC8_CountChar(HAYSTACK,NEEDLE) ({ZT_INDEX rCOUNTCHAR_n = 0; ZT_INDEX rCOUNTCHAR_i = -1; while ((HAYSTACK)[++rCOUNTCHAR_i] != ZTM_CHAR_NT) {if ((HAYSTACK)[rCOUNTCHAR_i] == (NEEDLE)) {++rCOUNTCHAR_n;}} rCOUNTCHAR_n;})
 #define ZTC8_CountCharVerbatim(HAYSTACK,LENGTH,NEEDLE) ({ZT_INDEX rCOUNTCHARV_n = 0; ZT_INDEX rCOUNTCHARV_i = -1; while (++rCOUNTCHARV_i < (LENGTH)) {if ((HAYSTACK)[rCOUNTCHARV_i] == (NEEDLE)) {++rCOUNTCHARV_n;}} rCOUNTCHARV_n;})
+#define ZTC8_Count(HAYSTACK,NEEDLE) ({ZT_INDEX rCOUNT_n = 0; ZT_INDEX rCOUNT_i = -1; while ((HAYSTACK)[rCOUNT_i] != ZTM_CHAR_NT) {if (ZTC8_Match((HAYSTACK), (NEEDLE))) {++rCOUNT_n;}} rCOUNT_n;})
+#define ZTC8_CountVerbatim(HAYSTACK,LENGTH,NEEDLE) ({ZT_INDEX rCOUNTV_n = 0; ZT_INDEX rCOUNTV_i = -1; while (++rCOUNTV_i < (LENGTH)) {if (ZTC8_Match((HAYSTACK), (NEEDLE))) {++rCOUNTV_n;}} rCOUNTV_n;})
+#define ZTC8_GetDimensions(TEXT,DIM_OUT) ({\
+	if ((ZT_POINT*)(DIM_OUT) != (ZT_POINT*)NULL) {\
+		(DIM_OUT)->xU = 0; (DIM_OUT)->yU = 0; ZT_INDEX rGETDIMENSIONS_l = 0; ZT_INDEX rGETDIMENSIONS_i = -1;\
+		while ((TEXT)[++rGETDIMENSIONS_i] != ZTM_CHAR_NT) {++rGETDIMENSIONS_l; if ((TEXT)[rGETDIMENSIONS_i] == ZTM_CHAR_LF) {if ((DIM_OUT)->xU < rGETDIMENSIONS_l) {(DIM_OUT)->xU = rGETDIMENSIONS_l;} rGETDIMENSIONS_l = 0; ++((DIM_OUT)->yU);}}\
+	}\
+})
 #define ZTC8_GetDimensionsVerbatim(TEXT,LENGTH,DIM_OUT) ({\
 	if ((ZT_POINT*)(DIM_OUT) != (ZT_POINT*)NULL) {\
-		ZT_INDEX rGETDIMENSIONSV_l = 0; (DIM_OUT)->xU = 0; (DIM_OUT)->yU = 0; ZT_INDEX rGETDIMENSIONSV_i = -1;\
+		(DIM_OUT)->xU = 0; (DIM_OUT)->yU = 0; ZT_INDEX rGETDIMENSIONSV_l = 0; ZT_INDEX rGETDIMENSIONSV_i = -1;\
 		while (++rGETDIMENSIONSV_i < (LENGTH)) {++rGETDIMENSIONSV_l; if ((TEXT)[rGETDIMENSIONSV_i] == ZTM_CHAR_LF) {if ((DIM_OUT)->xU < rGETDIMENSIONSV_l) {(DIM_OUT)->xU = rGETDIMENSIONSV_l;} rGETDIMENSIONSV_l = 0; ++((DIM_OUT)->yU);}}\
 	}\
 })
@@ -200,9 +238,6 @@ ZT_FLAG ZTC8_Escape(ZT_FLAG iEscape, ZT_CHAR iChar);
 	FLAG;\
 })
 #endif // ZTM_CHAR_MACRO
-//ZT_INDEX ZTC8_Count(const ZT_U8* iHaystack, const ZT_U8* iNeedle);// UNTESTED!
-ZT_INDEX ZTC8_CountChar(const ZT_U8* iHaystack, ZT_U8 iNeedle);// UNTESTED!
-void ZTC8_GetDimensions(const ZT_U8* iText, ZT_POINT* oDimensions);// UNTESTED!
 ZT_BOOL ZTC8_SeekDigitCursorMax(const ZT_U8* iText, ZT_INDEX* oCursor, ZT_INDEX iByteMax);
 ZT_BOOL ZTC8_SeekCRLFCursorMax(const ZT_U8* iText, ZT_INDEX* oCursor, ZT_INDEX iByteMax);
 ZT_FLAG ZTC8_SeekBOM(const void* iText);
@@ -213,9 +248,7 @@ ZT_U ZTC8_ReadBinary(const ZT_U8* iText);
 ZT_U ZTC8_ReadHex(const ZT_U8* iText);
 ZT_FLT ZTC8_ReadFloat(const ZT_U8* iText);
 ZT_DBL ZTC8_ReadDouble(const ZT_U8* iText);
-void ZTC8_ReadDate_ANSI_C(const ZT_U8* iText, ZT_DATE* oDate);
-void ZTC8_ReadTime_ANSI_C(const ZT_U8* iText, ZT_DATE* oDate);
-const ZT_U8* ZTC8_CopyTarget(const ZT_U8* iSource, ZT_U8* oTarget);
+const ZT_U8* ZTC8_CopyTarget(const ZT_U8* iSource, ZT_U8* oTarget); // make void!
 ZT_U8* ZTC8_CopyLength(const ZT_U8* iText, ZT_INDEX iLength);
 ZT_U8* ZTC8_CopyModulating(const ZT_U8* iText, ZT_INDEX iLength);
 ZT_U8* ZTC8_Copy(const ZT_U8* iText);
@@ -225,19 +258,30 @@ ZT_U8* ZTC8_MergeFreeB(const ZT_U8* iRoot, ZT_U8* iBranch);
 ZT_U8* ZTC8_MergeFree(ZT_U8* iRoot, ZT_U8* iBranch);
 ZT_U8* ZTC8_CopyAndFree(const ZT_U8* iCopy, ZT_U8* iDelete); // do two things on one line!
 ZT_U8* ZTC8_FreeAndCopy(ZT_U8* iDelete, const ZT_U8* iCopy); // name-sequences are tantamount
+ZT_INDEX ZTC8_ReplaceGetLength(const ZT_U8* iHaystack, const ZT_U8* iNeedle, const ZT_U8* iReplacement);
+ZT_U8* ZTC8_Replace(const ZT_U8* iHaystack, const ZT_U8* iNeedle, const ZT_U8* iReplacement);
 ZT_U8* ZTC8_Unsigned(ZT_U iInteger);
 ZT_U8* ZTC8_Integer(ZT_I iInteger);
 ZT_U8* ZTC8_Hex(ZT_U iInteger);
 ZT_U8* ZTC8_HexSigned(ZT_I iInteger);
 ZT_U8* ZTC8_Binary(ZT_U iInteger);
 ZT_U8* ZTC8_BinarySigned(ZT_I iInteger);
-ZT_U8* ZTC8_ByteString(const ZT_U8* iBytes, ZT_INDEX iLength, const ZT_U8* iDelimiter, ZT_INDEX iGrouping);
-ZT_U8* ZTC8_HashString(const void* iHash, ZT_INDEX iBits, const ZT_U8* iDelimiter, ZT_INDEX iGrouping);
-//ZT_U8* ZTC8_HashString(const void* iHash, const ZT_U8* iDelimiter, ZT_INDEX iBits, ZT_INDEX iGrouping);
+ZT_U8* ZTC8_Date(ZT_TIME iUnix, ZT_FLAG iFormat);
+ZT_U8* ZTC8_DateISO(ZT_TIME iUnix);
+ZT_U8* ZTC8_DateINTL(ZT_TIME iUnix);
+ZT_U8* ZTC8_DateDE(ZT_TIME iUnix);
+ZT_U8* ZTC8_DateUS(ZT_TIME iUnix);
+ZT_U8* ZTC8_DateANSI(ZT_TIME iUnix);
+ZT_U8* ZTC8_Time24Hhmmss(ZT_TIME iUnix);
+ZT_U8* ZTC8_Time24Hhmm(ZT_TIME iUnix);
+ZT_U8* ZTC8_Time12Hhmmss(ZT_TIME iUnix);
+ZT_U8* ZTC8_Time12Hhmm(ZT_TIME iUnix);
+ZT_U8* ZTC8_ISO8601(ZT_TIME iUnix);
+ZT_U8* ZTC8_ISO8601T(ZT_TIME iUnix);
+ZT_U8* ZTC8_RFC1123(ZT_TIME iUnixUTC);
+ZT_U8* ZTC8_Bytes(const ZT_U8* iBytes, ZT_INDEX iLength, const ZT_U8* iDelimiter, ZT_INDEX iGrouping);
+ZT_U8* ZTC8_Hash(const void* iHash, ZT_INDEX iBits, const ZT_U8* iDelimiter, ZT_INDEX iGrouping);
 ZT_U8* ZTC8_Printable(const ZT_U8* iData, ZT_INDEX iLength, ZT_U8 iReplacement);
-ZT_U8* ZTC8_DateISO8601(ZT_TIME iUnix);
-ZT_U8* ZTC8_DateRFC1123(ZT_TIME iUnix);
-ZT_U8* ZTC8_Replace(const ZT_U8* iHaystack, const ZT_U8* iNeedle, const ZT_U8* iReplacement);
 //ZT_BOOL ZTC8_WinCLI(ZT_INDEX argc, ZT_U8** argv, const ZT_U8* iSearch, ZT_INDEX* oIndexFound);
 //ZT_U8* ZTC8_ConvertUTF8ToWin1252(const ZT_U8* iText);
 #ifdef __cplusplus

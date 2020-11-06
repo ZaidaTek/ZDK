@@ -86,9 +86,6 @@ void ZTK_New(const ZT_CHAR* iTitle, const ZT_RECT* iRect, const ZT_CHAR* iIcon) 
 			}
 			gZT_Window->system.cache.rect = gZT_Window->rect;
 			ZTK_RuntimeLoad();
-			#ifdef ZTK_LOAD_RANDOM_SEED
-			ZTM_SRand(ZTM_TimeGet(NULL));
-			#endif // ZTK_LOAD_RANDOM_SEED
 			ZTK_RuntimeKeyReload(gZT_Window->system.input.keyboard.state);
 		}
 	}

@@ -7,12 +7,15 @@
 
 #include "ZTM__Runtime.h"
 
-ZT_U32			rZTM__SEED = 0x1;
+ZT_U32			rZTM__SEED_32 = 0x1;
+ZT_U64			rZTM__SEED_64 = 0x1;
 ZT_FLAG			rZTM_COLOR__PALLETE = 0x0;
 ZT_COLOR		rZTM_COLOR__SHIFT[3] = {0x0};
 const ZT_TIME	rZTM_TIME__DAYSPERMONTH[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+ZT_FLAG			rZTM_TIME__INIT = 0x1;
 ZT_TIME			rZTM_TIME__ZONE = 0;
-ZT_FLAG			rZTM_TIME__ZONE_INIT = 0x0;
+ZT_TIME			rZTM_TIME__UTC = 0;
+ZT_TIME			rZTM_TIME__LOCAL = 0;
 
 ZT_U8			rZTC8__ISO8601__[20] = {ZTM_CHAR_NT};
 const ZT_U8*	rZTC8__DAY[7] = {(const ZT_U8*)"Sun", (const ZT_U8*)"Mon", (const ZT_U8*)"Tue", (const ZT_U8*)"Wed", (const ZT_U8*)"Thu", (const ZT_U8*)"Fri", (const ZT_U8*)"Sat",};

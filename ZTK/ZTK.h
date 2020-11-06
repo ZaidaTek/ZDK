@@ -7,9 +7,6 @@
 
 // ZTK OPTIONS
 #define ZTK_MACRO
-#ifndef ZTM_LOAD_RANDOM_SEED
-#define ZTK_LOAD_RANDOM_SEED
-#endif // ZTM_LOAD_RANDOM_SEED
 // ZTK MANDATORY
 #include <ZTM.h>
 #include "ZTK_Define.h"

@@ -8,12 +8,49 @@
 #include "ZTM__Runtime.h"
 #include ZTM__INCL__MAIN
 
-void ZTM_SRand(ZT_U32 iSeed) {rZTM__SEED = iSeed;}
-ZT_U32 ZTM_Rand(ZT_U32 iModulo) {
-	rZTM__SEED ^= rZTM__SEED << 13;
-	rZTM__SEED ^= rZTM__SEED >> 17;
-	rZTM__SEED ^= rZTM__SEED << 5;
-	return (iModulo ? (rZTM__SEED % iModulo) : rZTM__SEED);
+ZT_U32 ZTM_Seed_32(ZT_U32 iSeed) {
+	ZT_U32 lCache = rZTM__SEED_32;
+	rZTM__SEED_32 = iSeed;
+	return lCache;
+}
+ZT_U32 ZTM_Random_32(ZT_U32 iModulo) {
+	rZTM__SEED_32 ^= rZTM__SEED_32 << 13;
+	rZTM__SEED_32 ^= rZTM__SEED_32 >> 17;
+	rZTM__SEED_32 ^= rZTM__SEED_32 << 5;
+	return (iModulo ? (rZTM__SEED_32 % iModulo) : rZTM__SEED_32);
+}
+ZT_U32 ZTM_Randomize_32(ZT_U32* ioSeed, ZT_U32 iModulo) {
+	if (ioSeed != NULL) {
+		ZT_U32 lSeed = *ioSeed;
+		lSeed ^= lSeed << 13;
+		lSeed ^= lSeed >> 17;
+		*ioSeed = (lSeed ^= lSeed << 5);
+		return (iModulo ? (lSeed % iModulo) : lSeed);
+	} else {
+		return 0;
+	}
+}
+ZT_U64 ZTM_Seed_64(ZT_U64 iSeed) {
+	ZT_U64 lCache = rZTM__SEED_64;
+	rZTM__SEED_64 = iSeed;
+	return lCache;
+}
+ZT_U64 ZTM_Random_64(ZT_U64 iModulo) {
+	rZTM__SEED_64 ^= rZTM__SEED_64 << 13;
+	rZTM__SEED_64 ^= rZTM__SEED_64 >> 7;
+	rZTM__SEED_64 ^= rZTM__SEED_64 << 17;
+	return (iModulo ? (rZTM__SEED_64 % iModulo) : rZTM__SEED_64);
+}
+ZT_U64 ZTM_Randomize_64(ZT_U64* ioSeed, ZT_U64 iModulo) {
+	if (ioSeed != NULL) {
+		ZT_U64 lSeed = *ioSeed;
+		lSeed ^= lSeed << 13;
+		lSeed ^= lSeed >> 7;
+		*ioSeed = (lSeed ^= lSeed << 17);
+		return (iModulo ? (lSeed % iModulo) : lSeed);
+	} else {
+		return 0;
+	}
 }
 ZT_FLAG ZTM_LSB(ZT_FLAG iFlag) {
     ZT_FLAG lMask = 0x0;
