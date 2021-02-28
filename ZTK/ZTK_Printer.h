@@ -1,4 +1,4 @@
-/*** Copyright (C) 2019-2020 ZaidaTek and Andreas Riebesehl
+/*** Copyright (C) 2019-2021 ZaidaTek and Andreas Riebesehl
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
@@ -12,8 +12,6 @@
 #define ZTK_PRINTER_TYPE_NONE 0x0
 #define ZTK_PRINTER_TYPE_SYSTEM 0x1
 #define ZTK_PRINTER_TYPE_SPRITE 0x2
-
-typedef void ZT_PRINTER;
 
 #ifdef __cplusplus
 extern "C" {

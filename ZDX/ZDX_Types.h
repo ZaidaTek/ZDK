@@ -1,4 +1,4 @@
-/*** Copyright (C) 2019-2020 ZaidaTek and Andreas Riebesehl
+/*** Copyright (C) 2019-2021 ZaidaTek and Andreas Riebesehl
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
@@ -50,40 +50,41 @@ typedef struct {
 } ZDX_TRIGGER;
 
 typedef struct {
-    void* runtime;
-    struct {
-        void* in;
-        void* out;
-        ZT_FLAG cache;
-    } buffer;
-	ZT_FLAG type;
-} ZDX_INTERFACE;
-
-typedef struct {
-	ZT_FLAG type;
-	ZT_FLAG speed;
-	ZT_FLAG config;
-	ZT_INDEX number;
-	ZT_INDEX resolution;
 	struct {
-		ZT_INDEX sample;
-		ZT_INDEX line;
-		struct {
-            ZT_INDEX header;
-            ZT_INDEX payload;
-            ZT_INDEX sanity;
-            ZT_INDEX unknown;
-		} error;
-		ZT_INDEX total;
-	} counter;
-} ZDX_CHANNEL;
-
-typedef struct {
-	ZDX_INTERFACE* interface;
-	ZDX_CHANNEL* channel;
-	ZT_CHAR* address;
-	ZT_FLAG type;
+        void* runtime;
+        void* dummy;//alignment
+        struct {
+            void* in;
+            void* out;
+            ZT_FLAG cache;
+            ZT_FLAG dummy;//alignment
+        } buffer;
+        ZT_FLAG flag;//alignment
+        ZT_FLAG type;
+    } interface;
+	struct {
+        ZT_FLAG flag;//alignment
+        ZT_FLAG type;
+        ZT_FLAG speed;
+        ZT_FLAG config;
+        ZT_INDEX number;
+        ZT_INDEX resolution;
+        struct {
+            ZT_INDEX sample;
+            ZT_INDEX line;
+            struct {
+                ZT_INDEX header;
+                ZT_INDEX payload;
+                ZT_INDEX sanity;
+                ZT_INDEX unknown;
+            } error;
+            ZT_INDEX total;
+            ZT_INDEX dummy; //alignment
+        } counter;
+    } task;
 	ZT_FLAG flag;
+	ZT_FLAG type;
+	ZT_CHAR* address;
 } ZDX_DEVICE;
 
 #endif // ZDX_TYPES_H_INCLUDED

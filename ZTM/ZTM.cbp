@@ -11,21 +11,28 @@
 				<Option object_output="obj/" />
 				<Option type="3" />
 				<Option compiler="gcc" />
-				<Option projectCompilerOptionsRelation="0" />
+				<Compiler>
+					<Add option="-flto" />
+				</Compiler>
+				<Linker>
+					<Add option="-flto" />
+				</Linker>
+			</Target>
+			<Target title="lib">
+				<Option output="../../__static/ZTM" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-fexpensive-optimizations" />
-			<Add option="-flto" />
-			<Add option="-O3" />
 			<Add option="-Wfatal-errors" />
 			<Add option="-Wextra" />
 			<Add option="-Wall" />
-			<Add option="-fno-exceptions" />
+			<Add option="-O3" />
 		</Compiler>
 		<Linker>
 			<Add option="-O3" />
-			<Add option="-flto" />
 			<Add option="-s" />
 		</Linker>
 		<Unit filename="ZTM.c">
@@ -44,6 +51,7 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="ZTMWV/ZTMWV.h" />
+		<Unit filename="ZTM_Types.h" />
 		<Unit filename="ZTM__Environment.h" />
 		<Unit filename="ZTM__Runtime.c">
 			<Option compilerVar="CC" />
@@ -83,7 +91,6 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="ZT_Time.h" />
-		<Unit filename="ZT_Types.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

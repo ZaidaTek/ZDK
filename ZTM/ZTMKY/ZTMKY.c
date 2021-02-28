@@ -1,4 +1,4 @@
-/*** Copyright (C) 2019-2020 ZaidaTek and Andreas Riebesehl
+/*** Copyright (C) 2019-2021 ZaidaTek and Andreas Riebesehl
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
@@ -100,8 +100,7 @@ ZT_INDEX ZKY_FileRead(ZKY* iKeyHive, const ZT_CHAR* iDelimit, const ZT_CHAR* iAs
         if ((lFileSize = ZIO_PipedScan(iPath))) {
             ZT_CHAR* lString = (ZT_CHAR*)ZTM8_New(lFileSize + 1);
             if (lString != NULL) {
-                ZT_INDEX lRead;
-                ZIO_PipedRead(iPath, lString, &lRead);
+                ZT_INDEX lRead = ZIO_PipedRead(iPath, lString, lFileSize, 0);
                 lString[lRead] = ZTM_CHAR_NT;
                 lKeysFound = ZKY_Deserialize(iKeyHive, iDelimit, iAssign, lString);
                 ZTM8_Free(lString);
@@ -201,7 +200,7 @@ ZT_INDEX ZKY_FileWrite(const ZKY* iKeyHive, const ZT_CHAR* iDelimit, const ZT_CH
             if ((lString = (ZT_CHAR*)ZTM8_New(sizeof(ZT_CHAR) * (lLength + 1))) != NULL) {
                 lKeysFound = ZKY_Serialize(iKeyHive, iDelimit, iAssign, lString);
 				lString[lLength] = ZTM_CHAR_NT; // for some reason fwrite still needs NT despite having size?
-                ZIO_PipedWrite(iPath, lString, lLength);
+                ZIO_PipedWrite(iPath, lString, lLength, 0);
                 ZTM8_Free(lString);
             }
         }

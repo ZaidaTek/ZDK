@@ -1,4 +1,4 @@
-/*** Copyright (C) 2019-2020 ZaidaTek and Andreas Riebesehl
+/*** Copyright (C) 2019-2021 ZaidaTek and Andreas Riebesehl
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
@@ -123,10 +123,16 @@ ZT_FLAG ZTC8_Escape(ZT_FLAG iEscape, ZT_CHAR iChar) {
 	}
 	return iEscape;
 }
+ZT_U8* ZTC8_Unsigned(ZT_U iInteger) {return ZTC8_UnsignedBase(iInteger, 10);}
+ZT_U8* ZTC8_Integer(ZT_I iInteger) {return ZTC8_IntegerBase(iInteger, 10);}
+ZT_U8* ZTC8_Hex(ZT_U iInteger) {return ZTC8_UnsignedBase(iInteger, 0x10);}
+//ZT_U8* ZTC8_HexSigned(ZT_I iInteger) {return ZTC8_IntegerBase(iInteger, 0x10);}
+ZT_U8* ZTC8_Binary(ZT_U iInteger) {return ZTC8_UnsignedBase(iInteger, 0x2);}
+//ZT_U8* ZTC8_BinarySigned(ZT_I iInteger) {return ZTC8_IntegerBase(iInteger, 0x2);}
 #endif // ZTM_CHAR_MACRO
 ZT_BOOL ZTC8_SeekDigitCursorMax(const ZT_U8* iText, ZT_INDEX* oCursor, ZT_INDEX iByteMax) {
     ZT_INDEX lCursor = (oCursor != NULL) ? *(oCursor) : 0;
-    while (ZTC8_CursorValidMax(iText, lCursor, iByteMax)) {if (ZTC8_IsDigit(&iText[lCursor])) {if (oCursor != NULL) {*(oCursor) = lCursor;} return 0x1;} ++lCursor;}
+    while (ZTC8_CursorValidMax(iText, lCursor, iByteMax)) {if (ZTC8_IsDigit(iText[lCursor])) {if (oCursor != NULL) {*(oCursor) = lCursor;} return 0x1;} ++lCursor;}
     return 0x0;
 }
 ZT_BOOL ZTC8_SeekCRLFCursorMax(const ZT_U8* iText, ZT_INDEX* oCursor, ZT_INDEX iByteMax) {
@@ -144,96 +150,99 @@ ZT_FLAG ZTC8_SeekBOM(const void* iText) {
             case 2: lBOM[0] = 0xfe; lBOM[1] = 0xff; lBOM[2] = 0x0; lType = ZTM_TEXT_TYPE_UTF16BE; break;
             default: lBOM[0] = ZTM_CHAR_NT; break;
         }
-        ZT_INDEX lDummy;
+        ZT_INDEX lDummy = 0;
         if (ZTC8_SeekCursorMax(iText, lBOM, &lDummy, ZTM_TEXT_BOM_ABORT)) {return lType;}
     }
     return ZTM_TEXT_TYPE_NONE;
 }
-//#define ZTM_TEXT_FLAG_READNUM_UNDEF 0x0
-#define ZTM_TEXT_READ_INT 0x1
-#define ZTM_TEXT_READ_BIN 0x2
-#define ZTM_TEXT_READ_HEX 0x4
-#define ZTM_TEXT_READ_FLT 0x8
-#define ZTM_TEXT_READ_DEC (ZTM_TEXT_READ_INT | ZTM_TEXT_READ_FLT)
-#define ZTM_TEXT_DETECT_INT 0x100
-#define ZTM_TEXT_DETECT_BIN 0x200
-#define ZTM_TEXT_DETECT_HEX 0x400
-#define ZTM_TEXT_DETECT_FLT 0x800
-#define ZTM_TEXT_DETECT_NGT 0x1000
-#define ZTM_TEXT_DETECT_OK 0x80000000
-ZT_U32 ZTC8_ReadUINT32(const ZT_U8* iText, ZT_FLAG iFlags, ZT_FLAG* oFlags) {
-	ZT_FLAG lDetect = ZTM_TEXT_DETECT_OK; // implement: input was sanitized?
-    ZT_U32 lBase = (iFlags & ZTM_TEXT_READ_BIN) ? 0x2 : ((iFlags & ZTM_TEXT_READ_HEX) ? 0x10 : 10);
-    ZT_INDEX lCounter = 0;
-    ZT_INDEX lDecimal = 0;
+#define ZTC8_READDECIMAL() \
+	ZT_FLAG lNegative = 0x0;\
+    ZT_U lNumber = 0;\
+    ZT_INDEX lDigit;\
+    ZT_INDEX lChar;\
+    ZT_INDEX lCursor = -1;\
+    while ((lChar = iText[++lCursor]) != ZTM_CHAR_NT) {\
+        if ((lDigit = lChar - ZTM_CHAR_0) < 10) {\
+            lNumber *= 10;\
+            if (lNegative) {lNumber -= lDigit;} else {lNumber += lDigit;}\
+        } else if (lChar == ZTM_CHAR_MINUS) {\
+            lNegative = 0x1;\
+        }\
+    }\
+    return lNumber
+ZT_I ZTC8_ReadInteger(const ZT_U8* iText) {ZTC8_READDECIMAL();}
+ZT_U ZTC8_ReadUnsigned(const ZT_U8* iText) {ZTC8_READDECIMAL();}
+ZT_U ZTC8_ReadDecimal(const ZT_U8* iText) {ZTC8_READDECIMAL();}
+ZT_U ZTC8_ReadHex(const ZT_U8* iText) {
+    ZT_U lNumber = 0;
+    ZT_INDEX lDigit;
+    ZT_INDEX lChar;
     ZT_INDEX lCursor = -1;
-    ZT_U32 lNumber = 0;
-    ZT_U32 lDigit = 0;
-    while (iText[++lCursor] != ZTM_CHAR_NT) {
-        if ((lDigit = ZTC8_GetBinary(&iText[lCursor])) != 0x2) {
-            lDetect |= ZTM_TEXT_DETECT_INT;
-        } else if ((iFlags & ZTM_TEXT_READ_BIN) || ((!iFlags) && (lDetect & ZTM_TEXT_DETECT_BIN))) {
-			lDigit = 0x10;
-		} else if ((lDigit = ZTC8_GetDigit(&iText[lCursor])) != 10) {
-			lDetect |= ZTM_TEXT_DETECT_INT;
-		} else if ((iFlags & ZTM_TEXT_READ_DEC) || ((!iFlags) && (lDetect & ZTM_TEXT_DETECT_FLT))) {
-			lDigit = 0x10;
-		} else if ((lDigit = ZTC8_GetHex(&iText[lCursor])) != 0x10) {
-			lDetect |= ZTM_TEXT_DETECT_INT;
-		} else if ((iText[lCursor] == ZTM_CHAR_MINUS) && (iFlags & ZTM_TEXT_READ_INT || iFlags & ZTM_TEXT_READ_FLT || !iFlags)) {
-            lDetect |= ZTM_TEXT_DETECT_NGT;
-			lDigit = 0x10;
-		} else if ((!iFlags || iFlags & ZTM_TEXT_READ_FLT) && (iText[lCursor] == ZTM_CHAR_DECIMAL)) {
-            if (!(lDetect & ZTM_TEXT_DETECT_INT)) {lCounter++;} // if no leading zero in number
-            lDecimal = (lCounter & 0xff);
-            lDetect |= ZTM_TEXT_DETECT_FLT;
-			lDigit = 0x10;
-		} else if (iFlags) {lDigit = 0x10;} else {
-            if (iText[lCursor] == ZTM_CHAR_x) {lDetect |= ZTM_TEXT_DETECT_HEX; lBase = 0x10;
-            } else if (!(lDetect & ZTM_TEXT_DETECT_HEX) && iText[lCursor] == ZTM_CHAR_b) {lDetect |= ZTM_TEXT_DETECT_BIN; lBase = 0x2;}
-			lDigit = 0x10;
-		}
-        if (lDigit < 0x10) {if (lBase != 10) {
-				if (lBase != 0x10) {lNumber <<= 1; lNumber |= lDigit; ++lCounter;
-				} else {lNumber <<= 4; lNumber |= lDigit; ++lCounter;}
-		} else {lNumber *= lBase; lNumber += lDigit; ++lCounter;}}
+    while ((lChar = iText[++lCursor]) != ZTM_CHAR_NT) {
+        if ((lDigit = lChar - ZTM_CHAR_0) < 10) {
+            lNumber <<= 4;
+            lNumber |= lDigit;
+        } else if ((lDigit = lChar - ZTM_CHAR_a) < 6) {
+            lNumber <<= 4;
+            lNumber |= (lDigit + 10);
+        } else if ((lDigit = lChar - ZTM_CHAR_A) < 6) {
+            lNumber <<= 4;
+            lNumber |= (lDigit + 10);
+        }
     }
-    if (lDecimal) {lDetect |= ((lCounter - lDecimal) & 0xff);}
-    if (oFlags != NULL) {*(oFlags) = lDetect;}
-    return ((lDetect & ZTM_TEXT_DETECT_OK) ? lNumber : 0);
+    return lNumber;
 }
-ZT_I ZTC8_ReadNumber(const ZT_U8* iText) {
-    ZT_FLAG lFlag = 0x0;
-    ZT_I lInt = ((ZT_I)(ZTC8_ReadUINT32(iText, 0x0, &lFlag)));
-    if (!(lFlag & ZTM_TEXT_DETECT_BIN) && !(lFlag & ZTM_TEXT_DETECT_HEX)) {
-        if (lFlag & ZTM_TEXT_DETECT_NGT) {lInt = -lInt;}
+ZT_U ZTC8_ReadBinary(const ZT_U8* iText) {
+    ZT_U lNumber = 0;
+    ZT_INDEX lDigit;
+    ZT_INDEX lChar;
+    ZT_INDEX lCursor = -1;
+    while ((lChar = iText[++lCursor]) != ZTM_CHAR_NT) {
+        if ((lDigit = lChar - ZTM_CHAR_0) < 2) {
+            lNumber <<= 1;
+            lNumber |= lDigit;
+        }
     }
-    return lInt;
+    return lNumber;
 }
-ZT_U ZTC8_ReadHex(const ZT_U8* iText) {return ZTC8_ReadUINT32(iText, ZTM_TEXT_READ_HEX, NULL);}
-ZT_U ZTC8_ReadBinary(const ZT_U8* iText) {return ZTC8_ReadUINT32(iText, ZTM_TEXT_READ_BIN, NULL);}
-ZT_I ZTC8_ReadInteger(const ZT_U8* iText) {
-    ZT_FLAG lFlag = 0x0;
-    ZT_I lInt = ((ZT_I)(ZTC8_ReadUINT32(iText, ZTM_TEXT_READ_INT, &lFlag)));
-    if (lFlag & ZTM_TEXT_DETECT_NGT) {lInt = -lInt;}
-    return lInt;
+#define ZTC8_READFLOATINGPOINT(TYPE) \
+	ZT_FLAG lNegative = 0x0;\
+	ZT_FLAG lDecimal = 0x0;\
+    TYPE lUpper = 0.0;\
+    TYPE lLower = 0.0;\
+    TYPE lDivisor = 1;\
+    ZT_INDEX lChar;\
+    ZT_INDEX lDigit;\
+    ZT_INDEX lCursor = -1;\
+    while ((lChar = iText[++lCursor]) != ZTM_CHAR_NT) {\
+        if ((lDigit = lChar - ZTM_CHAR_0) < 10) {\
+            if (lDecimal) {\
+                lDivisor *= 10;\
+                if (lNegative) {lLower -= lDigit / lDivisor;} else {lLower += lDigit / lDivisor;}\
+            } else {\
+                lUpper *= 10;\
+                if (lNegative) {lUpper -= lDigit;} else {lUpper += lDigit;}\
+            }\
+        } else if (lChar == ZTM_CHAR_DECIMAL) {\
+            lDecimal = 0x1;\
+        } else if (lChar == ZTM_CHAR_MINUS) {\
+            lNegative = 0x1;\
+        }\
+    }\
+    return lUpper + lLower
+ZT_FLT ZTC8_ReadFloat(const ZT_U8* iText) {ZTC8_READFLOATINGPOINT(ZT_FLT);}
+ZT_DBL ZTC8_ReadDouble(const ZT_U8* iText) {ZTC8_READFLOATINGPOINT(ZT_DBL);}
+
+const ZT_U8* ZTC8_CopyTarget(const ZT_U8* iSource, ZT_U8* oTarget) {
+    ZT_INDEX lCursor = -1;
+    while ((oTarget[++lCursor] = iSource[lCursor]) != ZTM_CHAR_NT);
+    return iSource;
 }
-ZT_U ZTC8_ReadUnsigned(const ZT_U8* iText) {return ZTC8_ReadUINT32(iText, ZTM_TEXT_READ_INT, NULL);}
-ZT_FLT ZTC8_ReadFloat(const ZT_U8* iText) {
-    ZT_FLAG lFlag = 0x0;
-    ZT_FLT lFloat = ((ZT_FLT)(ZTC8_ReadUINT32(iText, ZTM_TEXT_READ_FLT, &lFlag)));
-    for (ZT_INDEX i = 0; i < (lFlag & 0xff); i++) {lFloat /= 10;}
-    if (lFlag & ZTM_TEXT_DETECT_NGT) {lFloat = -lFloat;}
-    return lFloat;
+const ZT_U8* ZTC8_CopyTargetLength(const ZT_U8* iSource, ZT_U8* oTarget, ZT_INDEX iLength) {
+    ZT_INDEX lCursor = -1;
+    while ((++lCursor < iLength) && ((oTarget[lCursor] = iSource[lCursor]) != ZTM_CHAR_NT));
+    return iSource;
 }
-ZT_DBL ZTC8_ReadDouble(const ZT_U8* iText) {
-    ZT_FLAG lFlag = 0x0;
-    ZT_DBL lDouble = ((ZT_DBL)(ZTC8_ReadUINT32(iText, ZTM_TEXT_READ_FLT, &lFlag)));
-    for (ZT_INDEX i = 0; i < (lFlag & 0xff); i++) {lDouble /= 10;}
-    if (lFlag & ZTM_TEXT_DETECT_NGT) {lDouble = -lDouble;}
-    return lDouble;
-}
-const ZT_U8* ZTC8_CopyTarget(const ZT_U8* iSource, ZT_U8* oTarget) {ZT_INDEX lCursor = -1; while ((oTarget[++lCursor] = iSource[lCursor]) != ZTM_CHAR_NT); return iSource;}
 ZT_U8* ZTC8_CopyLength(const ZT_U8* iText, ZT_INDEX iLength) {
     ZT_INDEX lLengthSource = ZTC8_GetLength(iText);
     if (iLength) {if (lLengthSource > iLength) {lLengthSource = iLength;}} else {iLength = lLengthSource;}
@@ -299,44 +308,53 @@ ZT_U8* ZTC8_Replace(const ZT_U8* iHaystack, const ZT_U8* iNeedle, const ZT_U8* i
 	return NULL;
 }
 ZT_U8* ZTC8_UnsignedBase(ZT_U iInteger, ZT_U iBase) {
-    ZT_U8* lNumber = NULL;
-    ZT_INDEX lMagnitude = 1;
     ZT_U lDivisor = iBase;
+    ZT_INDEX lMagnitude = 2; // includes NT offset
     while (iInteger / lDivisor) {++lMagnitude; if (!(lDivisor *= iBase) || (lDivisor % iBase)) {break;}}
-    lNumber = ZTM8_New(lMagnitude + 1);
-    lNumber[lMagnitude] = ZTM_CHAR_NT;
     lDivisor = 1;
-    for (ZT_INDEX i = 0; i < lMagnitude; i++) {
-        ZT_U lDigit = ((iInteger / lDivisor) % iBase);
-        lNumber[lMagnitude - i - 1] = ((lDigit < 10) ? ZTM_CHAR_0 : ZTM_CHAR_HEX_aOFF) + lDigit;
-        lDivisor *= iBase;
+    ZT_U8* lNumber = ZTM8_New(lMagnitude);
+    lNumber[--lMagnitude] = ZTM_CHAR_NT;
+    if (iBase > 10) {
+        ZT_U lDigit;
+        while (--lMagnitude != (ZT_INDEX)-1) {
+            lDigit = (iInteger / lDivisor) % iBase;
+            lNumber[lMagnitude] = lDigit + ((lDigit < 10) ? ZTM_CHAR_0 : ZTM_CHAR_HEX_aOFF);
+            lDivisor *= iBase;
+        }
+    } else {
+        while (--lMagnitude != (ZT_INDEX)-1) {
+            lNumber[lMagnitude] = ((iInteger / lDivisor) % iBase) + ZTM_CHAR_0;
+            lDivisor *= iBase;
+        }
     }
     return lNumber;
 }
-ZT_U8* ZTC8_IntegerBase(ZT_I iInteger, ZT_I iBase) {
-    if (iInteger == (ZT_I)0x80000000) {return ZTC8_MergeFreeB((const ZT_U8*)"-", ZTC8_Unsigned(0x80000000));} // else integer overflow
-    ZT_U8* lNumber = NULL;
-    ZT_INDEX lIsPositive = (iInteger < 0) ? 0x0 : 0x1;
-    ZT_INDEX lMagnitude = 1;
-    ZT_I lDivisor = (lIsPositive) ? iBase : -iBase;
-    while (iInteger / lDivisor) {++lMagnitude; if (!(lDivisor *= iBase) || (lDivisor % iBase)) {break;}}
-    lNumber = ZTM8_New(lMagnitude + 2 - lIsPositive);
-    lNumber[lMagnitude + (!lIsPositive)] = ZTM_CHAR_NT;
-    lDivisor = (lIsPositive) ? 1 : -1;
-    for (ZT_INDEX i = 0; i < lMagnitude; i++) {
-        ZT_I lDigit = ((iInteger / lDivisor) % iBase);
-        lNumber[lMagnitude - i - lIsPositive] = ((lDigit < 10) ? ZTM_CHAR_0 : ZTM_CHAR_HEX_aOFF) + lDigit;
-        lDivisor *= iBase;
+ZT_U8* ZTC8_IntegerBase(ZT_I iInteger, ZT_U iBase) {
+    ZT_INDEX lIsNegative;
+    ZT_U lInteger = (lIsNegative = (iInteger < 0) ? 1 : 0) ? -iInteger : iInteger;
+    ZT_U lDivisor = iBase;
+    ZT_INDEX lMagnitude = 2 + lIsNegative; // includes NT offset
+    while (lInteger / lDivisor) {++lMagnitude; if (!(lDivisor *= iBase) || (lDivisor % iBase)) {break;}}
+    lDivisor = 1;
+    ZT_U8* lNumber = ZTM8_New(lMagnitude);
+    lNumber[--lMagnitude] = ZTM_CHAR_NT;
+    ZT_INDEX lStop = lIsNegative ? 0 : -1;
+    if (iBase > 10) {
+        ZT_U lDigit;
+        while (--lMagnitude != lStop) {
+            lDigit = (lInteger / lDivisor) % iBase;
+            lNumber[lMagnitude] = lDigit + ((lDigit < 10) ? ZTM_CHAR_0 : ZTM_CHAR_HEX_aOFF);
+            lDivisor *= iBase;
+        }
+    } else {
+        while (--lMagnitude != lStop) {
+            lNumber[lMagnitude] = ((lInteger / lDivisor) % iBase) + ZTM_CHAR_0;
+            lDivisor *= iBase;
+        }
     }
-    if (iInteger < 0) {lNumber[0] = ZTM_CHAR_MINUS;}
+    if (lIsNegative) {lNumber[0] = ZTM_CHAR_MINUS;}
     return lNumber;
 }
-ZT_U8* ZTC8_Unsigned(ZT_U iInteger) {return ZTC8_UnsignedBase(iInteger, 10);}
-ZT_U8* ZTC8_Integer(ZT_I iInteger) {return ZTC8_IntegerBase(iInteger, 10);}
-ZT_U8* ZTC8_Hex(ZT_U iInteger) {return ZTC8_UnsignedBase(iInteger, 0x10);}
-ZT_U8* ZTC8_HexSigned(ZT_I iInteger) {return ZTC8_IntegerBase(iInteger, 0x10);}
-ZT_U8* ZTC8_Binary(ZT_U iInteger) {return ZTC8_UnsignedBase(iInteger, 0x2);}
-ZT_U8* ZTC8_BinarySigned(ZT_I iInteger) {return ZTC8_IntegerBase(iInteger, 0x2);}
 ZT_U8* ZTC8_Date(ZT_TIME iUnix, ZT_FLAG iFormat) {
 	switch (iFormat) {
 		case ZTM_DATE_ISO: return ZTC8_DateISO(iUnix);
@@ -605,6 +623,25 @@ ZT_U8* ZTC8_Printable(const ZT_U8* iData, ZT_INDEX iLength, ZT_U8 iReplacement) 
 	}
 	return NULL;
 }
+ZT_INDEX ZTC8_PathIndexBranchLast(const ZT_U8* iPath) {
+    ZT_INDEX lLength = ZTC8_GetLength(iPath);
+    while (lLength) {if (iPath[--lLength] == ZTM_CHAR_PATH) {return lLength + 1;}}
+    return 0;
+}
+ZT_INDEX ZTC8_PathIndexFileExtension(const ZT_U8* iPath) {
+    ZT_INDEX lLength = ZTC8_GetLength(iPath);
+    while (lLength) {if (iPath[--lLength] == ZTM_CHAR_FILETYPE) {return lLength;}}
+    return 0;
+}
+ZT_INDEX ZTC8_PathIndexFileType(const ZT_U8* iPath) {
+    ZT_INDEX lLength = ZTC8_GetLength(iPath);
+    while (lLength) {if (iPath[--lLength] == ZTM_CHAR_FILETYPE) {return lLength + 1;}}
+    return 0;
+}
+ZT_U8* ZTC8_PathBranchLast(const ZT_U8* iPath) {return ZTC8_Copy(&iPath[ZTC8_PathIndexBranchLast(iPath)]);}
+ZT_U8* ZTC8_PathFileExtension(const ZT_U8* iPath) {return ZTC8_Copy(&iPath[ZTC8_PathIndexFileExtension(iPath)]);}
+ZT_U8* ZTC8_PathFileType(const ZT_U8* iPath) {return ZTC8_Copy(&iPath[ZTC8_PathIndexFileType(iPath)]);}
+ZT_U8* ZTC8_PathFileTitle(const ZT_U8* iPath) {ZT_INDEX lStart = ZTC8_PathIndexBranchLast(iPath); return ZTC8_CopyLength(&iPath[lStart], ZTC8_PathIndexFileExtension(iPath) - lStart);}
 /*
 ZT_BOOL ZTC8_WinCLI(ZT_INDEX argc, ZT_U8** argv, const ZT_U8* iSearch, ZT_INDEX* oIndexFound) {
     if (oIndexFound != NULL) {

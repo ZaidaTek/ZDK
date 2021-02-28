@@ -1,19 +1,16 @@
-/*** Copyright (C) 2019-2020 ZaidaTek and Andreas Riebesehl
+/*** Copyright (C) 2019-2021 ZaidaTek and Andreas Riebesehl
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
 #ifndef ZDX_H_INCLUDED
 #define ZDX_H_INCLUDED
 
-#include <ZTM.h>
+#include "../ZTL/ZTL.h"
 
 #include "ZDX_Define.h"
 #include "ZDX_Types.h"
-
-#include "ZDX_Interface.h"
-#include "ZDX_Runtime.h"
-#include "ZDX_Data.h"
-#include "ZDX_Diagram.h"
+//#include "ZDX_Data.h"
+//#include "ZDX_Diagram.h"
 
 #ifdef __cplusplus
 extern 'C' {
@@ -31,6 +28,17 @@ ZT_FLAG ZDX_GetChannels(ZDX_DEVICE* iDevice);
 ZDX_TRIGGER* ZDX_TriggerNew(void);
 void ZDX_TriggerFree(ZDX_TRIGGER* iTrigger);
 ZT_INDEX ZDX_TriggerCheck(ZDX_TRIGGER* iTrigger, ZDX_DATA* iData, ZT_INDEX iChannel);
+
+
+ZDX_DATA* ZDX_DataNew(ZDX_DEVICE* iDevice, ZT_INDEX iLength);
+ZDX_DATA* ZDX_DataSet(ZDX_DATA* iData, ZT_U iValue);
+void ZDX_DataFree(ZDX_DATA* iData);
+void ZDX_DataLineAdd(ZDX_DATA* iData, const ZT_U* iSample);
+ZT_U* ZDX_DataGetLastLine(ZDX_DATA* iData);
+
+ZDX_DIAGRAM* ZDX_DiagramNew(ZT_FLAG iType);
+void ZDX_DiagramRender(ZDX_DIAGRAM* iDiagram, ZDX_DATA* iData, ZT_SURFACE* oSurface);
+void ZDX_DiagramFree(ZDX_DIAGRAM* iDiagram);
 #ifdef __cplusplus
 }
 #endif // __cplusplus

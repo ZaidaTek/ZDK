@@ -1,4 +1,4 @@
-/*** Copyright (C) 2019-2020 ZaidaTek and Andreas Riebesehl
+/*** Copyright (C) 2019-2021 ZaidaTek and Andreas Riebesehl
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
@@ -20,15 +20,11 @@ ZT_U32 ZTM_Random_32(ZT_U32 iModulo) {
 	return (iModulo ? (rZTM__SEED_32 % iModulo) : rZTM__SEED_32);
 }
 ZT_U32 ZTM_Randomize_32(ZT_U32* ioSeed, ZT_U32 iModulo) {
-	if (ioSeed != NULL) {
-		ZT_U32 lSeed = *ioSeed;
-		lSeed ^= lSeed << 13;
-		lSeed ^= lSeed >> 17;
-		*ioSeed = (lSeed ^= lSeed << 5);
-		return (iModulo ? (lSeed % iModulo) : lSeed);
-	} else {
-		return 0;
-	}
+	ZT_U32 lSeed = *ioSeed;
+	lSeed ^= lSeed << 13;
+	lSeed ^= lSeed >> 17;
+	*ioSeed = (lSeed ^= lSeed << 5);
+	return (iModulo ? (lSeed % iModulo) : lSeed);
 }
 ZT_U64 ZTM_Seed_64(ZT_U64 iSeed) {
 	ZT_U64 lCache = rZTM__SEED_64;
@@ -42,55 +38,105 @@ ZT_U64 ZTM_Random_64(ZT_U64 iModulo) {
 	return (iModulo ? (rZTM__SEED_64 % iModulo) : rZTM__SEED_64);
 }
 ZT_U64 ZTM_Randomize_64(ZT_U64* ioSeed, ZT_U64 iModulo) {
-	if (ioSeed != NULL) {
-		ZT_U64 lSeed = *ioSeed;
-		lSeed ^= lSeed << 13;
-		lSeed ^= lSeed >> 7;
-		*ioSeed = (lSeed ^= lSeed << 17);
-		return (iModulo ? (lSeed % iModulo) : lSeed);
-	} else {
-		return 0;
-	}
+	ZT_U64 lSeed = *ioSeed;
+	lSeed ^= lSeed << 13;
+	lSeed ^= lSeed >> 7;
+	*ioSeed = (lSeed ^= lSeed << 17);
+	return (iModulo ? (lSeed % iModulo) : lSeed);
 }
 ZT_FLAG ZTM_LSB(ZT_FLAG iFlag) {
-    ZT_FLAG lMask = 0x0;
-    ZT_INDEX lIndex = -1;
-    while ((!(lMask = (iFlag & ((ZT_FLAG)0x1 << ++lIndex)))) && ((ZT_FLAG)0x1 << lIndex));
-    return lMask;
+    ZT_FLAG lIndex = 0x1u;
+    while (!(iFlag & lIndex) && (lIndex <<= 1));
+    return iFlag & lIndex;
 }
 ZT_FLAG ZTM_MSB(ZT_FLAG iFlag) {
-    ZT_FLAG lMask = 0x0;
-    ZT_INDEX lIndex = -1;
-    while ((!(lMask = iFlag & (~(((ZT_FLAG)~0x0) >> ((++lIndex) + 1))))) && ((ZT_FLAG)0x1 << lIndex));
-    return lMask;
+    ZT_FLAG lIndex = ~((ZT_FLAG)~0x0u >> 1);
+    while (!(iFlag & lIndex) && (lIndex >>= 1));
+    return iFlag & lIndex;
 }
 ZT_FLAG ZTM_BitFillLeft(ZT_INDEX iCount) {
-    ZT_FLAG lMask = 0x0;
-    ZT_INDEX lIndex = -1;
-    while((++lIndex < iCount) && ((ZT_FLAG)0x1 << lIndex)) {lMask <<= 1; lMask |= 0x1;}
-    return lMask;
+    ///safe, but slow:
+    //ZT_FLAG lIndex = ~0x0;
+    //++iCount;
+    //while (--iCount && (lIndex <<= 1));
+    //return ~lIndex;
+    ///warning: signed and unsigned type in conditional expression [-Wsign-compare]:
+    return (iCount < (sizeof(ZT_FLAG) << 3)) ? ~(((ZT_FLAG)~0x0u) << iCount) : (ZT_FLAG)~0x0u;
+    ///no warnings with this(?):
+    //if (iCount < (sizeof(ZT_FLAG) << 3)) {return ~(((ZT_FLAG)~0x0) << iCount);} else {return ~0x0;}
 }
 ZT_FLAG ZTM_BitFillRight(ZT_INDEX iCount) {
-    ZT_FLAG lMask = 0x0;
-    ZT_FLAG lMSB = ~((ZT_FLAG)~0x0 >> 1);
-    ZT_INDEX lIndex = -1;
-    while((++lIndex < iCount) && ((ZT_FLAG)0x1 << lIndex)) {lMask >>= 1; lMask |= lMSB;}
-    return lMask;
+    ///safe, but slow:
+    //ZT_FLAG lIndex = ~0x0;
+    //++iCount;
+    //while (--iCount && (lIndex >>= 1));
+    //return ~lIndex;
+    ///warning: signed and unsigned type in conditional expression [-Wsign-compare]:
+    return (iCount < (sizeof(ZT_FLAG) << 3)) ? ~(((ZT_FLAG)~0x0u) >> iCount) : (ZT_FLAG)~0x0u;
+    ///no warnings with this(?):
+    //if (iCount < (sizeof(ZT_FLAG) << 3)) {return ~(((ZT_FLAG)~0x0) >> iCount);} else {return ~0x0;}
 }
 ZT_INDEX ZTM_BitCount(ZT_FLAG iFlag) {
-    ZT_FLAG lMask;
     ZT_INDEX lBits = 0;
-    ZT_INDEX lIndex = -1;
-    while ((lMask = (ZT_FLAG)0x1 << (++lIndex))) {if (iFlag & lMask) {++lBits;}}
+    do {if (iFlag & 0x1u) {++lBits;}} while (iFlag >>= 1);
     return lBits;
 }
-ZT_INDEX ZTM_BitIndex(ZT_FLAG iFlag) {ZT_INDEX lBitIndex = -1; while (!((iFlag >> ++lBitIndex) & 0x1) && ((ZT_FLAG)0x1 << lBitIndex)); return lBitIndex;}
-ZT_INDEX ZTM_BitFlagIndex(ZT_FLAG iFlag) {ZT_INDEX lBitIndex = -1; while (!((iFlag >> ++lBitIndex) & 0x1) && ((ZT_FLAG)0x1 << lBitIndex)); return (((ZT_FLAG)0x1 << lBitIndex) ? ++lBitIndex : 0);}
+ZT_INDEX ZTM_BitIndex(ZT_FLAG iFlag) {
+    ZT_INDEX lBitIndex = -1;
+    do {++lBitIndex; if (iFlag & 0x1u) {return lBitIndex;}} while (iFlag >>= 1);
+    return (sizeof(ZT_FLAG) << 3);
+}
+ZT_INDEX ZTM_BitIndexIndex(ZT_FLAG iFlag, ZT_INDEX iIndex) {
+    ZT_INDEX lBitIndex = -1;
+    do {++lBitIndex; if (iFlag & 0x1u) {if (iIndex) {--iIndex;} else {return lBitIndex;}}} while (iFlag >>= 1);
+    return (sizeof(ZT_FLAG) << 3);
+}
+ZT_INDEX ZTM_BitIndexFlag(ZT_FLAG iFlag, ZT_FLAG iBit) {
+    ZT_FLAG lMatch;
+    if ((lMatch = iFlag & iBit)) {
+        ZT_FLAG lBit = 0x1u;
+        ZT_INDEX lBitIndex = 0;
+        do {if (lMatch & lBit) {return lBitIndex;} else if (iFlag & lBit) {++lBitIndex;}} while (lBit <<= 1);
+    }
+    return (sizeof(ZT_FLAG) << 3);
+}
+ZT_INDEX ZTM_BitFlagIndex(ZT_FLAG iFlag) {
+    ZT_INDEX lBitIndex = 0;
+    do {++lBitIndex; if (iFlag & 0x1u) {return lBitIndex;}} while (iFlag >>= 1);
+    return 0;
+}
+ZT_FLAG ZTM_ByteOffset(ZT_FLAG iInput, ZT_FLAG iReference) {
+    ZT_FLAG lOffset = 0x0u;
+    ZT_FLAG lByte;
+    ZT_FLAG lReference;
+    ZT_FLAG lIndex = 0xffu;
+    do {lOffset |= ((lByte = iInput & lIndex) < (lReference = iReference & lIndex)) ? (lReference - lByte) : (lByte - lReference);} while (lIndex <<= 8);
+    return lOffset;
+}
+ZT_INDEX ZTM_ByteSum(ZT_FLAG iFlag) {
+    ZT_INDEX lSum = 0;
+    do {lSum += iFlag & 0xffu;} while (iFlag >>= 8);
+    return lSum;
+}
+ZT_FLAG ZTM_ByteMirror(ZT_FLAG iInput) {
+    ZT_FLAG lUpper = ~((ZT_FLAG)~0x0u >> 8);
+    ZT_FLAG lLower = 0xffu;
+    ZT_INDEX lCount = 0;
+    ZT_FLAG lMirror = 0x0;
+    do {
+        lMirror |= (iInput & lLower) << (((sizeof(ZT_FLAG) - 1) << 3) - (lCount << 4));
+        lMirror |= (iInput & lUpper) >> (((sizeof(ZT_FLAG) - 1) << 3) - (lCount << 4));
+        lLower <<= 8;
+        lUpper >>= 8;
+    } while (++lCount < (sizeof(ZT_FLAG) >> 1));
+    return lMirror;
+}
+// need to be tested
 #define ZTM_BYTECOMPARISON(SAMPLE,REFERENCE,OPERATION) \
     ZT_FLAG lResults = 0x0;\
     ZT_INDEX lByteMask;\
     ZT_INDEX lIndexByte = -1;\
-    while ((lByteMask = (0xff << ((++lIndexByte) << 3)))) {\
+    while ((lByteMask = ((ZT_FLAG)0xff << ((++lIndexByte) << 3)))) {\
         lResults |= ((((SAMPLE & lByteMask) OPERATION (REFERENCE & lByteMask)) ? 0x01010101 : 0x0) & lByteMask);\
     }\
     return lResults
@@ -98,23 +144,7 @@ ZT_FLAG ZTM_ByteLess(ZT_FLAG iInput, ZT_FLAG iReference) {ZTM_BYTECOMPARISON(iIn
 ZT_FLAG ZTM_ByteLessEqual(ZT_FLAG iInput, ZT_FLAG iReference) {ZTM_BYTECOMPARISON(iInput, iReference, <=);}
 ZT_FLAG ZTM_ByteGreater(ZT_FLAG iInput, ZT_FLAG iReference) {ZTM_BYTECOMPARISON(iInput, iReference, >);}
 ZT_FLAG ZTM_ByteGreaterEqual(ZT_FLAG iInput, ZT_FLAG iReference) {ZTM_BYTECOMPARISON(iInput, iReference, >=);}
-ZT_FLAG ZTM_ByteOffset(ZT_FLAG iInput, ZT_FLAG iReference) {
-    ZT_FLAG lOffset = 0x0;
-    ZT_FLAG lByte;
-    ZT_FLAG lReference;
-    ZT_INDEX lIndex = -1;
-    ZT_INDEX lShift;
-    while (0xff << (lShift = ((++lIndex) << 3))) {
-        lByte = ((iInput >> lShift) & 0xff);
-        lReference = ((iReference >> lShift) & 0xff);
-        if (lByte < iReference) {
-            lOffset |= (lReference - lByte) << lShift;
-        } else {
-            lOffset |= (lByte - lReference) << lShift;
-        }
-    }
-    return lOffset;
-}
+// need to be tested
 #define ZTM_BYTEOPERATION(INPUT,OPERAND,OPERATION) \
     ZT_INDEX lResult = 0;\
     ZT_INDEX lIndexByte = -1;\
@@ -127,16 +157,9 @@ ZT_FLAG ZTM_ByteAdd(ZT_FLAG iInput, ZT_FLAG iOperand) {ZTM_BYTEOPERATION(iInput,
 ZT_FLAG ZTM_ByteSubtract(ZT_FLAG iInput, ZT_FLAG iOperand) {ZTM_BYTEOPERATION(iInput, iOperand, -);}
 ZT_FLAG ZTM_ByteMultiply(ZT_FLAG iInput, ZT_FLAG iOperand) {ZTM_BYTEOPERATION(iInput, iOperand, *);}
 ZT_FLAG ZTM_ByteDivide(ZT_FLAG iInput, ZT_FLAG iOperand) {ZTM_BYTEOPERATION(iInput, iOperand, /);}
-ZT_INDEX ZTM_ByteSum(ZT_FLAG iFlag) {
-    ZT_INDEX lSum = 0;
-    ZT_INDEX lShift;
-    ZT_INDEX lIndex = -1;
-    while (0xff << (lShift = ((++lIndex) << 3))) {lSum += ((iFlag >> lShift) & 0xff);}
-    return lSum;
-}
-ZT_FLAG ZTM_ByteMirror(ZT_FLAG iInput) {return ((iInput << 24) | (iInput >> 24) | ((iInput & 0xff00) << 8) | ((iInput >> 8) & 0xff00));}
-ZT_U ZTM_Exp(ZT_INDEX iMagnitude) {ZT_INDEX lIndex = -1; ZT_U lFactor = 1; while ((0x1 << ++lIndex) && (lIndex < iMagnitude)) {lFactor *= 10;} return lFactor;}
-ZT_INDEX ZTM_Magnitude(ZT_U iInteger) {ZT_INDEX lIndex = -1; while ((0x1 << ++lIndex) && (iInteger /= 10)); return lIndex;}
+
+ZT_U ZTM_Exp(ZT_INDEX iMagnitude) {++iMagnitude; ZT_U lExp = 1u; while (--iMagnitude) {lExp *= 10u;} return lExp;}
+ZT_INDEX ZTM_Magnitude(ZT_U iInteger) {ZT_INDEX lMag = 0u; while (iInteger /= 10u) {++lMag;} return lMag;}
 ZT_INDEX ZTM_MagnitudeSigned(ZT_I iInteger) {return ZTM_Magnitude((iInteger < 0) ? -iInteger : iInteger);}
 #ifndef ZTM_POINT_MACRO
 void ZTM_UPoint(ZT_UPOINT* oPoint, const ZT_U iX, const ZT_U iY) {oPoint->xU = iX; oPoint->yU = iY;}
@@ -147,9 +170,7 @@ void ZTM_PointZero(ZT_POINT* oPoint) {oPoint->x = 0; oPoint->y = 0;}
 ZT_I ZTM_PointArea(const ZT_POINT* iPoint) {return (iPoint->x * iPoint->y);}
 ZT_BOOL ZTM_PointIsNotZero(const ZT_POINT* iPoint) {return (iPoint->x || iPoint->y);}
 #endif // ZTM_POINT_MACRO
-ZT_BOOL ZTM_PointWithinRect(const ZT_POINT* iPoint, const ZT_RECT* iRect) {
-	if (iPoint->x >= iRect->x) {if (iPoint->x < iRect->x + iRect->w) {if (iPoint->y >= iRect->y) {if (iPoint->y < iRect->y + iRect->h) {return ZT_TRUE;}}}} return ZT_FALSE;
-}
+ZT_BOOL ZTM_PointWithinRect(const ZT_POINT* iPoint, const ZT_RECT* iRect) {return ((iPoint->x >= iRect->x) && (iPoint->x < iRect->x + iRect->w) && (iPoint->y >= iRect->y) && (iPoint->y < iRect->y + iRect->h)) ? ZT_TRUE : ZT_FALSE;}
 #ifndef ZTM_RECT_MACRO
 void ZTM_Rect(ZT_RECT* oRect, const ZT_I iX, const ZT_I iY, const ZT_I iW, const ZT_I iH) {oRect->x = iX; oRect->y = iY; oRect->w = iW; oRect->h = iH;}
 void ZTM_RectZero(ZT_RECT* oRect) {oRect->x = 0; oRect->y = 0; oRect->w = 0; oRect->h = 0;}
@@ -174,83 +195,68 @@ void ZTM_RectClipFromOriginToPoint(ZT_RECT* ioRect, const ZT_POINT* iSize) { // 
     if (iSize->x - ioRect->x < ioRect->w) {ioRect->w = iSize->x - ioRect->x;}
     if (iSize->y - ioRect->y < ioRect->h) {ioRect->h = iSize->y - ioRect->y;}
 }
-#ifndef ZTM_MALLOC_MACRO
-void ZTM8_Free(void* iData) {free(iData);}
-void* ZTM8_New(ZT_INDEX iLength) {return malloc(iLength);}
-void* ZTM8_Resize(void* iData, ZT_INDEX iLength) {return realloc(iData, iLength);}
-void* ZTM8_Zero(void* iData, ZT_INDEX iLength)  {ZT_INDEX i = ~0; while (++i < iLength) {((ZT_U8*)iData)[i] = 0x0;} return iData;}
-void* ZTM8_Set(void* iData, ZT_U8 iValue, ZT_INDEX iLength) {ZT_INDEX i = ~0; while (++i < iLength) {((ZT_U8*)iData)[i] = iValue;} return iData;}
-void* ZTM8_Init(ZT_INDEX iLength, ZT_U8 iValue) {return ZTM8_Set(malloc(iLength), iValue, iLength);}
-void* ZTM8_Copy(const void* iSource, void* oTarget, ZT_INDEX iLength) {ZT_INDEX lCursor = ~0; while (++lCursor < iLength) {((ZT_U8*)oTarget)[lCursor] = ((ZT_U8*)iSource)[lCursor];} return oTarget;}
-void* ZTM8_Move(void* iSource, void* oTarget, ZT_INDEX iLength) {ZTM8_Copy(iSource, oTarget, iLength); ZTM8_Free(iSource); return oTarget;}
-void ZTM32_Free(void* iData) {free(iData);}
-void* ZTM32_New(ZT_INDEX iLength) {return malloc(iLength << 2);}
-void* ZTM32_Resize(void* iData, ZT_INDEX iLength) {return realloc(iData, iLength << 2);}
-void* ZTM32_Copy(const void* iSource, void* oTarget, ZT_INDEX iLength) {ZT_INDEX lCursor = ~0; while (++lCursor < iLength) {((ZT_U32*)oTarget)[lCursor] = ((ZT_U32*)iSource)[lCursor];} return oTarget;}
-void* ZTM32_Move(void* iSource, void* oTarget, ZT_INDEX iLength) {ZTM32_Copy(iSource, oTarget, iLength); ZTM32_Free(iSource); return oTarget;}
-void* ZTM32_Zero(void* iData, ZT_INDEX iLength)  {ZT_INDEX i = ~0; while (++i < iLength) {((ZT_U32*)iData)[i] = 0x0;} return iData;}
-void* ZTM32_Set(void* iData, ZT_U32 iValue, ZT_INDEX iLength) {ZT_INDEX i = ~0; while (++i < iLength) {((ZT_U32*)iData)[i] = iValue;} return iData;}
-void* ZTM32_Init(ZT_INDEX iLength, ZT_U32 iValue) {return ZTM32_Set(malloc(iLength << 2), iValue, iLength);}
-void* ZTM32_NewBlock(const ZT_UPOINT* iBlockSize) {return malloc((iBlockSize->xU * iBlockSize->yU) << 2);}
-void* ZTM32_ResizeBlock(void* iData, const ZT_UPOINT* iBlockSize) {return realloc(iData, (iBlockSize->xU * iBlockSize->yU) << 2);}
-void* ZTM32_CopyBlock(const void* iSource, void* oTarget, const ZT_UPOINT* iBlockSize) {ZT_INDEX lLength = (iBlockSize->xU * iBlockSize->yU); ZT_INDEX lCursor = ~0; while (++lCursor < lLength) {((ZT_U32*)oTarget)[lCursor] = ((ZT_U32*)iSource)[lCursor];} return oTarget;}
-void* ZTM32_MoveBlock(void* iSource, void* oTarget, const ZT_UPOINT* iBlockSize) {ZTM32_CopyBlock(iSource, oTarget, iBlockSize); ZTM32_Free(iSource); return oTarget;}
-void* ZTM32_SetBlock(void* iData, ZT_U32 iValue, const ZT_UPOINT* iBlockSize) {return ZTM32_Set(iData, iValue, (iBlockSize->xU * iBlockSize->yU));}
-void* ZTM32_InitBlock(const ZT_UPOINT* iBlockSize, ZT_U32 iValue) {return ZTM32_Set(malloc((iBlockSize->xU * iBlockSize->yU) << 2), iValue, (iBlockSize->xU * iBlockSize->yU));}
-#else
+ZT_BOOL ZTM_RectIntersect(const ZT_RECT* iRect0, const ZT_RECT* iRect1, ZT_RECT* oIntersection) {
+	ZT_I lL0 = iRect0->x;
+	ZT_I lT0 = iRect0->y;
+	ZT_I lR0 = lL0 + iRect0->w;
+	ZT_I lB0 = lT0 + iRect0->h;
+	ZT_I lL1 = iRect1->x;
+	ZT_I lT1 = iRect1->y;
+	ZT_I lR1 = lL1 + iRect1->w;
+	ZT_I lB1 = lT1 + iRect1->h;
+	if (lR0 <= lL1 || lR1 <= lL0) {
+		return ZT_FALSE;
+	} else if (lB0 <= lT1 || lB1 <= lT0) {
+		return ZT_FALSE;
+	} else {
+		if (oIntersection != NULL) {
+			oIntersection->w = ((lR1 > lR0) ? lR0 : lR1) - (oIntersection->x = (lL1 < lL0) ? lL0 : lL1);
+			oIntersection->h = ((lB1 > lB0) ? lB0 : lB1) - (oIntersection->y = (lT1 < lT0) ? lT0 : lT1);
+		}
+		return ZT_TRUE;
+	}
+}
 #define ZTM_FREE(DATA) free(DATA)
-#define ZTM_NEW(LENGTH,UNIT) malloc(LENGTH * sizeof(UNIT))
-#define ZTM_RESIZE(DATA,LENGTH,UNIT) realloc(DATA,LENGTH * sizeof(UNIT))
-#define ZTM_ZERO(DATA,LENGTH,UNIT) ({ZT_INDEX rZERO_i = -1; while (++rZERO_i < (LENGTH)) {((UNIT*)(DATA))[rZERO_i] = 0x0;} (DATA);})
-#define ZTM_COPY(SOURCE,TARGET,LENGTH,UNIT) ({ZT_INDEX rCOPY_i = -1; while (++rCOPY_i < (LENGTH)) {((UNIT*)(TARGET))[rCOPY_i] = ((UNIT*)(SOURCE))[rCOPY_i];} (TARGET);})
-#define ZTM_SET(DATA,VALUE,LENGTH,UNIT) ({ZT_INDEX rSET_i = -1; while (++rSET_i < (LENGTH)) {((UNIT*)(DATA))[rSET_i] = VALUE;} (DATA);})
+#define ZTM_NEW(LENGTH,UNIT) malloc((LENGTH) * sizeof(UNIT))
+#define ZTM_RESIZE(DATA,LENGTH,UNIT) realloc((DATA),(LENGTH) * sizeof(UNIT))
+#define ZTM_ZERO(DATA,LENGTH,UNIT) ({ZT_SIZE rZERO_i = -1; while (++rZERO_i < (LENGTH)) {((UNIT*)(DATA))[rZERO_i] = 0x0;} (DATA);})
+#define ZTM_COPY(SOURCE,TARGET,LENGTH,UNIT) ({ZT_SIZE rCOPY_i = -1; while (++rCOPY_i < (LENGTH)) {((UNIT*)(TARGET))[rCOPY_i] = ((UNIT*)(SOURCE))[rCOPY_i];} (TARGET);})
+#define ZTM_SET(DATA,VALUE,LENGTH,UNIT) ({ZT_SIZE rSET_i = -1; while (++rSET_i < (LENGTH)) {((UNIT*)(DATA))[rSET_i] = VALUE;} (DATA);})
 #define ZTM_INIT(LENGTH,VALUE,UNIT) ({void* rINIT_data = ZTM_NEW(LENGTH,UNIT); ZTM_SET(rINIT_data,VALUE,LENGTH,UNIT); rINIT_data;})
 #define ZTM_MOVE(SOURCE,TARGET,LENGTH,UNIT) ({ZTM_COPY(SOURCE,TARGET,LENGTH,UNIT); ZTM_FREE(SOURCE); (TARGET);})
 void ZTM8_Free(void* iData) {ZTM_FREE(iData);}
-void* ZTM8_New(ZT_INDEX iLength) {return ZTM_NEW(iLength, ZT_U8);}
-void* ZTM8_Resize(void* iData, ZT_INDEX iLength) {return ZTM_RESIZE(iData, iLength, ZT_U8);}
-void* ZTM8_Zero(void* iData, ZT_INDEX iLength)  {return ZTM_ZERO(iData, iLength, ZT_U8);}
-void* ZTM8_Set(void* iData, ZT_U8 iValue, ZT_INDEX iLength) {return ZTM_SET(iData, iValue, iLength, ZT_U8);}
-void* ZTM8_Init(ZT_INDEX iLength, ZT_U8 iValue) {return ZTM_INIT(iLength, iValue, ZT_U8);}
-void* ZTM8_Copy(const void* iSource, void* oTarget, ZT_INDEX iLength) {return ZTM_COPY(iSource, oTarget, iLength, ZT_U8);}
-void* ZTM8_Move(void* iSource, void* oTarget, ZT_INDEX iLength) {return ZTM_MOVE(iSource, oTarget, iLength, ZT_U8);}
+void* ZTM8_New(ZT_SIZE iLength) {return ZTM_NEW(iLength, ZT_U8);}
+void* ZTM8_Resize(void* iData, ZT_SIZE iLength) {return ZTM_RESIZE(iData, iLength, ZT_U8);}
+void* ZTM8_Zero(void* iData, ZT_SIZE iLength)  {return ZTM_ZERO(iData, iLength, ZT_U8);}
+void* ZTM8_Set(void* iData, ZT_U8 iValue, ZT_SIZE iLength) {return ZTM_SET(iData, iValue, iLength, ZT_U8);}
+void* ZTM8_Init(ZT_SIZE iLength, ZT_U8 iValue) {return ZTM_INIT(iLength, iValue, ZT_U8);}
+void* ZTM8_Copy(const void* iSource, void* oTarget, ZT_SIZE iLength) {return ZTM_COPY(iSource, oTarget, iLength, ZT_U8);}
+void* ZTM8_Move(void* iSource, void* oTarget, ZT_SIZE iLength) {return ZTM_MOVE(iSource, oTarget, iLength, ZT_U8);}
 void ZTM32_Free(void* iData) {ZTM_FREE(iData);}
-void* ZTM32_New(ZT_INDEX iLength) {return ZTM_NEW(iLength, ZT_U32);}
-void* ZTM32_Resize(void* iData, ZT_INDEX iLength) {return ZTM_RESIZE(iData, iLength, ZT_U32);}
-void* ZTM32_Zero(void* iData, ZT_INDEX iLength)  {return ZTM_ZERO(iData, iLength, ZT_U32);}
-void* ZTM32_Set(void* iData, ZT_U32 iValue, ZT_INDEX iLength) {return ZTM_SET(iData, iValue, iLength, ZT_U32);}
-void* ZTM32_Init(ZT_INDEX iLength, ZT_U32 iValue) {return ZTM_INIT(iLength, iValue, ZT_U32);}
-void* ZTM32_Copy(const void* iSource, void* oTarget, ZT_INDEX iLength) {return ZTM_COPY(iSource, oTarget, iLength, ZT_U32);}
-void* ZTM32_Move(void* iSource, void* oTarget, ZT_INDEX iLength) {return ZTM_MOVE(iSource, oTarget, iLength, ZT_U32);}
+void* ZTM32_New(ZT_SIZE iLength) {return ZTM_NEW(iLength, ZT_U32);}
+void* ZTM32_Resize(void* iData, ZT_SIZE iLength) {return ZTM_RESIZE(iData, iLength, ZT_U32);}
+void* ZTM32_Zero(void* iData, ZT_SIZE iLength)  {return ZTM_ZERO(iData, iLength, ZT_U32);}
+void* ZTM32_Set(void* iData, ZT_U32 iValue, ZT_SIZE iLength) {return ZTM_SET(iData, iValue, iLength, ZT_U32);}
+void* ZTM32_Init(ZT_SIZE iLength, ZT_U32 iValue) {return ZTM_INIT(iLength, iValue, ZT_U32);}
+void* ZTM32_Copy(const void* iSource, void* oTarget, ZT_SIZE iLength) {return ZTM_COPY(iSource, oTarget, iLength, ZT_U32);}
+void* ZTM32_Move(void* iSource, void* oTarget, ZT_SIZE iLength) {return ZTM_MOVE(iSource, oTarget, iLength, ZT_U32);}
 void* ZTM32_NewBlock(const ZT_UPOINT* iSize) {return ZTM_NEW((iSize->xU * iSize->yU), ZT_U32);}
 void* ZTM32_ResizeBlock(void* iData, const ZT_UPOINT* iSize) {return ZTM_RESIZE(iData, (iSize->xU * iSize->yU), ZT_U32);}
 void* ZTM32_CopyBlock(const void* iSource, void* oTarget, const ZT_UPOINT* iSize) {return ZTM_COPY(iSource, oTarget, (iSize->xU * iSize->yU), ZT_U32);}
 void* ZTM32_MoveBlock(void* iSource, void* oTarget, const ZT_UPOINT* iSize) {return ZTM_MOVE(iSource, oTarget, (iSize->xU * iSize->yU), ZT_U32);}
 void* ZTM32_SetBlock(void* iData, ZT_U32 iValue, const ZT_UPOINT* iSize) {return ZTM_SET(iData, iValue, (iSize->xU * iSize->yU), ZT_U32);}
 void* ZTM32_InitBlock(const ZT_UPOINT* iSize, ZT_U32 iValue) {return ZTM_INIT((iSize->xU * iSize->yU), iValue, ZT_U32);}
-#endif // ZTM_MALLOC_MACRO
-ZT_BOOL ZTM8_Match(const void* iSource, const void* iTarget, ZT_INDEX iLength) {
-    ZT_INDEX lIndex = -1;
+void* ZTM8_NewArray(ZT_SIZE iCount, ZT_SIZE iElement, ZT_SIZE iPadding, void** oList) {
+	ZT_SIZE lLength = ((iElement % iPadding) ? (iElement + (iPadding - (iElement % iPadding))) : iElement);
+	void* lMemory = ZTM_NEW(lLength * iCount, ZT_U8);
+	if (oList != NULL) {for (ZT_SIZE i = 0; i < iCount; ++i) {oList[i] = lMemory + i * lLength;}}
+	return lMemory;
+}
+ZT_BOOL ZTM8_Match(const void* iSource, const void* iTarget, ZT_SIZE iLength) {
+    ZT_SIZE lIndex = -1;
     while (++lIndex < iLength) {if (((const ZT_U8*)iTarget)[lIndex] != ((const ZT_U8*)iSource)[lIndex]) {return ZT_FALSE;}}
     return ZT_TRUE;
 }
-/*void ZTM8_DataFree(ZT_DATA_U8* iData) {
-	if (iData != NULL) {ZTM8_Free(iData->payload);}
-}
-ZT_DATA_U8* ZTM8_DataNull(ZT_DATA_U8* iData) {
-	if (iData != NULL) {
-		iData->payload = NULL;
-		iData->length = 0;
-	}
-	return iData;
-}
-ZT_DATA_U8* ZTM8_DataZero(ZT_DATA_U8* iData) {
-	if (iData != NULL) {
-		ZTM8_Zero(iData->payload, iData->length);
-		iData->length = 0;
-	}
-	return iData;
-}*/
 ZT_DATA* ZTM_DataNew(ZT_SIZE iLength) {
 	ZT_DATA* lData;
 	if ((lData = ZTM8_New(sizeof(ZT_DATA))) != NULL) {
@@ -286,34 +292,34 @@ ZT_DATA* ZTM_DataNewWrap(ZT_U8* iData, ZT_SIZE iLength) {
 	return NULL;
 }
 void ZTM_DataFreePayloadSecure(ZT_DATA* iData) {
-    if (iData != NULL) {
+    //if (iData != NULL) {
 		ZTM8_Zero(iData->payload, iData->length);
         ZTM_FreeNull(iData->payload);
 		iData->length = 0;
-    }
+    //}
 }
 void ZTM_DataFreeSecure(ZT_DATA* iData) {
-    if (iData != NULL) {
+    //if (iData != NULL) {
 		ZTM8_Zero(iData->payload, iData->length);
         ZTM8_Free(iData->payload);
         ZTM8_Free(iData);
-    }
+    //}
 }
 void ZTM_DataFreePayload(ZT_DATA* iData) {
-    if (iData != NULL) {
+    //if (iData != NULL) {
         ZTM_FreeNull(iData->payload);
 		iData->length = 0;
-    }
+    //}
 }
 void ZTM_DataFreeWrap(ZT_DATA* iData) {
-    if (iData != NULL) {
+    //if (iData != NULL) {
         ZTM8_Free(iData);
-    }
+    //}
 }
 void ZTM_DataFree(ZT_DATA* iData) {
-    if (iData != NULL) {
+    //if (iData != NULL) {
         ZTM8_Free(iData->payload);
         ZTM8_Free(iData);
-    }
+    //}
 }
 #endif // ZTM_C_INCLUDED

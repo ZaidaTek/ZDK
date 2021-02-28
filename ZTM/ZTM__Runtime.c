@@ -1,4 +1,4 @@
-/*** Copyright (C) 2019-2020 ZaidaTek and Andreas Riebesehl
+/*** Copyright (C) 2019-2021 ZaidaTek and Andreas Riebesehl
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
@@ -9,8 +9,6 @@
 
 ZT_U32			rZTM__SEED_32 = 0x1;
 ZT_U64			rZTM__SEED_64 = 0x1;
-ZT_FLAG			rZTM_COLOR__PALLETE = 0x0;
-ZT_COLOR		rZTM_COLOR__SHIFT[3] = {0x0};
 const ZT_TIME	rZTM_TIME__DAYSPERMONTH[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 ZT_FLAG			rZTM_TIME__INIT = 0x1;
 ZT_TIME			rZTM_TIME__ZONE = 0;

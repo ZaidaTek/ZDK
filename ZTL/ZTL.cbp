@@ -11,31 +11,45 @@
 				<Option object_output="obj/" />
 				<Option type="3" />
 				<Option compiler="gcc" />
-				<Option projectCompilerOptionsRelation="0" />
+				<Compiler>
+					<Add option="-flto" />
+				</Compiler>
+				<Linker>
+					<Add directory="../.." />
+					<Add option="-lwinmm -lcomdlg32 -lZTM" />
+					<Add option="-flto" />
+				</Linker>
+			</Target>
+			<Target title="lib">
+				<Option output="../../__static/ZTL" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-fno-exceptions" />
-			<Add option="-fexpensive-optimizations" />
-			<Add option="-flto" />
-			<Add option="-O3" />
+			<Add directory="../ZTM" />
 			<Add option="-Wfatal-errors" />
 			<Add option="-Wextra" />
 			<Add option="-Wall" />
-			<Add directory="../ZTM" />
+			<Add option="-O3" />
 		</Compiler>
 		<Linker>
 			<Add option="-O3" />
-			<Add option="-flto" />
 			<Add option="-s" />
-			<Add option="-lZTM -lzlib" />
-			<Add directory="../.." />
 		</Linker>
-		<Unit filename="ZTL.h" />
-		<Unit filename="ZTLZP/ZTLZP.c">
+		<Unit filename="ZTL.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZTLZP/ZTLZP.h" />
+		<Unit filename="ZTL.h" />
+		<Unit filename="ZTL_Define.h" />
+		<Unit filename="ZTL_W32.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZTL__Runtime.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZTL__Runtime.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

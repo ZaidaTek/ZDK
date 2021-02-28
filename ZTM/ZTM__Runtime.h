@@ -1,4 +1,4 @@
-/*** Copyright (C) 2019-2020 ZaidaTek and Andreas Riebesehl
+/*** Copyright (C) 2019-2021 ZaidaTek and Andreas Riebesehl
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
@@ -7,18 +7,20 @@
 
 #include "ZTM.h"
 
-ZT_U32			rZTM__SEED_32;
-ZT_U64			rZTM__SEED_64;
-ZT_FLAG			rZTM_COLOR__PALLETE;
-ZT_COLOR		rZTM_COLOR__SHIFT[3];
-const ZT_TIME	rZTM_TIME__DAYSPERMONTH[12];
-ZT_FLAG			rZTM_TIME__INIT;
-ZT_TIME			rZTM_TIME__ZONE;
-ZT_TIME			rZTM_TIME__UTC;
-ZT_TIME			rZTM_TIME__LOCAL;
+#define ZTM__INCL__MAIN <stdlib.h> // malloc(), realloc(), free()
+#define ZTM__INCL__TIME <time.h> // clock(), time(), gmtime(), mktime(), struct tm, time_t
+#define ZTM__INCL__LIST <stdlib.h> // qsort()
 
-ZT_U8			rZTC8__ISO8601__[20];
-const ZT_U8*	rZTC8__DAY[7];
-const ZT_U8*	rZTC8__MONTH[12];
+extern ZT_U32			rZTM__SEED_32;
+extern ZT_U64			rZTM__SEED_64;
+extern const ZT_TIME	rZTM_TIME__DAYSPERMONTH[12];
+extern ZT_FLAG			rZTM_TIME__INIT;
+extern ZT_TIME			rZTM_TIME__ZONE;
+extern ZT_TIME			rZTM_TIME__UTC;
+extern ZT_TIME			rZTM_TIME__LOCAL;
+
+extern ZT_U8			rZTC8__ISO8601__[20];
+extern const ZT_U8*	rZTC8__DAY[7];
+extern const ZT_U8*	rZTC8__MONTH[12];
 
 #endif // ZTM__RUNTIME_H_INCLUDED

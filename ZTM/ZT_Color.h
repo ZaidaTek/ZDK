@@ -1,4 +1,4 @@
-/*** Copyright (C) 2019-2020 ZaidaTek and Andreas Riebesehl
+/*** Copyright (C) 2019-2021 ZaidaTek and Andreas Riebesehl
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
@@ -81,28 +81,44 @@
 #define ZTM_PALETTE_RGBA_SHIFTG 16
 #define ZTM_PALETTE_RGBA_SHIFTB 8
 
+///implement these someday
+//#define ZTM_PALETTE_0BGR 0x0421
+//#define ZTM_PALETTE_RGB0 0x1240
+//#define ZTM_PALETTE_BGRA 0x4218
+//#define ZTM_PALETTE_BGR0 0x4210
+///and these for flipping color channels
+//#define ZTM_PALETTE_ARBG
+//#define ZTM_PALETTE_ABRG
+//#define ZTM_PALETTE_AGBR
+//#define ZTM_PALETTE_AGRB
+///etc...
+
+///something, something, endianess
+//#define ZTM_PALETTE_BITMAP ZTM_PALETTE_0BGR
+//#define ZTM_PALETTE_JPG ZTM_PALETTE_0BGR
+#define ZTM_PALETTE_PNG ZTM_PALETTE_ABGR
+
 #ifdef __cplusplus
 extern "C" {
 #endif // __cplusplus
 ZT_BOOL ZTM_ColorPalette(ZT_FLAG iPalette);
-ZT_COLOR ZTM_ColorMask(ZT_FLAG iPalette);
-ZT_INDEX ZTM_ColorShift(ZT_FLAG iPalette);
-ZT_COLOR ZTM_ColorAlphaMask(ZT_FLAG iPalette);
-ZT_COLOR ZTM_ColorRedMask(ZT_FLAG iPalette);
-ZT_COLOR ZTM_ColorGreenMask(ZT_FLAG iPalette);
-ZT_COLOR ZTM_ColorBlueMask(ZT_FLAG iPalette);
-ZT_INDEX ZTM_ColorAlphaShift(ZT_FLAG iPalette);
-ZT_INDEX ZTM_ColorRedShift(ZT_FLAG iPalette);
-ZT_INDEX ZTM_ColorGreenShift(ZT_FLAG iPalette);
-ZT_INDEX ZTM_ColorBlueShift(ZT_FLAG iPalette);
-ZT_INDEX ZTM_ColorAlpha(ZT_COLOR iColor, ZT_FLAG iPalette);
-ZT_INDEX ZTM_ColorRed(ZT_COLOR iColor, ZT_FLAG iPalette);
-ZT_INDEX ZTM_ColorGreen(ZT_COLOR iColor, ZT_FLAG iPalette);
-ZT_INDEX ZTM_ColorBlue(ZT_COLOR iColor, ZT_FLAG iPalette);
-ZT_COLOR ZTM_ColorPaletteConvert(ZT_COLOR iColor, ZT_FLAG iPaletteSource, ZT_FLAG iPaletteTarget);
+ZT_COLOR ZTM_ColorMaskC(ZT_FLAG iPalette);
+ZT_COLOR ZTM_ColorMaskA(ZT_FLAG iPalette);
+ZT_COLOR ZTM_ColorMaskR(ZT_FLAG iPalette);
+ZT_COLOR ZTM_ColorMaskG(ZT_FLAG iPalette);
+ZT_COLOR ZTM_ColorMaskB(ZT_FLAG iPalette);
+ZT_INDEX ZTM_ColorShiftC(ZT_FLAG iPalette);
+ZT_INDEX ZTM_ColorShiftA(ZT_FLAG iPalette);
+ZT_INDEX ZTM_ColorShiftR(ZT_FLAG iPalette);
+ZT_INDEX ZTM_ColorShiftG(ZT_FLAG iPalette);
+ZT_INDEX ZTM_ColorShiftB(ZT_FLAG iPalette);
+ZT_INDEX ZTM_ColorA(ZT_COLOR iColor, ZT_FLAG iPalette);
+ZT_INDEX ZTM_ColorR(ZT_COLOR iColor, ZT_FLAG iPalette);
+ZT_INDEX ZTM_ColorG(ZT_COLOR iColor, ZT_FLAG iPalette);
+ZT_INDEX ZTM_ColorB(ZT_COLOR iColor, ZT_FLAG iPalette);
+ZT_COLOR ZTM_ColorConvert(ZT_COLOR iColor, ZT_FLAG iPaletteSource, ZT_FLAG iPaletteTarget);
 ZT_COLOR ZTM_ColorComplementary(ZT_COLOR iColor);
 ZT_INDEX ZTM_ColorBlend(ZT_INDEX iColor, ZT_INDEX iBase, ZT_INDEX iAlpha);
-ZT_COLOR ZTM_PixelBlend(ZT_COLOR iColor, ZT_COLOR iBase, ZT_FLAG iPalette);
 #ifdef __cplusplus
 }
 #endif // __cplusplus

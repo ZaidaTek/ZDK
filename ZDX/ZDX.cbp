@@ -11,24 +11,32 @@
 				<Option object_output="obj/" />
 				<Option type="3" />
 				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-flto" />
+				</Compiler>
+				<Linker>
+					<Add directory="../.." />
+					<Add option="-lZTM -lZTL" />
+					<Add option="-flto" />
+				</Linker>
+			</Target>
+			<Target title="lib">
+				<Option output="../../__static/ZDX" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-fno-exceptions" />
-			<Add option="-fexpensive-optimizations" />
-			<Add option="-flto" />
-			<Add option="-O3" />
+			<Add directory="../ZTL" />
 			<Add option="-Wfatal-errors" />
 			<Add option="-Wextra" />
 			<Add option="-Wall" />
-			<Add directory="../ZTM" />
+			<Add option="-O3" />
 		</Compiler>
 		<Linker>
 			<Add option="-O3" />
-			<Add option="-flto" />
 			<Add option="-s" />
-			<Add option="-lZTM" />
-			<Add directory="../.." />
 		</Linker>
 		<Unit filename="ZDX.c">
 			<Option compilerVar="CC" />
@@ -37,21 +45,15 @@
 		<Unit filename="ZDX_Data.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZDX_Data.h" />
 		<Unit filename="ZDX_Define.h" />
 		<Unit filename="ZDX_Diagram.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZDX_Diagram.h" />
 		<Unit filename="ZDX_Interface.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZDX_Interface.h" />
-		<Unit filename="ZDX_Runtime.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="ZDX_Runtime.h" />
 		<Unit filename="ZDX_Types.h" />
+		<Unit filename="ZDX__Runtime.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

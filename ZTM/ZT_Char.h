@@ -1,4 +1,4 @@
-/*** Copyright (C) 2019-2020 ZaidaTek and Andreas Riebesehl
+/*** Copyright (C) 2019-2021 ZaidaTek and Andreas Riebesehl
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
@@ -9,9 +9,6 @@
 
 #define ZTM_CHAR_MAP_ANSI 0x0
 #define ZTM_CHAR_MAP ZTM_CHAR_MAP_ANSI
-// USED FOR GENERATING SPRITES OF FONTS
-#define ZTM_CHAR_MASK ((ZT_CHAR)~0x0)
-#define ZTM_CHAR_SET (ZTM_CHAR_MASK + 1)
 #define ZTM_TEXT_MAX_LENGTH 8192 // fallback-length for some functions if no length parameter is passed
 // CHAR MAPPING ANSI
 #define ZTM_CHAR_ANSI_NT 			0x00
@@ -55,6 +52,8 @@
 #define ZTM_CHAR_ZERO			ZTM_CHAR_0
 #define ZTM_CHAR_b 				(ZTM_CHAR_a + 1)
 #define ZTM_CHAR_x 				(ZTM_CHAR_a + 23) // YETI Uppercase hex-keys, as in 0XFFBBCCEF? Same for binary.
+#define ZTM_CHAR_B 				(ZTM_CHAR_A + 1)
+#define ZTM_CHAR_X 				(ZTM_CHAR_A + 23) // YETI Uppercase hex-keys, as in 0XFFBBCCEF? Same for binary.
 #define ZTM_CHAR_2 				(ZTM_CHAR_0 + 2)
 #define ZTM_CHAR_0L1 			(ZTM_CHAR_0 - 1)
 #define ZTM_CHAR_9P1 			(ZTM_CHAR_0 + 10)
@@ -62,6 +61,8 @@
 #define ZTM_CHAR_aL1 			(ZTM_CHAR_a - 1)
 #define ZTM_CHAR_FP1 			(ZTM_CHAR_A + 6)
 #define ZTM_CHAR_fP1 			(ZTM_CHAR_a + 6)
+#define ZTM_CHAR_VP1 			(ZTM_CHAR_A + 22)
+#define ZTM_CHAR_vP1 			(ZTM_CHAR_a + 22)
 #define ZTM_CHAR_ZP1 			(ZTM_CHAR_A + 26)
 #define ZTM_CHAR_zP1 			(ZTM_CHAR_a + 26)
 #define ZTM_CHAR_HEX_AOFF 		(ZTM_CHAR_A - 10)
@@ -70,23 +71,23 @@
 #define ZTM_CHAR_ESCAPE 		ZTM_CHAR_BACKSLASH
 #define ZTM_CHAR_FILETYPE	 	ZTM_CHAR_DOT
 // NEWLINE SYMBOL & STRING
-#ifdef ZTM_ARCH__MAC
+#ifdef ZTM__OS__APPLE
 #define ZTM_CHAR_NL      		ZTM_CHAR_CR
 #define ZTM_TEXT_NL				"\r"
 #else
 #define ZTM_CHAR_NL      		ZTM_CHAR_LF
-#ifdef ZTM_ARCH__WIN
+#ifdef ZTM__OS__WINDOWS
 #define ZTM_TEXT_NL				"\r\n"
 #else
 #define ZTM_TEXT_NL				"\n"
-#endif // ZTM_ARCH__WIN
-#endif // ZTM_ARCH__MAC
+#endif // ZTM__OS__WINDOWS
+#endif // ZTM__OS__APPLE
 // PATH DENOMINATOR
-#ifdef ZTM_ARCH__WIN
+#ifdef ZTM__OS__WINDOWS
 #define ZTM_CHAR_PATH			ZTM_CHAR_BACKSLASH
 #else
 #define ZTM_CHAR_PATH			ZTM_CHAR_SLASH
-#endif // ZTM_ARCH__WIN
+#endif // ZTM__OS__WINDOWS
 // DECIMAL MARK
 #define ZTM_CHAR_DECIMAL	 	ZTM_CHAR_DOT
 
@@ -107,56 +108,68 @@
 #define ZTM_DATE_ANSI 0x10 // MMM DD YYYY, (D < 10) ? " D" : "DD"
 #define ZTM_DATE_COMPILER ZTM_DATE_ANSI
 
-#define ZTM_FONT_STYLE_NORMAL 0x0
-#define ZTM_FONT_STYLE_BOLD 0x1
-#define ZTM_FONT_STYLE_ITALIC 0x2
-#define ZTM_FONT_STYLE_UNDERLINE 0x4
-#define ZTM_FONT_STYLE_STRIKEOUT 0x8
+///PENDING MOVE TO ZTK:
+///USED FOR GENERATING SPRITES OF FONTS
+///MOVED TO ZTK, STILL NEEDED FOR ZTMWV
+#define ZTM_TEXT_STYLE_NORMAL 0x0
+#define ZTM_TEXT_STYLE_BOLD 0x1
+#define ZTM_TEXT_STYLE_ITALIC 0x2
+#define ZTM_TEXT_STYLE_UNDERLINE 0x4
+#define ZTM_TEXT_STYLE_STRIKEOUT 0x8
+#define ZTM_TEXT_STYLE_ALIGN_RIGHT 0x10
+#define ZTM_TEXT_STYLE_ALIGN_CENTER 0x20
+#define ZTM_TEXT_STYLE_VALIGN_BOTTOM 0x40
+#define ZTM_TEXT_STYLE_VALIGN_CENTER 0x80
+#define ZTM_TEXT_STYLE_SINGLE_LINE 0x100
+#define ZTM_TEXT_STYLE_BREAK_WORDS 0x200
+#define ZTM_TEXT_STYLE_OPAQUE 0x1000
+#define ZTM_TEXT_STYLE_CLIP 0x2000
 
-#define ZTM_FONT_STYLE_ALIGN_RIGHT 0x10
-#define ZTM_FONT_STYLE_ALIGN_CENTER 0x20
-#define ZTM_FONT_STYLE_VALIGN_BOTTOM 0x40
-#define ZTM_FONT_STYLE_VALIGN_CENTER 0x80
-#define ZTM_FONT_STYLE_SINGLE_LINE 0x100
-#define ZTM_FONT_STYLE_BREAK_WORDS 0x200
-
-#define ZTM_FONT_STYLE_OPAQUE 0x1000
-#define ZTM_FONT_STYLE_CLIP 0x2000
-
-#define ZTM_FONT_TYPE_NONE 0x0
-#define ZTM_FONT_TYPE_TTF 0x1
-
-#define ZTM_FONT_FLAG_NONE 0x0
-#define ZTM_FONT_FLAG_SOURCE_LOADED 0x1
-#define ZTM_FONT_FLAG_RELOAD 0x2
-#define ZTM_FONT_FLAG_COPIED_SOURCE 0x4
-#define ZTM_FONT_FLAG_COPIED_NAME 0x8
-
-#define ZTC8_NotNull(TEXT) (((TEXT) != NULL) ? (TEXT) : (const ZT_CHAR*)"")
+//#define ZTC8_NotNull(TEXT) (((TEXT) != NULL) ? (TEXT) : (const ZT_CHAR*)"") // what was this for?
 
 #define ZTC8_CursorValidMax(TEXT,CURSOR,MAX) ((CURSOR < MAX) ? ((((const ZT_CHAR*)(TEXT))[CURSOR] != ZTM_CHAR_NT) ? 0x1 : 0x0) : 0x0)
 #define ZTC8_CursorValid(TEXT,CURSOR) ZTC8_CURSORVALIDMAX(TEXT,CURSOR,ZTM_TEXT_MAX_LENGTH)
-#define ZTC8_IsAZ(TEXT) ((TEXT)[0] > ZTM_CHAR_AL1 && (TEXT)[0] < ZTM_CHAR_ZP1)
-#define ZTC8_IsAz(TEXT) ((TEXT)[0] > ZTM_CHAR_aL1 && (TEXT)[0] < ZTM_CHAR_zP1)
-#define ZTC8_IsAzZ(TEXT) (((TEXT)[0] > ZTM_CHAR_aL1 && (TEXT)[0] < ZTM_CHAR_zP1) || (TEXT)[0] > ZTM_CHAR_AL1 && (TEXT)[0] < ZTM_CHAR_ZP1)
-#define ZTC8_IsDigit(TEXT) ((TEXT)[0] > ZTM_CHAR_0L1 && (TEXT)[0] < ZTM_CHAR_9P1)
-#define ZTC8_IsBinary(TEXT) ((TEXT)[0] > ZTM_CHAR_0L1 && (TEXT)[0] < ZTM_CHAR_2)
-#define ZTC8_IsHexAF(TEXT) ((TEXT)[0] > ZTM_CHAR_AL1 && (TEXT)[0] < ZTM_CHAR_FP1)
-#define ZTC8_IsHexAf(TEXT) ((TEXT)[0] > ZTM_CHAR_aL1 && (TEXT)[0] < ZTM_CHAR_fP1)
-#define ZTC8_IsHexAfF(TEXT) (((TEXT)[0] > ZTM_CHAR_aL1 && (TEXT)[0] < ZTM_CHAR_fP1) || ((TEXT)[0] > ZTM_CHAR_AL1 && (TEXT)[0] < ZTM_CHAR_FP1))
+
+#define ZTC8_IsAZ(CHAR) ((((CHAR) < ZTM_CHAR_ZP1) && ((CHAR) > ZTM_CHAR_AL1)) ? ZT_TRUE : ZT_FALSE)
+#define ZTC8_IsAz(CHAR) ((((CHAR) < ZTM_CHAR_zP1) && ((CHAR) > ZTM_CHAR_aL1)) ? ZT_TRUE : ZT_FALSE)
+#define ZTC8_IsAzAZ(CHAR) (((((CHAR) < ZTM_CHAR_ZP1) && ((CHAR) > ZTM_CHAR_AL1)) || (((CHAR) < ZTM_CHAR_zP1) && ((CHAR) > ZTM_CHAR_aL1))) ? ZT_TRUE : ZT_FALSE)
+#define ZTC8_IsDigit(CHAR) ((((CHAR) < ZTM_CHAR_9P1) && ((CHAR) > ZTM_CHAR_0L1)) ? ZT_TRUE : ZT_FALSE)
+#define ZTC8_IsBinary(CHAR) ((((CHAR) < ZTM_CHAR_2) && ((CHAR) > ZTM_CHAR_0L1)) ? ZT_TRUE : ZT_FALSE)
+#define ZTC8_IsHexAF(CHAR) ((((CHAR) < ZTM_CHAR_FP1) && ((CHAR) > ZTM_CHAR_AL1)) ? ZT_TRUE : ZT_FALSE)
+#define ZTC8_IsHexAf(CHAR) ((((CHAR) < ZTM_CHAR_fP1) && ((CHAR) > ZTM_CHAR_aL1)) ? ZT_TRUE : ZT_FALSE)
+#define ZTC8_IsHexAfAF(CHAR) (((((CHAR) < ZTM_CHAR_fP1) && ((CHAR) > ZTM_CHAR_aL1)) || (((CHAR) < ZTM_CHAR_FP1) && ((CHAR) > ZTM_CHAR_AL1))) ? ZT_TRUE : ZT_FALSE)
+#define ZTC8_IsHex32AV(CHAR) ((((CHAR) < ZTM_CHAR_VP1) && ((CHAR) > ZTM_CHAR_AL1)) ? ZT_TRUE : ZT_FALSE)
+#define ZTC8_IsHex32Av(CHAR) ((((CHAR) < ZTM_CHAR_vP1) && ((CHAR) > ZTM_CHAR_aL1)) ? ZT_TRUE : ZT_FALSE)
+#define ZTC8_IsHex32AvAV(CHAR) (((((CHAR) < ZTM_CHAR_vP1) && ((CHAR) > ZTM_CHAR_aL1)) || (((CHAR) < ZTM_CHAR_VP1) && ((CHAR) > ZTM_CHAR_AL1))) ? ZT_TRUE : ZT_FALSE)
+#define ZTC8_IsAlphanumeric(CHAR) (((ZTC8_IsAzAZ(CHAR) != ZT_FALSE) || (ZTC8_IsDigit(CHAR) != ZT_FALSE)) ? ZT_TRUE : ZT_FALSE)
+#define ZTC8_IsBase32AV(CHAR) ZTC8_IsHex32AV(CHAR)
+#define ZTC8_IsBase32Av(CHAR) ZTC8_IsHex32Av(CHAR)
+#define ZTC8_IsBase32AvAV(CHAR) ZTC8_IsHex32AvAV(CHAR)
+#define ZTC8_IsHex36AZ(CHAR) ZTC8_IsAZ(CHAR)
+#define ZTC8_IsHex36Az(CHAR) ZTC8_IsAz(CHAR)
+#define ZTC8_IsHex36AzAZ(CHAR) ZTC8_IsAzAZ(CHAR)
+#define ZTC8_IsBase36AZ(CHAR) ZTC8_IsAZ(CHAR)
+#define ZTC8_IsBase36Az(CHAR) ZTC8_IsAz(CHAR)
+#define ZTC8_IsBase36AzAZ(CHAR) ZTC8_IsAzAZ(CHAR)
+
 #define ZTC8_IsCRLF(TEXT) (((TEXT)[0] == ZTM_CHAR_CR) ? (((TEXT)[1] == ZTM_CHAR_LF) ? 0x1 : 0x0) : 0x0)
 #define ZTC8_IsDblCRLF(TEXT) (((TEXT)[0] == ZTM_CHAR_CR) ? (((TEXT)[1] == ZTM_CHAR_LF) ? (((TEXT)[2] == ZTM_CHAR_CR) ? (((TEXT)[3] == ZTM_CHAR_LF) ? 0x1 : 0x0) : 0x0) : 0x0) : 0x0)
-#define ZTC8_IsAlphanumeric(TEXT) (ZTC8_IsAz(TEXT) || ZTC8_IsAZ(TEXT) || ZTC8_IsDigit(TEXT))
+
 #define ZTC8_SeekDigit(TEXT) ZTC8_SeekDigitCursorMax((TEXT),NULL,ZTM_TEXT_MAX_LENGTH)
 #define ZTC8_SeekDigitCursor(TEXT,CURSOR) ZTC8_SeekDigitCursorMax((TEXT),(CURSOR),ZTM_TEXT_MAX_LENGTH)
 #define ZTC8_SeekCRLF(TEXT) ZTC8_SeekCRLFCursorMax((TEXT),NULL,ZTM_TEXT_MAX_LENGTH)
 #define ZTC8_SeekCRLFCursor(TEXT,CURSOR) ZTC8_SeekCRLFCursorMax((TEXT),(CURSOR),ZTM_TEXT_MAX_LENGTH)
 #define ZTC8_Seek(TEXT,SEARCH) ZTC8_SeekCursorMax((TEXT),(SEARCH),NULL,ZTM_TEXT_MAX_LENGTH)
 #define ZTC8_SeekCursor(TEXT,SEARCH,CURSOR) ZTC8_SeekCursorMax((TEXT),(SEARCH),(CURSOR),ZTM_TEXT_MAX_LENGTH)
-#define ZTC8_GetDigit(TEXT) (ZTC8_IsDigit(TEXT) ? ((TEXT)[0] - ZTM_CHAR_0) : 10)
-#define ZTC8_GetBinary(TEXT) (ZTC8_IsBinary(TEXT) ? ((TEXT)[0] - ZTM_CHAR_0) : 0x2)
-#define ZTC8_GetHex(TEXT) (ZTC8_IsDigit(TEXT) ? ((TEXT)[0] - ZTM_CHAR_0) : (ZTC8_IsHexAf(TEXT) ? ((TEXT)[0] - ZTM_CHAR_HEX_aOFF) : (ZTC8_IsHexAF(TEXT) ? (TEXT)[0] - ZTM_CHAR_HEX_AOFF : 0x10)))
 
+#define ZTC8_GetDigit(CHAR) ((ZTC8_IsDigit(CHAR) != ZT_FALSE) ? ((CHAR) - ZTM_CHAR_0) : 10)
+#define ZTC8_GetBinary(CHAR) ((ZTC8_IsBinary(CHAR) != ZT_FALSE) ? ((CHAR) - ZTM_CHAR_0) : 0x2)
+#define ZTC8_GetHex(CHAR) ((ZTC8_IsDigit(CHAR) != ZT_FALSE) ? ((CHAR) - ZTM_CHAR_0) : ((ZTC8_IsHexAf(CHAR) != ZT_FALSE) ? ((CHAR) - ZTM_CHAR_HEX_aOFF) : ((ZTC8_IsHexAF(CHAR) != ZT_FALSE) ? ((CHAR) - ZTM_CHAR_HEX_AOFF) : 0x10)))
+///NEED TO IMPLEMENT FOR W/O MACRO (wait, do these even have macro-less implementations?)
+#define ZTC8_GetHex32(CHAR) ((ZTC8_IsDigit(CHAR) != ZT_FALSE) ? ((CHAR) - ZTM_CHAR_0) : ((ZTC8_IsHex32Av(CHAR) != ZT_FALSE) ? ((CHAR) - ZTM_CHAR_HEX_aOFF) : ((ZTC8_IsHex32AV(CHAR) != ZT_FALSE) ? ((CHAR) - ZTM_CHAR_HEX_AOFF) : 0x20)))
+#define ZTC8_GetHex36(CHAR) ((ZTC8_IsDigit(CHAR) != ZT_FALSE) ? ((CHAR) - ZTM_CHAR_0) : ((ZTC8_IsAz(CHAR) != ZT_FALSE) ? ((CHAR) - ZTM_CHAR_HEX_aOFF) : ((ZTC8_IsAZ(CHAR) != ZT_FALSE) ? ((CHAR) - ZTM_CHAR_HEX_AOFF) : 0x24)))
+#define ZTC8_GetBase32(CHAR) ZTC8_GetHex32(CHAR)
+#define ZTC8_GetBase36(CHAR) ZTC8_GetHex36(CHAR)
 // ***All*** functions will only null-check pointers if they are optional
 #ifdef __cplusplus
 extern "C" {
@@ -178,6 +191,12 @@ ZT_BOOL ZTC8_MatchExact(const ZT_U8* iText1, const ZT_U8* iText2); // returns tr
 ZT_BOOL ZTC8_MatchLenient(const ZT_U8* iText1, const ZT_U8* iText2); // returns false upon mismatch, else exits true if either input terminates
 ZT_BOOL ZTC8_SeekCursorMax(const ZT_U8* iText, const ZT_U8* iSearch, ZT_INDEX* oCursor, ZT_INDEX iByteMax); // oCursor is *both* input and output
 ZT_FLAG ZTC8_Escape(ZT_FLAG iEscape, ZT_CHAR iChar);
+ZT_U8* ZTC8_Unsigned(ZT_U iInteger);
+ZT_U8* ZTC8_Integer(ZT_I iInteger);
+ZT_U8* ZTC8_Hex(ZT_U iInteger);
+//ZT_U8* ZTC8_HexSigned(ZT_I iInteger);
+ZT_U8* ZTC8_Binary(ZT_U iInteger);
+//ZT_U8* ZTC8_BinarySigned(ZT_I iInteger);
 #else
 #define ZTC8_GetLength(TEXT) ({ZT_INDEX rGETLENGTH_n = -1; while ((TEXT)[++rGETLENGTH_n] != ZTM_CHAR_NT); rGETLENGTH_n;})
 #define ZTC8_CountChar(HAYSTACK,NEEDLE) ({ZT_INDEX rCOUNTCHAR_n = 0; ZT_INDEX rCOUNTCHAR_i = -1; while ((HAYSTACK)[++rCOUNTCHAR_i] != ZTM_CHAR_NT) {if ((HAYSTACK)[rCOUNTCHAR_i] == (NEEDLE)) {++rCOUNTCHAR_n;}} rCOUNTCHAR_n;})
@@ -237,18 +256,28 @@ ZT_FLAG ZTC8_Escape(ZT_FLAG iEscape, ZT_CHAR iChar);
 	}\
 	FLAG;\
 })
+#define ZTC8_Unsigned(NUMBER) ZTC8_UnsignedBase((NUMBER),10)
+#define ZTC8_Integer(NUMBER) ZTC8_IntegerBase((NUMBER),10)
+#define ZTC8_Hex(NUMBER) ZTC8_UnsignedBase((NUMBER),0x10)
+//#define ZTC8_HexSigned(NUMBER) ZTC8_IntegerBase((NUMBER),0x10)
+#define ZTC8_Binary(NUMBER) ZTC8_UnsignedBase((NUMBER),0x2)
+//#define ZTC8_BinarySigned(NUMBER) ZTC8_IntegerBase((NUMBER),0x2)
 #endif // ZTM_CHAR_MACRO
 ZT_BOOL ZTC8_SeekDigitCursorMax(const ZT_U8* iText, ZT_INDEX* oCursor, ZT_INDEX iByteMax);
 ZT_BOOL ZTC8_SeekCRLFCursorMax(const ZT_U8* iText, ZT_INDEX* oCursor, ZT_INDEX iByteMax);
 ZT_FLAG ZTC8_SeekBOM(const void* iText);
-ZT_I ZTC8_ReadNumber(const ZT_U8* iText); // TODO implement all-detected-ok
-ZT_U ZTC8_ReadUnsigned(const ZT_U8* iText);
+
+///ZT_I ZTC8_ReadNumber(const ZT_U8* iText); // reimplement with arbitrary base
 ZT_I ZTC8_ReadInteger(const ZT_U8* iText);
+ZT_U ZTC8_ReadUnsigned(const ZT_U8* iText);
+ZT_U ZTC8_ReadDecimal(const ZT_U8* iText);
 ZT_U ZTC8_ReadBinary(const ZT_U8* iText);
 ZT_U ZTC8_ReadHex(const ZT_U8* iText);
 ZT_FLT ZTC8_ReadFloat(const ZT_U8* iText);
 ZT_DBL ZTC8_ReadDouble(const ZT_U8* iText);
+
 const ZT_U8* ZTC8_CopyTarget(const ZT_U8* iSource, ZT_U8* oTarget); // make void!
+const ZT_U8* ZTC8_CopyTargetLength(const ZT_U8* iSource, ZT_U8* oTarget, ZT_INDEX iLength); // make void too!
 ZT_U8* ZTC8_CopyLength(const ZT_U8* iText, ZT_INDEX iLength);
 ZT_U8* ZTC8_CopyModulating(const ZT_U8* iText, ZT_INDEX iLength);
 ZT_U8* ZTC8_Copy(const ZT_U8* iText);
@@ -260,12 +289,8 @@ ZT_U8* ZTC8_CopyAndFree(const ZT_U8* iCopy, ZT_U8* iDelete); // do two things on
 ZT_U8* ZTC8_FreeAndCopy(ZT_U8* iDelete, const ZT_U8* iCopy); // name-sequences are tantamount
 ZT_INDEX ZTC8_ReplaceGetLength(const ZT_U8* iHaystack, const ZT_U8* iNeedle, const ZT_U8* iReplacement);
 ZT_U8* ZTC8_Replace(const ZT_U8* iHaystack, const ZT_U8* iNeedle, const ZT_U8* iReplacement);
-ZT_U8* ZTC8_Unsigned(ZT_U iInteger);
-ZT_U8* ZTC8_Integer(ZT_I iInteger);
-ZT_U8* ZTC8_Hex(ZT_U iInteger);
-ZT_U8* ZTC8_HexSigned(ZT_I iInteger);
-ZT_U8* ZTC8_Binary(ZT_U iInteger);
-ZT_U8* ZTC8_BinarySigned(ZT_I iInteger);
+ZT_U8* ZTC8_UnsignedBase(ZT_U iInteger, ZT_U iBase);
+ZT_U8* ZTC8_IntegerBase(ZT_I iInteger, ZT_U iBase);
 ZT_U8* ZTC8_Date(ZT_TIME iUnix, ZT_FLAG iFormat);
 ZT_U8* ZTC8_DateISO(ZT_TIME iUnix);
 ZT_U8* ZTC8_DateINTL(ZT_TIME iUnix);
@@ -282,6 +307,15 @@ ZT_U8* ZTC8_RFC1123(ZT_TIME iUnixUTC);
 ZT_U8* ZTC8_Bytes(const ZT_U8* iBytes, ZT_INDEX iLength, const ZT_U8* iDelimiter, ZT_INDEX iGrouping);
 ZT_U8* ZTC8_Hash(const void* iHash, ZT_INDEX iBits, const ZT_U8* iDelimiter, ZT_INDEX iGrouping);
 ZT_U8* ZTC8_Printable(const ZT_U8* iData, ZT_INDEX iLength, ZT_U8 iReplacement);
+ZT_INDEX ZTC8_PathIndexBranchLast(const ZT_U8* iPath);
+#define ZTC8_PathIndexFilename(PATH) ZTC8_PathIndexBranchLast(PATH)
+ZT_INDEX ZTC8_PathIndexFileExtension(const ZT_U8* iPath);
+ZT_INDEX ZTC8_PathIndexFileType(const ZT_U8* iPath);
+ZT_U8* ZTC8_PathBranchLast(const ZT_U8* iPath);
+#define ZTC8_PathFilename(PATH) ZTC8_PathBranchLast(PATH)
+ZT_U8* ZTC8_PathFileExtension(const ZT_U8* iPath);
+ZT_U8* ZTC8_PathFileType(const ZT_U8* iPath);
+ZT_U8* ZTC8_PathFileTitle(const ZT_U8* iPath);
 //ZT_BOOL ZTC8_WinCLI(ZT_INDEX argc, ZT_U8** argv, const ZT_U8* iSearch, ZT_INDEX* oIndexFound);
 //ZT_U8* ZTC8_ConvertUTF8ToWin1252(const ZT_U8* iText);
 #ifdef __cplusplus

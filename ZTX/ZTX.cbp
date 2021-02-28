@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="ZTX" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="dll">
+				<Option output="../../ZTX" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-flto" />
+				</Compiler>
+				<Linker>
+					<Add directory="../.." />
+					<Add option="-lZTM -lZTL" />
+					<Add option="-flto" />
+				</Linker>
+			</Target>
+			<Target title="lib">
+				<Option output="../../__static/ZTX" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+			</Target>
+		</Build>
+		<Compiler>
+			<Add directory="C:/__lib/zlib" />
+			<Add directory="C:/__lib/libpng" />
+			<Add directory="C:/__lib/libjpeg" />
+			<Add directory="../ZTL" />
+			<Add option="-Wfatal-errors" />
+			<Add option="-Wextra" />
+			<Add option="-Wall" />
+			<Add option="-O3" />
+		</Compiler>
+		<Linker>
+			<Add option="-O3" />
+			<Add option="-s" />
+		</Linker>
+		<Unit filename="ZTX.h" />
+		<Unit filename="ZTX_GZIP.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZTX_GZIP.h" />
+		<Unit filename="ZTX_JPG.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZTX_JPG.h" />
+		<Unit filename="ZTX_PNG.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZTX_PNG.h" />
+		<Unit filename="ZTX__Runtime.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZTX__Runtime.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

@@ -1,4 +1,4 @@
-/*** Copyright (C) 2019-2020 ZaidaTek and Andreas Riebesehl
+/*** Copyright (C) 2019-2021 ZaidaTek and Andreas Riebesehl
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
@@ -11,12 +11,12 @@
 #define NULL (void*)0x0
 #endif // NULL
 // ZTM OPTIONS
-#define ZTM_MALLOC_MACRO // uses function macros for memory management routines
+//#define ZTM_MALLOC_MACRO // uses function macros for memory management routines
 #define ZTM_POINT_MACRO // uses function macros for ZT_POINT types instead of -fPIC
 #define ZTM_RECT_MACRO // uses function macros for ZT_RECT types instead of -fPIC
 #define ZTM_CHAR_MACRO
 // ZTM MANDATORY
-#include "ZT_Types.h"
+#include "ZTM_Types.h"
 // ZTM MACRO
 #define ZTM_CoerceIfZero(VAR, VAL) ((!(VAR)) ? ((VAR) = (VAL)) : (VAR))
 #define ZTM_CoerceIfNotZero(VAR, VAL) ((VAR) ? ((VAR) = (VAL)) : (VAR))
@@ -40,6 +40,14 @@
 #define ZTM_SetIfEqualElseToggleBy(VAR,REF,VAL,ELSE) if ((VAR) == (REF)) {(VAR) = (VAL);} else {(VAR) ^= (ELSE);}
 #define ZTM_FreeNull(DATA) ZTM8_Free(DATA); (DATA) = NULL
 #define ZTM_FreeSet(DATA, VAL) ({ZTM8_Free(DATA); (DATA) = (VAL);})
+#define ZTM_GetU16LE(ADDRESS) (((ADDRESS)[0]) | ((ADDRESS)[1] << 8))
+#define ZTM_GetU32LE(ADDRESS) (((ADDRESS)[0]) | ((ADDRESS)[1] << 8) | ((ADDRESS)[2] << 16) | ((ADDRESS)[3] << 24))
+#define ZTM_GetU64LE(ADDRESS) (((ADDRESS)[0]) | ((ADDRESS)[1] << 8) | ((ADDRESS)[2] << 16) | ((ADDRESS)[3] << 24) | ((ADDRESS)[4] << 32) | ((ADDRESS)[5] << 40) | ((ADDRESS)[6] << 48) | ((ADDRESS)[7] << 56))
+#define ZTM_GetU16BE(ADDRESS) (((ADDRESS)[1]) | ((ADDRESS)[0] << 8))
+#define ZTM_GetU32BE(ADDRESS) (((ADDRESS)[3]) | ((ADDRESS)[2] << 8) | ((ADDRESS)[1] << 16) | ((ADDRESS)[0] << 24))
+#define ZTM_GetU64BE(ADDRESS) (((ADDRESS)[7]) | ((ADDRESS)[6] << 8) | ((ADDRESS)[5] << 16) | ((ADDRESS)[4] << 24) | ((ADDRESS)[3] << 32) | ((ADDRESS)[2] << 40) | ((ADDRESS)[1] << 48) | ((ADDRESS)[0] << 56))
+#define ZTM_U16LE(ADDRESS,DATA) (ADDRESS)[0] = ((DATA) & 0xff); (ADDRESS)[1] = (((DATA) >> 8) & 0xff)
+#define ZTM_U32LE(ADDRESS,DATA) (ADDRESS)[0] = ((DATA) & 0xff); (ADDRESS)[1] = (((DATA) >> 8) & 0xff); (ADDRESS)[2] = (((DATA) >> 16) & 0xff); (ADDRESS)[3] = (((DATA) >> 24) & 0xff)
 // ZTM FUNCTIONS
 #ifdef __cplusplus
 extern "C" {
@@ -58,7 +66,9 @@ ZT_FLAG ZTM_MSB(ZT_FLAG iFlag);
 ZT_FLAG ZTM_BitFillLeft(ZT_INDEX iCount);
 ZT_FLAG ZTM_BitFillRight(ZT_INDEX iCount);
 ZT_INDEX ZTM_BitCount(ZT_FLAG iFlag);
-ZT_INDEX ZTM_BitIndex(ZT_FLAG iFlag);
+ZT_INDEX ZTM_BitIndex(ZT_FLAG iFlag); ///need to find new names for these...
+ZT_INDEX ZTM_BitIndexIndex(ZT_FLAG iFlag, ZT_INDEX iIndex);
+ZT_INDEX ZTM_BitIndexFlag(ZT_FLAG iFlag, ZT_FLAG iBit);
 ZT_INDEX ZTM_BitFlagIndex(ZT_FLAG iFlag);
 ZT_FLAG ZTM_ByteLess(ZT_FLAG iInput, ZT_FLAG iReference);
 ZT_FLAG ZTM_ByteLessEqual(ZT_FLAG iInput, ZT_FLAG iReference);
@@ -129,32 +139,32 @@ ZT_I ZTM_RectArea(const ZT_RECT* iRect);
 #define ZTM_RectArea(RECT) ((RECT)->w * (RECT)->h)
 #endif // ZTM_RECT_MACRO
 void ZTM_RectClipFromOriginToPoint(ZT_RECT* iRect, const ZT_POINT* iSize);
+ZT_BOOL ZTM_RectIntersect(const ZT_RECT* iRect0, const ZT_RECT* iRect1, ZT_RECT* oIntersection);
+//void ZTM_RectCorner(const ZT_RECT* iRect, ZT_POINT* oCorners);
 void ZTM8_Free(void* iData);
-void* ZTM8_New(ZT_INDEX iLength);
-void* ZTM8_Resize(void* iData, ZT_INDEX iLength);
-void* ZTM8_Copy(const void* iSource, void* iTarget, ZT_INDEX iLength);
-void* ZTM8_Set(void* iData, ZT_U8 iValue, ZT_INDEX iLength);
-void* ZTM8_Zero(void* iData, ZT_INDEX iLength);
-void* ZTM8_Init(ZT_INDEX iLength, ZT_U8 iVal);
-void* ZTM8_Move(void* iSource, void* iTarget, ZT_INDEX iLength);
+void* ZTM8_New(ZT_SIZE iLength);
+void* ZTM8_Resize(void* iData, ZT_SIZE iLength);
+void* ZTM8_Copy(const void* iSource, void* iTarget, ZT_SIZE iLength);
+void* ZTM8_Set(void* iData, ZT_U8 iValue, ZT_SIZE iLength);
+void* ZTM8_Zero(void* iData, ZT_SIZE iLength);
+void* ZTM8_Init(ZT_SIZE iLength, ZT_U8 iVal);
+void* ZTM8_Move(void* iSource, void* iTarget, ZT_SIZE iLength);
+void* ZTM8_NewArray(ZT_SIZE iCount, ZT_SIZE iElement, ZT_SIZE iPadding, void** oList);
 void ZTM32_Free(void* iData);
-void* ZTM32_New(ZT_INDEX iLength);
-void* ZTM32_Resize(void* iData, ZT_INDEX iLength);
-void* ZTM32_Copy(const void* iSource, void* iTarget, ZT_INDEX iLength);
-void* ZTM32_Move(void* iSource, void* iTarget, ZT_INDEX iLength);
-void* ZTM32_Set(void* iData, ZT_U32 iValue, ZT_INDEX iLength);
-void* ZTM32_Zero(void* iData, ZT_INDEX iLength);
-void* ZTM32_Init(ZT_INDEX iLength, ZT_U32 iValue);
+void* ZTM32_New(ZT_SIZE iLength);
+void* ZTM32_Resize(void* iData, ZT_SIZE iLength);
+void* ZTM32_Copy(const void* iSource, void* iTarget, ZT_SIZE iLength);
+void* ZTM32_Move(void* iSource, void* iTarget, ZT_SIZE iLength);
+void* ZTM32_Set(void* iData, ZT_U32 iValue, ZT_SIZE iLength);
+void* ZTM32_Zero(void* iData, ZT_SIZE iLength);
+void* ZTM32_Init(ZT_SIZE iLength, ZT_U32 iValue);
 void* ZTM32_NewBlock(const ZT_UPOINT* iSize);
 void* ZTM32_ResizeBlock(void* iData, const ZT_UPOINT* iSize);
 void* ZTM32_CopyBlock(const void* iSource, void* iTarget, const ZT_UPOINT* iSize);
 void* ZTM32_MoveBlock(void* iSource, void* iTarget, const ZT_UPOINT* iSize);
 void* ZTM32_SetBlock(void* iData, ZT_U32 iValue, const ZT_UPOINT* iSize);
 void* ZTM32_InitBlock(const ZT_UPOINT* iSize, ZT_U32 iValue);
-ZT_BOOL ZTM8_Match(const void* iSource, const void* iTarget, ZT_INDEX iLength);
-/*void ZTM8_DataFree(ZT_DATA_U8* iData);
-ZT_DATA_U8* ZTM8_DataNull(ZT_DATA_U8* iData);
-ZT_DATA_U8* ZTM8_DataZero(ZT_DATA_U8* iData);*/
+ZT_BOOL ZTM8_Match(const void* iSource, const void* iTarget, ZT_SIZE iLength);
 ZT_DATA* ZTM_DataNew(ZT_SIZE iLength);
 ZT_DATA* ZTM_DataNewCopy(const ZT_U8* iData, ZT_SIZE iLength);
 ZT_DATA* ZTM_DataNewWrap(ZT_U8* iData, ZT_SIZE iLength);
@@ -165,8 +175,6 @@ void ZTM_DataFreeWrap(ZT_DATA* iData);
 void ZTM_DataFree(ZT_DATA* iData);
 #ifdef __cplusplus
 }
-// ZTM CPP ONLY
-//#include "ZTM_Operators.h"
 #endif // __cplusplus
 
 #include "ZT_Time.h"
@@ -176,7 +184,6 @@ void ZTM_DataFree(ZT_DATA* iData);
 #include "ZT_Color.h"
 #include "ZT_Pixel.h"
 #include "ZT_Surface.h"
-//#include "ZT_Sprite.h" // moved to ZTK
 #include "ZTMIO/ZTMIO.h"
 #include "ZTMKY/ZTMKY.h"
 #include "ZTMWV/ZTMWV.h"

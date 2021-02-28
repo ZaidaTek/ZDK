@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="ZUI" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="dll">
+				<Option output="../../ZUI" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-flto" />
+				</Compiler>
+				<Linker>
+					<Add directory="../.." />
+					<Add option="-lZTM -lZTL -lZTK" />
+					<Add option="-flto" />
+				</Linker>
+			</Target>
+			<Target title="lib">
+				<Option output="../../__static/ZUI" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+			</Target>
+		</Build>
+		<Compiler>
+			<Add directory="../ZTK" />
+			<Add option="-Wfatal-errors" />
+			<Add option="-Wextra" />
+			<Add option="-Wall" />
+			<Add option="-O3" />
+		</Compiler>
+		<Linker>
+			<Add option="-O3" />
+			<Add option="-s" />
+		</Linker>
+		<Unit filename="ZUI.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZUI.h" />
+		<Unit filename="ZUI_Box.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZUI_Box.h" />
+		<Unit filename="ZUI_Button.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZUI_Button.h" />
+		<Unit filename="ZUI_Counter.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZUI_Counter.h" />
+		<Unit filename="ZUI_Label.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZUI_Label.h" />
+		<Unit filename="ZUI__Defaults.h" />
+		<Unit filename="ZUI__Defines.h" />
+		<Unit filename="ZUI__Element.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZUI__Element.h" />
+		<Unit filename="ZUI__Runtime.h" />
+		<Unit filename="ZUI__UI.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZUI__UI.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
