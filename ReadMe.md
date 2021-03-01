@@ -23,7 +23,7 @@ It is designed with (future) cross-platform compatibility in mind, though it pre
 
 ## Examples
 
-1) [Hello World using ZDK](https://github.com/ariebesehl/HelloWorld), a set of four example applications detailing basic usage of ZDK
+1) [Hello World](https://github.com/ariebesehl/HelloWorld), a set of four example applications detailing basic usage of ZDK
 
 
 ## Components
@@ -38,9 +38,9 @@ ZDK's main components are:
 
 Interfacing with these components are:
 
-1) ZTX, a library that interfaces with zlib, libjpeg and libpng to provide the necessary functions and modules for interfacing with the ZDK environment
+1) ZTX, a library that interfaces with zlib, libjpeg and libpng via ZTL to provide the necessary functions and modules for loading and saving JPG and PNG files
 
-2) ZDX, a library for data acquisition and rendering with serial-devices, used in ZaidaScope
+2) ZDX, a library interfacing with ZTL for data acquisition and rendering with serial-devices, used in ZaidaScope
 
 3) ZUI, a library interfacing with ZTK to provide an OS-agnostic graphical-user-interface
 
