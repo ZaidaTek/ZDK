@@ -21,6 +21,7 @@
 #define ZTM_CHAR_ANSI_COMMA 		0x2c
 #define ZTM_CHAR_ANSI_DOT 			0x2e
 #define ZTM_CHAR_ANSI_MINUS 		0x2d
+#define ZTM_CHAR_ANSI_UNDERSCORE	0x5f
 #define ZTM_CHAR_ANSI_SLASH 		0x2f
 #define ZTM_CHAR_ANSI_BACKSLASH		0x5c
 #define ZTM_CHAR_ANSI_0 			0x30
@@ -40,6 +41,7 @@
 #define ZTM_CHAR_COMMA 			ZTM_CHAR_ANSI_COMMA
 #define ZTM_CHAR_DOT 			ZTM_CHAR_ANSI_DOT
 #define ZTM_CHAR_MINUS 			ZTM_CHAR_ANSI_MINUS
+#define ZTM_CHAR_UNDERSCORE		ZTM_CHAR_ANSI_UNDERSCORE
 #define ZTM_CHAR_SLASH 			ZTM_CHAR_ANSI_SLASH
 #define ZTM_CHAR_BACKSLASH		ZTM_CHAR_ANSI_BACKSLASH
 #define ZTM_CHAR_0 				ZTM_CHAR_ANSI_0
@@ -316,6 +318,7 @@ ZT_U8* ZTC8_PathBranchLast(const ZT_U8* iPath);
 ZT_U8* ZTC8_PathFileExtension(const ZT_U8* iPath);
 ZT_U8* ZTC8_PathFileType(const ZT_U8* iPath);
 ZT_U8* ZTC8_PathFileTitle(const ZT_U8* iPath);
+ZT_U8* ZTC8_PathFileISO(const ZT_U8* iRoot, const ZT_U8* iExtension, ZT_TIME iUnix);
 //ZT_BOOL ZTC8_WinCLI(ZT_INDEX argc, ZT_U8** argv, const ZT_U8* iSearch, ZT_INDEX* oIndexFound);
 //ZT_U8* ZTC8_ConvertUTF8ToWin1252(const ZT_U8* iText);
 #ifdef __cplusplus

@@ -642,6 +642,29 @@ ZT_U8* ZTC8_PathBranchLast(const ZT_U8* iPath) {return ZTC8_Copy(&iPath[ZTC8_Pat
 ZT_U8* ZTC8_PathFileExtension(const ZT_U8* iPath) {return ZTC8_Copy(&iPath[ZTC8_PathIndexFileExtension(iPath)]);}
 ZT_U8* ZTC8_PathFileType(const ZT_U8* iPath) {return ZTC8_Copy(&iPath[ZTC8_PathIndexFileType(iPath)]);}
 ZT_U8* ZTC8_PathFileTitle(const ZT_U8* iPath) {ZT_INDEX lStart = ZTC8_PathIndexBranchLast(iPath); return ZTC8_CopyLength(&iPath[lStart], ZTC8_PathIndexFileExtension(iPath) - lStart);}
+ZT_U8* ZTC8_PathFileISO(const ZT_U8* iRoot, const ZT_U8* iExtension, ZT_TIME iUnix) {
+    ZT_DATE lDate;
+    ZTM_Date(iUnix, &lDate);
+    ZT_INDEX lLengthRoot = iRoot != NULL ? ZTC8_GetLength(iRoot) : 0;
+    ZT_INDEX lLengthExtension = iExtension != NULL ? ZTC8_GetLength(iExtension) + 1 : 0;
+    ZT_INDEX lLengthTotal = lLengthRoot + 20 + lLengthExtension;
+    ZT_U8* lPath = ZTM8_New(lLengthTotal + 1);
+    if (lLengthRoot) {ZTC8_CopyTarget(iRoot, lPath);}
+    ZTC8_DATEISO(&lPath[lLengthRoot]);
+    lPath[lLengthRoot + 10] = ZTM_CHAR_UNDERSCORE;
+    lPath[lLengthRoot + 11] = ZTM_CHAR_0 + (lDate.hour % 100) / 10;
+    lPath[lLengthRoot + 12] = ZTM_CHAR_0 + (lDate.hour % 10);
+    lPath[lLengthRoot + 13] = ZTM_CHAR_a + 7;
+    lPath[lLengthRoot + 14] = ZTM_CHAR_0 + (lDate.minute % 100) / 10;
+    lPath[lLengthRoot + 15] = ZTM_CHAR_0 + (lDate.minute % 10);
+    lPath[lLengthRoot + 16] = ZTM_CHAR_a + 12;
+    lPath[lLengthRoot + 17] = ZTM_CHAR_0 + (lDate.second % 100) / 10;
+    lPath[lLengthRoot + 18] = ZTM_CHAR_0 + (lDate.second % 10);
+    lPath[lLengthRoot + 19] = ZTM_CHAR_a + 18;
+    if (lLengthExtension) {lPath[lLengthRoot + 20] = ZTM_CHAR_FILETYPE; ZTC8_CopyTarget(iExtension, &lPath[lLengthRoot + 21]);}
+    lPath[lLengthTotal] = ZTM_CHAR_NT;
+    return lPath;
+}
 /*
 ZT_BOOL ZTC8_WinCLI(ZT_INDEX argc, ZT_U8** argv, const ZT_U8* iSearch, ZT_INDEX* oIndexFound) {
     if (oIndexFound != NULL) {
