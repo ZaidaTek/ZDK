@@ -40,7 +40,7 @@ void ZDX_InterfaceStartSerial(ZDX_DEVICE* iDevice) {
     ZT_INDEX lPacketLength;
     ZT_U8* lPacketBuffer = iDevice->interface.buffer.in;
     switch(iDevice->task.type) {
-        case ZDX_CHANNEL_TYPE_ANALOG_IN:
+        case ZDX_TASK_ADC:
             lPacketBuffer[8] = iDevice->task.config;
             lPacketBuffer[7] = iDevice->task.config >> 8;
             lPacketBuffer[6] = iDevice->task.config >> 16;
@@ -52,7 +52,7 @@ void ZDX_InterfaceStartSerial(ZDX_DEVICE* iDevice) {
             lPacketBuffer[0] = 0x0;
             lPacketLength = 9;
             break;
-        case ZDX_CHANNEL_TYPE_DIGITAL_OUT:
+        case ZDX_TASK_DIO:
             lPacketBuffer[2] = 0x0; // init
             lPacketBuffer[1] = iDevice->task.config;
             lPacketBuffer[0] = 0x2;
@@ -61,7 +61,7 @@ void ZDX_InterfaceStartSerial(ZDX_DEVICE* iDevice) {
         default:
             return;
     }
-    iDevice->interface.runtime = ZTL_SerialNew(iDevice->address, ZDX_INTERFACE_SERIAL_BAUD, ZDX_RUNTIME_WINDOWS_SERIAL_BUFFER, ZDX_RUNTIME_WINDOWS_SERIAL_BUFFER);
+    iDevice->interface.runtime = ZTL_SerialNew(iDevice->address, ZDX_INTERFACE_SERIAL_BAUD, ZDX_RUNTIME_BUFFER_SERIAL, ZDX_RUNTIME_BUFFER_SERIAL);
     ZTL_SerialWrite(iDevice->interface.runtime, lPacketBuffer, lPacketLength);
 }
 void ZDX_InterfaceStart(ZDX_DEVICE* iDevice) {

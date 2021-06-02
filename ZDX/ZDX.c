@@ -29,10 +29,10 @@ void ZDX_Assign(ZDX_DEVICE* iDevice, ZT_FLAG iType, ZT_FLAG iConfig, ZT_INDEX iS
     ZT_INDEX lResolution;
     switch (iDevice->type) {
         case ZDX_DEVICE_TYPE_AT328P:
-            iType &= ZDX_CHANNEL_AT328P_TYPES;
-            if ((iSpeed > ZDX_CHANNEL_AT328P_MAXSPEED) || (iSpeed < ZDX_CHANNEL_AT328P_MINSPEED)) {iSpeed = ZDX_CHANNEL_SPEED_NONE;}
-            iConfig &= ZDX_CHANNEL_AT328P_MASK;
-            lResolution = ZDX_CHANNEL_AT328P_RESOLUTION;
+            iType &= ZDX_TASK_AT328P;
+            if ((iSpeed > ZDX_TASK_AT328P_ADC_MAXRATE) || (iSpeed < ZDX_TASK_AT328P_ADC_MINRATE)) {iSpeed = ZDX_CHANNEL_SPEED_NONE;}
+            iConfig &= ZDX_TASK_AT328P_ADC_MASK;
+            lResolution = ZDX_TASK_AT328P_ADC_RESOLUTION;
             break;
         default:
             return;
@@ -56,14 +56,14 @@ ZT_INDEX ZDX_Read(ZDX_DEVICE* iDevice, ZDX_DATA* oData) {
 }
 ZT_INDEX ZDX_GetSpeed(ZDX_DEVICE* iDevice) {
     switch (iDevice->task.type) {
-        case ZDX_CHANNEL_TYPE_ANALOG_IN: return iDevice->task.speed;
+        case ZDX_TASK_ADC: return iDevice->task.speed;
         default: return 0;
     }
 }
 ZT_FLAG ZDX_GetChannels(ZDX_DEVICE* iDevice) {
     switch (iDevice->task.type) {
-        case ZDX_CHANNEL_TYPE_ANALOG_IN: return iDevice->task.config;
-        case ZDX_CHANNEL_TYPE_DIGITAL_OUT: return iDevice->task.config;
+        case ZDX_TASK_ADC: return iDevice->task.config;
+        case ZDX_TASK_DIO: return iDevice->task.config;
         default: return 0x0;
     }
 }
