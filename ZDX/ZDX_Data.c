@@ -25,12 +25,18 @@ void ZDX_DataFree(ZDX_DATA* iData) {
     ZTM8_Free(iData->data);
     ZTM8_Free(iData);
 }
+ZT_INDEX ZDX_DataGetCursor(ZDX_DATA* iData) {
+    return iData->cursor;
+}
+ZT_U* ZDX_DataGetLine(ZDX_DATA* iData, ZT_INDEX iCursor) {
+    return &(iData->data[(iCursor % iData->block.yU) * iData->block.xU]);
+}
 ZT_U* ZDX_DataGetLastLine(ZDX_DATA* iData) {
     return &(iData->data[(iData->cursor ? (iData->cursor - 1) : (iData->block.yU - 1)) * iData->block.xU]);
 }
 void ZDX_DataLineAdd(ZDX_DATA* iData, const ZT_U* iSample) {
     ZT_INDEX lOffset = iData->cursor * iData->block.xU;
-    for (ZT_INDEX i = 0; i < iData->block.xU; i++) {iData->data[lOffset + i] = iSample[i];}
+    for (ZT_INDEX i = 0; i < iData->block.xU; ++i) {iData->data[lOffset + i] = iSample[i];}
     iData->cursor = (iData->cursor + 1) % iData->block.yU;
 }
 /*
