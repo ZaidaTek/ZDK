@@ -1,8 +1,14 @@
 # ZDK
 
-
-
 ZaidaTek Development Kit
+
+UPDATE(2025-08-14):
+
+The library is presently undergoing the process of conversion to Linux-compatibility.
+
+This will then also be its primary platform.
+
+Windows compatibility will be attempted to be preserved, though (un)intentional CRLF/LF conversions will be ignored.
 
 
 
