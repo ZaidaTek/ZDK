@@ -8,6 +8,18 @@
 #include "ZDX__Runtime.h"
 
 ZT_COLOR ZDX_DiagramColor(ZT_INDEX iChannel) {
+    static const ZT_COLOR lColors[ZDX_DIAGRAM_COLOR_PLOTS] = {
+        ZDX_DIAGRAM_COLOR_PLOT_1,
+        ZDX_DIAGRAM_COLOR_PLOT_2,
+        ZDX_DIAGRAM_COLOR_PLOT_3,
+        ZDX_DIAGRAM_COLOR_PLOT_4,
+        ZDX_DIAGRAM_COLOR_PLOT_5,
+        ZDX_DIAGRAM_COLOR_PLOT_6,
+        ZDX_DIAGRAM_COLOR_PLOT_7,
+        ZDX_DIAGRAM_COLOR_PLOT_8
+    };
+    return lColors[iChannel % ZDX_DIAGRAM_COLOR_PLOTS];
+    /*
     switch (iChannel % ZDX_DIAGRAM_COLOR_PLOTS) {
         default: return 0x0; //warning: control reaches end of non-void function
         case 0: return ZDX_DIAGRAM_COLOR_PLOT_1;
@@ -19,6 +31,7 @@ ZT_COLOR ZDX_DiagramColor(ZT_INDEX iChannel) {
         case 6: return ZDX_DIAGRAM_COLOR_PLOT_7;
         case 7: return ZDX_DIAGRAM_COLOR_PLOT_8;
     }
+    */
 }
 ZDX_DIAGRAM* ZDX_DiagramNew(ZT_FLAG iType) {
     ZDX_DIAGRAM* lDiagram = ZTM8_New(sizeof(ZDX_DIAGRAM));

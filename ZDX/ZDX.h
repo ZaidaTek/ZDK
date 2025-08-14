@@ -34,6 +34,8 @@ ZDX_DATA* ZDX_DataNew(ZDX_DEVICE* iDevice, ZT_INDEX iLength);
 ZDX_DATA* ZDX_DataSet(ZDX_DATA* iData, ZT_U iValue);
 void ZDX_DataFree(ZDX_DATA* iData);
 void ZDX_DataLineAdd(ZDX_DATA* iData, const ZT_U* iSample);
+ZT_INDEX ZDX_DataGetCursor(ZDX_DATA* iData);
+ZT_U* ZDX_DataGetLine(ZDX_DATA* iData, ZT_INDEX iCursor);
 ZT_U* ZDX_DataGetLastLine(ZDX_DATA* iData);
 
 ZDX_DIAGRAM* ZDX_DiagramNew(ZT_FLAG iType);
