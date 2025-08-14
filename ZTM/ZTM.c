@@ -45,16 +45,16 @@ ZT_U64 ZTM_Randomize_64(ZT_U64* ioSeed, ZT_U64 iModulo) {
 	return (iModulo ? (lSeed % iModulo) : lSeed);
 }
 ZT_FLAG ZTM_LSB(ZT_FLAG iFlag) {
-    ZT_FLAG lIndex = 0x1u;
-    while (!(iFlag & lIndex) && (lIndex <<= 1));
-    return iFlag & lIndex;
+    ZT_FLAG lBit = iFlag ? 0x1u : 0x0u; //TODO test me
+    while (!(iFlag & lBit) && (lBit <<= 1));
+    return lBit;
 }
 ZT_FLAG ZTM_MSB(ZT_FLAG iFlag) {
-    ZT_FLAG lIndex = ~((ZT_FLAG)~0x0u >> 1);
-    while (!(iFlag & lIndex) && (lIndex >>= 1));
-    return iFlag & lIndex;
+    ZT_FLAG lBit = iFlag ? ~((ZT_FLAG)~0x0u >> 1) : 0x0u;
+    while (!(iFlag & lBit) && (lBit >>= 1));
+    return lBit;
 }
-ZT_FLAG ZTM_BitFillLeft(ZT_INDEX iCount) {
+ZT_FLAG ZTM_BitFillLeft(ZT_INDEX iCount) { //NOTE left *shift*, not origin
     ///safe, but slow:
     //ZT_FLAG lIndex = ~0x0;
     //++iCount;
@@ -146,10 +146,10 @@ ZT_FLAG ZTM_ByteGreater(ZT_FLAG iInput, ZT_FLAG iReference) {ZTM_BYTECOMPARISON(
 ZT_FLAG ZTM_ByteGreaterEqual(ZT_FLAG iInput, ZT_FLAG iReference) {ZTM_BYTECOMPARISON(iInput, iReference, >=);}
 // need to be tested
 #define ZTM_BYTEOPERATION(INPUT,OPERAND,OPERATION) \
-    ZT_INDEX lResult = 0;\
+    ZT_INDEX lResult = 0x0;\
     ZT_INDEX lIndexByte = -1;\
     ZT_INDEX lIndexShift;\
-    while (0xff << (lIndexShift = ((++lIndexByte) << 3))) {\
+    while (((ZT_FLAG)0xff << (lIndexShift = ((++lIndexByte) << 3)))) {\
         lResult |= (((((INPUT >> lIndexShift) & 0xff) OPERATION ((OPERAND >> lIndexShift) & 0xff)) % 0x100) << lIndexShift);\
     }\
     return lResult

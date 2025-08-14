@@ -73,22 +73,27 @@
 #define ZTM_CHAR_ESCAPE 		ZTM_CHAR_BACKSLASH
 #define ZTM_CHAR_FILETYPE	 	ZTM_CHAR_DOT
 // NEWLINE SYMBOL & STRING
+/*
 #ifdef ZTM__OS__APPLE
 #define ZTM_CHAR_NL      		ZTM_CHAR_CR
-#define ZTM_TEXT_NL				"\r"
+#define ZTM_TEXT_NL				((const ZT_CHAR*)"\r")
 #else
 #define ZTM_CHAR_NL      		ZTM_CHAR_LF
-#ifdef ZTM__OS__WINDOWS
-#define ZTM_TEXT_NL				"\r\n"
-#else
-#define ZTM_TEXT_NL				"\n"
-#endif // ZTM__OS__WINDOWS
 #endif // ZTM__OS__APPLE
+*/
+#define ZTM_CHAR_NL      		ZTM_CHAR_LF
+#ifdef ZTM__OS__WINDOWS
+#define ZTM_TEXT_NL				((const ZT_CHAR*)"\r\n")
+#else
+#define ZTM_TEXT_NL				((const ZT_CHAR*)"\n")
+#endif // ZTM__OS__WINDOWS
 // PATH DENOMINATOR
 #ifdef ZTM__OS__WINDOWS
 #define ZTM_CHAR_PATH			ZTM_CHAR_BACKSLASH
+#define ZTM_TEXT_PATH			((const ZT_CHAR*)"\\")
 #else
 #define ZTM_CHAR_PATH			ZTM_CHAR_SLASH
+#define ZTM_TEXT_PATH			((const ZT_CHAR*)"/")
 #endif // ZTM__OS__WINDOWS
 // DECIMAL MARK
 #define ZTM_CHAR_DECIMAL	 	ZTM_CHAR_DOT
@@ -176,6 +181,9 @@
 #ifdef __cplusplus
 extern "C" {
 #endif // __cplusplus
+#define ZTC8_FormatLength(TEXT,...) ({ZT_SIZE mLENGTH = 0; ZTC8_FormatTarget(NULL, &mLENGTH, (TEXT), __VA_ARGS__); mLENGTH;})
+//ZT_SIZE ZTC8_FormatLength(iFormatText, ...);
+ZT_CHAR* ZTC8_FormatTarget(ZT_CHAR* oTarget, ZT_SIZE* ioCapacity, const ZT_CHAR* iFormatText, ...);
 const ZT_U8* ZTC8__DATE__(void);
 const ZT_U8* ZTC8__DATE__Set(const ZT_U8* i__DATE__, const ZT_U8* i__TIME__); // if no call, ZTC8__DATE__() returns ZTM_CHAR_NT
 /*void ZTC8_ReadDate_ANSI_C(const ZT_U8* iText, ZT_DATE* oDate);

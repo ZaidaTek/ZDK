@@ -6,6 +6,42 @@
 #define ZT_CHAR_C_INCLUDED
 
 #include "ZTM__Runtime.h"
+#include ZTM__INCL__CHAR0
+/*
+ZT_SIZE ZTC8_FormatLength(const void* iFormatText, ...) {
+    ZT_SIZE lLength = 0;
+    ZTC8_FormatTarget((ZT_CHAR*)&lLength, 0, (iFormatText), ...);
+    lLength;
+}
+*/
+ZT_SIZE ZTC8_RuntimeFormat(ZT_CHAR* oTarget, ZT_SIZE iCapacity, const ZT_CHAR* iFormatText, va_list* iArgs) {
+    int lLength = vsnprintf((char*)oTarget, iCapacity, (const char*)iFormatText, *iArgs);
+    return lLength < 0 ? (ZT_SIZE)-1 : (ZT_SIZE)lLength;
+}
+ZT_CHAR* ZTC8_FormatTarget(ZT_CHAR* oTarget, ZT_SIZE* ioCapacity, const ZT_CHAR* iFormatText, ...) {
+    //ZT_SIZE lfnc_GetLength(const void* iiFormatText, va_list* iiList) {return vsnprintf(NULL, 0, (const char*)iiFormatText, *iiList);}
+    #define lfnc_GetLength(TEXT,ARGS) ZTC8_RuntimeFormat(NULL, 0, (TEXT), (ARGS))
+    ZT_SIZE lCapacity;
+    va_list lList;
+    if ((lCapacity = (ioCapacity != NULL ? *ioCapacity : (ZT_SIZE)-1))) {
+        if (lCapacity == (ZT_SIZE)-1) {
+            va_start(lList, (const char*)iFormatText);
+            ZT_SIZE lRequired = lfnc_GetLength(iFormatText, &lList) + 1;
+            va_end(lList);
+            lCapacity = lRequired < lCapacity ? lRequired : lCapacity;
+        }
+        if (oTarget == NULL) {oTarget = (ZT_CHAR*)ZTM8_New(sizeof(ZT_CHAR) * lCapacity);}
+        va_start(lList, (const char*)iFormatText);
+        ZT_SIZE lLength = ZTC8_RuntimeFormat(oTarget, lCapacity, iFormatText, &lList);
+        va_end(lList);
+        if (ioCapacity != NULL) {*ioCapacity = lLength;}
+    } else { // probe length when 0 passed as capacity value
+        va_start(lList, (const char*)iFormatText);
+        *ioCapacity = lfnc_GetLength(iFormatText, &lList);
+        va_end(lList);
+    }
+    return oTarget;
+}
 
 const ZT_U8* ZTC8__DATE__(void) {return rZTC8__ISO8601__;}
 const ZT_U8* ZTC8__DATE__Set(const ZT_U8* i__DATE__, const ZT_U8* i__TIME__) {
@@ -86,7 +122,7 @@ void ZTC8_GetDimensionsVerbatim(const ZT_U8* iText, ZT_INDEX iLength, ZT_UPOINT*
 }
 ZT_BOOL ZTC8_Match(const ZT_U8* iHaystack, const ZT_U8* iNeedle) {
     ZT_INDEX lCursor = -1;
-    while (iNeedle[++lCursor] != ZTM_CHAR_NT) {if ((iHaystack[lCursor] != iNeedle[lCursor]) || (iHaystack[lCursor] == ZTM_CHAR_NT)) {return 0x0;}} return 0x1;
+    while (iNeedle[++lCursor] != ZTM_CHAR_NT) {if ((iHaystack[lCursor] != iNeedle[lCursor]) || (iHaystack[lCursor] == ZTM_CHAR_NT)) {return 0x0;}} return 0x1; // is the second OR part not actually redundant?
 }
 ZT_BOOL ZTC8_MatchExact(const ZT_U8* iText1, const ZT_U8* iText2) {
     ZT_INDEX lCursor = 0;// operation undefined if using -1 (?)
@@ -141,7 +177,7 @@ ZT_BOOL ZTC8_SeekCRLFCursorMax(const ZT_U8* iText, ZT_INDEX* oCursor, ZT_INDEX i
     return 0x0;
 }
 ZT_FLAG ZTC8_SeekBOM(const void* iText) {
-    ZT_U8 lBOM[5];
+    ZT_U8 lBOM[5]; // 16-byte 2D
     ZT_FLAG lType = ZTM_TEXT_TYPE_NONE;
     for (ZT_INDEX i = 0; i < (ZTM_TEXT_TYPES - 1); i++) {
         switch(i) {
@@ -234,8 +270,8 @@ ZT_FLT ZTC8_ReadFloat(const ZT_U8* iText) {ZTC8_READFLOATINGPOINT(ZT_FLT);}
 ZT_DBL ZTC8_ReadDouble(const ZT_U8* iText) {ZTC8_READFLOATINGPOINT(ZT_DBL);}
 
 const ZT_U8* ZTC8_CopyTarget(const ZT_U8* iSource, ZT_U8* oTarget) {
-    ZT_INDEX lCursor = -1;
-    while ((oTarget[++lCursor] = iSource[lCursor]) != ZTM_CHAR_NT);
+    ZT_INDEX lCursor = 0;
+    while ((oTarget[lCursor] = iSource[lCursor]) != ZTM_CHAR_NT) {++lCursor;};
     return iSource;
 }
 const ZT_U8* ZTC8_CopyTargetLength(const ZT_U8* iSource, ZT_U8* oTarget, ZT_INDEX iLength) {
@@ -252,7 +288,7 @@ ZT_U8* ZTC8_CopyLength(const ZT_U8* iText, ZT_INDEX iLength) {
     lCopy[iLength] = ZTM_CHAR_NT;
     return lCopy;
 }
-ZT_U8* ZTC8_CopyModulating(const ZT_U8* iText, ZT_INDEX iLength) {
+ZT_U8* ZTC8_CopyModulating(const ZT_U8* iText, ZT_INDEX iLength) { // maybe CopyRepeating()?
     ZT_INDEX lLengthSource = ZTC8_GetLength(iText);
     ZT_U8* lCopy = ZTM8_New(iLength + 1);
     ZT_INDEX lCursor = -1;
@@ -599,7 +635,7 @@ ZT_U8* ZTC8_Hash(const void* iHash, ZT_INDEX iBits, const ZT_U8* iDelimiter, ZT_
 	return ZTC8_Bytes(lHash->byte, lLength, iDelimiter, iGrouping);
 }
 ZT_U8* ZTC8_Printable(const ZT_U8* iData, ZT_INDEX iLength, ZT_U8 iReplacement) {
-	if (iData != NULL) {
+	if (iData != NULL) { // convention discarding null-check here, why?
 		ZT_U8* lPrintable;
 		if ((lPrintable = ZTM8_New(iLength + 1)) != NULL) {
 			ZT_INDEX lCursor = -1;
@@ -608,8 +644,8 @@ ZT_U8* ZTC8_Printable(const ZT_U8* iData, ZT_INDEX iLength, ZT_U8 iReplacement) 
 				if (lChar > ZTM_CHAR_PRINT_MAX) {
 					lPrintable[lCursor] = iReplacement;
 				} else if (lChar < ZTM_CHAR_PRINT_MIN) {
-					if ((lChar == ZTM_CHAR_CR) ? (((lCursor + 1) < iLength) ? (iData[lCursor + 1] == ZTM_CHAR_LF) : 0x0) : (lChar == ZTM_CHAR_LF)) {
-						lPrintable[lCursor] = lChar; // maybe if LF check if prev CR as optimization?
+					if ((lChar == ZTM_CHAR_CR) ? (((lCursor + 1) < iLength) ? (iData[lCursor + 1] == ZTM_CHAR_LF) : 0x0) : (lChar == ZTM_CHAR_LF)) { // flipping conditions around should be faster in all use-cases
+						lPrintable[lCursor] = lChar; // maybe if LF check if prev CR as optimization? <-- What? <-- Oh yeah, see above.
 					} else {
 						lPrintable[lCursor] = iReplacement;
 					}

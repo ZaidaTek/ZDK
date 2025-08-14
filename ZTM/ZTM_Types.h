@@ -266,4 +266,26 @@ typedef struct {
     ZT_INDEX user;
 } ZT_QLIST;
 
+typedef struct {
+    void* handle;
+    const ZT_CHAR* path;
+    ZT_SIZE length;
+    ZT_SIZE alloc;
+    ZT_U64 id;
+    ZT_INDEX owner;
+    ZT_INDEX group;
+    ZT_FLAG type;
+    ZT_FLAG perm;
+    ZT_FLAG flag;
+    ZT_FLAG attr;
+    struct {
+        ZT_U64 meta_a;
+        ZT_U64 meta_b;
+        ZT_U64 meta_m;
+        ZT_U64 file_a;
+        ZT_U64 file_b;
+        ZT_U64 file_m;
+    } time;
+} ZT_META_FILE;
+
 #endif // ZTM_TYPES_H_INCLUDED

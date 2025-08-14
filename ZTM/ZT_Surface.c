@@ -269,6 +269,7 @@ void ZTM_SurfacesFromSurface(const ZT_SURFACE* iSource, const ZT_POINT* iSubdivi
         lExtract.y += lExtract.h;
     }
 }
+// TODO shouldn't following two functions be creating dimension point on heap as well?
 ZT_SURFACE* ZTM_SurfaceScaleUp(ZT_SURFACE* iSurface, ZT_INDEX iBitshiftLeft) {
     ZT_POINT lSizeTarget;
     lSizeTarget.x = iSurface->block.x << iBitshiftLeft;
