@@ -23,6 +23,8 @@ ZT_BOOL ZTL_DirectoryCreate(const ZT_CHAR* iPath) {return ZT_FALSE;}
 #endif // ZTL__OS__UNKNOWN
 ZT_THREAD* ZTL_ThreadNew(ZT_FLAG (*iFunction)(void*), void* iArgument) {
     rZT_THREAD* lThread = ZTM8_New(sizeof(rZT_THREAD));
+    lThread->exec = iFunction;
+    lThread->args = iArgument;
     ZTL_RuntimeThreadNew(lThread, iFunction, iArgument);
     return lThread;
 }
@@ -48,12 +50,16 @@ void ZTL_TickResolution(ZT_TIME iResolution) {
     if ((rZTL__TICK_RES = iResolution)) {ZTL_RuntimeTickResolutionStart(rZTL__TICK_RES);}
 }
 ZT_TIME ZTL_Tick(void) {return ZTL_RuntimeTick();}
+#ifdef ZTL_RuntimeTickMicro
+ZT_TIME ZTL_TickMicro(void) {return ZTL_RuntimeTickMicro();}
+#else
 ZT_TIME ZTL_TickMicro(void) {
     if (rZTL__QPC_FLAG & ZTL_FLAG_QPC_INIT) {ZTL_ClockInit();}
     ZT_U64 lPC;
     ZTL_RuntimeClock(&lPC);
     return ((ZT_U64)1000000 * lPC / rZTL__QPC_RATE);
 }
+#endif // ZTL_RuntimeTickMicro
 void ZTL_TimerFree(ZT_TIMER* iTimer) {ZTM8_Free(iTimer);}
 ZT_TIMER* ZTL_TimerNew(ZT_INDEX iFrequency) {
     if (rZTL__QPC_FLAG & ZTL_FLAG_QPC_INIT) {ZTL_ClockInit();}
@@ -95,63 +101,75 @@ ZT_BOOL ZTL_Timer(ZT_TIMER* iTimer) {
     } while (lSynchronize);
     return lTimedOut;
 }
+ZT_FLAG ZTL_ShellExec(const ZT_CHAR* iCommand, ...) {
+    #define lBUFFERSIZE ((ZT_SIZE)(ZTL_BUFFER_PATH << 1))
+    static ZT_CHAR lBuffer[lBUFFERSIZE];
+    va_list lList;
+    va_start(lList, iCommand);
+    ZT_SIZE lLength = ZTC8_RuntimeFormat(lBuffer, lBUFFERSIZE, iCommand, &lList);
+    va_end(lList);
+    return lLength < lBUFFERSIZE ? ZTL_RuntimeShellExec(lBuffer) : (ZT_FLAG)-1;
+    #undef lBUFFERSIZE
+}
+const ZT_META_FILE* ZTL_NodeInfo(const ZT_CHAR* iPath) {
+    static ZT_META_FILE lBuffer;
+    if (iPath != NULL) {ZTL_NodeInfoTarget(iPath, &lBuffer);}
+    return &lBuffer;
+}
 ZT_I ZTL_ScreenWidth(void) {return ZTL_RuntimeScreenWidth();}
 ZT_I ZTL_ScreenHeight(void) {return ZTL_RuntimeScreenHeight();}
 void ZTL_ScreenSize(ZT_POINT* oSize) {ZTM_Point(oSize, ZTL_RuntimeScreenWidth(), ZTL_RuntimeScreenHeight());}
 
-void ZTL_SelectDirectory(const ZT_CHAR* iPath) {if (iPath != NULL) {ZTC8_CopyTargetLength(iPath, rZTL__SELECT_DIR, ZTL_BUFFER_PATH);} else {rZTL__SELECT_DIR[0] = 0x0;}}
-void ZTL_SelectFilename(const ZT_CHAR* iName) {if (iName != NULL) {ZTC8_CopyTargetLength(iName, rZTL__SELECT_FILE, ZTL_BUFFER_PATH);} else {rZTL__SELECT_FILE[0] = 0x0;}}
+void ZTL_SelectDialogDirectory(const ZT_CHAR* iPath) {if (iPath != NULL) {ZTC8_CopyTargetLength(iPath, rZTL__SELECT_DIR, ZTL_BUFFER_PATH);} else {rZTL__SELECT_DIR[0] = 0x0;}}
+void ZTL_SelectDialogFilename(const ZT_CHAR* iName) {if (iName != NULL) {ZTC8_CopyTargetLength(iName, rZTL__SELECT_FILE, ZTL_BUFFER_PATH);} else {rZTL__SELECT_FILE[0] = 0x0;}}
 ZT_INDEX ZTL_SelectPoll(ZT_CHAR* oPath) {
     static ZT_INDEX lCount = 0;
     static ZT_INDEX lLengthPath = 0;
-    static ZT_INDEX lIndexFile = 0;
+    static ZT_INDEX i = 0;
     if (lCount) {--lCount;} else if ((lCount = rZTL__SELECT_COUNT)) {
         lLengthPath = ZTC8_GetLength(rZTL__SELECT_DIR);
-        lIndexFile = 0;
+        i = 0;
     }
     if (lCount) {
         ZTC8_CopyTarget(rZTL__SELECT_DIR, oPath);
-        ZTC8_CopyTarget(&rZTL__SELECT_FILE[lIndexFile], &oPath[lLengthPath]);
-        lIndexFile += ZTC8_GetLength(&rZTL__SELECT_FILE[lIndexFile]) + 1;
+        ZTC8_CopyTarget(&rZTL__SELECT_FILE[i], &oPath[lLengthPath]);
+        i += ZTC8_GetLength(&rZTL__SELECT_FILE[i]) + 1;
     }
     return lCount;
 }
-void ZTL_SelectModeSave(void) {rZTL__SELECT_FLAG |= ZTL_FLAG_SELECT_SAVE; rZTL__SELECT_FLAG &= ~ZTL_FLAG_SELECT_MULTI;}
-void ZTL_SelectModeOpen(void) {rZTL__SELECT_FLAG &= ~ZTL_FLAG_SELECT_SAVE; rZTL__SELECT_FLAG &= ~ZTL_FLAG_SELECT_MULTI;}
-void ZTL_SelectModeOpenMulti(void) {rZTL__SELECT_FLAG &= ~ZTL_FLAG_SELECT_SAVE; rZTL__SELECT_FLAG |= ZTL_FLAG_SELECT_MULTI;}
-ZT_FLAG ZTL_SelectEntry(void) {
-    ZTL_SelectSetup();
-    if ((rZTL__SELECT_FLAG & ZTL_FLAG_SELECT_SAVE) ? ZTL_RuntimeSelectFileSave() : ZTL_RuntimeSelectFileOpen()) {
-        ZTL_SelectProcess();
-        return ZTL_SELECT_READY;
-    } else {
-        return ZTL_SELECT_CANCEL;
+void ZTL_SelectInit(void) {
+    if (rZTL__SELECT_FLAG & ZTL_FLAG_SELECT_INIT) {
+        rZTL__SELECT_FLAG &= ~ZTL_FLAG_SELECT_INIT;
+        ZTL_RuntimeSelectInit(&rZTL__SELECT_RUNTIME);
     }
 }
-ZT_FLAG ZTL_SelectFileSave(void) {ZTL_SelectModeSave(); return ZTL_SelectEntry();}
-ZT_FLAG ZTL_SelectFileOpen(void) {ZTL_SelectModeOpen(); return ZTL_SelectEntry();}
-ZT_FLAG ZTL_SelectFileOpenMulti(void) {ZTL_SelectModeOpenMulti(); return ZTL_SelectEntry();}
-ZT_FLAG ZTL_SelectThreadedEntry(void* iArgs) {(void)iArgs; return ZTL_SelectEntry();}
-void ZTL_SelectThreadedFileSave(void) {ZTL_SelectModeSave(); rZTL__SELECT_THREAD = ZTL_ThreadNew(&ZTL_SelectThreadedEntry, NULL);}
-void ZTL_SelectThreadedFileOpen(void) {ZTL_SelectModeOpen(); rZTL__SELECT_THREAD = ZTL_ThreadNew(&ZTL_SelectThreadedEntry, NULL);}
-void ZTL_SelectThreadedFileOpenMulti(void) {ZTL_SelectModeOpenMulti(); rZTL__SELECT_THREAD = ZTL_ThreadNew(&ZTL_SelectThreadedEntry, NULL);}
-ZT_FLAG ZTL_SelectThreadedState(void) {
+#define ZTL_SelectDialog() ({ZTL_RuntimeSelectDialog() ? ZTL_SELECT_READY : ZTL_SELECT_CANCEL;})
+ZT_FLAG ZTL_SelectThreadedEntry(void* iArgs) {(void)iArgs; return ZTL_SelectDialog();}
+ZT_FLAG ZTL_SelectThreadedState(ZT_FLAG* oResult) {
     ZT_FLAG lReturn;
-    if (ZTL_ThreadState(rZTL__SELECT_THREAD, &lReturn) == ZTL_THREAD_FINISH) {
+    if (ZTL_ThreadState(rZTL__SELECT_THREAD, oResult != NULL ? oResult : &lReturn) == ZTL_THREAD_FINISH) {
         ZTM_DoNull(ZTL_ThreadFree, rZTL__SELECT_THREAD);
-        return lReturn;
+        return oResult != NULL ? *oResult : lReturn;
     } else {
         return ZTL_SELECT_WAIT;
     }
 }
 ZT_BOOL ZTL_SelectThreadedWait(ZT_FLAG* oResult) {
     ZT_FLAG lState;
-    if ((lState = ZTL_SelectThreadedState()) == ZTL_SELECT_WAIT) {
+    if ((lState = ZTL_SelectThreadedState(NULL)) == ZTL_SELECT_WAIT) {
         return ZT_TRUE;
     } else {
         if (oResult != NULL) {*oResult = lState;}
         return ZT_FALSE;
     }
 }
-
+#define ZTL_SelectModeSave() ({rZTL__SELECT_FLAG &= ~ZTL_FLAG_SELECT_MULTI; rZTL__SELECT_FLAG |= ZTL_FLAG_SELECT_SAVE;})
+#define ZTL_SelectModeOpen() ({rZTL__SELECT_FLAG &= ~ZTL_FLAG_SELECT_SAVE; rZTL__SELECT_FLAG &= ~ZTL_FLAG_SELECT_MULTI;})
+#define ZTL_SelectModeOpenMulti() ({rZTL__SELECT_FLAG &= ~ZTL_FLAG_SELECT_SAVE; rZTL__SELECT_FLAG |= ZTL_FLAG_SELECT_MULTI;})
+ZT_FLAG ZTL_SelectSave(void) {ZTL_SelectModeSave(); return ZTL_SelectDialog();}
+ZT_FLAG ZTL_SelectOpen(void) {ZTL_SelectModeOpen(); return ZTL_SelectDialog();}
+ZT_FLAG ZTL_SelectOpenMulti(void) {ZTL_SelectModeOpenMulti(); return ZTL_SelectDialog();}
+void ZTL_SelectThreadedSave(void) {ZTL_SelectModeSave(); rZTL__SELECT_THREAD = ZTL_ThreadNew(&ZTL_SelectThreadedEntry, NULL);}
+void ZTL_SelectThreadedOpen(void) {ZTL_SelectModeOpen(); rZTL__SELECT_THREAD = ZTL_ThreadNew(&ZTL_SelectThreadedEntry, NULL);}
+void ZTL_SelectThreadedOpenMulti(void) {ZTL_SelectModeOpenMulti(); rZTL__SELECT_THREAD = ZTL_ThreadNew(&ZTL_SelectThreadedEntry, NULL);}
 #endif // ZTL_C_INCLUDED

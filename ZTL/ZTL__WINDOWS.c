@@ -2,8 +2,8 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZTL_W32_C_INCLUDED
-#define ZTL_W32_C_INCLUDED
+#ifndef ZTL__WINDOWS_C_INCLUDED
+#define ZTL__WINDOWS_C_INCLUDED
 
 #include "ZTL__Runtime.h"
 //#define ZTL__OS__WINDOWS // REMOVE ME!!!!
@@ -18,33 +18,33 @@ void* ZTL_LibraryFunction(ZT_LIBRARY* iLibrary, const ZT_CHAR* iName) {
     return GetProcAddress((HINSTANCE)iLibrary, (LPCSTR)iName);
 }
 ZT_CHAR* ZTL_SerialAddress(ZT_INDEX iPort) {
-    #define ZTL_SERIALADDRESS(TEXT) (TEXT)[0] = '\\'; (TEXT)[1] = '\\'; (TEXT)[2] = '.'; (TEXT)[3] = '\\'; (TEXT)[4] = 'C'; (TEXT)[5] = 'O'; (TEXT)[6] = 'M'
-    ZT_CHAR* lAddress;
-    if (iPort < 10) {
-        lAddress = ZTM8_New(sizeof(ZT_CHAR) * 9);
-        ZTL_SERIALADDRESS(lAddress);
-        lAddress[7] = iPort + 0x30;
-        lAddress[8] = 0x0;
-    } else if (iPort < 100) {
-        lAddress = ZTM8_New(sizeof(ZT_CHAR) * 10);
-        ZTL_SERIALADDRESS(lAddress);
-        lAddress[7] = (iPort / 10) + 0x30;
-        lAddress[8] = (iPort % 10) + 0x30;
-        lAddress[9] = 0x0;
-    } else if (iPort < 0x100) {
-        lAddress = ZTM8_New(sizeof(ZT_CHAR) * 11);
-        ZTL_SERIALADDRESS(lAddress);
-        lAddress[7] = (iPort / 100) + 0x30;
-        lAddress[8] = ((iPort / 10) % 10) + 0x30;
-        lAddress[9] = (iPort % 10) + 0x30;
-        lAddress[10] = 0x0;
-    } else {
-        lAddress = ZTM8_New(sizeof(ZT_CHAR) * 8);
-        ZTL_SERIALADDRESS(lAddress);
-        lAddress[7] = 0x0;
+    #define ZTL_SERIAL_ADDRESS_PORT(TARGET,OFFSET,PORT) \
+    if ((PORT) < 10) {\
+        (TARGET)[(OFFSET)] = (PORT) + 0x30;\
+        (TARGET)[(OFFSET) + 1] = 0x0;\
+    } else if ((PORT) < 100) {\
+        (TARGET)[(OFFSET)] = ((PORT) / 10) + 0x30;\
+        (TARGET)[(OFFSET) + 1] = ((PORT) % 10) + 0x30;\
+        (TARGET)[(OFFSET) + 2] = 0x0;\
+    } else if ((PORT) < 0x100) {\
+        (TARGET)[(OFFSET)] = ((PORT) / 100) + 0x30;\
+        (TARGET)[(OFFSET) + 1] = (((PORT) / 10) % 10) + 0x30;\
+        (TARGET)[(OFFSET) + 2] = ((PORT) % 10) + 0x30;\
+        (TARGET)[(OFFSET) + 3] = 0x0;\
+    } else {\
+        (TARGET)[(OFFSET)] = 0x0;\
     }
+    ZT_CHAR* lAddress = ZTM8_New(sizeof(ZT_CHAR) * 16);
+    lAddress[0] = '\\';
+    lAddress[1] = '\\';
+    lAddress[2] = '.';
+    lAddress[3] = '\\';
+    lAddress[4] = 'C';
+    lAddress[5] = 'O';
+    lAddress[6] = 'M';
+    ZTL_SERIAL_ADDRESS_PORT(lAddress, 7, iPort);
     return lAddress;
-    #undef ZTL_SERIALADDRESS
+    #undef ZTL_SERIAL_ADDRESS_PORT
 }
 ZT_INDEX ZTL_SerialPort(const ZT_CHAR* iAddress) {
     ZT_INDEX lPort = 0;
@@ -103,7 +103,7 @@ ZT_SIZE ZTL_SerialWrite(ZT_SERIAL* iDevice, const ZT_U8* iBuffer, ZT_SIZE iLengt
     WriteFile(iDevice, (void*)iBuffer, (DWORD)iLength, (DWORD*)&lWrite, NULL);
     return lWrite;
 }
-void ZTL_Execute(const ZT_CHAR* iPath, ZT_FLAG iMode) {
+ZT_FLAG ZTL_ShellOpen(const ZT_CHAR* iPath, ZT_FLAG iMode) {
     LPCTSTR lType;
     switch (iMode & ~ZTL_EXECUTE_HIDE) {
         case ZTL_EXECUTE_OPEN: lType = "open"; break;
@@ -112,12 +112,13 @@ void ZTL_Execute(const ZT_CHAR* iPath, ZT_FLAG iMode) {
         case ZTL_EXECUTE_PRINT: lType = "print"; break;
         default: lType = NULL; break;
     }
-    ShellExecute(NULL, lType, (LPCTSTR)iPath, NULL, NULL, (iMode & ZTL_EXECUTE_HIDE) ? SW_SHOWMINNOACTIVE : SW_SHOW);
+    return (ZT_FLAG)ShellExecute(NULL, lType, (LPCTSTR)iPath, NULL, NULL, (iMode & ZTL_EXECUTE_HIDE) ? SW_SHOWMINNOACTIVE : SW_SHOW);
 }
 ZT_BOOL ZTL_DirectoryCreate(const ZT_CHAR* iPath) {
     BOOL lCreated = CreateDirectory((LPCTSTR)iPath, NULL);
     return (lCreated ? ZT_TRUE : ((GetLastError() == ERROR_ALREADY_EXISTS) ? (ZT_TRUE + 1) : ZT_FALSE));
 }
+/*
 ZT_FLAG ZTL_FileFlags(const ZT_CHAR* iPath) {
     ZT_FLAG lFlag = ZTL_FILE_NONE;
     DWORD lFlag_W32 = GetFileAttributes((LPCTSTR)iPath);
@@ -141,24 +142,33 @@ ZT_BOOL ZTL_FileIsDirectory(const ZT_CHAR* iPath) {return (GetFileAttributes((LP
 ZT_BOOL ZTL_FileIsArchive(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) & FILE_ATTRIBUTE_ARCHIVE) ? ZT_TRUE : ZT_FALSE;}
 ZT_BOOL ZTL_FileIsCompressed(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) & FILE_ATTRIBUTE_COMPRESSED) ? ZT_TRUE : ZT_FALSE;}
 ZT_BOOL ZTL_FileIsEncrypted(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) & FILE_ATTRIBUTE_ENCRYPTED) ? ZT_TRUE : ZT_FALSE;}
-void ZTL_SelectInit(void) {
-    if (rZTL__SELECT_FLAG & ZTL_FLAG_SELECT_INIT) {
-        rZTL__SELECT_FLAG &= ~ZTL_FLAG_SELECT_INIT;
-        ZTM8_Zero(&rZTL__SELECT_RUNTIME, sizeof(OPENFILENAME));
-        rZTL__SELECT_RUNTIME.lStructSize = sizeof(OPENFILENAME);
-        rZTL__SELECT_RUNTIME.lpstrFilter = (LPCTSTR)rZTL__SELECT_TYPE;
-        rZTL__SELECT_RUNTIME.nFilterIndex = 1;
-        rZTL__SELECT_RUNTIME.lpstrFile = (LPTSTR)rZTL__SELECT_PATH;
-        rZTL__SELECT_RUNTIME.nMaxFile = ZTL_BUFFER_PATH;
-        rZTL__SELECT_RUNTIME.lpstrInitialDir = (LPCTSTR)rZTL__SELECT_DIR;
-        rZTL__SELECT_RUNTIME.Flags = OFN_EXPLORER;
+*/
+void ZTL_NodeInfoTarget(const ZT_CHAR* iPath, ZT_META_FILE* oTarget) {
+    ZTM8_Zero(oTarget, sizeof(ZT_META_FILE));
+    DWORD lFlag_W32;
+    if ((lFlag_W32 = GetFileAttributes((LPCTSTR)iPath)) != INVALID_FILE_ATTRIBUTES) {
+        oTarget->path = iPath;
+        ZT_FLAG lPerm = (lFlag_W32 & FILE_ATTRIBUTE_READONLY) ? 0x7 : 0x5;
+        oTarget->perm = (lPerm << 16) | (lPerm << 8) | lPerm;
+        ZT_FLAG lSystem = (lFlag_W32 & FILE_ATTRIBUTE_SYSTEM) ? 0x1 : 0x0; 
+        oTarget->owner = lSystem ? 0 : 1000;
+        oTarget->group = lSystem ? 0 : 1000;
+        oTarget->flag = (
+            ((lSystem) ? ZTL_FILE_SYSTEM : 0x0) | 
+            ((lFlag_W32 & FILE_ATTRIBUTE_HIDDEN) ? ZTL_FILE_HIDDEN : 0x0) |
+            ((lFlag_W32 & FILE_ATTRIBUTE_ARCHIVE) ? ZTL_FILE_ARCHIVE : 0x0) |
+            ((lFlag_W32 & FILE_ATTRIBUTE_COMPRESSED) ? ZTL_FILE_COMPRESSED : 0x0) |
+            ((lFlag_W32 & FILE_ATTRIBUTE_ENCRYPTED) ? ZTL_FILE_ENCRYPTED : 0x0)
+        );
+        oTarget->type = (lFlag_W32 & FILE_ATTRIBUTE_DIRECTORY) ? ZTL_FILE_TYPE_DIR : ZTL_FILE_TYPE_REG;
     }
+    return lFlag;
 }
-void ZTL_SelectTitle(const ZT_CHAR* iTitle) {
+void ZTL_SelectDialogTitle(const ZT_CHAR* iTitle) {
     ZTL_SelectInit();
     rZTL__SELECT_RUNTIME.lpstrTitle = (LPCTSTR)iTitle;
 }
-void ZTL_SelectFiletype(const ZT_CHAR** iPattern, const ZT_CHAR** iLabel, ZT_INDEX iCount, ZT_INDEX iSelected) {
+void ZTL_SelectDialogFiletype(const ZT_CHAR** iPattern, const ZT_CHAR** iLabel, ZT_INDEX iCount, ZT_INDEX iSelected) {
     ZTL_SelectInit();
     const ZT_CHAR** lLabel = (iLabel != NULL) ? iLabel : iPattern;
     ZT_INDEX lIndex = 0;
@@ -171,11 +181,31 @@ void ZTL_SelectFiletype(const ZT_CHAR** iPattern, const ZT_CHAR** iLabel, ZT_IND
     }
     rZTL__SELECT_TYPE[lIndex++] = 0x0;
     rZTL__SELECT_TYPE[lIndex++] = 0x0;
-    rZTL__SELECT_TYPE[lIndex++] = 0x0;
+    rZTL__SELECT_TYPE[lIndex++] = 0x0; // Isn't this one too many?
     rZTL__SELECT_RUNTIME.nFilterIndex = iSelected + 1;
 }
-void ZTL_SelectSetup(void) {
+/*
+void ZTL_SelectInit(void) {
+    if (rZTL__SELECT_FLAG & ZTL_FLAG_SELECT_INIT) {
+        rZTL__SELECT_FLAG &= ~ZTL_FLAG_SELECT_INIT;
+        ZTM8_Zero(&rZTL__SELECT_RUNTIME, sizeof(rZT_SELECT));
+        rZTL__SELECT_RUNTIME.lStructSize = sizeof(rZT_SELECT);
+        rZTL__SELECT_RUNTIME.lpstrFilter = (LPCTSTR)rZTL__SELECT_TYPE;
+        rZTL__SELECT_RUNTIME.nFilterIndex = 1;
+        rZTL__SELECT_RUNTIME.lpstrFile = (LPTSTR)rZTL__SELECT_PATH;
+        rZTL__SELECT_RUNTIME.nMaxFile = ZTL_BUFFER_PATH;
+        rZTL__SELECT_RUNTIME.lpstrInitialDir = (LPCTSTR)rZTL__SELECT_DIR;
+        rZTL__SELECT_RUNTIME.Flags = OFN_EXPLORER;
+    }
+}
+*/
+ZT_INDEX ZTL_RuntimeSelectDialog(void) {
     ZTL_SelectInit();
+    if (rZTL__SELECT_FLAG & ZTL_FLAG_SELECT_MULTI) {
+        rZTL__SELECT_RUNTIME.Flags |= OFN_ALLOWMULTISELECT;
+    } else {
+        rZTL__SELECT_RUNTIME.Flags &= ~OFN_ALLOWMULTISELECT;
+    }
     if (rZTL__SELECT_FLAG & ZTL_FLAG_SELECT_SAVE) {
         rZTL__SELECT_RUNTIME.Flags |= OFN_OVERWRITEPROMPT;
         rZTL__SELECT_RUNTIME.Flags &= ~OFN_FILEMUSTEXIST;
@@ -183,25 +213,22 @@ void ZTL_SelectSetup(void) {
     } else {
         rZTL__SELECT_RUNTIME.Flags &= ~OFN_OVERWRITEPROMPT;
         rZTL__SELECT_RUNTIME.Flags |= OFN_FILEMUSTEXIST;
-        if (rZTL__SELECT_FLAG & ZTL_FLAG_SELECT_MULTI) {rZTL__SELECT_RUNTIME.Flags |= OFN_ALLOWMULTISELECT;} else {rZTL__SELECT_RUNTIME.Flags &= ~OFN_ALLOWMULTISELECT;}
     }
     ZTC8_CopyTarget(rZTL__SELECT_FILE, rZTL__SELECT_PATH);
-    rZTL__SELECT_COUNT = 0;
-}
-void ZTL_SelectProcess(void) {
-    rZTL__SELECT_COUNT = 1;
-    ZT_INDEX lIndexFile = rZTL__SELECT_RUNTIME.nFileOffset - 1;
-    ZTC8_CopyTargetLength(rZTL__SELECT_PATH, rZTL__SELECT_DIR, lIndexFile);
-    rZTL__SELECT_DIR[lIndexFile] = ZTM_CHAR_PATH;
-    if (rZTL__SELECT_PATH[lIndexFile]) {
-        ZTC8_CopyTarget(&rZTL__SELECT_PATH[lIndexFile + 1], rZTL__SELECT_FILE);
-    } else {
-        ZT_INDEX lIndex = -1;
-        while ((rZTL__SELECT_PATH[++lIndexFile + 1] || rZTL__SELECT_PATH[lIndexFile])) {
-            if (!(rZTL__SELECT_FILE[++lIndex] = rZTL__SELECT_PATH[lIndexFile])) {++rZTL__SELECT_COUNT;}
+    if ((rZTL__SELECT_COUNT = (rZTL__SELECT_FLAG & ZTL_FLAG_SELECT_SAVE ? GetSaveFileName(rZTL__SELECT_RUNTIME) : GetOpenFileName(rZTL__SELECT_RUNTIME)) ? 1 : 0)) {
+        ZT_INDEX lIndexFile = rZTL__SELECT_RUNTIME.nFileOffset - 1;
+        ZTC8_CopyTargetLength(rZTL__SELECT_PATH, rZTL__SELECT_DIR, lIndexFile);
+        rZTL__SELECT_DIR[lIndexFile] = ZTM_CHAR_PATH;
+        if (rZTL__SELECT_PATH[lIndexFile]) {
+            ZTC8_CopyTarget(&rZTL__SELECT_PATH[lIndexFile + 1], rZTL__SELECT_FILE);
+        } else {
+            ZT_INDEX lIndex = -1;
+            while ((rZTL__SELECT_PATH[++lIndexFile + 1] || rZTL__SELECT_PATH[lIndexFile])) {
+                if (!(rZTL__SELECT_FILE[++lIndex] = rZTL__SELECT_PATH[lIndexFile])) {++rZTL__SELECT_COUNT;}
+            }
         }
     }
+    return rZTL__SELECT_COUNT;
 }
 #endif // ZTL__OS__WINDOWS
-
-#endif // ZTL_W32_C_INCLUDED
+#endif // ZTL__WINDOWS_C_INCLUDED

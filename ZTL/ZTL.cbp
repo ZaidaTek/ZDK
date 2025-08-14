@@ -43,7 +43,7 @@
 		</Unit>
 		<Unit filename="ZTL.h" />
 		<Unit filename="ZTL_Define.h" />
-		<Unit filename="ZTL_W32.c">
+		<Unit filename="ZTL__WINDOWS.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="ZTL__Runtime.c">
