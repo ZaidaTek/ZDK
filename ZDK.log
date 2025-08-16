@@ -1,0 +1,184 @@
+*** SELF: now
+2025-08-16T19:41:11 CEST
+
+*** SELF: executing './ZDK.sh'
+
+#!/bin/bash
+ZWD_CODE="/home/andi/code/c/ZDK/"
+ZWD_GIT="/home/andi/git/ZDK/"
+echo "*** SELF: now"
+date
+echo ""
+echo "*** SELF: executing '$0'"
+echo ""
+cat $0
+echo ""
+echo "*** SELF: host system"
+neofetch --off
+echo "*** SELF: compiler version"
+gcc --version
+g++ --version
+echo ""
+for tgt in "ZTM" "ZTL" "ZDX"; do
+    echo "*** BUILD: $tgt '$ZWD_CODE$tgt/$tgt.zmk'"
+    cat "$ZWD_CODE$tgt/$tgt.zmk"
+    echo "*** MAKE: $tgt"
+    zmake -cy "$ZWD_CODE$tgt/$tgt.zmk"
+    echo "*** DONE: $tgt"
+    echo "*** MD5: `md5sum "$ZWD_CODE$tgt/lib$tgt.so"`"
+    echo "*** SHA1: `sha1sum "$ZWD_CODE$tgt/lib$tgt.so"`"
+    echo "*** SHA256: `sha256sum "$ZWD_CODE$tgt/lib$tgt.so"`"
+    cp -p "$ZWD_CODE$tgt/lib$tgt.so" "$ZWD_GIT$tgt/lib$tgt.so"
+    echo "";
+done
+
+*** SELF: host system
+[?25l[?7l[0m[1m[32m[1mandi[0m@[32m[1mztk-dt-andi[0m 
+[0m----------------[0m 
+[0m[32m[1mOS[0m[0m:[0m LMDE 6 (faye) x86_64[0m 
+[0m[32m[1mKernel[0m[0m:[0m 6.12.38+deb12-rt-amd64[0m 
+[0m[32m[1mUptime[0m[0m:[0m 20 hours, 8 mins[0m 
+[0m[32m[1mPackages[0m[0m:[0m 3167 (dpkg), 46 (flatpak)[0m 
+[0m[32m[1mShell[0m[0m:[0m bash 5.2.15[0m 
+[0m[32m[1mResolution[0m[0m:[0m 1920x1080[0m 
+[0m[32m[1mDE[0m[0m:[0m Cinnamon 6.4.8[0m 
+[0m[32m[1mWM[0m[0m:[0m Mutter (Muffin)[0m 
+[0m[32m[1mWM Theme[0m[0m:[0m Mint-Y-Dark-Teal (Mint-Y)[0m 
+[0m[32m[1mTheme[0m[0m:[0m Mint-Y-Dark-Teal [GTK2/3][0m 
+[0m[32m[1mIcons[0m[0m:[0m Mint-Y-Sand [GTK2/3][0m 
+[0m[32m[1mTerminal[0m[0m:[0m gnome-terminal[0m 
+[0m[32m[1mCPU[0m[0m:[0m AMD Ryzen 7 5700X3D (16) @ 4.149GHz[0m 
+[0m[32m[1mGPU[0m[0m:[0m AMD ATI Radeon RX 470/480/570/570X/580/580X/590[0m 
+[0m[32m[1mMemory[0m[0m:[0m 1239MiB / 15918MiB[0m 
+
+[C[30m[40m   [31m[41m   [32m[42m   [33m[43m   [34m[44m   [35m[45m   [36m[46m   [37m[47m   [m
+[C[38;5;8m[48;5;8m   [38;5;9m[48;5;9m   [38;5;10m[48;5;10m   [38;5;11m[48;5;11m   [38;5;12m[48;5;12m   [38;5;13m[48;5;13m   [38;5;14m[48;5;14m   [38;5;15m[48;5;15m   [m
+
+
+[?25h[?7h*** SELF: compiler version
+gcc (Debian 12.2.0-14+deb12u1) 12.2.0
+Copyright (C) 2022 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+g++ (Debian 12.2.0-14+deb12u1) 12.2.0
+Copyright (C) 2022 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+*** BUILD: ZTM '/home/andi/code/c/ZDK/ZTM/ZTM.zmk'
+{
+    "target": "./libZTM.so",
+    "sources": [
+        "./ZTMIO/ZTMIO.c",
+        "./ZTMKY/ZTMKY.c",
+        "./ZTMWV/ZTMWV.c",
+        "./ZTM__Runtime.c",
+        "./ZT_List.c",
+        "./ZT_Time.c",
+        "./ZT_Pixel.c",
+        "./ZT_Surface.c",
+        "./ZT_Char.c",
+        "./ZT_HashMD5.c",
+        "./ZT_Color.c",
+        "./ZT_Hash.c",
+        "./ZTM.c"
+    ],
+    "flag": {
+        "linker": ["-shared", "-fPIC", "-s"],
+        "compiler": ["-fPIC"]
+    }
+}
+*** MAKE: ZTM
+gcc -fPIC -flto -O3 -c /home/andi/code/c/ZDK/ZTM/ZTMIO/ZTMIO.c -o /home/andi/code/c/ZDK/ZTM/ZTMIO/ZTMIO.c.o
+gcc -fPIC -flto -O3 -c /home/andi/code/c/ZDK/ZTM/ZTMKY/ZTMKY.c -o /home/andi/code/c/ZDK/ZTM/ZTMKY/ZTMKY.c.o
+gcc -fPIC -flto -O3 -c /home/andi/code/c/ZDK/ZTM/ZTMWV/ZTMWV.c -o /home/andi/code/c/ZDK/ZTM/ZTMWV/ZTMWV.c.o
+gcc -fPIC -flto -O3 -c /home/andi/code/c/ZDK/ZTM/ZTM__Runtime.c -o /home/andi/code/c/ZDK/ZTM/ZTM__Runtime.c.o
+gcc -fPIC -flto -O3 -c /home/andi/code/c/ZDK/ZTM/ZT_List.c -o /home/andi/code/c/ZDK/ZTM/ZT_List.c.o
+gcc -fPIC -flto -O3 -c /home/andi/code/c/ZDK/ZTM/ZT_Time.c -o /home/andi/code/c/ZDK/ZTM/ZT_Time.c.o
+gcc -fPIC -flto -O3 -c /home/andi/code/c/ZDK/ZTM/ZT_Pixel.c -o /home/andi/code/c/ZDK/ZTM/ZT_Pixel.c.o
+gcc -fPIC -flto -O3 -c /home/andi/code/c/ZDK/ZTM/ZT_Surface.c -o /home/andi/code/c/ZDK/ZTM/ZT_Surface.c.o
+gcc -fPIC -flto -O3 -c /home/andi/code/c/ZDK/ZTM/ZT_Char.c -o /home/andi/code/c/ZDK/ZTM/ZT_Char.c.o
+gcc -fPIC -flto -O3 -c /home/andi/code/c/ZDK/ZTM/ZT_HashMD5.c -o /home/andi/code/c/ZDK/ZTM/ZT_HashMD5.c.o
+gcc -fPIC -flto -O3 -c /home/andi/code/c/ZDK/ZTM/ZT_Color.c -o /home/andi/code/c/ZDK/ZTM/ZT_Color.c.o
+gcc -fPIC -flto -O3 -c /home/andi/code/c/ZDK/ZTM/ZT_Hash.c -o /home/andi/code/c/ZDK/ZTM/ZT_Hash.c.o
+gcc -fPIC -flto -O3 -c /home/andi/code/c/ZDK/ZTM/ZTM.c -o /home/andi/code/c/ZDK/ZTM/ZTM.c.o
+gcc /home/andi/code/c/ZDK/ZTM/ZTMIO/ZTMIO.c.o /home/andi/code/c/ZDK/ZTM/ZTMKY/ZTMKY.c.o /home/andi/code/c/ZDK/ZTM/ZTMWV/ZTMWV.c.o /home/andi/code/c/ZDK/ZTM/ZTM__Runtime.c.o /home/andi/code/c/ZDK/ZTM/ZT_List.c.o /home/andi/code/c/ZDK/ZTM/ZT_Time.c.o /home/andi/code/c/ZDK/ZTM/ZT_Pixel.c.o /home/andi/code/c/ZDK/ZTM/ZT_Surface.c.o /home/andi/code/c/ZDK/ZTM/ZT_Char.c.o /home/andi/code/c/ZDK/ZTM/ZT_HashMD5.c.o /home/andi/code/c/ZDK/ZTM/ZT_Color.c.o /home/andi/code/c/ZDK/ZTM/ZT_Hash.c.o /home/andi/code/c/ZDK/ZTM/ZTM.c.o -o /home/andi/code/c/ZDK/ZTM/libZTM.so -flto -O3 -shared -fPIC -s
+rm /home/andi/code/c/ZDK/ZTM/ZTMIO/ZTMIO.c.o
+rm /home/andi/code/c/ZDK/ZTM/ZTMKY/ZTMKY.c.o
+rm /home/andi/code/c/ZDK/ZTM/ZTMWV/ZTMWV.c.o
+rm /home/andi/code/c/ZDK/ZTM/ZTM__Runtime.c.o
+rm /home/andi/code/c/ZDK/ZTM/ZT_List.c.o
+rm /home/andi/code/c/ZDK/ZTM/ZT_Time.c.o
+rm /home/andi/code/c/ZDK/ZTM/ZT_Pixel.c.o
+rm /home/andi/code/c/ZDK/ZTM/ZT_Surface.c.o
+rm /home/andi/code/c/ZDK/ZTM/ZT_Char.c.o
+rm /home/andi/code/c/ZDK/ZTM/ZT_HashMD5.c.o
+rm /home/andi/code/c/ZDK/ZTM/ZT_Color.c.o
+rm /home/andi/code/c/ZDK/ZTM/ZT_Hash.c.o
+rm /home/andi/code/c/ZDK/ZTM/ZTM.c.o
+*** DONE: ZTM
+*** MD5: a15eec5ee9ce3b559b92aaa0b9ff39d4  /home/andi/code/c/ZDK/ZTM/libZTM.so
+*** SHA1: 39109c9b1e6b304ee68e492ac17cc220cfd859c4  /home/andi/code/c/ZDK/ZTM/libZTM.so
+*** SHA256: 389b3afc958f341f62390e69a9d07ab716eaef875e13e6e57714ba7c0d0bf165  /home/andi/code/c/ZDK/ZTM/libZTM.so
+
+*** BUILD: ZTL '/home/andi/code/c/ZDK/ZTL/ZTL.zmk'
+{
+    "target": "./libZTL.so",
+    "sources": [
+        "./ZTL__LINUX.c",
+        "./ZTL__Runtime.c",
+        "./ZTL.c"
+    ],
+    "include": ["../ZTM"],
+    "link": ["ZTM"],
+    "flag": {
+        "linker": ["-shared", "-fPIC", "-s"],
+        "compiler": ["-fPIC"]
+    }
+}
+*** MAKE: ZTL
+gcc -fPIC -flto -O3 -I/home/andi/code/c/ZDK/ZTM -c /home/andi/code/c/ZDK/ZTL/ZTL__LINUX.c -o /home/andi/code/c/ZDK/ZTL/ZTL__LINUX.c.o
+gcc -fPIC -flto -O3 -I/home/andi/code/c/ZDK/ZTM -c /home/andi/code/c/ZDK/ZTL/ZTL__Runtime.c -o /home/andi/code/c/ZDK/ZTL/ZTL__Runtime.c.o
+gcc -fPIC -flto -O3 -I/home/andi/code/c/ZDK/ZTM -c /home/andi/code/c/ZDK/ZTL/ZTL.c -o /home/andi/code/c/ZDK/ZTL/ZTL.c.o
+gcc /home/andi/code/c/ZDK/ZTL/ZTL__LINUX.c.o /home/andi/code/c/ZDK/ZTL/ZTL__Runtime.c.o /home/andi/code/c/ZDK/ZTL/ZTL.c.o -o /home/andi/code/c/ZDK/ZTL/libZTL.so -flto -O3 -shared -fPIC -s -lZTM -L/home/andi/code/c/ZDK/ZTM
+rm /home/andi/code/c/ZDK/ZTL/ZTL__LINUX.c.o
+rm /home/andi/code/c/ZDK/ZTL/ZTL__Runtime.c.o
+rm /home/andi/code/c/ZDK/ZTL/ZTL.c.o
+*** DONE: ZTL
+*** MD5: 05077093b17339570427994032ed5ff3  /home/andi/code/c/ZDK/ZTL/libZTL.so
+*** SHA1: 35bd454c754d38beb31e9881752f22bfa079b23d  /home/andi/code/c/ZDK/ZTL/libZTL.so
+*** SHA256: abd3b8c20b06992234e0293e0aa41d037ef0bc1987374e3ef6a8c36d0466bedc  /home/andi/code/c/ZDK/ZTL/libZTL.so
+
+*** BUILD: ZDX '/home/andi/code/c/ZDK/ZDX/ZDX.zmk'
+{
+    "target": "./libZDX.so",
+    "sources": [
+        "./ZDX_Data.c",
+        "./ZDX_Diagram.c",
+        "./ZDX_Interface.c",
+        "./ZDX.c"
+    ],
+    "include": ["../ZTM", "../ZTL"],
+    "link": ["ZTM", "ZTL"],
+    "flag": {
+        "linker": ["-shared", "-fPIC", "-s"],
+        "compiler": ["-fPIC"]
+    }
+}
+*** MAKE: ZDX
+gcc -fPIC -flto -O3 -I/home/andi/code/c/ZDK/ZTM -I/home/andi/code/c/ZDK/ZTL -c /home/andi/code/c/ZDK/ZDX/ZDX_Data.c -o /home/andi/code/c/ZDK/ZDX/ZDX_Data.c.o
+gcc -fPIC -flto -O3 -I/home/andi/code/c/ZDK/ZTM -I/home/andi/code/c/ZDK/ZTL -c /home/andi/code/c/ZDK/ZDX/ZDX_Diagram.c -o /home/andi/code/c/ZDK/ZDX/ZDX_Diagram.c.o
+gcc -fPIC -flto -O3 -I/home/andi/code/c/ZDK/ZTM -I/home/andi/code/c/ZDK/ZTL -c /home/andi/code/c/ZDK/ZDX/ZDX_Interface.c -o /home/andi/code/c/ZDK/ZDX/ZDX_Interface.c.o
+gcc -fPIC -flto -O3 -I/home/andi/code/c/ZDK/ZTM -I/home/andi/code/c/ZDK/ZTL -c /home/andi/code/c/ZDK/ZDX/ZDX.c -o /home/andi/code/c/ZDK/ZDX/ZDX.c.o
+gcc /home/andi/code/c/ZDK/ZDX/ZDX_Data.c.o /home/andi/code/c/ZDK/ZDX/ZDX_Diagram.c.o /home/andi/code/c/ZDK/ZDX/ZDX_Interface.c.o /home/andi/code/c/ZDK/ZDX/ZDX.c.o -o /home/andi/code/c/ZDK/ZDX/libZDX.so -flto -O3 -shared -fPIC -s -lZTM -lZTL -L/home/andi/code/c/ZDK/ZTM -L/home/andi/code/c/ZDK/ZTL
+rm /home/andi/code/c/ZDK/ZDX/ZDX_Data.c.o
+rm /home/andi/code/c/ZDK/ZDX/ZDX_Diagram.c.o
+rm /home/andi/code/c/ZDK/ZDX/ZDX_Interface.c.o
+rm /home/andi/code/c/ZDK/ZDX/ZDX.c.o
+*** DONE: ZDX
+*** MD5: 3fae9f0c701620de89f16019bc3e55ae  /home/andi/code/c/ZDK/ZDX/libZDX.so
+*** SHA1: 6337eb3079186a6d075120398a17e573fa54f6d2  /home/andi/code/c/ZDK/ZDX/libZDX.so
+*** SHA256: 4e3fbd8313d239351e078feb4a79434791e45cc0007b5c0c18d08897a8bf2d3d  /home/andi/code/c/ZDK/ZDX/libZDX.so
+
