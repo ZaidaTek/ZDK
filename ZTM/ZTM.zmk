@@ -1,0 +1,22 @@
+{
+    "target": "./libZTM.so",
+    "sources": [
+        "./ZTMIO/ZTMIO.c",
+        "./ZTMKY/ZTMKY.c",
+        "./ZTMWV/ZTMWV.c",
+        "./ZTM__Runtime.c",
+        "./ZT_List.c",
+        "./ZT_Time.c",
+        "./ZT_Pixel.c",
+        "./ZT_Surface.c",
+        "./ZT_Char.c",
+        "./ZT_HashMD5.c",
+        "./ZT_Color.c",
+        "./ZT_Hash.c",
+        "./ZTM.c"
+    ],
+    "flag": {
+        "linker": ["-shared", "-fPIC", "-s"],
+        "compiler": ["-fPIC"]
+    }
+}

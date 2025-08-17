@@ -1,0 +1,14 @@
+{
+    "target": "./libZTL.so",
+    "sources": [
+        "./ZTL__LINUX.c",
+        "./ZTL__Runtime.c",
+        "./ZTL.c"
+    ],
+    "include": ["../ZTM"],
+    "link": ["ZTM"],
+    "flag": {
+        "linker": ["-shared", "-fPIC", "-s"],
+        "compiler": ["-fPIC"]
+    }
+}

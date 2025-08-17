@@ -1,0 +1,15 @@
+{
+    "target": "./libZDX.so",
+    "sources": [
+        "./ZDX_Data.c",
+        "./ZDX_Diagram.c",
+        "./ZDX_Interface.c",
+        "./ZDX.c"
+    ],
+    "include": ["../ZTM", "../ZTL"],
+    "link": ["ZTM", "ZTL"],
+    "flag": {
+        "linker": ["-shared", "-fPIC", "-s"],
+        "compiler": ["-fPIC"]
+    }
+}
