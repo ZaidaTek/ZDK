@@ -14,17 +14,16 @@ ZT_U32 ZTM_Seed_32(ZT_U32 iSeed) {
 	return lCache;
 }
 ZT_U32 ZTM_Random_32(ZT_U32 iModulo) {
-	rZTM__SEED_32 ^= rZTM__SEED_32 << 13;
-	rZTM__SEED_32 ^= rZTM__SEED_32 >> 17;
-	rZTM__SEED_32 ^= rZTM__SEED_32 << 5;
+	rZTM__SEED_32 ^= ~(rZTM__SEED_32 >> 25);
+	rZTM__SEED_32 ^= ~(rZTM__SEED_32 << 7);
+	rZTM__SEED_32 ^= ~(rZTM__SEED_32 << 19);
 	return (iModulo ? (rZTM__SEED_32 % iModulo) : rZTM__SEED_32);
 }
 ZT_U32 ZTM_Randomize_32(ZT_U32* ioSeed, ZT_U32 iModulo) {
-	ZT_U32 lSeed = *ioSeed;
-	lSeed ^= lSeed << 13;
-	lSeed ^= lSeed >> 17;
-	*ioSeed = (lSeed ^= lSeed << 5);
-	return (iModulo ? (lSeed % iModulo) : lSeed);
+	*ioSeed ^= ~(*ioSeed >> 25);
+	*ioSeed ^= ~(*ioSeed << 7);
+	*ioSeed ^= ~(*ioSeed << 19);
+	return (iModulo ? (*ioSeed % iModulo) : *ioSeed);
 }
 ZT_U64 ZTM_Seed_64(ZT_U64 iSeed) {
 	ZT_U64 lCache = rZTM__SEED_64;
@@ -32,20 +31,20 @@ ZT_U64 ZTM_Seed_64(ZT_U64 iSeed) {
 	return lCache;
 }
 ZT_U64 ZTM_Random_64(ZT_U64 iModulo) {
-	rZTM__SEED_64 ^= rZTM__SEED_64 << 13;
-	rZTM__SEED_64 ^= rZTM__SEED_64 >> 7;
-	rZTM__SEED_64 ^= rZTM__SEED_64 << 17;
+	rZTM__SEED_64 ^= ~(rZTM__SEED_64 >> 51);
+	rZTM__SEED_64 ^= ~(rZTM__SEED_64 << 13);
+	rZTM__SEED_64 ^= ~(rZTM__SEED_64 << 29);
 	return (iModulo ? (rZTM__SEED_64 % iModulo) : rZTM__SEED_64);
 }
 ZT_U64 ZTM_Randomize_64(ZT_U64* ioSeed, ZT_U64 iModulo) {
-	ZT_U64 lSeed = *ioSeed;
-	lSeed ^= lSeed << 13;
-	lSeed ^= lSeed >> 7;
-	*ioSeed = (lSeed ^= lSeed << 17);
-	return (iModulo ? (lSeed % iModulo) : lSeed);
+	*ioSeed ^= ~(*ioSeed >> 51);
+	*ioSeed ^= ~(*ioSeed << 13);
+	*ioSeed ^= ~(*ioSeed << 29);
+	return (iModulo ? (*ioSeed % iModulo) : *ioSeed);
 }
 ZT_FLAG ZTM_LSB(ZT_FLAG iFlag) {
-    ZT_FLAG lBit = iFlag ? 0x1u : 0x0u; //TODO test me
+	// inb4 vectorizing all this and if else if sizeof(ZT_FLAG), etc.
+    ZT_FLAG lBit = iFlag ? 0x1u : 0x0u; // TODO test me
     while (!(iFlag & lBit) && (lBit <<= 1));
     return lBit;
 }
@@ -60,7 +59,7 @@ ZT_FLAG ZTM_BitFillLeft(ZT_INDEX iCount) { //NOTE left *shift*, not origin
     //++iCount;
     //while (--iCount && (lIndex <<= 1));
     //return ~lIndex;
-    ///warning: signed and unsigned type in conditional expression [-Wsign-compare]:
+    ///warning: signed and unsigned type in conditional expression [-Wsign-compare]: // D25229: seems to have disappeared with newer GCC?
     return (iCount < (sizeof(ZT_FLAG) << 3)) ? ~(((ZT_FLAG)~0x0u) << iCount) : (ZT_FLAG)~0x0u;
     ///no warnings with this(?):
     //if (iCount < (sizeof(ZT_FLAG) << 3)) {return ~(((ZT_FLAG)~0x0) << iCount);} else {return ~0x0;}
@@ -71,7 +70,7 @@ ZT_FLAG ZTM_BitFillRight(ZT_INDEX iCount) {
     //++iCount;
     //while (--iCount && (lIndex >>= 1));
     //return ~lIndex;
-    ///warning: signed and unsigned type in conditional expression [-Wsign-compare]:
+    ///warning: signed and unsigned type in conditional expression [-Wsign-compare]: // D25229: seems to have disappeared with newer GCC?
     return (iCount < (sizeof(ZT_FLAG) << 3)) ? ~(((ZT_FLAG)~0x0u) >> iCount) : (ZT_FLAG)~0x0u;
     ///no warnings with this(?):
     //if (iCount < (sizeof(ZT_FLAG) << 3)) {return ~(((ZT_FLAG)~0x0) >> iCount);} else {return ~0x0;}

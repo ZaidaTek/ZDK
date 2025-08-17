@@ -14,8 +14,11 @@
 #elif defined(__MACH__) || defined(__APPLE__)
 #define ZTM__OS__APPLE
 #define ZTM__OS__BITS 32
-#else
+#elif defined(__linux__)
 #define ZTM__OS__LINUX
+#define ZTM__OS__BITS 32
+#else
+#define ZTM__OS__UNKNOWN
 #define ZTM__OS__BITS 32
 #endif // ZTM__OS__
 

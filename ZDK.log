@@ -1,5 +1,5 @@
 *** SELF: now
-2025-08-16T19:41:11 CEST
+2025-08-17T19:13:22 CEST
 
 *** SELF: executing './ZDK.sh'
 
@@ -37,7 +37,7 @@ done
 [0m----------------[0m 
 [0m[32m[1mOS[0m[0m:[0m LMDE 6 (faye) x86_64[0m 
 [0m[32m[1mKernel[0m[0m:[0m 6.12.38+deb12-rt-amd64[0m 
-[0m[32m[1mUptime[0m[0m:[0m 20 hours, 8 mins[0m 
+[0m[32m[1mUptime[0m[0m:[0m 1 day, 19 hours, 41 mins[0m 
 [0m[32m[1mPackages[0m[0m:[0m 3167 (dpkg), 46 (flatpak)[0m 
 [0m[32m[1mShell[0m[0m:[0m bash 5.2.15[0m 
 [0m[32m[1mResolution[0m[0m:[0m 1920x1080[0m 
@@ -49,7 +49,7 @@ done
 [0m[32m[1mTerminal[0m[0m:[0m gnome-terminal[0m 
 [0m[32m[1mCPU[0m[0m:[0m AMD Ryzen 7 5700X3D (16) @ 4.149GHz[0m 
 [0m[32m[1mGPU[0m[0m:[0m AMD ATI Radeon RX 470/480/570/570X/580/580X/590[0m 
-[0m[32m[1mMemory[0m[0m:[0m 1239MiB / 15918MiB[0m 
+[0m[32m[1mMemory[0m[0m:[0m 2374MiB / 15918MiB[0m 
 
 [C[30m[40m   [31m[41m   [32m[42m   [33m[43m   [34m[44m   [35m[45m   [36m[46m   [37m[47m   [m
 [C[38;5;8m[48;5;8m   [38;5;9m[48;5;9m   [38;5;10m[48;5;10m   [38;5;11m[48;5;11m   [38;5;12m[48;5;12m   [38;5;13m[48;5;13m   [38;5;14m[48;5;14m   [38;5;15m[48;5;15m   [m
@@ -119,9 +119,9 @@ rm /home/andi/code/c/ZDK/ZTM/ZT_Color.c.o
 rm /home/andi/code/c/ZDK/ZTM/ZT_Hash.c.o
 rm /home/andi/code/c/ZDK/ZTM/ZTM.c.o
 *** DONE: ZTM
-*** MD5: a15eec5ee9ce3b559b92aaa0b9ff39d4  /home/andi/code/c/ZDK/ZTM/libZTM.so
-*** SHA1: 39109c9b1e6b304ee68e492ac17cc220cfd859c4  /home/andi/code/c/ZDK/ZTM/libZTM.so
-*** SHA256: 389b3afc958f341f62390e69a9d07ab716eaef875e13e6e57714ba7c0d0bf165  /home/andi/code/c/ZDK/ZTM/libZTM.so
+*** MD5: 58d140b49f6007b260b197e4134d6868  /home/andi/code/c/ZDK/ZTM/libZTM.so
+*** SHA1: 0e5b43d2d67d75f906e1e0f8096eb903e30c2f9d  /home/andi/code/c/ZDK/ZTM/libZTM.so
+*** SHA256: e7d6fe219a13528aed1572e66714957524d65cf7b369e31595621df75269d412  /home/andi/code/c/ZDK/ZTM/libZTM.so
 
 *** BUILD: ZTL '/home/andi/code/c/ZDK/ZTL/ZTL.zmk'
 {

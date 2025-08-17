@@ -6,7 +6,7 @@
 #define ZT_CHAR_C_INCLUDED
 
 #include "ZTM__Runtime.h"
-#include ZTM__INCL__CHAR0
+#include ZTM__INCL__CHAR
 /*
 ZT_SIZE ZTC8_FormatLength(const void* iFormatText, ...) {
     ZT_SIZE lLength = 0;
