@@ -1,0 +1,10 @@
+{
+    "include": ["../ZTM"],
+    "link": ["ZTM"],
+    "sources": ["./ZQC.c"],
+    "target": "./ZQC-test",
+    "flag": {
+        "linker": [],
+        "compiler": []
+    }
+}
