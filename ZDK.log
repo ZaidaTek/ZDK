@@ -1,5 +1,5 @@
 *** SELF: now
-2025-08-29T11:57:50 CEST
+2025-08-29T12:45:06 CEST
 
 *** SELF: executing './ZDK.sh'
 
@@ -37,7 +37,7 @@ andi@ztk-dt-andi
 ---------------- 
 OS: LMDE 6 (faye) x86_64 
 Kernel: 6.12.38+deb12-rt-amd64 
-Uptime: 2 hours, 46 mins 
+Uptime: 3 hours, 33 mins 
 Packages: 3167 (dpkg), 46 (flatpak) 
 Shell: bash 5.2.15 
 Resolution: 1920x1080 
@@ -49,7 +49,7 @@ Icons: Mint-Y-Sand [GTK2/3]
 Terminal: gnome-terminal 
 CPU: AMD Ryzen 7 5700X3D (16) @ 4.149GHz 
 GPU: AMD ATI Radeon RX 470/480/570/570X/580/580X/590 
-Memory: 1596MiB / 15918MiB 
+Memory: 1693MiB / 15918MiB 
 
 *** SELF: compiler version
 gcc (Debian 12.2.0-14+deb12u1) 12.2.0
@@ -82,25 +82,27 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
         "./ZTM.c"
     ],
     "flag": {
-        "linker": ["-shared", "-fPIC", "-s"],
-        "compiler": ["-fPIC"]
+		"extra": {
+			"shared": ["-fPIC"],
+			"linker": ["-shared"]
+		}
     }
 }
 *** MAKE: ZTM
-gcc -fPIC -flto -O3 -c /home/andi/code/c/ZDK/ZTM/ZTMIO/ZTMIO.c -o /home/andi/code/c/ZDK/ZTM/ZTMIO/ZTMIO.c.o
-gcc -fPIC -flto -O3 -c /home/andi/code/c/ZDK/ZTM/ZTMKY/ZTMKY.c -o /home/andi/code/c/ZDK/ZTM/ZTMKY/ZTMKY.c.o
-gcc -fPIC -flto -O3 -c /home/andi/code/c/ZDK/ZTM/ZTMWV/ZTMWV.c -o /home/andi/code/c/ZDK/ZTM/ZTMWV/ZTMWV.c.o
-gcc -fPIC -flto -O3 -c /home/andi/code/c/ZDK/ZTM/ZTM__Runtime.c -o /home/andi/code/c/ZDK/ZTM/ZTM__Runtime.c.o
-gcc -fPIC -flto -O3 -c /home/andi/code/c/ZDK/ZTM/ZT_List.c -o /home/andi/code/c/ZDK/ZTM/ZT_List.c.o
-gcc -fPIC -flto -O3 -c /home/andi/code/c/ZDK/ZTM/ZT_Time.c -o /home/andi/code/c/ZDK/ZTM/ZT_Time.c.o
-gcc -fPIC -flto -O3 -c /home/andi/code/c/ZDK/ZTM/ZT_Pixel.c -o /home/andi/code/c/ZDK/ZTM/ZT_Pixel.c.o
-gcc -fPIC -flto -O3 -c /home/andi/code/c/ZDK/ZTM/ZT_Surface.c -o /home/andi/code/c/ZDK/ZTM/ZT_Surface.c.o
-gcc -fPIC -flto -O3 -c /home/andi/code/c/ZDK/ZTM/ZT_Char.c -o /home/andi/code/c/ZDK/ZTM/ZT_Char.c.o
-gcc -fPIC -flto -O3 -c /home/andi/code/c/ZDK/ZTM/ZT_HashMD5.c -o /home/andi/code/c/ZDK/ZTM/ZT_HashMD5.c.o
-gcc -fPIC -flto -O3 -c /home/andi/code/c/ZDK/ZTM/ZT_Color.c -o /home/andi/code/c/ZDK/ZTM/ZT_Color.c.o
-gcc -fPIC -flto -O3 -c /home/andi/code/c/ZDK/ZTM/ZT_Hash.c -o /home/andi/code/c/ZDK/ZTM/ZT_Hash.c.o
-gcc -fPIC -flto -O3 -c /home/andi/code/c/ZDK/ZTM/ZTM.c -o /home/andi/code/c/ZDK/ZTM/ZTM.c.o
-gcc /home/andi/code/c/ZDK/ZTM/ZTMIO/ZTMIO.c.o /home/andi/code/c/ZDK/ZTM/ZTMKY/ZTMKY.c.o /home/andi/code/c/ZDK/ZTM/ZTMWV/ZTMWV.c.o /home/andi/code/c/ZDK/ZTM/ZTM__Runtime.c.o /home/andi/code/c/ZDK/ZTM/ZT_List.c.o /home/andi/code/c/ZDK/ZTM/ZT_Time.c.o /home/andi/code/c/ZDK/ZTM/ZT_Pixel.c.o /home/andi/code/c/ZDK/ZTM/ZT_Surface.c.o /home/andi/code/c/ZDK/ZTM/ZT_Char.c.o /home/andi/code/c/ZDK/ZTM/ZT_HashMD5.c.o /home/andi/code/c/ZDK/ZTM/ZT_Color.c.o /home/andi/code/c/ZDK/ZTM/ZT_Hash.c.o /home/andi/code/c/ZDK/ZTM/ZTM.c.o -o /home/andi/code/c/ZDK/ZTM/libZTM.so -flto -O3 -shared -fPIC -s
+gcc -fexpensive-optimizations -flto -O3 -fPIC -Wfatal-errors -Werror -Wall -Wextra -c /home/andi/code/c/ZDK/ZTM/ZTMIO/ZTMIO.c -o /home/andi/code/c/ZDK/ZTM/ZTMIO/ZTMIO.c.o
+gcc -fexpensive-optimizations -flto -O3 -fPIC -Wfatal-errors -Werror -Wall -Wextra -c /home/andi/code/c/ZDK/ZTM/ZTMKY/ZTMKY.c -o /home/andi/code/c/ZDK/ZTM/ZTMKY/ZTMKY.c.o
+gcc -fexpensive-optimizations -flto -O3 -fPIC -Wfatal-errors -Werror -Wall -Wextra -c /home/andi/code/c/ZDK/ZTM/ZTMWV/ZTMWV.c -o /home/andi/code/c/ZDK/ZTM/ZTMWV/ZTMWV.c.o
+gcc -fexpensive-optimizations -flto -O3 -fPIC -Wfatal-errors -Werror -Wall -Wextra -c /home/andi/code/c/ZDK/ZTM/ZTM__Runtime.c -o /home/andi/code/c/ZDK/ZTM/ZTM__Runtime.c.o
+gcc -fexpensive-optimizations -flto -O3 -fPIC -Wfatal-errors -Werror -Wall -Wextra -c /home/andi/code/c/ZDK/ZTM/ZT_List.c -o /home/andi/code/c/ZDK/ZTM/ZT_List.c.o
+gcc -fexpensive-optimizations -flto -O3 -fPIC -Wfatal-errors -Werror -Wall -Wextra -c /home/andi/code/c/ZDK/ZTM/ZT_Time.c -o /home/andi/code/c/ZDK/ZTM/ZT_Time.c.o
+gcc -fexpensive-optimizations -flto -O3 -fPIC -Wfatal-errors -Werror -Wall -Wextra -c /home/andi/code/c/ZDK/ZTM/ZT_Pixel.c -o /home/andi/code/c/ZDK/ZTM/ZT_Pixel.c.o
+gcc -fexpensive-optimizations -flto -O3 -fPIC -Wfatal-errors -Werror -Wall -Wextra -c /home/andi/code/c/ZDK/ZTM/ZT_Surface.c -o /home/andi/code/c/ZDK/ZTM/ZT_Surface.c.o
+gcc -fexpensive-optimizations -flto -O3 -fPIC -Wfatal-errors -Werror -Wall -Wextra -c /home/andi/code/c/ZDK/ZTM/ZT_Char.c -o /home/andi/code/c/ZDK/ZTM/ZT_Char.c.o
+gcc -fexpensive-optimizations -flto -O3 -fPIC -Wfatal-errors -Werror -Wall -Wextra -c /home/andi/code/c/ZDK/ZTM/ZT_HashMD5.c -o /home/andi/code/c/ZDK/ZTM/ZT_HashMD5.c.o
+gcc -fexpensive-optimizations -flto -O3 -fPIC -Wfatal-errors -Werror -Wall -Wextra -c /home/andi/code/c/ZDK/ZTM/ZT_Color.c -o /home/andi/code/c/ZDK/ZTM/ZT_Color.c.o
+gcc -fexpensive-optimizations -flto -O3 -fPIC -Wfatal-errors -Werror -Wall -Wextra -c /home/andi/code/c/ZDK/ZTM/ZT_Hash.c -o /home/andi/code/c/ZDK/ZTM/ZT_Hash.c.o
+gcc -fexpensive-optimizations -flto -O3 -fPIC -Wfatal-errors -Werror -Wall -Wextra -c /home/andi/code/c/ZDK/ZTM/ZTM.c -o /home/andi/code/c/ZDK/ZTM/ZTM.c.o
+gcc /home/andi/code/c/ZDK/ZTM/ZTMIO/ZTMIO.c.o /home/andi/code/c/ZDK/ZTM/ZTMKY/ZTMKY.c.o /home/andi/code/c/ZDK/ZTM/ZTMWV/ZTMWV.c.o /home/andi/code/c/ZDK/ZTM/ZTM__Runtime.c.o /home/andi/code/c/ZDK/ZTM/ZT_List.c.o /home/andi/code/c/ZDK/ZTM/ZT_Time.c.o /home/andi/code/c/ZDK/ZTM/ZT_Pixel.c.o /home/andi/code/c/ZDK/ZTM/ZT_Surface.c.o /home/andi/code/c/ZDK/ZTM/ZT_Char.c.o /home/andi/code/c/ZDK/ZTM/ZT_HashMD5.c.o /home/andi/code/c/ZDK/ZTM/ZT_Color.c.o /home/andi/code/c/ZDK/ZTM/ZT_Hash.c.o /home/andi/code/c/ZDK/ZTM/ZTM.c.o -o /home/andi/code/c/ZDK/ZTM/libZTM.so -flto -O3 -s -fPIC -shared
 rm /home/andi/code/c/ZDK/ZTM/ZTMIO/ZTMIO.c.o
 rm /home/andi/code/c/ZDK/ZTM/ZTMKY/ZTMKY.c.o
 rm /home/andi/code/c/ZDK/ZTM/ZTMWV/ZTMWV.c.o
@@ -120,14 +122,16 @@ rm /home/andi/code/c/ZDK/ZTM/ZTM.c.o
 *** SHA256: e7d6fe219a13528aed1572e66714957524d65cf7b369e31595621df75269d412  /home/andi/code/c/ZDK/ZTM/libZTM.so
 sending incremental file list
 .d..t...... ./
+>f.stp..... ZTM.zmk
+            462 100%    0,00kB/s    0:00:00              462 100%    0,00kB/s    0:00:00 (xfr#1, to-chk=32/37)
 >f..t...... libZTM.so
-         32.768  32%    0,00kB/s    0:00:00          101.672 100%   65,71MB/s    0:00:00 (xfr#1, to-chk=9/37)
+         32.768  32%   31,25MB/s    0:00:00          101.672 100%   96,96MB/s    0:00:00 (xfr#2, to-chk=9/37)
 .d..t...... ZTMIO/
 .d..t...... ZTMKY/
 .d..t...... ZTMWV/
 
-sent 102.604 bytes  received 54 bytes  205.316,00 bytes/sec
-total size is 349.673  speedup is 3,41
+sent 103.109 bytes  received 73 bytes  206.364,00 bytes/sec
+total size is 349.663  speedup is 3,39
 
 *** BUILD: ZTL '/home/andi/code/c/ZDK/ZTL/ZTL.zmk'
 {
@@ -140,29 +144,35 @@ total size is 349.673  speedup is 3,41
     "include": ["../ZTM"],
     "link": ["ZTM"],
     "flag": {
-        "linker": ["-shared", "-fPIC", "-s"],
-        "compiler": ["-fPIC"]
+		"extra": {
+			"shared": ["-fPIC"],
+			"linker": ["-shared"]
+		}
     }
 }
 *** MAKE: ZTL
-gcc -fPIC -flto -O3 -I/home/andi/code/c/ZDK/ZTM -c /home/andi/code/c/ZDK/ZTL/ZTL__LINUX.c -o /home/andi/code/c/ZDK/ZTL/ZTL__LINUX.c.o
-gcc -fPIC -flto -O3 -I/home/andi/code/c/ZDK/ZTM -c /home/andi/code/c/ZDK/ZTL/ZTL__Runtime.c -o /home/andi/code/c/ZDK/ZTL/ZTL__Runtime.c.o
-gcc -fPIC -flto -O3 -I/home/andi/code/c/ZDK/ZTM -c /home/andi/code/c/ZDK/ZTL/ZTL.c -o /home/andi/code/c/ZDK/ZTL/ZTL.c.o
-gcc /home/andi/code/c/ZDK/ZTL/ZTL__LINUX.c.o /home/andi/code/c/ZDK/ZTL/ZTL__Runtime.c.o /home/andi/code/c/ZDK/ZTL/ZTL.c.o -o /home/andi/code/c/ZDK/ZTL/libZTL.so -flto -O3 -shared -fPIC -s -lZTM -L/home/andi/code/c/ZDK/ZTM
+gcc -fexpensive-optimizations -flto -O3 -fPIC -Wfatal-errors -Werror -Wall -Wextra -I/home/andi/code/c/ZDK/ZTM -c /home/andi/code/c/ZDK/ZTL/ZTL__LINUX.c -o /home/andi/code/c/ZDK/ZTL/ZTL__LINUX.c.o
+gcc -fexpensive-optimizations -flto -O3 -fPIC -Wfatal-errors -Werror -Wall -Wextra -I/home/andi/code/c/ZDK/ZTM -c /home/andi/code/c/ZDK/ZTL/ZTL__Runtime.c -o /home/andi/code/c/ZDK/ZTL/ZTL__Runtime.c.o
+gcc -fexpensive-optimizations -flto -O3 -fPIC -Wfatal-errors -Werror -Wall -Wextra -I/home/andi/code/c/ZDK/ZTM -c /home/andi/code/c/ZDK/ZTL/ZTL.c -o /home/andi/code/c/ZDK/ZTL/ZTL.c.o
+gcc /home/andi/code/c/ZDK/ZTL/ZTL__LINUX.c.o /home/andi/code/c/ZDK/ZTL/ZTL__Runtime.c.o /home/andi/code/c/ZDK/ZTL/ZTL.c.o -o /home/andi/code/c/ZDK/ZTL/libZTL.so -flto -O3 -s -fPIC -shared -lZTM -L/home/andi/code/c/ZDK/ZTM
 rm /home/andi/code/c/ZDK/ZTL/ZTL__LINUX.c.o
 rm /home/andi/code/c/ZDK/ZTL/ZTL__Runtime.c.o
 rm /home/andi/code/c/ZDK/ZTL/ZTL.c.o
 *** DONE: ZTL
-*** MD5: 05077093b17339570427994032ed5ff3  /home/andi/code/c/ZDK/ZTL/libZTL.so
-*** SHA1: 35bd454c754d38beb31e9881752f22bfa079b23d  /home/andi/code/c/ZDK/ZTL/libZTL.so
-*** SHA256: abd3b8c20b06992234e0293e0aa41d037ef0bc1987374e3ef6a8c36d0466bedc  /home/andi/code/c/ZDK/ZTL/libZTL.so
+*** MD5: 7da69d412a48db0e2c05cc979ae492df  /home/andi/code/c/ZDK/ZTL/libZTL.so
+*** SHA1: 07cf6d28f04b0ad6f6cf3f94d8973418f129a7e0  /home/andi/code/c/ZDK/ZTL/libZTL.so
+*** SHA256: 0562ca2bfa1e18720eb63da4c960e20a631a23c11c7d1a8e5076bddfe3ae1c99  /home/andi/code/c/ZDK/ZTL/libZTL.so
 sending incremental file list
 .d..t...... ./
+>f.stp..... ZTL.zmk
+            263 100%    0,00kB/s    0:00:00              263 100%    0,00kB/s    0:00:00 (xfr#1, to-chk=8/13)
+>f.stp..... ZTL__LINUX.c
+         12.064 100%   11,51MB/s    0:00:00           12.064 100%   11,51MB/s    0:00:00 (xfr#2, to-chk=4/13)
 >f..t...... libZTL.so
-         22.816 100%    0,00kB/s    0:00:00           22.816 100%    0,00kB/s    0:00:00 (xfr#1, to-chk=0/13)
+         22.816 100%   21,76MB/s    0:00:00           22.816 100%   21,76MB/s    0:00:00 (xfr#3, to-chk=0/13)
 
-sent 23.187 bytes  received 38 bytes  46.450,00 bytes/sec
-total size is 71.178  speedup is 3,06
+sent 35.603 bytes  received 76 bytes  71.358,00 bytes/sec
+total size is 71.169  speedup is 1,99
 
 *** BUILD: ZDX '/home/andi/code/c/ZDK/ZDX/ZDX.zmk'
 {
@@ -176,16 +186,18 @@ total size is 71.178  speedup is 3,06
     "include": ["../ZTM", "../ZTL"],
     "link": ["ZTM", "ZTL"],
     "flag": {
-        "linker": ["-shared", "-fPIC", "-s"],
-        "compiler": ["-fPIC"]
+		"extra": {
+			"shared": ["-fPIC"],
+			"linker": ["-shared"]
+		}
     }
 }
 *** MAKE: ZDX
-gcc -fPIC -flto -O3 -I/home/andi/code/c/ZDK/ZTM -I/home/andi/code/c/ZDK/ZTL -c /home/andi/code/c/ZDK/ZDX/ZDX_Data.c -o /home/andi/code/c/ZDK/ZDX/ZDX_Data.c.o
-gcc -fPIC -flto -O3 -I/home/andi/code/c/ZDK/ZTM -I/home/andi/code/c/ZDK/ZTL -c /home/andi/code/c/ZDK/ZDX/ZDX_Diagram.c -o /home/andi/code/c/ZDK/ZDX/ZDX_Diagram.c.o
-gcc -fPIC -flto -O3 -I/home/andi/code/c/ZDK/ZTM -I/home/andi/code/c/ZDK/ZTL -c /home/andi/code/c/ZDK/ZDX/ZDX_Interface.c -o /home/andi/code/c/ZDK/ZDX/ZDX_Interface.c.o
-gcc -fPIC -flto -O3 -I/home/andi/code/c/ZDK/ZTM -I/home/andi/code/c/ZDK/ZTL -c /home/andi/code/c/ZDK/ZDX/ZDX.c -o /home/andi/code/c/ZDK/ZDX/ZDX.c.o
-gcc /home/andi/code/c/ZDK/ZDX/ZDX_Data.c.o /home/andi/code/c/ZDK/ZDX/ZDX_Diagram.c.o /home/andi/code/c/ZDK/ZDX/ZDX_Interface.c.o /home/andi/code/c/ZDK/ZDX/ZDX.c.o -o /home/andi/code/c/ZDK/ZDX/libZDX.so -flto -O3 -shared -fPIC -s -lZTM -lZTL -L/home/andi/code/c/ZDK/ZTM -L/home/andi/code/c/ZDK/ZTL
+gcc -fexpensive-optimizations -flto -O3 -fPIC -Wfatal-errors -Werror -Wall -Wextra -I/home/andi/code/c/ZDK/ZTM -I/home/andi/code/c/ZDK/ZTL -c /home/andi/code/c/ZDK/ZDX/ZDX_Data.c -o /home/andi/code/c/ZDK/ZDX/ZDX_Data.c.o
+gcc -fexpensive-optimizations -flto -O3 -fPIC -Wfatal-errors -Werror -Wall -Wextra -I/home/andi/code/c/ZDK/ZTM -I/home/andi/code/c/ZDK/ZTL -c /home/andi/code/c/ZDK/ZDX/ZDX_Diagram.c -o /home/andi/code/c/ZDK/ZDX/ZDX_Diagram.c.o
+gcc -fexpensive-optimizations -flto -O3 -fPIC -Wfatal-errors -Werror -Wall -Wextra -I/home/andi/code/c/ZDK/ZTM -I/home/andi/code/c/ZDK/ZTL -c /home/andi/code/c/ZDK/ZDX/ZDX_Interface.c -o /home/andi/code/c/ZDK/ZDX/ZDX_Interface.c.o
+gcc -fexpensive-optimizations -flto -O3 -fPIC -Wfatal-errors -Werror -Wall -Wextra -I/home/andi/code/c/ZDK/ZTM -I/home/andi/code/c/ZDK/ZTL -c /home/andi/code/c/ZDK/ZDX/ZDX.c -o /home/andi/code/c/ZDK/ZDX/ZDX.c.o
+gcc /home/andi/code/c/ZDK/ZDX/ZDX_Data.c.o /home/andi/code/c/ZDK/ZDX/ZDX_Diagram.c.o /home/andi/code/c/ZDK/ZDX/ZDX_Interface.c.o /home/andi/code/c/ZDK/ZDX/ZDX.c.o -o /home/andi/code/c/ZDK/ZDX/libZDX.so -flto -O3 -s -fPIC -shared -lZTM -lZTL -L/home/andi/code/c/ZDK/ZTM -L/home/andi/code/c/ZDK/ZTL
 rm /home/andi/code/c/ZDK/ZDX/ZDX_Data.c.o
 rm /home/andi/code/c/ZDK/ZDX/ZDX_Diagram.c.o
 rm /home/andi/code/c/ZDK/ZDX/ZDX_Interface.c.o
@@ -196,9 +208,11 @@ rm /home/andi/code/c/ZDK/ZDX/ZDX.c.o
 *** SHA256: 4e3fbd8313d239351e078feb4a79434791e45cc0007b5c0c18d08897a8bf2d3d  /home/andi/code/c/ZDK/ZDX/libZDX.so
 sending incremental file list
 .d..t...... ./
+>f.stp..... ZDX.zmk
+            306 100%    0,00kB/s    0:00:00              306 100%    0,00kB/s    0:00:00 (xfr#1, to-chk=8/13)
 >f..t...... libZDX.so
-         18.336 100%    0,00kB/s    0:00:00           18.336 100%    0,00kB/s    0:00:00 (xfr#1, to-chk=0/13)
+         18.336 100%   17,49MB/s    0:00:00           18.336 100%   17,49MB/s    0:00:00 (xfr#2, to-chk=0/13)
 
-sent 18.700 bytes  received 38 bytes  37.476,00 bytes/sec
-total size is 61.677  speedup is 3,29
+sent 19.048 bytes  received 57 bytes  38.210,00 bytes/sec
+total size is 61.667  speedup is 3,23
 

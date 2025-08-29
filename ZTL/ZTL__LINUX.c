@@ -52,7 +52,7 @@ ZT_CHAR* ZTL_SerialAddress(ZT_INDEX iPort) {
 }
 ZT_SERIAL* ZTL_SerialNew(const ZT_CHAR* iAddress, ZT_INDEX iBaud, ZT_SIZE iBufferIn, ZT_SIZE iBufferOut) {
     (void)iBufferIn; (void)iBufferOut; // not needed in Linux?
-    rZT_SERIAL* lDevice = ZTM8_New(sizeof(ZT_SERIAL));
+    rZT_SERIAL* lDevice = ZTM8_New(sizeof(rZT_SERIAL));
     if ((*lDevice = open((const char*)iAddress, O_RDWR/* | O_DIRECT*/)) >= 0) {
         if (!ioctl(*lDevice, TIOCEXCL, NULL)) {
             static struct termios2 lTTY;

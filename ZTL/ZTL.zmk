@@ -8,7 +8,9 @@
     "include": ["../ZTM"],
     "link": ["ZTM"],
     "flag": {
-        "linker": ["-shared", "-fPIC", "-s"],
-        "compiler": ["-fPIC"]
+		"extra": {
+			"shared": ["-fPIC"],
+			"linker": ["-shared"]
+		}
     }
 }
