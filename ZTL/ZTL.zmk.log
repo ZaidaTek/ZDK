@@ -23,14 +23,14 @@
     },
     "host": {
         "['date']": [
-            "2025-08-29T21:34:10 CEST"
+            "2025-08-29T21:48:14 CEST"
         ],
         "['neofetch', '--stdout']": [
             "andi@ztk-dt-andi ",
             "---------------- ",
             "OS: LMDE 6 (faye) x86_64 ",
             "Kernel: 6.12.38+deb12-rt-amd64 ",
-            "Uptime: 12 hours, 22 mins ",
+            "Uptime: 12 hours, 36 mins ",
             "Packages: 3167 (dpkg), 47 (flatpak) ",
             "Shell: bash 5.2.15 ",
             "Resolution: 1920x1080 ",
@@ -42,7 +42,7 @@
             "Terminal: gnome-terminal ",
             "CPU: AMD Ryzen 7 5700X3D (16) @ 4.149GHz ",
             "GPU: AMD ATI Radeon RX 470/480/570/570X/580/580X/590 ",
-            "Memory: 3053MiB / 15918MiB "
+            "Memory: 3393MiB / 15918MiB "
         ],
         "['gcc', '--version']": [
             "gcc (Debian 12.2.0-14+deb12u1) 12.2.0",
@@ -138,5 +138,16 @@
             "rm",
             "/home/andi/code/c/ZDK/ZTL/ZTL.c.o"
         ]
-    ]
+    ],
+    "sign": {
+        "['md5sum', '/home/andi/code/c/ZDK/ZTL/libZTL.so']": [
+            "7da69d412a48db0e2c05cc979ae492df"
+        ],
+        "['sha1sum', '/home/andi/code/c/ZDK/ZTL/libZTL.so']": [
+            "07cf6d28f04b0ad6f6cf3f94d8973418f129a7e0"
+        ],
+        "['sha256sum', '/home/andi/code/c/ZDK/ZTL/libZTL.so']": [
+            "0562ca2bfa1e18720eb63da4c960e20a631a23c11c7d1a8e5076bddfe3ae1c99"
+        ]
+    }
 }

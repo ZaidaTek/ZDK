@@ -26,14 +26,14 @@
     },
     "host": {
         "['date']": [
-            "2025-08-29T21:34:11 CEST"
+            "2025-08-29T21:48:14 CEST"
         ],
         "['neofetch', '--stdout']": [
             "andi@ztk-dt-andi ",
             "---------------- ",
             "OS: LMDE 6 (faye) x86_64 ",
             "Kernel: 6.12.38+deb12-rt-amd64 ",
-            "Uptime: 12 hours, 22 mins ",
+            "Uptime: 12 hours, 36 mins ",
             "Packages: 3167 (dpkg), 47 (flatpak) ",
             "Shell: bash 5.2.15 ",
             "Resolution: 1920x1080 ",
@@ -45,7 +45,7 @@
             "Terminal: gnome-terminal ",
             "CPU: AMD Ryzen 7 5700X3D (16) @ 4.149GHz ",
             "GPU: AMD ATI Radeon RX 470/480/570/570X/580/580X/590 ",
-            "Memory: 3056MiB / 15918MiB "
+            "Memory: 3423MiB / 15918MiB "
         ],
         "['gcc', '--version']": [
             "gcc (Debian 12.2.0-14+deb12u1) 12.2.0",
@@ -169,5 +169,16 @@
             "rm",
             "/home/andi/code/c/ZDK/ZDX/ZDX.c.o"
         ]
-    ]
+    ],
+    "sign": {
+        "['md5sum', '/home/andi/code/c/ZDK/ZDX/libZDX.so']": [
+            "3fae9f0c701620de89f16019bc3e55ae"
+        ],
+        "['sha1sum', '/home/andi/code/c/ZDK/ZDX/libZDX.so']": [
+            "6337eb3079186a6d075120398a17e573fa54f6d2"
+        ],
+        "['sha256sum', '/home/andi/code/c/ZDK/ZDX/libZDX.so']": [
+            "4e3fbd8313d239351e078feb4a79434791e45cc0007b5c0c18d08897a8bf2d3d"
+        ]
+    }
 }
