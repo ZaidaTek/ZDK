@@ -1,0 +1,142 @@
+{
+    "target": "./libZTL.so",
+    "sources": {
+        "/home/andi/code/c/ZDK/ZTL/ZTL__LINUX.c": {},
+        "/home/andi/code/c/ZDK/ZTL/ZTL__Runtime.c": {},
+        "/home/andi/code/c/ZDK/ZTL/ZTL.c": {}
+    },
+    "include": [
+        "/home/andi/code/c/ZDK/ZTM"
+    ],
+    "link": [
+        "ZTM"
+    ],
+    "flag": {
+        "extra": {
+            "shared": [
+                "-fPIC"
+            ],
+            "linker": [
+                "-shared"
+            ]
+        }
+    },
+    "host": {
+        "['date']": [
+            "2025-08-29T21:34:10 CEST"
+        ],
+        "['neofetch', '--stdout']": [
+            "andi@ztk-dt-andi ",
+            "---------------- ",
+            "OS: LMDE 6 (faye) x86_64 ",
+            "Kernel: 6.12.38+deb12-rt-amd64 ",
+            "Uptime: 12 hours, 22 mins ",
+            "Packages: 3167 (dpkg), 47 (flatpak) ",
+            "Shell: bash 5.2.15 ",
+            "Resolution: 1920x1080 ",
+            "DE: Cinnamon 6.4.8 ",
+            "WM: Mutter (Muffin) ",
+            "WM Theme: Mint-Y-Dark-Red (Mint-Y) ",
+            "Theme: Mint-Y-Dark-Red [GTK2/3] ",
+            "Icons: Mint-Y-Yaru [GTK2/3] ",
+            "Terminal: gnome-terminal ",
+            "CPU: AMD Ryzen 7 5700X3D (16) @ 4.149GHz ",
+            "GPU: AMD ATI Radeon RX 470/480/570/570X/580/580X/590 ",
+            "Memory: 3053MiB / 15918MiB "
+        ],
+        "['gcc', '--version']": [
+            "gcc (Debian 12.2.0-14+deb12u1) 12.2.0",
+            "Copyright (C) 2022 Free Software Foundation, Inc.",
+            "This is free software; see the source for copying conditions.  There is NO",
+            "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."
+        ],
+        "['g++', '--version']": [
+            "g++ (Debian 12.2.0-14+deb12u1) 12.2.0",
+            "Copyright (C) 2022 Free Software Foundation, Inc.",
+            "This is free software; see the source for copying conditions.  There is NO",
+            "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."
+        ]
+    },
+    "objects": [
+        "/home/andi/code/c/ZDK/ZTL/ZTL__LINUX.c.o",
+        "/home/andi/code/c/ZDK/ZTL/ZTL__Runtime.c.o",
+        "/home/andi/code/c/ZDK/ZTL/ZTL.c.o"
+    ],
+    "commands": [
+        [
+            "gcc",
+            "-fexpensive-optimizations",
+            "-flto",
+            "-O3",
+            "-fPIC",
+            "-Wfatal-errors",
+            "-Werror",
+            "-Wall",
+            "-Wextra",
+            "-I/home/andi/code/c/ZDK/ZTM",
+            "-c",
+            "/home/andi/code/c/ZDK/ZTL/ZTL__LINUX.c",
+            "-o",
+            "/home/andi/code/c/ZDK/ZTL/ZTL__LINUX.c.o"
+        ],
+        [
+            "gcc",
+            "-fexpensive-optimizations",
+            "-flto",
+            "-O3",
+            "-fPIC",
+            "-Wfatal-errors",
+            "-Werror",
+            "-Wall",
+            "-Wextra",
+            "-I/home/andi/code/c/ZDK/ZTM",
+            "-c",
+            "/home/andi/code/c/ZDK/ZTL/ZTL__Runtime.c",
+            "-o",
+            "/home/andi/code/c/ZDK/ZTL/ZTL__Runtime.c.o"
+        ],
+        [
+            "gcc",
+            "-fexpensive-optimizations",
+            "-flto",
+            "-O3",
+            "-fPIC",
+            "-Wfatal-errors",
+            "-Werror",
+            "-Wall",
+            "-Wextra",
+            "-I/home/andi/code/c/ZDK/ZTM",
+            "-c",
+            "/home/andi/code/c/ZDK/ZTL/ZTL.c",
+            "-o",
+            "/home/andi/code/c/ZDK/ZTL/ZTL.c.o"
+        ],
+        [
+            "gcc",
+            "/home/andi/code/c/ZDK/ZTL/ZTL__LINUX.c.o",
+            "/home/andi/code/c/ZDK/ZTL/ZTL__Runtime.c.o",
+            "/home/andi/code/c/ZDK/ZTL/ZTL.c.o",
+            "-o",
+            "/home/andi/code/c/ZDK/ZTL/libZTL.so",
+            "-flto",
+            "-O3",
+            "-s",
+            "-fPIC",
+            "-shared",
+            "-lZTM",
+            "-L/home/andi/code/c/ZDK/ZTM"
+        ],
+        [
+            "rm",
+            "/home/andi/code/c/ZDK/ZTL/ZTL__LINUX.c.o"
+        ],
+        [
+            "rm",
+            "/home/andi/code/c/ZDK/ZTL/ZTL__Runtime.c.o"
+        ],
+        [
+            "rm",
+            "/home/andi/code/c/ZDK/ZTL/ZTL.c.o"
+        ]
+    ]
+}
