@@ -1,5 +1,5 @@
 *** SELF: now
-2025-08-17T19:13:22 CEST
+2025-08-29T11:57:50 CEST
 
 *** SELF: executing './ZDK.sh'
 
@@ -14,7 +14,7 @@ echo ""
 cat $0
 echo ""
 echo "*** SELF: host system"
-neofetch --off
+neofetch --stdout
 echo "*** SELF: compiler version"
 gcc --version
 g++ --version
@@ -28,34 +28,30 @@ for tgt in "ZTM" "ZTL" "ZDX"; do
     echo "*** MD5: `md5sum "$ZWD_CODE$tgt/lib$tgt.so"`"
     echo "*** SHA1: `sha1sum "$ZWD_CODE$tgt/lib$tgt.so"`"
     echo "*** SHA256: `sha256sum "$ZWD_CODE$tgt/lib$tgt.so"`"
-    cp -p "$ZWD_CODE$tgt/lib$tgt.so" "$ZWD_GIT$tgt/lib$tgt.so"
+	rsync -avri --progress "$ZWD_CODE$tgt/" "$ZWD_GIT$tgt/" -y
     echo "";
 done
 
 *** SELF: host system
-[?25l[?7l[0m[1m[32m[1mandi[0m@[32m[1mztk-dt-andi[0m 
-[0m----------------[0m 
-[0m[32m[1mOS[0m[0m:[0m LMDE 6 (faye) x86_64[0m 
-[0m[32m[1mKernel[0m[0m:[0m 6.12.38+deb12-rt-amd64[0m 
-[0m[32m[1mUptime[0m[0m:[0m 1 day, 19 hours, 41 mins[0m 
-[0m[32m[1mPackages[0m[0m:[0m 3167 (dpkg), 46 (flatpak)[0m 
-[0m[32m[1mShell[0m[0m:[0m bash 5.2.15[0m 
-[0m[32m[1mResolution[0m[0m:[0m 1920x1080[0m 
-[0m[32m[1mDE[0m[0m:[0m Cinnamon 6.4.8[0m 
-[0m[32m[1mWM[0m[0m:[0m Mutter (Muffin)[0m 
-[0m[32m[1mWM Theme[0m[0m:[0m Mint-Y-Dark-Teal (Mint-Y)[0m 
-[0m[32m[1mTheme[0m[0m:[0m Mint-Y-Dark-Teal [GTK2/3][0m 
-[0m[32m[1mIcons[0m[0m:[0m Mint-Y-Sand [GTK2/3][0m 
-[0m[32m[1mTerminal[0m[0m:[0m gnome-terminal[0m 
-[0m[32m[1mCPU[0m[0m:[0m AMD Ryzen 7 5700X3D (16) @ 4.149GHz[0m 
-[0m[32m[1mGPU[0m[0m:[0m AMD ATI Radeon RX 470/480/570/570X/580/580X/590[0m 
-[0m[32m[1mMemory[0m[0m:[0m 2374MiB / 15918MiB[0m 
+andi@ztk-dt-andi 
+---------------- 
+OS: LMDE 6 (faye) x86_64 
+Kernel: 6.12.38+deb12-rt-amd64 
+Uptime: 2 hours, 46 mins 
+Packages: 3167 (dpkg), 46 (flatpak) 
+Shell: bash 5.2.15 
+Resolution: 1920x1080 
+DE: Cinnamon 6.4.8 
+WM: Mutter (Muffin) 
+WM Theme: Mint-Y-Dark-Teal (Mint-Y) 
+Theme: Mint-Y-Dark-Teal [GTK2/3] 
+Icons: Mint-Y-Sand [GTK2/3] 
+Terminal: gnome-terminal 
+CPU: AMD Ryzen 7 5700X3D (16) @ 4.149GHz 
+GPU: AMD ATI Radeon RX 470/480/570/570X/580/580X/590 
+Memory: 1596MiB / 15918MiB 
 
-[C[30m[40m   [31m[41m   [32m[42m   [33m[43m   [34m[44m   [35m[45m   [36m[46m   [37m[47m   [m
-[C[38;5;8m[48;5;8m   [38;5;9m[48;5;9m   [38;5;10m[48;5;10m   [38;5;11m[48;5;11m   [38;5;12m[48;5;12m   [38;5;13m[48;5;13m   [38;5;14m[48;5;14m   [38;5;15m[48;5;15m   [m
-
-
-[?25h[?7h*** SELF: compiler version
+*** SELF: compiler version
 gcc (Debian 12.2.0-14+deb12u1) 12.2.0
 Copyright (C) 2022 Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.  There is NO
@@ -122,6 +118,16 @@ rm /home/andi/code/c/ZDK/ZTM/ZTM.c.o
 *** MD5: 58d140b49f6007b260b197e4134d6868  /home/andi/code/c/ZDK/ZTM/libZTM.so
 *** SHA1: 0e5b43d2d67d75f906e1e0f8096eb903e30c2f9d  /home/andi/code/c/ZDK/ZTM/libZTM.so
 *** SHA256: e7d6fe219a13528aed1572e66714957524d65cf7b369e31595621df75269d412  /home/andi/code/c/ZDK/ZTM/libZTM.so
+sending incremental file list
+.d..t...... ./
+>f..t...... libZTM.so
+         32.768  32%    0,00kB/s    0:00:00          101.672 100%   65,71MB/s    0:00:00 (xfr#1, to-chk=9/37)
+.d..t...... ZTMIO/
+.d..t...... ZTMKY/
+.d..t...... ZTMWV/
+
+sent 102.604 bytes  received 54 bytes  205.316,00 bytes/sec
+total size is 349.673  speedup is 3,41
 
 *** BUILD: ZTL '/home/andi/code/c/ZDK/ZTL/ZTL.zmk'
 {
@@ -150,6 +156,13 @@ rm /home/andi/code/c/ZDK/ZTL/ZTL.c.o
 *** MD5: 05077093b17339570427994032ed5ff3  /home/andi/code/c/ZDK/ZTL/libZTL.so
 *** SHA1: 35bd454c754d38beb31e9881752f22bfa079b23d  /home/andi/code/c/ZDK/ZTL/libZTL.so
 *** SHA256: abd3b8c20b06992234e0293e0aa41d037ef0bc1987374e3ef6a8c36d0466bedc  /home/andi/code/c/ZDK/ZTL/libZTL.so
+sending incremental file list
+.d..t...... ./
+>f..t...... libZTL.so
+         22.816 100%    0,00kB/s    0:00:00           22.816 100%    0,00kB/s    0:00:00 (xfr#1, to-chk=0/13)
+
+sent 23.187 bytes  received 38 bytes  46.450,00 bytes/sec
+total size is 71.178  speedup is 3,06
 
 *** BUILD: ZDX '/home/andi/code/c/ZDK/ZDX/ZDX.zmk'
 {
@@ -181,4 +194,11 @@ rm /home/andi/code/c/ZDK/ZDX/ZDX.c.o
 *** MD5: 3fae9f0c701620de89f16019bc3e55ae  /home/andi/code/c/ZDK/ZDX/libZDX.so
 *** SHA1: 6337eb3079186a6d075120398a17e573fa54f6d2  /home/andi/code/c/ZDK/ZDX/libZDX.so
 *** SHA256: 4e3fbd8313d239351e078feb4a79434791e45cc0007b5c0c18d08897a8bf2d3d  /home/andi/code/c/ZDK/ZDX/libZDX.so
+sending incremental file list
+.d..t...... ./
+>f..t...... libZDX.so
+         18.336 100%    0,00kB/s    0:00:00           18.336 100%    0,00kB/s    0:00:00 (xfr#1, to-chk=0/13)
+
+sent 18.700 bytes  received 38 bytes  37.476,00 bytes/sec
+total size is 61.677  speedup is 3,29
 
