@@ -1,10 +1,18 @@
 {
-    "target": "./libZDX.so",
+    "target": "/home/andi/code/c/ZDK/ZDX/libZDX.so",
     "sources": {
-        "/home/andi/code/c/ZDK/ZDX/ZDX_Data.c": {},
-        "/home/andi/code/c/ZDK/ZDX/ZDX_Diagram.c": {},
-        "/home/andi/code/c/ZDK/ZDX/ZDX_Interface.c": {},
-        "/home/andi/code/c/ZDK/ZDX/ZDX.c": {}
+        "/home/andi/code/c/ZDK/ZDX/ZDX_Data.c": {
+            "handle": "gcc"
+        },
+        "/home/andi/code/c/ZDK/ZDX/ZDX_Diagram.c": {
+            "handle": "gcc"
+        },
+        "/home/andi/code/c/ZDK/ZDX/ZDX_Interface.c": {
+            "handle": "gcc"
+        },
+        "/home/andi/code/c/ZDK/ZDX/ZDX.c": {
+            "handle": "gcc"
+        }
     },
     "include": [
         "/home/andi/code/c/ZDK/ZTM",
@@ -24,16 +32,21 @@
             ]
         }
     },
+    "zmake": "250830",
     "host": {
         "['date']": [
-            "2025-08-29T21:48:14 CEST"
+            "2025-08-30T18:24:14 CEST"
+        ],
+        "['zmake', '--version']": [
+            "zmake-wrn: version",
+            "250830"
         ],
         "['neofetch', '--stdout']": [
             "andi@ztk-dt-andi ",
             "---------------- ",
             "OS: LMDE 6 (faye) x86_64 ",
             "Kernel: 6.12.38+deb12-rt-amd64 ",
-            "Uptime: 12 hours, 36 mins ",
+            "Uptime: 8 hours, 34 mins ",
             "Packages: 3167 (dpkg), 47 (flatpak) ",
             "Shell: bash 5.2.15 ",
             "Resolution: 1920x1080 ",
@@ -45,7 +58,7 @@
             "Terminal: gnome-terminal ",
             "CPU: AMD Ryzen 7 5700X3D (16) @ 4.149GHz ",
             "GPU: AMD ATI Radeon RX 470/480/570/570X/580/580X/590 ",
-            "Memory: 3423MiB / 15918MiB "
+            "Memory: 1873MiB / 15918MiB "
         ],
         "['gcc', '--version']": [
             "gcc (Debian 12.2.0-14+deb12u1) 12.2.0",
@@ -60,116 +73,122 @@
             "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."
         ]
     },
-    "objects": [
-        "/home/andi/code/c/ZDK/ZDX/ZDX_Data.c.o",
-        "/home/andi/code/c/ZDK/ZDX/ZDX_Diagram.c.o",
-        "/home/andi/code/c/ZDK/ZDX/ZDX_Interface.c.o",
-        "/home/andi/code/c/ZDK/ZDX/ZDX.c.o"
-    ],
-    "commands": [
-        [
-            "gcc",
-            "-fexpensive-optimizations",
-            "-flto",
-            "-O3",
-            "-fPIC",
-            "-Wfatal-errors",
-            "-Werror",
-            "-Wall",
-            "-Wextra",
-            "-I/home/andi/code/c/ZDK/ZTM",
-            "-I/home/andi/code/c/ZDK/ZTL",
-            "-c",
-            "/home/andi/code/c/ZDK/ZDX/ZDX_Data.c",
-            "-o",
-            "/home/andi/code/c/ZDK/ZDX/ZDX_Data.c.o"
+    "commands": {
+        "compile": [
+            [
+                "gcc",
+                "-fexpensive-optimizations",
+                "-flto",
+                "-O3",
+                "-fPIC",
+                "-Wfatal-errors",
+                "-Werror",
+                "-Wall",
+                "-Wextra",
+                "-I/home/andi/code/c/ZDK/ZTM",
+                "-I/home/andi/code/c/ZDK/ZTL",
+                "-c",
+                "/home/andi/code/c/ZDK/ZDX/ZDX_Data.c",
+                "-o",
+                "/home/andi/code/c/ZDK/ZDX/ZDX_Data.c.o"
+            ],
+            [
+                "gcc",
+                "-fexpensive-optimizations",
+                "-flto",
+                "-O3",
+                "-fPIC",
+                "-Wfatal-errors",
+                "-Werror",
+                "-Wall",
+                "-Wextra",
+                "-I/home/andi/code/c/ZDK/ZTM",
+                "-I/home/andi/code/c/ZDK/ZTL",
+                "-c",
+                "/home/andi/code/c/ZDK/ZDX/ZDX_Diagram.c",
+                "-o",
+                "/home/andi/code/c/ZDK/ZDX/ZDX_Diagram.c.o"
+            ],
+            [
+                "gcc",
+                "-fexpensive-optimizations",
+                "-flto",
+                "-O3",
+                "-fPIC",
+                "-Wfatal-errors",
+                "-Werror",
+                "-Wall",
+                "-Wextra",
+                "-I/home/andi/code/c/ZDK/ZTM",
+                "-I/home/andi/code/c/ZDK/ZTL",
+                "-c",
+                "/home/andi/code/c/ZDK/ZDX/ZDX_Interface.c",
+                "-o",
+                "/home/andi/code/c/ZDK/ZDX/ZDX_Interface.c.o"
+            ],
+            [
+                "gcc",
+                "-fexpensive-optimizations",
+                "-flto",
+                "-O3",
+                "-fPIC",
+                "-Wfatal-errors",
+                "-Werror",
+                "-Wall",
+                "-Wextra",
+                "-I/home/andi/code/c/ZDK/ZTM",
+                "-I/home/andi/code/c/ZDK/ZTL",
+                "-c",
+                "/home/andi/code/c/ZDK/ZDX/ZDX.c",
+                "-o",
+                "/home/andi/code/c/ZDK/ZDX/ZDX.c.o"
+            ]
         ],
-        [
-            "gcc",
-            "-fexpensive-optimizations",
-            "-flto",
-            "-O3",
-            "-fPIC",
-            "-Wfatal-errors",
-            "-Werror",
-            "-Wall",
-            "-Wextra",
-            "-I/home/andi/code/c/ZDK/ZTM",
-            "-I/home/andi/code/c/ZDK/ZTL",
-            "-c",
-            "/home/andi/code/c/ZDK/ZDX/ZDX_Diagram.c",
-            "-o",
-            "/home/andi/code/c/ZDK/ZDX/ZDX_Diagram.c.o"
+        "link": [
+            [
+                "gcc",
+                "/home/andi/code/c/ZDK/ZDX/ZDX_Data.c.o",
+                "/home/andi/code/c/ZDK/ZDX/ZDX_Diagram.c.o",
+                "/home/andi/code/c/ZDK/ZDX/ZDX_Interface.c.o",
+                "/home/andi/code/c/ZDK/ZDX/ZDX.c.o",
+                "-o",
+                "/home/andi/code/c/ZDK/ZDX/libZDX.so",
+                "-flto",
+                "-O3",
+                "-s",
+                "-fPIC",
+                "-shared",
+                "-lZTM",
+                "-lZTL",
+                "-L/home/andi/code/c/ZDK/ZTM",
+                "-L/home/andi/code/c/ZDK/ZTL"
+            ]
         ],
-        [
-            "gcc",
-            "-fexpensive-optimizations",
-            "-flto",
-            "-O3",
-            "-fPIC",
-            "-Wfatal-errors",
-            "-Werror",
-            "-Wall",
-            "-Wextra",
-            "-I/home/andi/code/c/ZDK/ZTM",
-            "-I/home/andi/code/c/ZDK/ZTL",
-            "-c",
-            "/home/andi/code/c/ZDK/ZDX/ZDX_Interface.c",
-            "-o",
-            "/home/andi/code/c/ZDK/ZDX/ZDX_Interface.c.o"
+        "clean": [
+            [
+                "rm",
+                "/home/andi/code/c/ZDK/ZDX/ZDX_Data.c.o",
+                "/home/andi/code/c/ZDK/ZDX/ZDX_Diagram.c.o",
+                "/home/andi/code/c/ZDK/ZDX/ZDX_Interface.c.o",
+                "/home/andi/code/c/ZDK/ZDX/ZDX.c.o"
+            ]
         ],
-        [
-            "gcc",
-            "-fexpensive-optimizations",
-            "-flto",
-            "-O3",
-            "-fPIC",
-            "-Wfatal-errors",
-            "-Werror",
-            "-Wall",
-            "-Wextra",
-            "-I/home/andi/code/c/ZDK/ZTM",
-            "-I/home/andi/code/c/ZDK/ZTL",
-            "-c",
-            "/home/andi/code/c/ZDK/ZDX/ZDX.c",
-            "-o",
-            "/home/andi/code/c/ZDK/ZDX/ZDX.c.o"
-        ],
-        [
-            "gcc",
-            "/home/andi/code/c/ZDK/ZDX/ZDX_Data.c.o",
-            "/home/andi/code/c/ZDK/ZDX/ZDX_Diagram.c.o",
-            "/home/andi/code/c/ZDK/ZDX/ZDX_Interface.c.o",
-            "/home/andi/code/c/ZDK/ZDX/ZDX.c.o",
-            "-o",
-            "/home/andi/code/c/ZDK/ZDX/libZDX.so",
-            "-flto",
-            "-O3",
-            "-s",
-            "-fPIC",
-            "-shared",
-            "-lZTM",
-            "-lZTL",
-            "-L/home/andi/code/c/ZDK/ZTM",
-            "-L/home/andi/code/c/ZDK/ZTL"
-        ],
-        [
-            "rm",
-            "/home/andi/code/c/ZDK/ZDX/ZDX_Data.c.o"
-        ],
-        [
-            "rm",
-            "/home/andi/code/c/ZDK/ZDX/ZDX_Diagram.c.o"
-        ],
-        [
-            "rm",
-            "/home/andi/code/c/ZDK/ZDX/ZDX_Interface.c.o"
-        ],
-        [
-            "rm",
-            "/home/andi/code/c/ZDK/ZDX/ZDX.c.o"
-        ]
-    ],
+        "finish": []
+    },
+    "objects": {
+        "/home/andi/code/c/ZDK/ZDX/ZDX_Data.c.o": {
+            "handle": "gcc"
+        },
+        "/home/andi/code/c/ZDK/ZDX/ZDX_Diagram.c.o": {
+            "handle": "gcc"
+        },
+        "/home/andi/code/c/ZDK/ZDX/ZDX_Interface.c.o": {
+            "handle": "gcc"
+        },
+        "/home/andi/code/c/ZDK/ZDX/ZDX.c.o": {
+            "handle": "gcc"
+        }
+    },
     "sign": {
         "['md5sum', '/home/andi/code/c/ZDK/ZDX/libZDX.so']": [
             "3fae9f0c701620de89f16019bc3e55ae"
