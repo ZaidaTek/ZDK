@@ -7,24 +7,9 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="dll">
-				<Option output="../../ZDX" prefix_auto="1" extension_auto="1" />
+				<Option output="ZDX" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/" />
 				<Option type="3" />
-				<Option compiler="gcc" />
-				<Compiler>
-					<Add option="-flto" />
-				</Compiler>
-				<Linker>
-					<Add option="-lZTM -lZTL" />
-					<Add option="-flto" />
-					<Add directory="../.." />
-				</Linker>
-			</Target>
-			<Target title="lib">
-				<Option output="../../__static/ZDX" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="" />
-				<Option object_output="obj/" />
-				<Option type="2" />
 				<Option compiler="gcc" />
 			</Target>
 		</Build>
@@ -33,11 +18,19 @@
 			<Add option="-Wextra" />
 			<Add option="-Wall" />
 			<Add option="-O3" />
+			<Add option="-flto" />
+			<Add option="-fexpensive-optimizations" />
+			<Add directory="../ZTM" />
 			<Add directory="../ZTL" />
 		</Compiler>
 		<Linker>
 			<Add option="-O3" />
+			<Add option="-flto" />
 			<Add option="-s" />
+			<Add directory="../ZTM" />
+			<Add directory="../ZTL" />
+			<Add option="-lZTM" />
+			<Add option="-lZTL" />
 		</Linker>
 		<Unit filename="ZDX.c">
 			<Option compilerVar="CC" />

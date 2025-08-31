@@ -162,7 +162,6 @@ void ZTL_NodeInfoTarget(const ZT_CHAR* iPath, ZT_META_FILE* oTarget) {
         );
         oTarget->type = (lFlag_W32 & FILE_ATTRIBUTE_DIRECTORY) ? ZTL_FILE_TYPE_DIR : ZTL_FILE_TYPE_REG;
     }
-    return lFlag;
 }
 void ZTL_SelectDialogTitle(const ZT_CHAR* iTitle) {
     ZTL_SelectInit();
@@ -215,7 +214,7 @@ ZT_INDEX ZTL_RuntimeSelectDialog(void) {
         rZTL__SELECT_RUNTIME.Flags |= OFN_FILEMUSTEXIST;
     }
     ZTC8_CopyTarget(rZTL__SELECT_FILE, rZTL__SELECT_PATH);
-    if ((rZTL__SELECT_COUNT = (rZTL__SELECT_FLAG & ZTL_FLAG_SELECT_SAVE ? GetSaveFileName(rZTL__SELECT_RUNTIME) : GetOpenFileName(rZTL__SELECT_RUNTIME)) ? 1 : 0)) {
+    if ((rZTL__SELECT_COUNT = (rZTL__SELECT_FLAG & ZTL_FLAG_SELECT_SAVE ? GetSaveFileName(&rZTL__SELECT_RUNTIME) : GetOpenFileName(&rZTL__SELECT_RUNTIME)) ? 1 : 0)) {
         ZT_INDEX lIndexFile = rZTL__SELECT_RUNTIME.nFileOffset - 1;
         ZTC8_CopyTargetLength(rZTL__SELECT_PATH, rZTL__SELECT_DIR, lIndexFile);
         rZTL__SELECT_DIR[lIndexFile] = ZTM_CHAR_PATH;

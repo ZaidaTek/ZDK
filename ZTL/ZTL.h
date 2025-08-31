@@ -33,7 +33,7 @@ void ZTL_ThreadFree(ZT_THREAD* iThread);
 ZT_FLAG ZTL_ShellExec(const ZT_CHAR* iCommand, ...);
 ZT_CHAR* ZTL_ShellPipeInTarget(const ZT_CHAR* iCommand, ZT_CHAR* oTarget, ZT_SIZE iCapacity);
 #define ZTL_ShellPipeInNew(COMMAND) ZTL_ShellPipeInTarget((COMMAND), NULL, 0)
-void ZTL_ShellOpen(const ZT_CHAR* iPath, ZT_FLAG iMode);
+ZT_FLAG ZTL_ShellOpen(const ZT_CHAR* iPath, ZT_FLAG iMode);
 #if defined(ZTL__OS__LINUX)
 #define ZTL_Open(PATH) ZTL_ShellOpen(PATH, ZTL_EXECUTE_OPEN)
 #define ZTL_OpenDiscrete(PATH) ZTL_ShellOpen(PATH, ZTL_EXECUTE_OPEN | ZTL_EXECUTE_HIDE)

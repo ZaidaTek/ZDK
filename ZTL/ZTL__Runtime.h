@@ -56,7 +56,7 @@ typedef OPENFILENAME rZT_SELECT;
 #define ZTL_RuntimeScreenWidth() GetSystemMetrics(SM_CXFULLSCREEN)
 #define ZTL_RuntimeScreenHeight() GetSystemMetrics(SM_CYFULLSCREEN)
 #define ZTL_RuntimeSelectInit(RUNTIME)\
-    ZTM8_Zero(&(RUNTIME), sizeof(rZT_SELECT));\
+    ZTM8_Zero((RUNTIME), sizeof(rZT_SELECT));\
     (RUNTIME)->lStructSize = sizeof(rZT_SELECT);\
     (RUNTIME)->lpstrFilter = (LPCTSTR)rZTL__SELECT_TYPE;\
     (RUNTIME)->nFilterIndex = 1;\

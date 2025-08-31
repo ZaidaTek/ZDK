@@ -129,9 +129,9 @@ ZT_CHAR* ZTL_ShellPipeInTarget(const ZT_CHAR* iCommand, ZT_CHAR* oTarget, ZT_SIZ
     pclose(lPipe);
     return lBuffer;
 }
-void ZTL_ShellOpen(const ZT_CHAR* iPath, ZT_FLAG iMode) {
+ZT_FLAG ZTL_ShellOpen(const ZT_CHAR* iPath, ZT_FLAG iMode) {
     (void)iMode; // FIXME find out if these can be used in Linux
-    ZTL_ShellExec((const ZT_CHAR*)"xdg-open \"%s\"", iPath);
+    return ZTL_ShellExec((const ZT_CHAR*)"xdg-open \"%s\"", iPath);
 }
 ZT_BOOL ZTL_DirectoryCreate(const ZT_CHAR* iPath) {
     return ZTL_ShellExec((const ZT_CHAR*)"mkdir -p \"%s\" > /dev/null 2>/dev/null", iPath) ? ZT_FALSE : ZT_TRUE;
