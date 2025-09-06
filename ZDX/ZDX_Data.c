@@ -13,7 +13,7 @@ ZDX_DATA* ZDX_DataNew(ZDX_DEVICE* iDevice, ZT_INDEX iLength) {
     lData->block.xU = iDevice->task.number;
     lData->block.yU = iLength;
     lData->cursor = 0;
-    lData->resolution = iDevice->task.resolution;
+    lData->depth = iDevice->task.depth;
     return ZDX_DataSet(lData, 0x0);
 }
 ZDX_DATA* ZDX_DataSet(ZDX_DATA* iData, ZT_U iValue) {

@@ -25,24 +25,24 @@ ZDX_DEVICE* ZDX_New(const ZT_CHAR* iAddress, ZT_FLAG iType) {
     lDevice->address = ZTC8_Copy(iAddress);
     return lDevice;
 }
-void ZDX_Assign(ZDX_DEVICE* iDevice, ZT_FLAG iType, ZT_FLAG iConfig, ZT_INDEX iSpeed) {
-    ZT_INDEX lResolution;
+void ZDX_Assign(ZDX_DEVICE* iDevice, ZT_FLAG iType, ZT_FLAG iConfig, ZT_INDEX iRate) {
+    ZT_INDEX lDepth;
     switch (iDevice->type) {
         case ZDX_DEVICE_TYPE_AT328P:
             iType &= ZDX_AT328_TASK;
-            if ((iSpeed > ZDX_AT328_ADC_RATE_MAX) || (iSpeed < ZDX_AT328_ADC_RATE_MIN)) {iSpeed = ZDX_CHANNEL_SPEED_NONE;}
+            if ((iRate > ZDX_AT328_ADC_RATE_MAX) || (iRate < ZDX_AT328_ADC_RATE_MIN)) {iRate = ZDX_CHANNEL_RATE_NONE;}
             iConfig &= ZDX_AT328_ADC_MASK;
-            lResolution = ZDX_AT328_ADC_RESOLUTION;
+            lDepth = ZDX_AT328_ADC_DEPTH;
             break;
         default:
             return;
     }
     ZTM8_Zero(&iDevice->task, sizeof(iDevice->task));
     iDevice->task.type = iType;
-    iDevice->task.speed = iSpeed;
+    iDevice->task.rate = iRate;
     iDevice->task.config = iConfig;
     iDevice->task.number = ZTM_BitCount(iConfig);
-    iDevice->task.resolution = lResolution;
+    iDevice->task.depth = lDepth;
 }
 void ZDX_Connect(ZDX_DEVICE* iDevice) {
     ZDX_InterfaceNew(iDevice);
@@ -54,9 +54,9 @@ void ZDX_Disconnect(ZDX_DEVICE* iDevice) {
 ZT_INDEX ZDX_Read(ZDX_DEVICE* iDevice, ZDX_DATA* oData) {
     return ZDX_InterfaceRead(iDevice, oData);
 }
-ZT_INDEX ZDX_GetSpeed(ZDX_DEVICE* iDevice) {
+ZT_INDEX ZDX_GetRate(ZDX_DEVICE* iDevice) {
     switch (iDevice->task.type) {
-        case ZDX_TASK_ADC: return iDevice->task.speed;
+        case ZDX_TASK_ADC: return iDevice->task.rate;
         default: return 0;
     }
 }

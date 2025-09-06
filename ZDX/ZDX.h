@@ -22,7 +22,7 @@ void ZDX_Connect(ZDX_DEVICE* iDevice);
 void ZDX_Disconnect(ZDX_DEVICE* iDevice);
 ZT_INDEX ZDX_Read(ZDX_DEVICE* iDevice, ZDX_DATA* oData);
 
-ZT_INDEX ZDX_GetSpeed(ZDX_DEVICE* iDevice);
+ZT_INDEX ZDX_GetRate(ZDX_DEVICE* iDevice);
 ZT_FLAG ZDX_GetChannels(ZDX_DEVICE* iDevice);
 
 ZDX_TRIGGER* ZDX_TriggerNew(void);

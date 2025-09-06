@@ -45,10 +45,10 @@ void ZDX_InterfaceStartSerial(ZDX_DEVICE* iDevice) {
             lPacketBuffer[7] = iDevice->task.config >> 8;
             lPacketBuffer[6] = iDevice->task.config >> 16;
             lPacketBuffer[5] = iDevice->task.config >> 24;
-            lPacketBuffer[4] = (1600000000 / iDevice->task.speed) & 0xff;
-            lPacketBuffer[3] = ((1600000000 / iDevice->task.speed) >> 8) & 0xff;
-            lPacketBuffer[2] = ((1600000000 / iDevice->task.speed) >> 16) & 0xff;
-            lPacketBuffer[1] = ((1600000000 / iDevice->task.speed) >> 24) & 0xff;
+            lPacketBuffer[4] = (1600000000 / iDevice->task.rate) & 0xff;
+            lPacketBuffer[3] = ((1600000000 / iDevice->task.rate) >> 8) & 0xff;
+            lPacketBuffer[2] = ((1600000000 / iDevice->task.rate) >> 16) & 0xff;
+            lPacketBuffer[1] = ((1600000000 / iDevice->task.rate) >> 24) & 0xff;
             lPacketBuffer[0] = ZDX_TASK_ADC;
             lPacketLength = 9;
             break;

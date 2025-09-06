@@ -39,7 +39,7 @@ typedef struct {
 typedef struct {
 	ZT_UPOINT block;
     ZT_INDEX cursor;
-    ZT_INDEX resolution;
+    ZT_INDEX depth;
 	ZT_U* data;
 } ZDX_DATA;
 
@@ -65,10 +65,10 @@ typedef struct {
 	struct {
         ZT_FLAG flag;//alignment
         ZT_FLAG type;
-        ZT_FLAG speed;
+        ZT_FLAG rate;
         ZT_FLAG config;
         ZT_INDEX number;
-        ZT_INDEX resolution;
+        ZT_INDEX depth;
         struct {
             ZT_INDEX sample;
             ZT_INDEX line;
