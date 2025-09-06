@@ -2,26 +2,39 @@
     "target": "/home/andi/code/c/ZDK/ZDX/libZDX.so",
     "sources": {
         "/home/andi/code/c/ZDK/ZDX/ZDX_Data.c": {
-            "handle": "gcc"
+            "handle": [
+                "gcc"
+            ]
         },
         "/home/andi/code/c/ZDK/ZDX/ZDX_Diagram.c": {
-            "handle": "gcc"
+            "handle": [
+                "gcc"
+            ]
         },
         "/home/andi/code/c/ZDK/ZDX/ZDX_Interface.c": {
-            "handle": "gcc"
+            "handle": [
+                "gcc"
+            ]
         },
         "/home/andi/code/c/ZDK/ZDX/ZDX.c": {
-            "handle": "gcc"
+            "handle": [
+                "gcc"
+            ]
         }
     },
     "include": [
         "/home/andi/code/c/ZDK/ZTM",
         "/home/andi/code/c/ZDK/ZTL"
     ],
-    "link": [
-        "ZTM",
-        "ZTL"
-    ],
+    "link": {
+        "handle": [
+            "gcc"
+        ],
+        "lib": [
+            "ZTM",
+            "ZTL"
+        ]
+    },
     "flag": {
         "extra": {
             "shared": [
@@ -32,22 +45,21 @@
             ]
         }
     },
-    "zmake": "250830",
+    "zmake": "250906",
     "host": {
         "['date']": [
-            "2025-08-31T22:34:56 CEST"
+            "2025-09-06T17:06:22 CEST"
         ],
         "['zmake', '--version']": [
-            "zmake-wrn: version",
-            "250830"
+            "zmake-v250906"
         ],
         "['neofetch', '--stdout']": [
             "andi@ztk-dt-andi ",
             "---------------- ",
             "OS: LMDE 6 (faye) x86_64 ",
             "Kernel: 6.12.38+deb12-rt-amd64 ",
-            "Uptime: 1 day, 12 hours, 44 mins ",
-            "Packages: 3167 (dpkg), 47 (flatpak) ",
+            "Uptime: 6 hours, 39 mins ",
+            "Packages: 3173 (dpkg), 51 (flatpak) ",
             "Shell: bash 5.2.15 ",
             "Resolution: 1920x1080 ",
             "DE: Cinnamon 6.4.8 ",
@@ -57,8 +69,8 @@
             "Icons: Mint-Y-Yaru [GTK2/3] ",
             "Terminal: gnome-terminal ",
             "CPU: AMD Ryzen 7 5700X3D (16) @ 4.149GHz ",
-            "GPU: AMD ATI Radeon RX 470/480/570/570X/580/580X/590 ",
-            "Memory: 2204MiB / 15918MiB "
+            "GPU: AMD ATI Radeon RX 7700 XT / 7800 XT ",
+            "Memory: 2684MiB / 15918MiB "
         ],
         "['gcc', '--version']": [
             "gcc (Debian 12.2.0-14+deb12u1) 12.2.0",
@@ -77,9 +89,9 @@
         "compile": [
             [
                 "gcc",
-                "-fexpensive-optimizations",
-                "-flto",
                 "-O3",
+                "-flto",
+                "-fexpensive-optimizations",
                 "-fPIC",
                 "-Wfatal-errors",
                 "-Werror",
@@ -94,9 +106,9 @@
             ],
             [
                 "gcc",
-                "-fexpensive-optimizations",
-                "-flto",
                 "-O3",
+                "-flto",
+                "-fexpensive-optimizations",
                 "-fPIC",
                 "-Wfatal-errors",
                 "-Werror",
@@ -111,9 +123,9 @@
             ],
             [
                 "gcc",
-                "-fexpensive-optimizations",
-                "-flto",
                 "-O3",
+                "-flto",
+                "-fexpensive-optimizations",
                 "-fPIC",
                 "-Wfatal-errors",
                 "-Werror",
@@ -128,9 +140,9 @@
             ],
             [
                 "gcc",
-                "-fexpensive-optimizations",
-                "-flto",
                 "-O3",
+                "-flto",
+                "-fexpensive-optimizations",
                 "-fPIC",
                 "-Wfatal-errors",
                 "-Werror",
@@ -153,15 +165,15 @@
                 "/home/andi/code/c/ZDK/ZDX/ZDX.c.o",
                 "-o",
                 "/home/andi/code/c/ZDK/ZDX/libZDX.so",
-                "-flto",
                 "-O3",
+                "-flto",
                 "-s",
                 "-fPIC",
                 "-shared",
-                "-lZTM",
-                "-lZTL",
                 "-L/home/andi/code/c/ZDK/ZTM",
-                "-L/home/andi/code/c/ZDK/ZTL"
+                "-L/home/andi/code/c/ZDK/ZTL",
+                "-lZTM",
+                "-lZTL"
             ]
         ],
         "clean": [
@@ -175,29 +187,15 @@
         ],
         "finish": []
     },
-    "objects": {
-        "/home/andi/code/c/ZDK/ZDX/ZDX_Data.c.o": {
-            "handle": "gcc"
-        },
-        "/home/andi/code/c/ZDK/ZDX/ZDX_Diagram.c.o": {
-            "handle": "gcc"
-        },
-        "/home/andi/code/c/ZDK/ZDX/ZDX_Interface.c.o": {
-            "handle": "gcc"
-        },
-        "/home/andi/code/c/ZDK/ZDX/ZDX.c.o": {
-            "handle": "gcc"
-        }
-    },
     "sign": {
         "['md5sum', '/home/andi/code/c/ZDK/ZDX/libZDX.so']": [
-            "3fae9f0c701620de89f16019bc3e55ae"
+            "f75729047ab297300df15962afcdac8f"
         ],
         "['sha1sum', '/home/andi/code/c/ZDK/ZDX/libZDX.so']": [
-            "6337eb3079186a6d075120398a17e573fa54f6d2"
+            "17aa1196a8ae8644d0d0c021fb360c420575fc6f"
         ],
         "['sha256sum', '/home/andi/code/c/ZDK/ZDX/libZDX.so']": [
-            "4e3fbd8313d239351e078feb4a79434791e45cc0007b5c0c18d08897a8bf2d3d"
+            "b2e939b3fc2731e69fca6f3ceaef6bebadee1a0fcf784f3ff5018badcb1f8f70"
         ]
     }
 }

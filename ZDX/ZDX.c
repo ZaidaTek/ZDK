@@ -29,10 +29,10 @@ void ZDX_Assign(ZDX_DEVICE* iDevice, ZT_FLAG iType, ZT_FLAG iConfig, ZT_INDEX iS
     ZT_INDEX lResolution;
     switch (iDevice->type) {
         case ZDX_DEVICE_TYPE_AT328P:
-            iType &= ZDX_TASK_AT328P;
-            if ((iSpeed > ZDX_TASK_AT328P_ADC_MAXRATE) || (iSpeed < ZDX_TASK_AT328P_ADC_MINRATE)) {iSpeed = ZDX_CHANNEL_SPEED_NONE;}
-            iConfig &= ZDX_TASK_AT328P_ADC_MASK;
-            lResolution = ZDX_TASK_AT328P_ADC_RESOLUTION;
+            iType &= ZDX_AT328_TASK;
+            if ((iSpeed > ZDX_AT328_ADC_RATE_MAX) || (iSpeed < ZDX_AT328_ADC_RATE_MIN)) {iSpeed = ZDX_CHANNEL_SPEED_NONE;}
+            iConfig &= ZDX_AT328_ADC_MASK;
+            lResolution = ZDX_AT328_ADC_RESOLUTION;
             break;
         default:
             return;
