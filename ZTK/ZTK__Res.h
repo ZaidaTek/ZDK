@@ -6,7 +6,7 @@
 #define ZTK__RES_H_INCLUDED
 
 #ifdef RC_INVOKED
-#include "../ZTM/ZTM__Environment.h"
+#include "../ZTM/ZTM-BUILD.h"
 #endif
 
 #define ZTK_ICON_INTEGRATED 101

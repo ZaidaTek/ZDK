@@ -2,8 +2,8 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZT_COLORX11_H_INCLUDED
-#define ZT_COLORX11_H_INCLUDED
+#ifndef ZTM_COLOR_X11_H_INCLUDED
+#define ZTM_COLOR_X11_H_INCLUDED
 
 #if defined(ZTM_COLORX11_EXTENDED)
 #define ZTM_COLORX11_ALICEBLUE 0xf0f8ffff
@@ -798,4 +798,4 @@
 #define ZTM_COLORX11_SLATE_GREY ZTM_COLORX11_SLATE_GRAY
 #endif // defined(ZTM_COLORX11_EXTENDED)
 
-#endif // ZT_COLORX11_H_INCLUDED
+#endif // ZTM_COLOR_X11_H_INCLUDED

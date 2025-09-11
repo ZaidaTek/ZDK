@@ -2,8 +2,8 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZT_TIME_H_INCLUDED
-#define ZT_TIME_H_INCLUDED
+#ifndef ZTM_TIME_H_INCLUDED
+#define ZTM_TIME_H_INCLUDED
 
 // 2019-06-10 *thoroughly* re-test this
 // retested, removed milliseconds, want to make year four digits, compatibility conflicts with present two digits undetermined
@@ -45,4 +45,4 @@ ZT_DATE_EXTRA* ZTM_DateExtraNew(ZT_TIME iTime);
 }
 #endif // __cplusplus
 
-#endif // ZT_TIME_H_INCLUDED
+#endif // ZTM_TIME_H_INCLUDED

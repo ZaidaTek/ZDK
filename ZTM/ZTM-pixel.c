@@ -2,8 +2,8 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZT_PIXEL_C_INCLUDED
-#define ZT_PIXEL_C_INCLUDED
+#ifndef ZTM_PIXEL_C_INCLUDED
+#define ZTM_PIXEL_C_INCLUDED
 
 #include "ZTM-RT.h"
 
@@ -225,4 +225,4 @@ void ZTM_PixelsScaleDown(const ZT_COLOR* iSource, ZT_COLOR* oTarget, const ZT_PO
     }
 }
 
-#endif // ZT_PIXEL_C_INCLUDED
+#endif // ZTM_PIXEL_C_INCLUDED

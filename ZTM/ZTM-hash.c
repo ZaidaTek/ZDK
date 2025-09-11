@@ -2,11 +2,11 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZT_HASH_C_INCLUDED
-#define ZT_HASH_C_INCLUDED
+#ifndef ZTM_HASH_C_INCLUDED
+#define ZTM_HASH_C_INCLUDED
 
 #include "ZTM-RT.h"
-#include "ZT_HashMD5.h"
+// #include "ZTM-hash-md5.h" // ?
 
 void* ZTM_HashNew(ZT_INDEX iBits) {
 	switch (iBits) {
@@ -204,4 +204,4 @@ ZT_HASH64* ZTM_HashTextNew_FNV1_64(const ZT_CHAR* iText) {ZTM_HASHTEXTNEW(ZT_HAS
 ZT_HASH32* ZTM_HashTextNew_FNV1A_32(const ZT_CHAR* iText) {ZTM_HASHTEXTNEW(ZT_HASH32, ZTM_HashNew_32, ZTM_HashData_FNV1A_32);}
 ZT_HASH64* ZTM_HashTextNew_FNV1A_64(const ZT_CHAR* iText) {ZTM_HASHTEXTNEW(ZT_HASH64, ZTM_HashNew_64, ZTM_HashData_FNV1A_64);}
 
-#endif // ZT_HASH_C_INCLUDED
+#endif // ZTM_HASH_C_INCLUDED

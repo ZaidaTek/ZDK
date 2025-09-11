@@ -2,8 +2,8 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZT_COLORVGA_H_INCLUDED
-#define ZT_COLORVGA_H_INCLUDED
+#ifndef ZTM_COLOR_VGA_H_INCLUDED
+#define ZTM_COLOR_VGA_H_INCLUDED
 
 #define ZTM_COLORVGA_BLACK 0x000000ff
 #define ZTM_COLORVGA_BLUE 0x000080ff
@@ -22,4 +22,4 @@
 #define ZTM_COLORVGA_YELLOW 0xffff00ff
 #define ZTM_COLORVGA_WHITE 0xffffffff
 
-#endif // ZT_COLORVGA_H_INCLUDED
+#endif // ZTM_COLOR_VGA_H_INCLUDED

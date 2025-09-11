@@ -2,8 +2,8 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZT_COLOR_C_INCLUDED
-#define ZT_COLOR_C_INCLUDED
+#ifndef ZTM_COLOR_C_INCLUDED
+#define ZTM_COLOR_C_INCLUDED
 
 #include "ZTM-RT.h"
 
@@ -148,4 +148,4 @@ ZT_INDEX ZTM_ColorBlend(ZT_INDEX iColor, ZT_INDEX iBase, ZT_INDEX iAlpha) { ///m
 	return (iColor * iAlpha + iBase * (0xff - iAlpha) + 0xff) >> 8;
 }
 
-#endif // ZT_COLOR_C_INCLUDED
+#endif // ZTM_COLOR_C_INCLUDED

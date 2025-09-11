@@ -5,8 +5,8 @@
 #ifndef ZTM_H_INCLUDED
 #define ZTM_H_INCLUDED
 
-// ZTM ENVIRONMENT
-#include "ZTM__Environment.h"
+// ZTM BUILD
+#include "ZTM-BUILD.h"
 #ifndef NULL
 #define NULL (void*)0x0
 #endif // NULL
@@ -16,7 +16,7 @@
 #define ZTM_RECT_MACRO // uses function macros for ZT_RECT types instead of -fPIC
 #define ZTM_CHAR_MACRO
 // ZTM MANDATORY
-#include "ZTM_Types.h"
+#include "ZTM-TYPE.h"
 // ZTM MACRO
 #define ZTM_CoerceIfZero(VAR, VAL) ((!(VAR)) ? ((VAR) = (VAL)) : (VAR))
 #define ZTM_CoerceIfNotZero(VAR, VAL) ((VAR) ? ((VAR) = (VAL)) : (VAR))
@@ -177,13 +177,13 @@ void ZTM_DataFree(ZT_DATA* iData);
 }
 #endif // __cplusplus
 
-#include "ZT_Time.h"
-#include "ZT_Hash.h"
-#include "ZT_List.h"
-#include "ZT_Char.h"
-#include "ZT_Color.h"
-#include "ZT_Pixel.h"
-#include "ZT_Surface.h"
+#include "ZTM-time.h"
+#include "ZTM-hash.h"
+#include "ZTM-list.h"
+#include "ZTM-char.h"
+#include "ZTM-color.h"
+#include "ZTM-pixel.h"
+#include "ZTM-surface.h"
 #include "ZTMIO/ZTMIO.h"
 #include "ZTMKY/ZTMKY.h"
 #include "ZTMWV/ZTMWV.h"

@@ -2,8 +2,8 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZT_TIME_C_INCLUDED
-#define ZT_TIME_C_INCLUDED
+#ifndef ZTM_TIME_C_INCLUDED
+#define ZTM_TIME_C_INCLUDED
 
 #include "ZTM-RT.h"
 #include ZTM__INCL__TIME
@@ -146,4 +146,4 @@ ZT_FLAG ZTM_DateCoerce(ZT_DATE* iDate) {
 }
 */
 
-#endif // ZT_TIME_C_INCLUDED
+#endif // ZTM_TIME_C_INCLUDED

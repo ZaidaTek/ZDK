@@ -2,10 +2,11 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZT_HASH_H_INCLUDED
-#define ZT_HASH_H_INCLUDED
+#ifndef ZTM_HASH_H_INCLUDED
+#define ZTM_HASH_H_INCLUDED
 
-#include "ZTM.h"
+#include "ZTM.h" // ?
+#include "ZTM-hash-md5.h"
 
 #define ZTM_HASH_MAX_PASS 64
 #define ZTM_HASH_MAX_STAGE 512
@@ -61,4 +62,4 @@ ZT_HASH64* ZTM_HashTextNew_FNV1A_64(const ZT_CHAR* iText);
 }
 #endif // __cplusplus
 
-#endif // ZT_HASH_H_INCLUDED
+#endif // ZTM_HASH_H_INCLUDED

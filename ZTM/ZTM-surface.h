@@ -2,8 +2,8 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZT_SURFACE_H_INCLUDED
-#define ZT_SURFACE_H_INCLUDED
+#ifndef ZTM_SURFACE_H_INCLUDED
+#define ZTM_SURFACE_H_INCLUDED
 
 #include "ZTM.h"
 
@@ -44,4 +44,4 @@ ZT_SURFACE* ZTM_SurfaceNegative(ZT_SURFACE* iSurface, ZT_FLAG iPalette);
 }
 #endif // __cplusplus
 
-#endif // ZT_SURFACE_H_INCLUDED
+#endif // ZTM_SURFACE_H_INCLUDED

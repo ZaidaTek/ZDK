@@ -2,8 +2,8 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZT_CHAR_C_INCLUDED
-#define ZT_CHAR_C_INCLUDED
+#ifndef ZTM_CHAR_C_INCLUDED
+#define ZTM_CHAR_C_INCLUDED
 
 #include "ZTM-RT.h"
 #include ZTM__INCL__CHAR
@@ -750,4 +750,4 @@ ZT_U8* ZTC8_ConvertUTF8ToWin1252(const ZT_U8* iText) {
 }
 */
 
-#endif // ZT_CHAR_C_INCLUDED
+#endif // ZTM_CHAR_C_INCLUDED

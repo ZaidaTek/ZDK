@@ -2,8 +2,8 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZT_CHAR_H_INCLUDED
-#define ZT_CHAR_H_INCLUDED
+#ifndef ZTM_CHAR_H_INCLUDED
+#define ZTM_CHAR_H_INCLUDED
 
 #include "ZTM.h"
 
@@ -333,4 +333,4 @@ ZT_U8* ZTC8_PathFileISO(const ZT_U8* iRoot, const ZT_U8* iExtension, ZT_TIME iUn
 }
 #endif // __cplusplus
 
-#endif // ZT_CHAR_H_INCLUDED
+#endif // ZTM_CHAR_H_INCLUDED

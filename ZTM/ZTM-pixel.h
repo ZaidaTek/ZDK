@@ -2,8 +2,8 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZT_PIXEL_H_INCLUDED
-#define ZT_PIXEL_H_INCLUDED
+#ifndef ZTM_PIXEL_H_INCLUDED
+#define ZTM_PIXEL_H_INCLUDED
 
 #include "ZTM.h"
 
@@ -34,4 +34,4 @@ void ZTM_PixelsConvert(const ZT_COLOR* iSource, ZT_COLOR* oTarget, ZT_INDEX iLen
 }
 #endif // __cplusplus
 
-#endif // ZT_PIXEL_H_INCLUDED
+#endif // ZTM_PIXEL_H_INCLUDED

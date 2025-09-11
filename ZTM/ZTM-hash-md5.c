@@ -2,11 +2,11 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZT_HASHMD5_C_INCLUDED
-#define ZT_HASHMD5_C_INCLUDED
+#ifndef ZTM_HASH_MD5_C_INCLUDED
+#define ZTM_HASH_MD5_C_INCLUDED
 
 #include "ZTM-RT.h"
-#include "ZT_HashMD5.h"
+// #include "ZTM-hash-md5.h" // ?
 
 
 inline ZT_U32 ZTM_HashMD5_R(ZT_U32 x, ZT_INDEX n) {return (x << n) | (x >> (32 - n));}
@@ -143,4 +143,4 @@ void ZTM_HashMD5_Finish(ZT_HASH128* iHash, ZT_U32* iCounter, ZT_U8* iBuffer) {
 	ZTM_HashMD5_Feed(iHash, iCounter, iBuffer, (const ZT_U8*)lCache, 8);
 }
 
-#endif // ZT_HASHMD5_C_INCLUDED
+#endif // ZTM_HASH_MD5_C_INCLUDED

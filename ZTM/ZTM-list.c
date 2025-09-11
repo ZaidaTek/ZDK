@@ -2,8 +2,8 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZT_LIST_C_INCLUDED
-#define ZT_LIST_C_INCLUDED
+#ifndef ZTM_LIST_C_INCLUDED
+#define ZTM_LIST_C_INCLUDED
 
 #include "ZTM-RT.h"
 #include ZTM__INCL__LIST
@@ -172,4 +172,4 @@ void* ZTM_QListAdvanceItem(ZT_QLIST* iQList) {
     return lLast;
 }
 
-#endif // ZT_LIST_C_INCLUDED
+#endif // ZTM_LIST_C_INCLUDED

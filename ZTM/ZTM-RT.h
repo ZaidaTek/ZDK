@@ -2,8 +2,8 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZTM__RUNTIME_H_INCLUDED
-#define ZTM__RUNTIME_H_INCLUDED
+#ifndef ZTM_RT_H_INCLUDED
+#define ZTM_RT_H_INCLUDED
 
 #include <stdarg.h>
 #include "ZTM.h"
@@ -33,4 +33,4 @@ ZT_SIZE ZTC8_RuntimeFormat(ZT_CHAR* oTarget, ZT_SIZE iCapacity, const ZT_CHAR* i
 }
 #endif // __cplusplus
 
-#endif // ZTM__RUNTIME_H_INCLUDED
+#endif // ZTM_RT_H_INCLUDED

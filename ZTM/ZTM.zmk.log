@@ -21,42 +21,42 @@
                 "gcc"
             ]
         },
-        "/home/andi/code/c/ZDK/ZTM/ZT_List.c": {
+        "/home/andi/code/c/ZDK/ZTM/ZTM-list.c": {
             "handle": [
                 "gcc"
             ]
         },
-        "/home/andi/code/c/ZDK/ZTM/ZT_Time.c": {
+        "/home/andi/code/c/ZDK/ZTM/ZTM-time.c": {
             "handle": [
                 "gcc"
             ]
         },
-        "/home/andi/code/c/ZDK/ZTM/ZT_Pixel.c": {
+        "/home/andi/code/c/ZDK/ZTM/ZTM-pixel.c": {
             "handle": [
                 "gcc"
             ]
         },
-        "/home/andi/code/c/ZDK/ZTM/ZT_Surface.c": {
+        "/home/andi/code/c/ZDK/ZTM/ZTM-surface.c": {
             "handle": [
                 "gcc"
             ]
         },
-        "/home/andi/code/c/ZDK/ZTM/ZT_Char.c": {
+        "/home/andi/code/c/ZDK/ZTM/ZTM-hash-md5.c": {
             "handle": [
                 "gcc"
             ]
         },
-        "/home/andi/code/c/ZDK/ZTM/ZT_HashMD5.c": {
+        "/home/andi/code/c/ZDK/ZTM/ZTM-hash.c": {
             "handle": [
                 "gcc"
             ]
         },
-        "/home/andi/code/c/ZDK/ZTM/ZT_Color.c": {
+        "/home/andi/code/c/ZDK/ZTM/ZTM-color.c": {
             "handle": [
                 "gcc"
             ]
         },
-        "/home/andi/code/c/ZDK/ZTM/ZT_Hash.c": {
+        "/home/andi/code/c/ZDK/ZTM/ZTM-char.c": {
             "handle": [
                 "gcc"
             ]
@@ -80,7 +80,7 @@
     "zmake": "250906",
     "host": {
         "['date']": [
-            "2025-09-11T23:08:03 CEST"
+            "2025-09-12T00:02:07 CEST"
         ],
         "['zmake', '--version']": [
             "zmake-v250906"
@@ -90,7 +90,7 @@
             "---------------- ",
             "OS: LMDE 6 (faye) x86_64 ",
             "Kernel: 6.12.38+deb12-rt-amd64 ",
-            "Uptime: 1 day, 2 hours, 48 mins ",
+            "Uptime: 1 day, 3 hours, 42 mins ",
             "Packages: 3173 (dpkg), 51 (flatpak) ",
             "Shell: bash 5.2.15 ",
             "Resolution: 1920x1080 ",
@@ -102,7 +102,7 @@
             "Terminal: gnome-terminal ",
             "CPU: AMD Ryzen 7 5700X3D (16) @ 4.149GHz ",
             "GPU: AMD ATI Radeon RX 7700 XT / 7800 XT ",
-            "Memory: 1923MiB / 15918MiB "
+            "Memory: 2241MiB / 15918MiB "
         ],
         "['gcc', '--version']": [
             "gcc (Debian 12.2.0-14+deb12u1) 12.2.0",
@@ -196,9 +196,9 @@
                 "-Wall",
                 "-Wextra",
                 "-c",
-                "/home/andi/code/c/ZDK/ZTM/ZT_List.c",
+                "/home/andi/code/c/ZDK/ZTM/ZTM-list.c",
                 "-o",
-                "/home/andi/code/c/ZDK/ZTM/ZT_List.c.o"
+                "/home/andi/code/c/ZDK/ZTM/ZTM-list.c.o"
             ],
             [
                 "gcc",
@@ -211,9 +211,9 @@
                 "-Wall",
                 "-Wextra",
                 "-c",
-                "/home/andi/code/c/ZDK/ZTM/ZT_Time.c",
+                "/home/andi/code/c/ZDK/ZTM/ZTM-time.c",
                 "-o",
-                "/home/andi/code/c/ZDK/ZTM/ZT_Time.c.o"
+                "/home/andi/code/c/ZDK/ZTM/ZTM-time.c.o"
             ],
             [
                 "gcc",
@@ -226,9 +226,9 @@
                 "-Wall",
                 "-Wextra",
                 "-c",
-                "/home/andi/code/c/ZDK/ZTM/ZT_Pixel.c",
+                "/home/andi/code/c/ZDK/ZTM/ZTM-pixel.c",
                 "-o",
-                "/home/andi/code/c/ZDK/ZTM/ZT_Pixel.c.o"
+                "/home/andi/code/c/ZDK/ZTM/ZTM-pixel.c.o"
             ],
             [
                 "gcc",
@@ -241,9 +241,9 @@
                 "-Wall",
                 "-Wextra",
                 "-c",
-                "/home/andi/code/c/ZDK/ZTM/ZT_Surface.c",
+                "/home/andi/code/c/ZDK/ZTM/ZTM-surface.c",
                 "-o",
-                "/home/andi/code/c/ZDK/ZTM/ZT_Surface.c.o"
+                "/home/andi/code/c/ZDK/ZTM/ZTM-surface.c.o"
             ],
             [
                 "gcc",
@@ -256,9 +256,9 @@
                 "-Wall",
                 "-Wextra",
                 "-c",
-                "/home/andi/code/c/ZDK/ZTM/ZT_Char.c",
+                "/home/andi/code/c/ZDK/ZTM/ZTM-hash-md5.c",
                 "-o",
-                "/home/andi/code/c/ZDK/ZTM/ZT_Char.c.o"
+                "/home/andi/code/c/ZDK/ZTM/ZTM-hash-md5.c.o"
             ],
             [
                 "gcc",
@@ -271,9 +271,9 @@
                 "-Wall",
                 "-Wextra",
                 "-c",
-                "/home/andi/code/c/ZDK/ZTM/ZT_HashMD5.c",
+                "/home/andi/code/c/ZDK/ZTM/ZTM-hash.c",
                 "-o",
-                "/home/andi/code/c/ZDK/ZTM/ZT_HashMD5.c.o"
+                "/home/andi/code/c/ZDK/ZTM/ZTM-hash.c.o"
             ],
             [
                 "gcc",
@@ -286,9 +286,9 @@
                 "-Wall",
                 "-Wextra",
                 "-c",
-                "/home/andi/code/c/ZDK/ZTM/ZT_Color.c",
+                "/home/andi/code/c/ZDK/ZTM/ZTM-color.c",
                 "-o",
-                "/home/andi/code/c/ZDK/ZTM/ZT_Color.c.o"
+                "/home/andi/code/c/ZDK/ZTM/ZTM-color.c.o"
             ],
             [
                 "gcc",
@@ -301,9 +301,9 @@
                 "-Wall",
                 "-Wextra",
                 "-c",
-                "/home/andi/code/c/ZDK/ZTM/ZT_Hash.c",
+                "/home/andi/code/c/ZDK/ZTM/ZTM-char.c",
                 "-o",
-                "/home/andi/code/c/ZDK/ZTM/ZT_Hash.c.o"
+                "/home/andi/code/c/ZDK/ZTM/ZTM-char.c.o"
             ],
             [
                 "gcc",
@@ -328,14 +328,14 @@
                 "/home/andi/code/c/ZDK/ZTM/ZTMKY/ZTMKY.c.o",
                 "/home/andi/code/c/ZDK/ZTM/ZTMWV/ZTMWV.c.o",
                 "/home/andi/code/c/ZDK/ZTM/ZTM-RT.c.o",
-                "/home/andi/code/c/ZDK/ZTM/ZT_List.c.o",
-                "/home/andi/code/c/ZDK/ZTM/ZT_Time.c.o",
-                "/home/andi/code/c/ZDK/ZTM/ZT_Pixel.c.o",
-                "/home/andi/code/c/ZDK/ZTM/ZT_Surface.c.o",
-                "/home/andi/code/c/ZDK/ZTM/ZT_Char.c.o",
-                "/home/andi/code/c/ZDK/ZTM/ZT_HashMD5.c.o",
-                "/home/andi/code/c/ZDK/ZTM/ZT_Color.c.o",
-                "/home/andi/code/c/ZDK/ZTM/ZT_Hash.c.o",
+                "/home/andi/code/c/ZDK/ZTM/ZTM-list.c.o",
+                "/home/andi/code/c/ZDK/ZTM/ZTM-time.c.o",
+                "/home/andi/code/c/ZDK/ZTM/ZTM-pixel.c.o",
+                "/home/andi/code/c/ZDK/ZTM/ZTM-surface.c.o",
+                "/home/andi/code/c/ZDK/ZTM/ZTM-hash-md5.c.o",
+                "/home/andi/code/c/ZDK/ZTM/ZTM-hash.c.o",
+                "/home/andi/code/c/ZDK/ZTM/ZTM-color.c.o",
+                "/home/andi/code/c/ZDK/ZTM/ZTM-char.c.o",
                 "/home/andi/code/c/ZDK/ZTM/ZTM.c.o",
                 "-o",
                 "/home/andi/code/c/ZDK/ZTM/libZTM.so",
@@ -353,14 +353,14 @@
                 "/home/andi/code/c/ZDK/ZTM/ZTMKY/ZTMKY.c.o",
                 "/home/andi/code/c/ZDK/ZTM/ZTMWV/ZTMWV.c.o",
                 "/home/andi/code/c/ZDK/ZTM/ZTM-RT.c.o",
-                "/home/andi/code/c/ZDK/ZTM/ZT_List.c.o",
-                "/home/andi/code/c/ZDK/ZTM/ZT_Time.c.o",
-                "/home/andi/code/c/ZDK/ZTM/ZT_Pixel.c.o",
-                "/home/andi/code/c/ZDK/ZTM/ZT_Surface.c.o",
-                "/home/andi/code/c/ZDK/ZTM/ZT_Char.c.o",
-                "/home/andi/code/c/ZDK/ZTM/ZT_HashMD5.c.o",
-                "/home/andi/code/c/ZDK/ZTM/ZT_Color.c.o",
-                "/home/andi/code/c/ZDK/ZTM/ZT_Hash.c.o",
+                "/home/andi/code/c/ZDK/ZTM/ZTM-list.c.o",
+                "/home/andi/code/c/ZDK/ZTM/ZTM-time.c.o",
+                "/home/andi/code/c/ZDK/ZTM/ZTM-pixel.c.o",
+                "/home/andi/code/c/ZDK/ZTM/ZTM-surface.c.o",
+                "/home/andi/code/c/ZDK/ZTM/ZTM-hash-md5.c.o",
+                "/home/andi/code/c/ZDK/ZTM/ZTM-hash.c.o",
+                "/home/andi/code/c/ZDK/ZTM/ZTM-color.c.o",
+                "/home/andi/code/c/ZDK/ZTM/ZTM-char.c.o",
                 "/home/andi/code/c/ZDK/ZTM/ZTM.c.o"
             ]
         ],
@@ -368,13 +368,13 @@
     },
     "sign": {
         "['md5sum', '/home/andi/code/c/ZDK/ZTM/libZTM.so']": [
-            "58d140b49f6007b260b197e4134d6868"
+            "cbd015083b5d32588ffd7bbaac7701d6"
         ],
         "['sha1sum', '/home/andi/code/c/ZDK/ZTM/libZTM.so']": [
-            "0e5b43d2d67d75f906e1e0f8096eb903e30c2f9d"
+            "5179b7341c24b669e1750ba43108407397d4ed2f"
         ],
         "['sha256sum', '/home/andi/code/c/ZDK/ZTM/libZTM.so']": [
-            "e7d6fe219a13528aed1572e66714957524d65cf7b369e31595621df75269d412"
+            "b3e2ba7d146d9aa22667436025b644d6e91a2acbe716011696420b2204da358b"
         ]
     }
 }

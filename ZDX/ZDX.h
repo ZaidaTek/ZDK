@@ -5,7 +5,7 @@
 #ifndef ZDX_H_INCLUDED
 #define ZDX_H_INCLUDED
 
-#include "../ZTL/ZTL.h"
+#include <ZTL.h>
 
 #include "ZDX_Define.h"
 #include "ZDX_Types.h"

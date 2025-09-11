@@ -2,14 +2,14 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZT_COLOR_H_INCLUDED
-#define ZT_COLOR_H_INCLUDED
+#ifndef ZTM_COLOR_H_INCLUDED
+#define ZTM_COLOR_H_INCLUDED
 
 #include "ZTM.h"
 // PRE-DEFINED COLORS
-#include "ZT_ColorVGA.h"
+#include "ZTM-color-vga.h"
 //#define ZTM_COLORX11_EXTENDED
-#include "ZT_ColorX11.h"
+#include "ZTM-color-x11.h"
 // COLOR PATCHING
 #define ZTM_COLOR_NONE 			0x0
 #define ZTM_COLOR_TRANSPARENT	ZTM_COLOR_NONE
@@ -123,4 +123,4 @@ ZT_INDEX ZTM_ColorBlend(ZT_INDEX iColor, ZT_INDEX iBase, ZT_INDEX iAlpha);
 }
 #endif // __cplusplus
 
-#endif // ZT_COLOR_H_INCLUDED
+#endif // ZTM_COLOR_H_INCLUDED

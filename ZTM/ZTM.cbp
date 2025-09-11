@@ -42,46 +42,46 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="ZTMWV/ZTMWV.h" />
-		<Unit filename="ZTM_Types.h" />
-		<Unit filename="ZTM__Environment.h" />
-		<Unit filename="ZTM__Runtime.c">
+		<Unit filename="ZTM-TYPE.h" />
+		<Unit filename="ZTM-BUILD.h" />
+		<Unit filename="ZTM-RT.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZTM__Runtime.h" />
-		<Unit filename="ZT_Char.c">
+		<Unit filename="ZTM-RT.h" />
+		<Unit filename="ZTM-char.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZT_Char.h" />
-		<Unit filename="ZT_Color.c">
+		<Unit filename="ZTM-char.h" />
+		<Unit filename="ZTM-color.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZT_Color.h" />
-		<Unit filename="ZT_ColorVGA.h" />
-		<Unit filename="ZT_ColorX11.h" />
-		<Unit filename="ZT_Hash.c">
+		<Unit filename="ZTM-color.h" />
+		<Unit filename="ZTM-color-vga.h" />
+		<Unit filename="ZTM-color-x11.h" />
+		<Unit filename="ZTM-hash.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZT_Hash.h" />
-		<Unit filename="ZT_HashMD5.c">
+		<Unit filename="ZTM-hash.h" />
+		<Unit filename="ZTM-hash-md5.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZT_HashMD5.h" />
-		<Unit filename="ZT_List.c">
+		<Unit filename="ZTM-hash-md5.h" />
+		<Unit filename="ZTM-list.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZT_List.h" />
-		<Unit filename="ZT_Pixel.c">
+		<Unit filename="ZTM-list.h" />
+		<Unit filename="ZTM-pixel.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZT_Pixel.h" />
-		<Unit filename="ZT_Surface.c">
+		<Unit filename="ZTM-pixel.h" />
+		<Unit filename="ZTM-surface.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZT_Surface.h" />
-		<Unit filename="ZT_Time.c">
+		<Unit filename="ZTM-surface.h" />
+		<Unit filename="ZTM-time.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZT_Time.h" />
+		<Unit filename="ZTM-time.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

@@ -2,8 +2,8 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZT_LIST_H_INCLUDED
-#define ZT_LIST_H_INCLUDED
+#ifndef ZTM_LIST_H_INCLUDED
+#define ZTM_LIST_H_INCLUDED
 
 #include "ZTM.h"
 
@@ -50,4 +50,4 @@ ZT_INDEX ZTM_QListFlush(ZT_QLIST* iQList);
 }
 #endif // __cplusplus
 
-#endif // ZT_LIST_H_INCLUDED
+#endif // ZTM_LIST_H_INCLUDED
