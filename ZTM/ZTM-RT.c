@@ -5,7 +5,7 @@
 #ifndef ZTM__RUNTIME_C_INCLUDED
 #define ZTM__RUNTIME_C_INCLUDED
 
-#include "ZTM__Runtime.h"
+#include "ZTM-RT.h"
 
 ZT_U32			rZTM__SEED_32 = 0x1;
 ZT_U64			rZTM__SEED_64 = 0x1;

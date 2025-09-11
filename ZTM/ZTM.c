@@ -5,7 +5,7 @@
 #ifndef ZTM_C_INCLUDED
 #define ZTM_C_INCLUDED
 
-#include "ZTM__Runtime.h"
+#include "ZTM-RT.h"
 #include ZTM__INCL__MAIN
 
 ZT_U32 ZTM_Seed_32(ZT_U32 iSeed) {

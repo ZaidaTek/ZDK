@@ -5,7 +5,7 @@
 #ifndef ZT_HASHMD5_C_INCLUDED
 #define ZT_HASHMD5_C_INCLUDED
 
-#include "ZTM__Runtime.h"
+#include "ZTM-RT.h"
 #include "ZT_HashMD5.h"
 
 

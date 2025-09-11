@@ -6,7 +6,6 @@
 #define ZDX__RUNTIME_H_INCLUDED
 
 #include "ZDX.h"
-//#include "ZDX_Interface.h"
 
 #ifdef __cplusplus
 extern 'C' {

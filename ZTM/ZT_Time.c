@@ -5,7 +5,7 @@
 #ifndef ZT_TIME_C_INCLUDED
 #define ZT_TIME_C_INCLUDED
 
-#include "ZTM__Runtime.h"
+#include "ZTM-RT.h"
 #include ZTM__INCL__TIME
 #define ZTM_CLOCK_RATE CLOCKS_PER_SEC
 #define ZTM_CLOCK() clock()

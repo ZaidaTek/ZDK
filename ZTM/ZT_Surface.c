@@ -5,7 +5,7 @@
 #ifndef ZT_SURFACE_C_INCLUDED
 #define ZT_SURFACE_C_INCLUDED
 
-#include "ZTM__Runtime.h"
+#include "ZTM-RT.h"
 
 ZT_SURFACE* ZTM_SurfaceBlock(ZT_SURFACE* iSurface, const ZT_POINT* iDimensions) {
 	iSurface->block.x = iDimensions->x;

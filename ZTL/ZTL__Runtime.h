@@ -5,7 +5,7 @@
 #ifndef ZTL__RUNTIME_H_INCLUDED
 #define ZTL__RUNTIME_H_INCLUDED
 
-#include <ZTM__Runtime.h>
+#include <ZTM-RT.h>
 #include "ZTL.h"
 
 #define ZTL_FLAG_QPC_INIT 0x1

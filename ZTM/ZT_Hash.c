@@ -5,7 +5,7 @@
 #ifndef ZT_HASH_C_INCLUDED
 #define ZT_HASH_C_INCLUDED
 
-#include "ZTM__Runtime.h"
+#include "ZTM-RT.h"
 #include "ZT_HashMD5.h"
 
 void* ZTM_HashNew(ZT_INDEX iBits) {

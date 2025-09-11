@@ -5,7 +5,7 @@
 #ifndef ZT_PIXEL_C_INCLUDED
 #define ZT_PIXEL_C_INCLUDED
 
-#include "ZTM__Runtime.h"
+#include "ZTM-RT.h"
 
 void ZTM_PixelsNegative(const ZT_COLOR* iSource, ZT_COLOR* oTarget, ZT_INDEX iLength, ZT_FLAG iPalette) {
 	ZT_COLOR lMaskA = ZTM_ColorMaskA(iPalette);

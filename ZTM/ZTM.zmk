@@ -4,7 +4,7 @@
         "./ZTMIO/ZTMIO.c",
         "./ZTMKY/ZTMKY.c",
         "./ZTMWV/ZTMWV.c",
-        "./ZTM__Runtime.c",
+        "./ZTM-RT.c",
         "./ZT_List.c",
         "./ZT_Time.c",
         "./ZT_Pixel.c",

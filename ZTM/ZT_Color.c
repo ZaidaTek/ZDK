@@ -5,7 +5,7 @@
 #ifndef ZT_COLOR_C_INCLUDED
 #define ZT_COLOR_C_INCLUDED
 
-#include "ZTM__Runtime.h"
+#include "ZTM-RT.h"
 
 #define ZTM_COLOR_SHIFT_INVALID 0
 #define ZTM_COLOR_MASK_INVALID 0xffffffff

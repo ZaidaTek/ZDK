@@ -9,8 +9,6 @@
 
 #include "ZDX_Define.h"
 #include "ZDX_Types.h"
-//#include "ZDX_Data.h"
-//#include "ZDX_Diagram.h"
 
 #ifdef __cplusplus
 extern 'C' {

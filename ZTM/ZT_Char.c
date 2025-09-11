@@ -5,7 +5,7 @@
 #ifndef ZT_CHAR_C_INCLUDED
 #define ZT_CHAR_C_INCLUDED
 
-#include "ZTM__Runtime.h"
+#include "ZTM-RT.h"
 #include ZTM__INCL__CHAR
 /*
 ZT_SIZE ZTC8_FormatLength(const void* iFormatText, ...) {
