@@ -2,8 +2,8 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZDX_TYPES_H_INCLUDED
-#define ZDX_TYPES_H_INCLUDED
+#ifndef ZDX_TYPE_H_INCLUDED
+#define ZDX_TYPE_H_INCLUDED
 
 typedef struct {
 	ZT_FLAG flag;
@@ -87,4 +87,4 @@ typedef struct {
 	ZT_CHAR* address;
 } ZDX_DEVICE;
 
-#endif // ZDX_TYPES_H_INCLUDED
+#endif // ZDX_TYPE_H_INCLUDED

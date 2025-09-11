@@ -5,8 +5,8 @@
 #ifndef ZDX_DEFINE_H_INCLUDED
 #define ZDX_DEFINE_H_INCLUDED
 
-#include "ZDX__SHARED__DEF.h"
-#include "ZDX__SHARED__UALL.h"
+#include "ZDX-SHARED-DEFINE.h"
+#include "ZDX-SHARED-UALL.h"
 
 #define ZDX_FLAG_NONE 0x0
 #define ZDX_TYPE_NONE 0x0

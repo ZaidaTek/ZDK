@@ -7,8 +7,8 @@
 
 #include <ZTL.h>
 
-#include "ZDX_Define.h"
-#include "ZDX_Types.h"
+#include "ZDX-DEFINE.h"
+#include "ZDX-TYPE.h"
 
 #ifdef __cplusplus
 extern 'C' {

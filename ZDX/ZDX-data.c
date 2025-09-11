@@ -5,7 +5,7 @@
 #ifndef ZDX_DATA_C_INCLUDED
 #define ZDX_DATA_C_INCLUDED
 
-#include "ZDX__Runtime.h"
+#include "ZDX-RT.h"
 
 ZDX_DATA* ZDX_DataNew(ZDX_DEVICE* iDevice, ZT_INDEX iLength) {
     ZDX_DATA* lData = ZTM8_New(sizeof(ZDX_DATA));

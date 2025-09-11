@@ -5,7 +5,7 @@
 #ifndef ZDX_INTERFACE_C_INCLUDED
 #define ZDX_INTERFACE_C_INCLUDED
 
-#include "ZDX__Runtime.h"
+#include "ZDX-RT.h"
 
 void ZDX_InterfaceFree(ZDX_DEVICE* iDevice) {
     switch (iDevice->interface.type) {

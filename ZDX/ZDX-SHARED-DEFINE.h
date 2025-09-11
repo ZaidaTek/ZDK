@@ -2,9 +2,9 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZDX_SHARED_H_INCLUDED
-#define ZDX_SHARED_H_INCLUDED
-
+#ifndef ZDX_SHARED_DEFINE_H_INCLUDED
+#define ZDX_SHARED_DEFINE_H_INCLUDED
+/*
 #define ZDX_MSG_PREFIX 0xff
 #define ZDX_MSG_VERSION_MAJOR 0x1
 #define ZDX_MSG_VERSION_MINOR 0x1
@@ -27,6 +27,7 @@
 #define ZDX_JOB_ERR_TIMEOUT 0x81
 #define ZDX_JOB_ERR_CRC 0x82
 #define ZDX_JOB_ERR_VERSION 0x83
+*/
 
 #define ZDX_TASK_DII 0x10
 #define ZDX_TASK_DIO 0x20
@@ -34,14 +35,4 @@
 #define ZDX_TASK_ADC 0x40
 #define ZDX_TASK_DAC 0x80
 
-#define ZDX_TASK_AT328P (ZDX_TASK_DIO | ZDX_TASK_PWM | ZDX_TASK_ADC)
-#define ZDX_TASK_AT328P_DIO_MASK 0xff
-#define ZDX_TASK_AT328P_PWM_MASK 0xff
-#define ZDX_TASK_AT328P_PWM_MINRATE 100
-#define ZDX_TASK_AT328P_PWM_MAXRATE 50000
-#define ZDX_TASK_AT328P_ADC_MASK 0xff
-#define ZDX_TASK_AT328P_ADC_RESOLUTION 10
-#define ZDX_TASK_AT328P_ADC_MINRATE 100
-#define ZDX_TASK_AT328P_ADC_MAXRATE 10000000
-
-#endif // ZDX_SHARED_H_INCLUDED
+#endif // ZDX_SHARED_DEFINE_H_INCLUDED

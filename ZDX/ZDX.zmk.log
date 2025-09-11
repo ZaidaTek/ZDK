@@ -1,17 +1,17 @@
 {
     "target": "/home/andi/code/c/ZDK/ZDX/libZDX.so",
     "sources": {
-        "/home/andi/code/c/ZDK/ZDX/ZDX_Data.c": {
+        "/home/andi/code/c/ZDK/ZDX/ZDX-data.c": {
             "handle": [
                 "gcc"
             ]
         },
-        "/home/andi/code/c/ZDK/ZDX/ZDX_Diagram.c": {
+        "/home/andi/code/c/ZDK/ZDX/ZDX-diagram.c": {
             "handle": [
                 "gcc"
             ]
         },
-        "/home/andi/code/c/ZDK/ZDX/ZDX_Interface.c": {
+        "/home/andi/code/c/ZDK/ZDX/ZDX-interface.c": {
             "handle": [
                 "gcc"
             ]
@@ -48,7 +48,7 @@
     "zmake": "250906",
     "host": {
         "['date']": [
-            "2025-09-12T00:24:43 CEST"
+            "2025-09-12T00:42:23 CEST"
         ],
         "['zmake', '--version']": [
             "zmake-v250906"
@@ -58,7 +58,7 @@
             "---------------- ",
             "OS: LMDE 6 (faye) x86_64 ",
             "Kernel: 6.12.38+deb12-rt-amd64 ",
-            "Uptime: 1 day, 4 hours, 4 mins ",
+            "Uptime: 1 day, 4 hours, 22 mins ",
             "Packages: 3173 (dpkg), 51 (flatpak) ",
             "Shell: bash 5.2.15 ",
             "Resolution: 1920x1080 ",
@@ -70,7 +70,7 @@
             "Terminal: gnome-terminal ",
             "CPU: AMD Ryzen 7 5700X3D (16) @ 4.149GHz ",
             "GPU: AMD ATI Radeon RX 7700 XT / 7800 XT ",
-            "Memory: 2272MiB / 15918MiB "
+            "Memory: 2120MiB / 15918MiB "
         ],
         "['gcc', '--version']": [
             "gcc (Debian 12.2.0-14+deb12u1) 12.2.0",
@@ -100,9 +100,9 @@
                 "-I/home/andi/code/c/ZDK/ZTM",
                 "-I/home/andi/code/c/ZDK/ZTL",
                 "-c",
-                "/home/andi/code/c/ZDK/ZDX/ZDX_Data.c",
+                "/home/andi/code/c/ZDK/ZDX/ZDX-data.c",
                 "-o",
-                "/home/andi/code/c/ZDK/ZDX/ZDX_Data.c.o"
+                "/home/andi/code/c/ZDK/ZDX/ZDX-data.c.o"
             ],
             [
                 "gcc",
@@ -117,9 +117,9 @@
                 "-I/home/andi/code/c/ZDK/ZTM",
                 "-I/home/andi/code/c/ZDK/ZTL",
                 "-c",
-                "/home/andi/code/c/ZDK/ZDX/ZDX_Diagram.c",
+                "/home/andi/code/c/ZDK/ZDX/ZDX-diagram.c",
                 "-o",
-                "/home/andi/code/c/ZDK/ZDX/ZDX_Diagram.c.o"
+                "/home/andi/code/c/ZDK/ZDX/ZDX-diagram.c.o"
             ],
             [
                 "gcc",
@@ -134,9 +134,9 @@
                 "-I/home/andi/code/c/ZDK/ZTM",
                 "-I/home/andi/code/c/ZDK/ZTL",
                 "-c",
-                "/home/andi/code/c/ZDK/ZDX/ZDX_Interface.c",
+                "/home/andi/code/c/ZDK/ZDX/ZDX-interface.c",
                 "-o",
-                "/home/andi/code/c/ZDK/ZDX/ZDX_Interface.c.o"
+                "/home/andi/code/c/ZDK/ZDX/ZDX-interface.c.o"
             ],
             [
                 "gcc",
@@ -159,9 +159,9 @@
         "link": [
             [
                 "gcc",
-                "/home/andi/code/c/ZDK/ZDX/ZDX_Data.c.o",
-                "/home/andi/code/c/ZDK/ZDX/ZDX_Diagram.c.o",
-                "/home/andi/code/c/ZDK/ZDX/ZDX_Interface.c.o",
+                "/home/andi/code/c/ZDK/ZDX/ZDX-data.c.o",
+                "/home/andi/code/c/ZDK/ZDX/ZDX-diagram.c.o",
+                "/home/andi/code/c/ZDK/ZDX/ZDX-interface.c.o",
                 "/home/andi/code/c/ZDK/ZDX/ZDX.c.o",
                 "-o",
                 "/home/andi/code/c/ZDK/ZDX/libZDX.so",
@@ -179,9 +179,9 @@
         "clean": [
             [
                 "rm",
-                "/home/andi/code/c/ZDK/ZDX/ZDX_Data.c.o",
-                "/home/andi/code/c/ZDK/ZDX/ZDX_Diagram.c.o",
-                "/home/andi/code/c/ZDK/ZDX/ZDX_Interface.c.o",
+                "/home/andi/code/c/ZDK/ZDX/ZDX-data.c.o",
+                "/home/andi/code/c/ZDK/ZDX/ZDX-diagram.c.o",
+                "/home/andi/code/c/ZDK/ZDX/ZDX-interface.c.o",
                 "/home/andi/code/c/ZDK/ZDX/ZDX.c.o"
             ]
         ],

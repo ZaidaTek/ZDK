@@ -36,19 +36,19 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="ZDX.h" />
-		<Unit filename="ZDX_Data.c">
+		<Unit filename="ZDX-data.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZDX_Define.h" />
-		<Unit filename="ZDX_Diagram.c">
+		<Unit filename="ZDX-DEFINE.h" />
+		<Unit filename="ZDX-diagram.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZDX_Interface.c">
+		<Unit filename="ZDX-interface.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZDX_Shared.h" />
-		<Unit filename="ZDX_Types.h" />
-		<Unit filename="ZDX__Runtime.h" />
+		<Unit filename="ZDX-shared.h" />
+		<Unit filename="ZDX-TYPE.h" />
+		<Unit filename="ZDX-RT.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

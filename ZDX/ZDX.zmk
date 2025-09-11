@@ -1,9 +1,9 @@
 {
     "target": "./libZDX.so",
     "sources": [
-        "./ZDX_Data.c",
-        "./ZDX_Diagram.c",
-        "./ZDX_Interface.c",
+        "./ZDX-data.c",
+        "./ZDX-diagram.c",
+        "./ZDX-interface.c",
         "./ZDX.c"
     ],
     "include": ["../ZTM", "../ZTL"],

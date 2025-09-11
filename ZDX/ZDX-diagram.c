@@ -5,7 +5,7 @@
 #ifndef ZDX_DIAGRAM_C_INCLUDED
 #define ZDX_DIAGRAM_C_INCLUDED
 
-#include "ZDX__Runtime.h"
+#include "ZDX-RT.h"
 
 ZT_COLOR ZDX_DiagramColor(ZT_INDEX iChannel) {
     static const ZT_COLOR lColors[ZDX_DIAGRAM_COLOR_PLOTS] = {
