@@ -6,9 +6,9 @@
 #define ZTL_H_INCLUDED
 
 #include <ZTM.h>
-#include "ZTL__Environment.h"
-#include "ZTL_Define.h"
-#include "ZTL_Types.h"
+#include "ZTL-BUILD.h"
+#include "ZTL-DEFINE.h"
+#include "ZTL-TYPE.h"
 
 #define ZTL_Tickout(TIMESTAMP,TIMEOUT) ZTM_Timeout(ZTL_Tick(), TIMESTAMP, TIMEOUT)
 #define ZTL_TickoutReset(PTRTIMESTAMP,TIMEOUT) ZTM_TimeoutReset(ZTL_Tick(), PTRTIMESTAMP, TIMEOUT)

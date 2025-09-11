@@ -2,8 +2,8 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZTL__ENVIRONMENT_H_INCLUDED
-#define ZTL__ENVIRONMENT_H_INCLUDED
+#ifndef ZTL_BUILD_H_INCLUDED
+#define ZTL_BUILD_H_INCLUDED
 
 #if defined(ZTM__OS__WINDOWS)
 #define ZTL__OS__WINDOWS
@@ -13,4 +13,4 @@
 #define ZTL__OS__UNKNOWN
 #endif // ZTL__OS__
 
-#endif //ZTL__ENVIRONMENT_H_INCLUDED
+#endif //ZTL_BUILD_H_INCLUDED

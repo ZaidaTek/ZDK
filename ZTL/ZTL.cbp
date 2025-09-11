@@ -34,14 +34,14 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="ZTL.h" />
-		<Unit filename="ZTL_Define.h" />
-		<Unit filename="ZTL__WINDOWS.c">
+		<Unit filename="ZTL-DEFINE.h" />
+		<Unit filename="ZTL-RT-WINDOWS.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZTL__Runtime.c">
+		<Unit filename="ZTL-RT.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZTL__Runtime.h" />
+		<Unit filename="ZTL-RT.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

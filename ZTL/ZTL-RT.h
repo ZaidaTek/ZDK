@@ -2,8 +2,8 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZTL__RUNTIME_H_INCLUDED
-#define ZTL__RUNTIME_H_INCLUDED
+#ifndef ZTL_RT_H_INCLUDED
+#define ZTL_RT_H_INCLUDED
 
 #include <ZTM-RT.h>
 #include "ZTL.h"
@@ -167,5 +167,5 @@ extern ZT_CHAR             rZTL__SELECT_DIR[ZTL_BUFFER_PATH];
 extern ZT_CHAR             rZTL__SELECT_FILE[ZTL_BUFFER_PATH];
 extern ZT_CHAR             rZTL__SELECT_TYPE[ZTL_BUFFER_PATH];
 
-#endif // ZTL__RUNTIME_H_INCLUDED
+#endif // ZTL_RT_H_INCLUDED
 

@@ -5,7 +5,7 @@
 #ifndef ZTL__LINUX_C_INCLUDED
 #define ZTL__LINUX_C_INCLUDED
 
-#include "ZTL__Runtime.h"
+#include "ZTL-RT.h"
 #include <stdio.h>
 #ifdef ZTL__OS__LINUX
 void ZTL_LibraryFree(ZT_LIBRARY* iLibrary) {

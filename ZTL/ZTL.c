@@ -5,7 +5,7 @@
 #ifndef ZTL_C_INCLUDED
 #define ZTL_C_INCLUDED
 
-#include "ZTL__Runtime.h"
+#include "ZTL-RT.h"
 
 #ifdef ZTL__OS__UNKNOWN
 /*

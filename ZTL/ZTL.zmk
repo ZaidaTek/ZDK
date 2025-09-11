@@ -1,8 +1,8 @@
 {
     "target": "./libZTL.so",
     "sources": [
-        "./ZTL__LINUX.c",
-        "./ZTL__Runtime.c",
+        "./ZTL-RT-LINUX.c",
+        "./ZTL-RT.c",
         "./ZTL.c"
     ],
     "include": ["../ZTM"],

@@ -2,10 +2,10 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZTL__RUNTIME_C_INCLUDED
-#define ZTL__RUNTIME_C_INCLUDED
+#ifndef ZTL_RT_C_INCLUDED
+#define ZTL_RT_C_INCLUDED
 
-#include "ZTL__Runtime.h"
+#include "ZTL-RT.h"
 
 ZT_FLAG             rZTL__QPC_FLAG = ZTL_FLAG_QPC_INIT;
 ZT_U64              rZTL__QPC_RATE = 1;
@@ -19,4 +19,4 @@ ZT_CHAR             rZTL__SELECT_DIR[ZTL_BUFFER_PATH] = {ZTM_CHAR_NT};
 ZT_CHAR             rZTL__SELECT_FILE[ZTL_BUFFER_PATH] = {ZTM_CHAR_NT};
 ZT_CHAR             rZTL__SELECT_TYPE[ZTL_BUFFER_PATH] = {ZTM_CHAR_NT};
 
-#endif // ZTL__RUNTIME_C_INCLUDED
+#endif // ZTL_RT_C_INCLUDED

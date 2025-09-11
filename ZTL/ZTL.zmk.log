@@ -1,12 +1,12 @@
 {
     "target": "/home/andi/code/c/ZDK/ZTL/libZTL.so",
     "sources": {
-        "/home/andi/code/c/ZDK/ZTL/ZTL__LINUX.c": {
+        "/home/andi/code/c/ZDK/ZTL/ZTL-RT-LINUX.c": {
             "handle": [
                 "gcc"
             ]
         },
-        "/home/andi/code/c/ZDK/ZTL/ZTL__Runtime.c": {
+        "/home/andi/code/c/ZDK/ZTL/ZTL-RT.c": {
             "handle": [
                 "gcc"
             ]
@@ -41,7 +41,7 @@
     "zmake": "250906",
     "host": {
         "['date']": [
-            "2025-09-12T00:02:09 CEST"
+            "2025-09-12T00:24:43 CEST"
         ],
         "['zmake', '--version']": [
             "zmake-v250906"
@@ -51,7 +51,7 @@
             "---------------- ",
             "OS: LMDE 6 (faye) x86_64 ",
             "Kernel: 6.12.38+deb12-rt-amd64 ",
-            "Uptime: 1 day, 3 hours, 42 mins ",
+            "Uptime: 1 day, 4 hours, 4 mins ",
             "Packages: 3173 (dpkg), 51 (flatpak) ",
             "Shell: bash 5.2.15 ",
             "Resolution: 1920x1080 ",
@@ -63,7 +63,7 @@
             "Terminal: gnome-terminal ",
             "CPU: AMD Ryzen 7 5700X3D (16) @ 4.149GHz ",
             "GPU: AMD ATI Radeon RX 7700 XT / 7800 XT ",
-            "Memory: 2255MiB / 15918MiB "
+            "Memory: 2287MiB / 15918MiB "
         ],
         "['gcc', '--version']": [
             "gcc (Debian 12.2.0-14+deb12u1) 12.2.0",
@@ -92,9 +92,9 @@
                 "-Wextra",
                 "-I/home/andi/code/c/ZDK/ZTM",
                 "-c",
-                "/home/andi/code/c/ZDK/ZTL/ZTL__LINUX.c",
+                "/home/andi/code/c/ZDK/ZTL/ZTL-RT-LINUX.c",
                 "-o",
-                "/home/andi/code/c/ZDK/ZTL/ZTL__LINUX.c.o"
+                "/home/andi/code/c/ZDK/ZTL/ZTL-RT-LINUX.c.o"
             ],
             [
                 "gcc",
@@ -108,9 +108,9 @@
                 "-Wextra",
                 "-I/home/andi/code/c/ZDK/ZTM",
                 "-c",
-                "/home/andi/code/c/ZDK/ZTL/ZTL__Runtime.c",
+                "/home/andi/code/c/ZDK/ZTL/ZTL-RT.c",
                 "-o",
-                "/home/andi/code/c/ZDK/ZTL/ZTL__Runtime.c.o"
+                "/home/andi/code/c/ZDK/ZTL/ZTL-RT.c.o"
             ],
             [
                 "gcc",
@@ -132,8 +132,8 @@
         "link": [
             [
                 "gcc",
-                "/home/andi/code/c/ZDK/ZTL/ZTL__LINUX.c.o",
-                "/home/andi/code/c/ZDK/ZTL/ZTL__Runtime.c.o",
+                "/home/andi/code/c/ZDK/ZTL/ZTL-RT-LINUX.c.o",
+                "/home/andi/code/c/ZDK/ZTL/ZTL-RT.c.o",
                 "/home/andi/code/c/ZDK/ZTL/ZTL.c.o",
                 "-o",
                 "/home/andi/code/c/ZDK/ZTL/libZTL.so",
@@ -149,8 +149,8 @@
         "clean": [
             [
                 "rm",
-                "/home/andi/code/c/ZDK/ZTL/ZTL__LINUX.c.o",
-                "/home/andi/code/c/ZDK/ZTL/ZTL__Runtime.c.o",
+                "/home/andi/code/c/ZDK/ZTL/ZTL-RT-LINUX.c.o",
+                "/home/andi/code/c/ZDK/ZTL/ZTL-RT.c.o",
                 "/home/andi/code/c/ZDK/ZTL/ZTL.c.o"
             ]
         ],
