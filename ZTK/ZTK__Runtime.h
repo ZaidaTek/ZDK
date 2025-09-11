@@ -5,7 +5,7 @@
 #ifndef ZTK__RUNTIME_H_INCLUDED
 #define ZTK__RUNTIME_H_INCLUDED
 
-//#include "../ZTL/ZTL__Runtime.h"
+//#include <ZTL-RT.h>
 #include "ZTK.h"
 #include "ZTK__Defines.h"
 
