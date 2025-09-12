@@ -78,7 +78,7 @@ typedef ZT_TYPE_U64 ZT_U64;
 	typedef ZT_TYPE_U8 ZT_INDEX_QUARTER;
 	typedef ZT_TYPE_U8 ZT_FLAG_QUARTER;
 #elif (ZTM_BUILD_WIDTH > 8) // 16-bit
-	typedef ZT_TYPE_U64 ZT_SIZE;
+	typedef ZT_TYPE_U32 ZT_SIZE;
 	typedef ZT_TYPE_I16 ZT_I;
 	typedef ZT_TYPE_U16 ZT_U;
 	typedef ZT_TYPE_U32 ZT_TIME;
