@@ -2,12 +2,11 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZTL__WINDOWS_C_INCLUDED
-#define ZTL__WINDOWS_C_INCLUDED
+#ifndef ZTL_RT_WINDOWS_C_INCLUDED
+#define ZTL_RT_WINDOWS_C_INCLUDED
 
 #include "ZTL-RT.h"
-//#define ZTL__OS__WINDOWS // REMOVE ME!!!!
-#ifdef ZTL__OS__WINDOWS
+#ifdef ZTL_BUILD_WINDOWS
 void ZTL_LibraryFree(ZT_LIBRARY* iLibrary) {
     FreeLibrary((HMODULE)iLibrary);
 }
@@ -229,5 +228,5 @@ ZT_INDEX ZTL_RuntimeSelectDialog(void) {
     }
     return rZTL__SELECT_COUNT;
 }
-#endif // ZTL__OS__WINDOWS
-#endif // ZTL__WINDOWS_C_INCLUDED
+#endif // ZTL_BUILD_WINDOWS
+#endif // ZTL_RT_WINDOWS_C_INCLUDED

@@ -2,12 +2,12 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZTL__LINUX_C_INCLUDED
-#define ZTL__LINUX_C_INCLUDED
+#ifndef ZTL_RT_LINUX_C_INCLUDED
+#define ZTL_RT_LINUX_C_INCLUDED
 
 #include "ZTL-RT.h"
 #include <stdio.h>
-#ifdef ZTL__OS__LINUX
+#ifdef ZTL_BUILD_LINUX
 void ZTL_LibraryFree(ZT_LIBRARY* iLibrary) {
     dlclose(iLibrary);
 }
@@ -18,7 +18,7 @@ void* ZTL_LibraryFunction(ZT_LIBRARY* iLibrary, const ZT_CHAR* iName) {
     return dlsym(iLibrary, (const char*)iName);
 }
 ZT_CHAR* ZTL_SerialAddress(ZT_INDEX iPort) {
-    #define ZTL_SERIAL_ADDRESS_PORT(TARGET,OFFSET,PORT) \
+    #define mZTL_SERIAL_ADDRESS_PORT(TARGET,OFFSET,PORT) \
     if ((PORT) < 10) {\
         (TARGET)[(OFFSET)] = (PORT) + 0x30;\
         (TARGET)[(OFFSET) + 1] = 0x0;\
@@ -46,9 +46,9 @@ ZT_CHAR* ZTL_SerialAddress(ZT_INDEX iPort) {
     lAddress[ 8] = 'U';
     lAddress[ 9] = 'S';
     lAddress[10] = 'B';
-    ZTL_SERIAL_ADDRESS_PORT(lAddress, 11, iPort);
+    mZTL_SERIAL_ADDRESS_PORT(lAddress, 11, iPort);
     return lAddress;
-    #undef ZTL_SERIAL_ADDRESS_PORT
+    #undef mZTL_SERIAL_ADDRESS_PORT
 }
 ZT_SERIAL* ZTL_SerialNew(const ZT_CHAR* iAddress, ZT_INDEX iBaud, ZT_SIZE iBufferIn, ZT_SIZE iBufferOut) {
     (void)iBufferIn; (void)iBufferOut; // not needed in Linux?
@@ -241,5 +241,5 @@ ZT_INDEX ZTL_RuntimeSelectDialog() {
     return rZTL__SELECT_COUNT;
     #undef lFNC_APPEND
 }
-#endif // ZTL__OS__LINUX
-#endif // ZTL__LINUX_C_INCLUDED
+#endif // ZTL_BUILD_LINUX
+#endif // ZTL_RT_LINUX_C_INCLUDED

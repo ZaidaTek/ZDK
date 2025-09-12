@@ -34,7 +34,7 @@ ZT_FLAG ZTL_ShellExec(const ZT_CHAR* iCommand, ...);
 ZT_CHAR* ZTL_ShellPipeInTarget(const ZT_CHAR* iCommand, ZT_CHAR* oTarget, ZT_SIZE iCapacity);
 #define ZTL_ShellPipeInNew(COMMAND) ZTL_ShellPipeInTarget((COMMAND), NULL, 0)
 ZT_FLAG ZTL_ShellOpen(const ZT_CHAR* iPath, ZT_FLAG iMode);
-#if defined(ZTL__OS__LINUX)
+#if defined(ZTL_BUILD_LINUX)
 #define ZTL_Open(PATH) ZTL_ShellOpen(PATH, ZTL_EXECUTE_OPEN)
 #define ZTL_OpenDiscrete(PATH) ZTL_ShellOpen(PATH, ZTL_EXECUTE_OPEN | ZTL_EXECUTE_HIDE)
 #define ZTL_Edit(PATH) ZTL_ShellOpen(PATH, ZTL_EXECUTE_EDIT)
@@ -48,7 +48,7 @@ ZT_FLAG ZTL_ShellOpen(const ZT_CHAR* iPath, ZT_FLAG iMode);
 #define ZTL_Print(PATH) ZTL_ShellOpen(PATH, ZTL_EXECUTE_PRINT)
 #define ZTL_Hyperlink(ADDRESS) ZTL_ShellOpen(ADDRESS, ZTL_EXECUTE_OPEN)
 #define ZTL_HyperlinkDiscrete(ADDRESS) ZTL_ShellOpen(ADDRESS, ZTL_EXECUTE_OPEN | ZTL_EXECUTE_HIDE)
-#endif // ZTL__OS__
+#endif // ZTL_BUILD_OS
 void ZTL_LibraryFree(ZT_LIBRARY* iLibrary);
 ZT_LIBRARY* ZTL_LibraryLoad(const ZT_CHAR* iPath);
 void* ZTL_LibraryFunction(ZT_LIBRARY* iLibrary, const ZT_CHAR* iName);

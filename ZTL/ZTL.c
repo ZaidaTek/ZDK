@@ -7,7 +7,7 @@
 
 #include "ZTL-RT.h"
 
-#ifdef ZTL__OS__UNKNOWN
+#ifdef ZTL_BUILD_UNKNOWN
 /*
 ZT_FLAG ZTL_FileFlags(const ZT_CHAR* iPath) {return ZTL_FILE_NONE;}
 ZT_BOOL ZTL_FileExists(const ZT_CHAR* iPath) {return ZT_FALSE;}
@@ -20,7 +20,7 @@ ZT_BOOL ZTL_FileIsCompressed(const ZT_CHAR* iPath) {return ZT_FALSE;}
 ZT_BOOL ZTL_FileIsEncrypted(const ZT_CHAR* iPath) {return ZT_FALSE;}
 ZT_BOOL ZTL_DirectoryCreate(const ZT_CHAR* iPath) {return ZT_FALSE;}
 */
-#endif // ZTL__OS__UNKNOWN
+#endif // ZTL_BUILD_UNKNOWN
 ZT_THREAD* ZTL_ThreadNew(ZT_FLAG (*iFunction)(void*), void* iArgument) {
     rZT_THREAD* lThread = ZTM8_New(sizeof(rZT_THREAD));
     lThread->exec = iFunction;

@@ -12,11 +12,15 @@
 #endif // ZTM_BUILD_WIDTH
 
 #if defined(ZTM_BUILD_WINDOWS)
-	#define ZTL__OS__WINDOWS
+	#define ZTL_BUILD_WINDOWS
+#elif defined(ZTM_BUILD_APPLE)
+	#define ZTL_BUILD_APPLE
 #elif defined(ZTM_BUILD_LINUX)
-	#define ZTL__OS__LINUX
+	#define ZTL_BUILD_LINUX
+#elif defined(ZTM_BUILD_AVR)
+	#define ZTL_BUILD_AVR
 #else
-	#define ZTL__OS__UNKNOWN
-#endif // ZTL__OS__
+	#define ZTL_BUILD_UNKNOWN
+#endif // ZTL_BUILD_OS
 
 #endif //ZTL_BUILD_H_INCLUDED
