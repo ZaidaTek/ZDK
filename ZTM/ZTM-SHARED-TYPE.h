@@ -66,30 +66,31 @@ typedef ZT_TYPE_U32 ZT_U32;
 typedef ZT_TYPE_U64 ZT_U64;
 
 #if (ZTM_BUILD_WIDTH > 16) // 32-bit and above
+	typedef ZT_TYPE_U32 ZT_SIZE;
 	typedef ZT_TYPE_I32 ZT_I;
 	typedef ZT_TYPE_U32 ZT_U;
 	typedef ZT_TYPE_U32 ZT_TIME;
 	typedef ZT_TYPE_U32 ZT_COLOR;
 	typedef ZT_TYPE_U32 ZT_INDEX;
-	typedef ZT_TYPE_U32 ZT_SIZE;
 	typedef ZT_TYPE_U32 ZT_FLAG;
 	typedef ZT_TYPE_U16 ZT_INDEX_HALF;
 	typedef ZT_TYPE_U16 ZT_FLAG_HALF;
 	typedef ZT_TYPE_U8 ZT_INDEX_QUARTER;
 	typedef ZT_TYPE_U8 ZT_FLAG_QUARTER;
 #elif (ZTM_BUILD_WIDTH > 8) // 16-bit
+	typedef ZT_TYPE_U32 ZT_SIZE;
 	typedef ZT_TYPE_I16 ZT_I;
 	typedef ZT_TYPE_U16 ZT_U;
 	typedef ZT_TYPE_U32 ZT_TIME;
 	typedef ZT_TYPE_U16 ZT_COLOR;
 	typedef ZT_TYPE_U16 ZT_INDEX;
-	typedef ZT_TYPE_U32 ZT_SIZE;
 	typedef ZT_TYPE_U16 ZT_FLAG;
 	typedef ZT_TYPE_U8 ZT_INDEX_HALF;
 	typedef ZT_TYPE_U8 ZT_FLAG_HALF;
 	typedef ZT_TYPE_U8 ZT_INDEX_QUARTER;
 	typedef ZT_TYPE_U8 ZT_FLAG_QUARTER;
 #else // 8-bit
+	// typedef ZT_TYPE_U32 ZT_SIZE;
 	typedef ZT_TYPE_I16 ZT_I;
 	typedef ZT_TYPE_U16 ZT_U;
 	typedef ZT_TYPE_U32 ZT_TIME;
@@ -141,7 +142,7 @@ typedef union {__ZTM_BUILD_BASE_HASH_32(32);} ZT_HASH32;
 			ZT_U8 byte[sizeof(ZT_DATE)];
 			ZT_U16 ordinal;
 			ZT_U8 week;
-			ZT_U8 reserve;
+			ZT_U8 reserveFree;
 			ZT_TIME epoch;
 			ZT_TIME zone;
 		};
@@ -163,15 +164,35 @@ typedef union {__ZTM_BUILD_BASE_HASH_32(32);} ZT_HASH32;
 		};
 	} ZT_DATA;
 	typedef struct {
-		void** items;
 		ZT_INDEX length;
+		ZT_INDEX reserveCapacity;
+		ZT_INDEX reserveFree0;
+		ZT_INDEX reserveFree1;
+		void** items;
 	} ZT_LIST;
 	typedef struct {
-		void** items;
 		ZT_INDEX length;
+		ZT_INDEX reserveCapacity;
 		ZT_INDEX data;
 		ZT_INDEX user;
+		void** items;
 	} ZT_QLIST;
+	typedef struct {
+		ZT_INDEX length;
+		ZT_INDEX capacity;
+		ZT_INDEX reserveFree0;
+		ZT_INDEX reserveFree1;
+		void** list;
+		void* item[0];
+	} ZT_SLIST; // NOT IMPLEMENT
+	typedef struct {
+		ZT_INDEX length;
+		ZT_INDEX capacity;
+		ZT_INDEX data;
+		ZT_INDEX user;
+		void** qlist;
+		void* item[0];
+	} ZT_QSLIST; // NOT IMPLEMENT
 	typedef struct {
 		void* handle;
 		const ZT_CHAR* path;
