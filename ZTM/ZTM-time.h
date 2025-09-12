@@ -8,7 +8,6 @@
 // 2019-06-10 *thoroughly* re-test this
 // retested, removed milliseconds, want to make year four digits, compatibility conflicts with present two digits undetermined
 // 2020-02-21 changed to 4-digit year on ZCW, yet to check compat with others
-#include "ZTM.h"
 
 #define ZTM_Timeout(TIMENOW,TIMESTAMP,TIMEOUT) ((((TIMENOW) - (TIMESTAMP)) < (TIMEOUT)) ? ZT_FALSE : ZT_TRUE)
 #define ZTM_TimeoutLast(TIMENOW,TIMESTAMP,TIMEOUT) ({\

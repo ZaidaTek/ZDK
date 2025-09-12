@@ -5,8 +5,6 @@
 #ifndef ZTM_CHAR_H_INCLUDED
 #define ZTM_CHAR_H_INCLUDED
 
-#include "ZTM.h"
-
 #define ZTM_CHAR_MAP_ANSI 0x0
 #define ZTM_CHAR_MAP ZTM_CHAR_MAP_ANSI
 #define ZTM_TEXT_MAX_LENGTH 8192 // fallback-length for some functions if no length parameter is passed

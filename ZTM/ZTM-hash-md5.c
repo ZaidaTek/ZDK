@@ -6,7 +6,6 @@
 #define ZTM_HASH_MD5_C_INCLUDED
 
 #include "ZTM-RT.h"
-// #include "ZTM-hash-md5.h" // ?
 
 
 inline ZT_U32 ZTM_HashMD5_R(ZT_U32 x, ZT_INDEX n) {return (x << n) | (x >> (32 - n));}

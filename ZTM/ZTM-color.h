@@ -5,7 +5,6 @@
 #ifndef ZTM_COLOR_H_INCLUDED
 #define ZTM_COLOR_H_INCLUDED
 
-#include "ZTM.h"
 // PRE-DEFINED COLORS
 #include "ZTM-color-vga.h"
 //#define ZTM_COLORX11_EXTENDED

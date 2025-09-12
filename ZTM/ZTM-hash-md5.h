@@ -5,8 +5,6 @@
 #ifndef ZTM_HASH_MD5_H_INCLUDED
 #define ZTM_HASH_MD5_H_INCLUDED
 
-#include "ZTM.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif // __cplusplus

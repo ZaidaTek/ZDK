@@ -5,7 +5,6 @@
 #ifndef ZTM_HASH_H_INCLUDED
 #define ZTM_HASH_H_INCLUDED
 
-#include "ZTM.h" // ?
 #include "ZTM-hash-md5.h"
 
 #define ZTM_HASH_MAX_PASS 64

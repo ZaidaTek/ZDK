@@ -6,7 +6,6 @@
 #define ZTM_HASH_C_INCLUDED
 
 #include "ZTM-RT.h"
-// #include "ZTM-hash-md5.h" // ?
 
 void* ZTM_HashNew(ZT_INDEX iBits) {
 	switch (iBits) {

@@ -5,8 +5,6 @@
 #ifndef ZTM_SURFACE_H_INCLUDED
 #define ZTM_SURFACE_H_INCLUDED
 
-#include "ZTM.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif // __cplusplus

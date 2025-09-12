@@ -5,8 +5,6 @@
 #ifndef ZTM_PIXEL_H_INCLUDED
 #define ZTM_PIXEL_H_INCLUDED
 
-#include "ZTM.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif // __cplusplus
