@@ -5,12 +5,18 @@
 #ifndef ZTL_BUILD_H_INCLUDED
 #define ZTL_BUILD_H_INCLUDED
 
-#if defined(ZTM__OS__WINDOWS)
-#define ZTL__OS__WINDOWS
-#elif defined(ZTM__OS__LINUX)
-#define ZTL__OS__LINUX
+#if !defined(ZTM_BUILD_WIDTH) || !(ZTM_BUILD_WIDTH)
+	#define ZTL_BUILD_WIDTH 32
+#else // ZTM_BUILD_WIDTH
+	#define ZTL_BUILD_WIDTH ZTM_BUILD_WIDTH
+#endif // ZTM_BUILD_WIDTH
+
+#if defined(ZTM_BUILD_WINDOWS)
+	#define ZTL__OS__WINDOWS
+#elif defined(ZTM_BUILD_LINUX)
+	#define ZTL__OS__LINUX
 #else
-#define ZTL__OS__UNKNOWN
+	#define ZTL__OS__UNKNOWN
 #endif // ZTL__OS__
 
 #endif //ZTL_BUILD_H_INCLUDED

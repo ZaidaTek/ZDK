@@ -150,7 +150,7 @@ typedef void rZT_SERIAL;
 #define ZTL_RuntimeScreenHeight() 0
 #define ZTL_RuntimeSelectFileOpen() ZT_FALSE
 #define ZTL_RuntimeSelectFileSave() ZT_FALSE
-#endif // ZTM__OS__
+#endif // ZTL__OS__
 
 void ZTL_SelectInit(void);
 ZT_INDEX ZTL_RuntimeSelectDialog(void);
@@ -168,4 +168,3 @@ extern ZT_CHAR             rZTL__SELECT_FILE[ZTL_BUFFER_PATH];
 extern ZT_CHAR             rZTL__SELECT_TYPE[ZTL_BUFFER_PATH];
 
 #endif // ZTL_RT_H_INCLUDED
-

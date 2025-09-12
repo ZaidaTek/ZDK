@@ -5,21 +5,27 @@
 #ifndef ZTM_BUILD_H_INCLUDED
 #define ZTM_BUILD_H_INCLUDED
 
-#if defined(__WIN32) || defined(_WIN32) || defined(WIN32)
-#define ZTM__OS__WINDOWS
-#define ZTM__OS__BITS 32
-#elif defined(__WIN64) || defined(_WIN64) || defined(WIN64)
-#define ZTM__OS__WINDOWS
-#define ZTM__OS__BITS 32 // deliberate
+#if defined(__WIN64) || defined(_WIN64) || defined(WIN64)
+	#define ZTM_BUILD_WIDTH 32 // deliberate
+	#define ZTM_BUILD_WINDOWS
+#elif defined(__WIN32) || defined(_WIN32) || defined(WIN32)
+	#define ZTM_BUILD_WIDTH 32
+	#define ZTM_BUILD_WINDOWS
 #elif defined(__MACH__) || defined(__APPLE__)
-#define ZTM__OS__APPLE
-#define ZTM__OS__BITS 32
+	#define ZTM_BUILD_WIDTH 32
+	#define ZTM_BUILD_APPLE
 #elif defined(__linux__)
-#define ZTM__OS__LINUX
-#define ZTM__OS__BITS 32
+	#define ZTM_BUILD_WIDTH 32
+	#define ZTM_BUILD_LINUX
+#elif defined(__AVR)
+	#ifndef ZTM_BUILD_EMBED
+		#define ZTM_BUILD_EMBED 0x1
+	#endif // ZTM_BUILD_EMBED
+	#define ZTM_BUILD_WIDTH 8
+	#define ZTM_BUILD_AVR
 #else
-#define ZTM__OS__UNKNOWN
-#define ZTM__OS__BITS 32
-#endif // ZTM__OS__
+	#define ZTM_BUILD_WIDTH 32
+	#define ZTM_BUILD_UNKNOWN
+#endif // ZTM_BUILD_OS
 
 #endif // ZTM_BUILD_H_INCLUDED

@@ -74,27 +74,27 @@
 #define ZTM_CHAR_FILETYPE	 	ZTM_CHAR_DOT
 // NEWLINE SYMBOL & STRING
 /*
-#ifdef ZTM__OS__APPLE
+#ifdef ZTM_BUILD_APPLE
 #define ZTM_CHAR_NL      		ZTM_CHAR_CR
 #define ZTM_TEXT_NL				((const ZT_CHAR*)"\r")
 #else
 #define ZTM_CHAR_NL      		ZTM_CHAR_LF
-#endif // ZTM__OS__APPLE
+#endif // ZTM_BUILD_APPLE
 */
 #define ZTM_CHAR_NL      		ZTM_CHAR_LF
-#ifdef ZTM__OS__WINDOWS
+#ifdef ZTM_BUILD_WINDOWS
 #define ZTM_TEXT_NL				((const ZT_CHAR*)"\r\n")
 #else
 #define ZTM_TEXT_NL				((const ZT_CHAR*)"\n")
-#endif // ZTM__OS__WINDOWS
+#endif // ZTM_BUILD_WINDOWS
 // PATH DENOMINATOR
-#ifdef ZTM__OS__WINDOWS
+#ifdef ZTM_BUILD_WINDOWS
 #define ZTM_CHAR_PATH			ZTM_CHAR_BACKSLASH
 #define ZTM_TEXT_PATH			((const ZT_CHAR*)"\\")
 #else
 #define ZTM_CHAR_PATH			ZTM_CHAR_SLASH
 #define ZTM_TEXT_PATH			((const ZT_CHAR*)"/")
-#endif // ZTM__OS__WINDOWS
+#endif // ZTM_BUILD_WINDOWS
 // DECIMAL MARK
 #define ZTM_CHAR_DECIMAL	 	ZTM_CHAR_DOT
 
