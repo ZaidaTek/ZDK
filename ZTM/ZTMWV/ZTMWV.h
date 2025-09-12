@@ -21,9 +21,11 @@
 #define ZWV_AddBinInteger ZWV_AddBin
 
 typedef struct {
+    ZT_FLAG reserveFree;
+    ZT_FLAG extend; // used, but not implement!
+    ZT_SIZE capacity; // TODO implement ZT_DATA capacity and deprecate this
+    ZT_SIZE alignCapacity;
 	ZT_DATA data;
-    ZT_SIZE capacity;
-    ZT_FLAG extend; // not implement!
 } ZT_WEAVE;
 
 #ifdef __cplusplus

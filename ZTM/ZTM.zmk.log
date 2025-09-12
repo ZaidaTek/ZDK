@@ -80,7 +80,7 @@
     "zmake": "250906",
     "host": {
         "['date']": [
-            "2025-09-12T08:44:44 CEST"
+            "2025-09-12T09:16:50 CEST"
         ],
         "['zmake', '--version']": [
             "zmake-v250906"
@@ -90,7 +90,7 @@
             "---------------- ",
             "OS: LMDE 6 (faye) x86_64 ",
             "Kernel: 6.12.38+deb12-rt-amd64 ",
-            "Uptime: 1 day, 12 hours, 24 mins ",
+            "Uptime: 1 day, 12 hours, 57 mins ",
             "Packages: 3173 (dpkg), 51 (flatpak) ",
             "Shell: bash 5.2.15 ",
             "Resolution: 1920x1080 ",
@@ -102,7 +102,7 @@
             "Terminal: gnome-terminal ",
             "CPU: AMD Ryzen 7 5700X3D (16) @ 4.149GHz ",
             "GPU: AMD ATI Radeon RX 7700 XT / 7800 XT ",
-            "Memory: 2397MiB / 15918MiB "
+            "Memory: 2470MiB / 15918MiB "
         ],
         "['gcc', '--version']": [
             "gcc (Debian 12.2.0-14+deb12u1) 12.2.0",
@@ -368,13 +368,13 @@
     },
     "sign": {
         "['md5sum', '/home/andi/code/c/ZDK/ZTM/libZTM.so']": [
-            "4bc064c2df53f2ffd306bb3ef458674a"
+            "fce7881e9121ab975852ce1ad9bf90a7"
         ],
         "['sha1sum', '/home/andi/code/c/ZDK/ZTM/libZTM.so']": [
-            "5da2e43eadcea4be43b5f3575318eb1804fe8383"
+            "4338dbe1d192bd0b7faa04a82a880286a7736b2d"
         ],
         "['sha256sum', '/home/andi/code/c/ZDK/ZTM/libZTM.so']": [
-            "de2fb6aaa5f4cf186aa59810d9f1b57617550c02e991a44d06f9fcee5310de68"
+            "7ef2b87e612dfeaa0ead3f1251b2a034f79b7b0032cbb2cc726cf7c9802ab583"
         ]
     }
 }

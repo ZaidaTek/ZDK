@@ -48,7 +48,7 @@
     "zmake": "250906",
     "host": {
         "['date']": [
-            "2025-09-12T08:44:47 CEST"
+            "2025-09-12T09:16:52 CEST"
         ],
         "['zmake', '--version']": [
             "zmake-v250906"
@@ -58,7 +58,7 @@
             "---------------- ",
             "OS: LMDE 6 (faye) x86_64 ",
             "Kernel: 6.12.38+deb12-rt-amd64 ",
-            "Uptime: 1 day, 12 hours, 24 mins ",
+            "Uptime: 1 day, 12 hours, 57 mins ",
             "Packages: 3173 (dpkg), 51 (flatpak) ",
             "Shell: bash 5.2.15 ",
             "Resolution: 1920x1080 ",
@@ -70,7 +70,7 @@
             "Terminal: gnome-terminal ",
             "CPU: AMD Ryzen 7 5700X3D (16) @ 4.149GHz ",
             "GPU: AMD ATI Radeon RX 7700 XT / 7800 XT ",
-            "Memory: 2407MiB / 15918MiB "
+            "Memory: 2485MiB / 15918MiB "
         ],
         "['gcc', '--version']": [
             "gcc (Debian 12.2.0-14+deb12u1) 12.2.0",
@@ -189,13 +189,13 @@
     },
     "sign": {
         "['md5sum', '/home/andi/code/c/ZDK/ZDX/libZDX.so']": [
-            "470d205284ae7a6fed5f279ad4f7768a"
+            "5c0eef753c315930ff884b53ca46adf6"
         ],
         "['sha1sum', '/home/andi/code/c/ZDK/ZDX/libZDX.so']": [
-            "eacf75ce7e826ffcd709f181e656fd98aef79f0a"
+            "72f2a24ce033d1d793b35b2b33f6082ae36f8c1c"
         ],
         "['sha256sum', '/home/andi/code/c/ZDK/ZDX/libZDX.so']": [
-            "a5ab52ca1f3ec91dac94c15775b7153c858fef316eab7f0adb68394037d87274"
+            "d97ebc0ab32d5e08e10dbe7f89b94b0110085539396d37e1959f5fe072bf322b"
         ]
     }
 }

@@ -66,7 +66,7 @@ typedef ZT_TYPE_U32 ZT_U32;
 typedef ZT_TYPE_U64 ZT_U64;
 
 #if (ZTM_BUILD_WIDTH > 16) // 32-bit and above
-	typedef ZT_TYPE_U32 ZT_SIZE;
+	typedef ZT_TYPE_U64 ZT_SIZE;
 	typedef ZT_TYPE_I32 ZT_I;
 	typedef ZT_TYPE_U32 ZT_U;
 	typedef ZT_TYPE_U32 ZT_TIME;
@@ -78,7 +78,7 @@ typedef ZT_TYPE_U64 ZT_U64;
 	typedef ZT_TYPE_U8 ZT_INDEX_QUARTER;
 	typedef ZT_TYPE_U8 ZT_FLAG_QUARTER;
 #elif (ZTM_BUILD_WIDTH > 8) // 16-bit
-	typedef ZT_TYPE_U32 ZT_SIZE;
+	typedef ZT_TYPE_U64 ZT_SIZE;
 	typedef ZT_TYPE_I16 ZT_I;
 	typedef ZT_TYPE_U16 ZT_U;
 	typedef ZT_TYPE_U32 ZT_TIME;
@@ -90,7 +90,7 @@ typedef ZT_TYPE_U64 ZT_U64;
 	typedef ZT_TYPE_U8 ZT_INDEX_QUARTER;
 	typedef ZT_TYPE_U8 ZT_FLAG_QUARTER;
 #else // 8-bit
-	// typedef ZT_TYPE_U32 ZT_SIZE;
+	typedef ZT_TYPE_U32 ZT_SIZE;
 	typedef ZT_TYPE_I16 ZT_I;
 	typedef ZT_TYPE_U16 ZT_U;
 	typedef ZT_TYPE_U32 ZT_TIME;
@@ -153,16 +153,29 @@ typedef union {__ZTM_BUILD_BASE_HASH_32(32);} ZT_HASH32;
 	typedef union {__ZTM_BUILD_BASE_HASH_64(256);} ZT_HASH256;
 	typedef union {__ZTM_BUILD_BASE_HASH_64(512);} ZT_HASH512;
 	typedef union {__ZTM_BUILD_BASE_HASH_64(1024);} ZT_HASH1024;
-	typedef struct {
-		ZT_SIZE length;
-		union {
-			ZT_U64* u64;
-			ZT_U32* u32;
-			ZT_U16* u16;
-			ZT_U8* u8;
-			void* ptr;
-		};
+	#define __ZTM_BUILD_BASE_DATA() \
+		ZT_SIZE length;\
+		ZT_SIZE reserveCapacity;\
+		union {\
+			ZT_U64* u64;\
+			ZT_U32* u32;\
+			ZT_U16* u16;\
+			ZT_U8* u8;\
+			void* ptr;\
+		}
+	typedef union {
+		// struct {
+			// ZT_U8 byte[0]; // TODO disabled due to 'byte' keyword previously used for 'u8' 
+		// };
+		struct {__ZTM_BUILD_BASE_DATA();};
 	} ZT_DATA;
+	typedef union {
+		struct {
+			ZT_U8 byte[sizeof(ZT_DATA)];
+			ZT_U8 data[0];
+		};
+		struct {__ZTM_BUILD_BASE_DATA();};
+	} ZT_SDATA;
 	typedef struct {
 		ZT_INDEX length;
 		ZT_INDEX reserveCapacity;
