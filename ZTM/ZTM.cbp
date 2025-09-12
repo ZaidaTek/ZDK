@@ -42,8 +42,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="ZTMWV/ZTMWV.h" />
-		<Unit filename="ZTM-TYPE.h" />
 		<Unit filename="ZTM-BUILD.h" />
+		<Unit filename="ZTM-TYPE.h" />
+		<Unit filename="ZTM-SHARED-BUILD.h" />
+		<Unit filename="ZTM-SHARED-TYPE.h" />
 		<Unit filename="ZTM-RT.c">
 			<Option compilerVar="CC" />
 		</Unit>
