@@ -4,7 +4,7 @@ ZaidaTek Development Kit
 
 
 
-### Lates
+### Latest
 
 `2025-09-12` -- The library has undergone significant changes, including to the its internal structure, most notably, ZT_SIZE has been set to a U64 instead of a (previously intentional) U32 format. ZTK conversion to Linux remains at large, more emphasis will be put on keeping present (likely collaterally deprecated) compatibility with Windows builds.
 
