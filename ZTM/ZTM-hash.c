@@ -26,10 +26,10 @@ ZT_HASH256* ZTM_HashNew_256(void) {return (ZT_HASH256*)ZTM8_Init(sizeof(ZT_HASH2
 ZT_HASH512* ZTM_HashNew_512(void) {return (ZT_HASH512*)ZTM8_Init(sizeof(ZT_HASH512), 0x0);}
 ZT_HASH1024* ZTM_HashNew_1024(void) {return (ZT_HASH1024*)ZTM8_Init(sizeof(ZT_HASH1024), 0x0);}
 void ZTM_HashTransform_128(ZT_HASH128* iHash) {
-    ZT_U32* iTarget = &iHash->data[0];
-    ZT_U32* iScale = &iHash->data[1];
-    ZT_U32* iOperator = &iHash->data[2];
-    ZT_U32* iSource = &iHash->data[3];
+    ZT_U32* iTarget = &iHash->u32[0];
+    ZT_U32* iScale = &iHash->u32[1];
+    ZT_U32* iOperator = &iHash->u32[2];
+    ZT_U32* iSource = &iHash->u32[3];
     ZT_INDEX lPasses = ZTM_HASH_MAX_PASS + (*iTarget % ZTM_HASH_MAX_PASS);
     for (ZT_INDEX p = 0; p < lPasses; ++p) {
         for (ZT_INDEX i = 0; i < (ZTM_HASH_MAX_STAGE + (*iScale % ZTM_HASH_MAX_STAGE)); ++i) {
@@ -39,24 +39,24 @@ void ZTM_HashTransform_128(ZT_HASH128* iHash) {
                 case 2: {*iTarget += (i & 0x1) ? *iSource : ~(*iSource);} break;
                 default: break;
             }
-            iSource = &iHash->data[(*iTarget + 1) % 4];
-            iOperator = &iHash->data[(*iTarget + 2) % 4];
-            iScale = &iHash->data[(*iTarget + 3) % 4];
-            iTarget = &iHash->data[*iTarget % 4];
+            iSource = &iHash->u32[(*iTarget + 1) % 4];
+            iOperator = &iHash->u32[(*iTarget + 2) % 4];
+            iScale = &iHash->u32[(*iTarget + 3) % 4];
+            iTarget = &iHash->u32[*iTarget % 4];
         }
     }
 }
 void ZTM_HashData_128(ZT_HASH128* iHash, const ZT_DATA* iData) {
     if (iHash != NULL && iData != NULL) {
 		ZT_SIZE lLength;
-        if (iData->payload != NULL && (lLength = iData->length)) {
-			for (ZT_SIZE i = 0; i < 8; ++i) {iHash->byte[8 + i] =  (i < lLength) ? iData->byte[i] : (i - lLength);}
+        if (iData->ptr != NULL && (lLength = iData->length)) {
+			for (ZT_SIZE i = 0; i < 8; ++i) {iHash->u8[8 + i] =  (i < lLength) ? iData->u8[i] : (i - lLength);}
 			ZT_SIZE lRun = (lLength < 16) ? 16 : (((lLength + 7) >> 3) << 3);
 			ZT_SIZE lCursor = 0;
 			while ((lCursor += 8) < lRun) {
-				iHash->data[0] = iHash->data[2];
-				iHash->data[1] = iHash->data[3];
-				for (ZT_SIZE i = 0; i < 8; ++i) {iHash->byte[8 + i] = (lCursor + i < lLength) ? iData->byte[lCursor + i] : (lCursor + i - lLength);}
+				iHash->u32[0] = iHash->u32[2];
+				iHash->u32[1] = iHash->u32[3];
+				for (ZT_SIZE i = 0; i < 8; ++i) {iHash->u8[8 + i] = (lCursor + i < lLength) ? iData->u8[lCursor + i] : (lCursor + i - lLength);}
 				ZTM_HashTransform_128(iHash);
 			}
 		}
@@ -64,109 +64,109 @@ void ZTM_HashData_128(ZT_HASH128* iHash, const ZT_DATA* iData) {
 }
 void ZTM_HashData_MD5(ZT_HASH128* iHash, const ZT_DATA* iData) {
 	if (iHash != NULL && iData != NULL) {
-		if (iData->payload != NULL && iData->length) {
+		if (iData->ptr != NULL && iData->length) {
 			static ZT_U8 lBuffer[64];
 			static ZT_U32 lCounter[2];
 			ZTM_HashMD5_Init(iHash, lCounter);
-			ZTM_HashMD5_Feed(iHash, lCounter, lBuffer, iData->byte, iData->length);
+			ZTM_HashMD5_Feed(iHash, lCounter, lBuffer, iData->u8, iData->length);
 			ZTM_HashMD5_Finish(iHash, lCounter, lBuffer);
 		}
 	}
 }
 void ZTM_HashData_DJB2(ZT_HASH32* iHash, const ZT_DATA* iData) {
 	if (iHash != NULL && iData != NULL) {
-		if (iData->payload != NULL && iData->length) {
-			iHash->data[0] = 0x1505;
+		if (iData->ptr != NULL && iData->length) {
+			iHash->u32[0] = 0x1505;
 			ZT_SIZE lIndex = -1;
-			while (++lIndex < iData->length) {iHash->data[0] = ((iHash->data[0] << 5) + iHash->data[0]) + iData->byte[lIndex];}
+			while (++lIndex < iData->length) {iHash->u32[0] = ((iHash->u32[0] << 5) + iHash->u32[0]) + iData->u8[lIndex];}
 		}
 	}
 }
 void ZTM_HashData_DJB2A(ZT_HASH32* iHash, const ZT_DATA* iData) {
 	if (iHash != NULL && iData != NULL) {
-		if (iData->payload != NULL && iData->length) {
-			iHash->data[0] = 0x1505;
+		if (iData->ptr != NULL && iData->length) {
+			iHash->u32[0] = 0x1505;
 			ZT_SIZE lIndex = -1;
-			while (++lIndex < iData->length) {iHash->data[0] = (((iHash->data[0] << 5) + iHash->data[0])) ^ iData->byte[lIndex];}
+			while (++lIndex < iData->length) {iHash->u32[0] = (((iHash->u32[0] << 5) + iHash->u32[0])) ^ iData->u8[lIndex];}
 		}
 	}
 }
 void ZTM_HashData_SDBM_32(ZT_HASH32* iHash, const ZT_DATA* iData) { // still not sure if this right...
 	if (iHash != NULL && iData != NULL) {
-		if (iData->payload != NULL && iData->length) {
-			iHash->data[0] = 0x0;
+		if (iData->ptr != NULL && iData->length) {
+			iHash->u32[0] = 0x0;
 			ZT_INDEX lIndex = -1;
-			while (++lIndex < iData->length) {iHash->data[0] = iData->byte[lIndex] + (iHash->data[0] << 6) + (iHash->data[0] << 16) - iHash->data[0];}
+			while (++lIndex < iData->length) {iHash->u32[0] = iData->u8[lIndex] + (iHash->u32[0] << 6) + (iHash->u32[0] << 16) - iHash->u32[0];}
 		}
 	}
 }
 void ZTM_HashData_SDBM_64(ZT_HASH64* iHash, const ZT_DATA* iData) { // still not sure if this right...
 	if (iHash != NULL && iData != NULL) {
-		if (iData->payload != NULL && iData->length) {
-			iHash->quad[0] = 0x0;
+		if (iData->ptr != NULL && iData->length) {
+			iHash->u64[0] = 0x0;
 			ZT_INDEX lIndex = -1;
-			while (++lIndex < iData->length) {iHash->quad[0] = iData->byte[lIndex] + (iHash->quad[0] << 6) + (iHash->quad[0] << 16) - iHash->quad[0];}
+			while (++lIndex < iData->length) {iHash->u64[0] = iData->u8[lIndex] + (iHash->u64[0] << 6) + (iHash->u64[0] << 16) - iHash->u64[0];}
 		}
 	}
 }
 void ZTM_HashData_FNV0_32(ZT_HASH32* iHash, const ZT_DATA* iData) {
 	if (iHash != NULL && iData != NULL) {
-		if (iData->payload != NULL && iData->length) {
-			iHash->data[0] = 0x0;
+		if (iData->ptr != NULL && iData->length) {
+			iHash->u32[0] = 0x0;
 			ZT_INDEX lIndex = -1;
-			while (++lIndex < iData->length) {iHash->data[0] *= 0x1000193; iHash->data[0] = (iHash->data[0] ^ iData->byte[lIndex]);}
+			while (++lIndex < iData->length) {iHash->u32[0] *= 0x1000193; iHash->u32[0] = (iHash->u32[0] ^ iData->u8[lIndex]);}
 		}
 	}
 }
 void ZTM_HashData_FNV0_64(ZT_HASH64* iHash, const ZT_DATA* iData) {
 	if (iHash != NULL && iData != NULL) {
-		if (iData->payload != NULL && iData->length) {
-			iHash->quad[0] = 0x0;
+		if (iData->ptr != NULL && iData->length) {
+			iHash->u64[0] = 0x0;
 			ZT_INDEX lIndex = -1;
-			while (++lIndex < iData->length) {iHash->quad[0] *= 0x100000001b3; iHash->quad[0] = (iHash->quad[0] ^ iData->byte[lIndex]);}
+			while (++lIndex < iData->length) {iHash->u64[0] *= 0x100000001b3; iHash->u64[0] = (iHash->u64[0] ^ iData->u8[lIndex]);}
 		}
 	}
 }
 void ZTM_HashData_FNV1_32(ZT_HASH32* iHash, const ZT_DATA* iData) {
 	if (iHash != NULL && iData != NULL) {
-		if (iData->payload != NULL && iData->length) {
-			iHash->data[0] = 0x811c9dc5;
+		if (iData->ptr != NULL && iData->length) {
+			iHash->u32[0] = 0x811c9dc5;
 			ZT_INDEX lIndex = -1;
-			while (++lIndex < iData->length) {iHash->data[0] *= 0x1000193; iHash->data[0] = (iHash->data[0] ^ iData->byte[lIndex]);}
+			while (++lIndex < iData->length) {iHash->u32[0] *= 0x1000193; iHash->u32[0] = (iHash->u32[0] ^ iData->u8[lIndex]);}
 		}
 	}
 }
 void ZTM_HashData_FNV1_64(ZT_HASH64* iHash, const ZT_DATA* iData) {
 	if (iHash != NULL && iData != NULL) {
-		if (iData->payload != NULL && iData->length) {
-			iHash->quad[0] = 0xcbf29ce484222325;
+		if (iData->ptr != NULL && iData->length) {
+			iHash->u64[0] = 0xcbf29ce484222325;
 			ZT_INDEX lIndex = -1;
-			while (++lIndex < iData->length) {iHash->quad[0] *= 0x100000001b3; iHash->quad[0] = (iHash->quad[0] ^ iData->byte[lIndex]);}
+			while (++lIndex < iData->length) {iHash->u64[0] *= 0x100000001b3; iHash->u64[0] = (iHash->u64[0] ^ iData->u8[lIndex]);}
 		}
 	}
 }
 void ZTM_HashData_FNV1A_32(ZT_HASH32* iHash, const ZT_DATA* iData) {
 	if (iHash != NULL && iData != NULL) {
-		if (iData->payload != NULL && iData->length) {
-			iHash->data[0] = 0x811c9dc5;
+		if (iData->ptr != NULL && iData->length) {
+			iHash->u32[0] = 0x811c9dc5;
 			ZT_INDEX lIndex = -1;
-			while (++lIndex < iData->length) {iHash->data[0] = (iHash->data[0] ^ iData->byte[lIndex]); iHash->data[0] *= 0x1000193;}
+			while (++lIndex < iData->length) {iHash->u32[0] = (iHash->u32[0] ^ iData->u8[lIndex]); iHash->u32[0] *= 0x1000193;}
 		}
 	}
 }
 void ZTM_HashData_FNV1A_64(ZT_HASH64* iHash, const ZT_DATA* iData) {
 	if (iHash != NULL && iData != NULL) {
-		if (iData->payload != NULL && iData->length) {
-			iHash->quad[0] = 0xcbf29ce484222325;
+		if (iData->ptr != NULL && iData->length) {
+			iHash->u64[0] = 0xcbf29ce484222325;
 			ZT_INDEX lIndex = -1;
-			while (++lIndex < iData->length) {iHash->quad[0] = (iHash->quad[0] ^ iData->byte[lIndex]); iHash->quad[0] *= 0x100000001b3;}
+			while (++lIndex < iData->length) {iHash->u64[0] = (iHash->u64[0] ^ iData->u8[lIndex]); iHash->u64[0] *= 0x100000001b3;}
 		}
 	}
 }
 
 #define ZTM_HASHTEXT(HASH) \
 	ZT_DATA lData;\
-	if (iHash != NULL && (lData.payload = (void*)iText) != NULL) {\
+	if (iHash != NULL && (lData.ptr = (void*)iText) != NULL) {\
 		if ((lData.length = ZTC8_GetLength(iText))) {HASH(iHash, &lData);}\
 	}
 void ZTM_HashText_128(ZT_HASH128* iHash, const ZT_CHAR* iText) {ZTM_HASHTEXT(ZTM_HashData_128);}
@@ -184,7 +184,7 @@ void ZTM_HashText_FNV1A_64(ZT_HASH64* iHash, const ZT_CHAR* iText) {ZTM_HASHTEXT
 
 #define ZTM_HASHTEXTNEW(TYPE,NEW,HASH) \
 	ZT_DATA lData;\
-	if ((lData.payload = (void*)iText) != NULL) {\
+	if ((lData.ptr = (void*)iText) != NULL) {\
 		if ((lData.length = ZTC8_GetLength(iText))) {\
 			TYPE* lHash;\
 			if ((lHash = NEW()) != NULL) {HASH(lHash, &lData); return lHash;}\

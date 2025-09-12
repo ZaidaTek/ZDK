@@ -40,7 +40,7 @@ ZT_TIME ZTM_TimeDate(const ZT_DATE* iDate) {
         case 3: ++lLeap; break;
     }
     ZT_TIME lTime = -1;
-    for (ZT_INDEX i = 0; i < (ZT_INDEX)(iDate->month - 1); i++) {lTime += rZTM_TIME__DAYSPERMONTH[i];}
+    for (ZT_INDEX i = 0; i < (ZT_INDEX)(iDate->month - 1); ++i) {lTime += rZTM_TIME__DAYSPERMONTH[i];}
     lTime += iDate->day;
     lTime += lLeap;
     lTime += (lYear * 365);
@@ -52,9 +52,14 @@ ZT_TIME ZTM_TimeDate(const ZT_DATE* iDate) {
     lTime += iDate->second;
     return lTime;
 }
-ZT_TIME ZTM_TimeZone(void) {return rZTM_TIME__ZONE;}
-ZT_INDEX ZTM_TimeWeekday(ZT_INDEX iTime) {return (((iTime / 86400) + 4) % 7);}
+ZT_TIME ZTM_TimeZone(void) {
+	return rZTM_TIME__ZONE;
+}
+ZT_INDEX ZTM_TimeWeekday(ZT_INDEX iTime) {
+	return (((iTime / 86400) + 4) % 7);
+}
 void ZTM_Date(ZT_TIME iTime, ZT_DATE* oDate) {
+    oDate->weekday = ZTM_TimeWeekday(iTime);
     oDate->second = iTime % 60;
     oDate->minute = (iTime /= 60) % 60;
     oDate->hour = (iTime /= 60) % 24;
@@ -79,24 +84,23 @@ void ZTM_Date(ZT_TIME iTime, ZT_DATE* oDate) {
     oDate->month = lMonthIndex;
     oDate->day = iTime + 1;
 }
-void ZTM_DateExtra(ZT_TIME iTime, ZT_DATE_EXTRA* oDate) {
-    ZTM_Date((oDate->extra.timestamp = iTime), (ZT_DATE*)oDate);
+void ZTM_DateFull(ZT_TIME iTime, ZT_DATE_FULL* oDate) {
+    ZTM_Date((oDate->epoch = iTime), (ZT_DATE*)oDate);
     ZT_INDEX lIndex = -1;
-    oDate->extra.ordinal = oDate->day;
-    while (++lIndex < ((ZT_INDEX)oDate->month - 1)) {oDate->extra.ordinal += rZTM_TIME__DAYSPERMONTH[lIndex];}
-    if (!(oDate->year & 0x3) && (oDate->month > 2)) {++oDate->extra.ordinal;}
-    oDate->extra.weekday = ZTM_TimeWeekday(oDate->extra.timestamp);
-    oDate->extra.week = 1 + (oDate->extra.ordinal + ZTM_TimeWeekday(oDate->extra.timestamp - ((oDate->extra.ordinal - 1) * 86400))) / 7;
-    oDate->extra.timezone = rZTM_TIME__ZONE;
+    oDate->ordinal = oDate->day;
+    while (++lIndex < ((ZT_INDEX)oDate->month - 1)) {oDate->ordinal += rZTM_TIME__DAYSPERMONTH[lIndex];}
+    if (!(oDate->year & 0x3) && (oDate->month > 2)) {++oDate->ordinal;}
+    oDate->week = 1 + (oDate->ordinal + ZTM_TimeWeekday(oDate->epoch - ((oDate->ordinal - 1) * 86400))) / 7;
+    oDate->zone = rZTM_TIME__ZONE;
 }
 ZT_DATE* ZTM_DateNew(ZT_TIME iTime) {
 	ZT_DATE* lDate = ZTM8_New(sizeof(ZT_DATE));
 	ZTM_Date(iTime, lDate);
 	return lDate;
 }
-ZT_DATE_EXTRA* ZTM_DateExtraNew(ZT_TIME iTime) {
-	ZT_DATE_EXTRA* lDateExtra = ZTM8_New(sizeof(ZT_DATE_EXTRA));
-	ZTM_DateExtra(iTime, lDateExtra);
+ZT_DATE_FULL* ZTM_DateFullNew(ZT_TIME iTime) {
+	ZT_DATE_FULL* lDateExtra = ZTM8_New(sizeof(ZT_DATE_FULL));
+	ZTM_DateFull(iTime, lDateExtra);
 	return lDateExtra;
 }
 /*

@@ -260,10 +260,10 @@ ZT_DATA* ZTM_DataNew(ZT_SIZE iLength) {
 	ZT_DATA* lData;
 	if ((lData = ZTM8_New(sizeof(ZT_DATA))) != NULL) {
 		if ((lData->length = iLength)) {
-			if ((lData->byte = ZTM8_New(lData->length)) != NULL) {return lData;}
+			if ((lData->u8 = ZTM8_New(lData->length)) != NULL) {return lData;}
 			ZTM8_Free(lData);
 		} else {
-			lData->payload = NULL;
+			lData->ptr = NULL;
 			return lData;
 		}
 	}
@@ -273,7 +273,7 @@ ZT_DATA* ZTM_DataNewCopy(const ZT_U8* iData, ZT_SIZE iLength) {
 	if (iData != NULL) {
 		ZT_DATA* lData;
 		if ((lData = ZTM_DataNew(iLength)) != NULL) {
-			ZTM8_Copy(iData, lData->byte, iLength);
+			ZTM8_Copy(iData, lData->u8, iLength);
 			return lData;
 		}
 	}
@@ -283,7 +283,7 @@ ZT_DATA* ZTM_DataNewWrap(ZT_U8* iData, ZT_SIZE iLength) {
 	if (iData != NULL) {
 		ZT_DATA* lData;
 		if ((lData = ZTM_DataNew(0)) != NULL) {
-			lData->payload = iData;
+			lData->ptr = iData;
 			lData->length = iLength;
 			return lData;
 		}
@@ -292,21 +292,21 @@ ZT_DATA* ZTM_DataNewWrap(ZT_U8* iData, ZT_SIZE iLength) {
 }
 void ZTM_DataFreePayloadSecure(ZT_DATA* iData) {
     //if (iData != NULL) {
-		ZTM8_Zero(iData->payload, iData->length);
-        ZTM_FreeNull(iData->payload);
+		ZTM8_Zero(iData->ptr, iData->length);
+        ZTM_FreeNull(iData->ptr);
 		iData->length = 0;
     //}
 }
 void ZTM_DataFreeSecure(ZT_DATA* iData) {
     //if (iData != NULL) {
-		ZTM8_Zero(iData->payload, iData->length);
-        ZTM8_Free(iData->payload);
+		ZTM8_Zero(iData->ptr, iData->length);
+        ZTM8_Free(iData->ptr);
         ZTM8_Free(iData);
     //}
 }
 void ZTM_DataFreePayload(ZT_DATA* iData) {
     //if (iData != NULL) {
-        ZTM_FreeNull(iData->payload);
+        ZTM_FreeNull(iData->ptr);
 		iData->length = 0;
     //}
 }
@@ -317,7 +317,7 @@ void ZTM_DataFreeWrap(ZT_DATA* iData) {
 }
 void ZTM_DataFree(ZT_DATA* iData) {
     //if (iData != NULL) {
-        ZTM8_Free(iData->payload);
+        ZTM8_Free(iData->ptr);
         ZTM8_Free(iData);
     //}
 }

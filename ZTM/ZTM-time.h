@@ -36,9 +36,9 @@ ZT_TIME ZTM_TimeDate(const ZT_DATE* iDate); // return iDate unix time
 ZT_TIME ZTM_TimeZone(void); // return time-zone in seconds
 ZT_INDEX ZTM_TimeWeekday(ZT_INDEX iTime);
 void ZTM_Date(ZT_TIME iTime, ZT_DATE* oDate);
-void ZTM_DateExtra(ZT_TIME iTime, ZT_DATE_EXTRA* oDate);
+void ZTM_DateFull(ZT_TIME iTime, ZT_DATE_FULL* oDate);
 ZT_DATE* ZTM_DateNew(ZT_TIME iTime);
-ZT_DATE_EXTRA* ZTM_DateExtraNew(ZT_TIME iTime);
+ZT_DATE_FULL* ZTM_DateFullNew(ZT_TIME iTime);
 //ZT_FLAG ZTM_DateValid(const ZT_DATE* iDate); // need to be updated after conversion to 4-digit year system
 //ZT_FLAG ZTM_DateCoerce(ZT_DATE* iDate);
 #ifdef __cplusplus

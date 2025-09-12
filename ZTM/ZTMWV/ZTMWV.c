@@ -14,11 +14,11 @@ ZT_WEAVE* ZWV_New(ZT_SIZE iLength) {
 		ZT_WEAVE* lWeave = (ZT_WEAVE*)ZTM8_New(sizeof(ZT_WEAVE));
 		if (lWeave != NULL) {
 			lWeave->extend = ZWV__DEFAULT_EXTEND;
-			lWeave->data.payload = NULL;
+			lWeave->data.ptr = NULL;
 			lWeave->data.length = 0;
 			ZT_SIZE lLength = ZTM_CoerceIfNotZeroAndLess(iLength, ZWV__LENGTH_MIN);
 			if (ZWV_Length(lWeave, lLength) ? lLength : !lLength) {
-				if (lWeave->capacity) {((ZT_U8*)lWeave->data.payload)[0] = ZTM_CHAR_NT;}
+				if (lWeave->capacity) {((ZT_U8*)lWeave->data.ptr)[0] = ZTM_CHAR_NT;}
 				return lWeave;
 			}
             ZWV_Free(lWeave);
@@ -29,17 +29,17 @@ ZT_WEAVE* ZWV_New(ZT_SIZE iLength) {
 void ZWV_ShrinkCoercion(ZT_WEAVE* iWeave) {
     if (iWeave != NULL) {
 		if (!(iWeave->data.length < iWeave->capacity)) {
-			((ZT_U8*)iWeave->data.payload)[(iWeave->data.length = iWeave->capacity)] = ZTM_CHAR_NT;
+			((ZT_U8*)iWeave->data.ptr)[(iWeave->data.length = iWeave->capacity)] = ZTM_CHAR_NT;
 		}
 	}
 }
 ZT_SIZE ZWV_Length(ZT_WEAVE* iWeave, ZT_SIZE iLength) {
     if (iWeave != NULL) {
 		if ((iWeave->capacity = iLength)) {
-			iWeave->data.payload = ZTM8_Resize(iWeave->data.payload, iWeave->capacity + 1);
+			iWeave->data.ptr = ZTM8_Resize(iWeave->data.ptr, iWeave->capacity + 1);
 			ZWV_ShrinkCoercion(iWeave);
 		} else {
-			ZTM_FreeNull(iWeave->data.payload);
+			ZTM_FreeNull(iWeave->data.ptr);
 		}
 		return iWeave->capacity;
     }
@@ -53,14 +53,14 @@ ZT_SIZE ZWV_Fit(ZT_WEAVE* iWeave, ZT_SIZE iLength) {
     }
 	return 0;
 }
-void ZWV_Free(ZT_WEAVE* iWeave) {if (iWeave != NULL) {if (iWeave == rTarget) {rTarget = NULL;} ZTM8_Free(iWeave->data.payload); ZTM8_Free(iWeave);}}
+void ZWV_Free(ZT_WEAVE* iWeave) {if (iWeave != NULL) {if (iWeave == rTarget) {rTarget = NULL;} ZTM8_Free(iWeave->data.ptr); ZTM8_Free(iWeave);}}
 ZT_WEAVE* ZWV_Get(void) {return rTarget;}
-ZT_WEAVE* ZWV_Set(ZT_WEAVE* iWeave) {if (iWeave != NULL) {if (iWeave->data.payload != NULL) {return (rTarget = iWeave);}} return NULL;}
-#define ZWV_EMPTY(TARGET) if ((TARGET) != NULL) {((ZT_U8*)(TARGET)->data.payload)[((TARGET)->data.length = 0)] = ZTM_CHAR_NT;}
+ZT_WEAVE* ZWV_Set(ZT_WEAVE* iWeave) {if (iWeave != NULL) {if (iWeave->data.ptr != NULL) {return (rTarget = iWeave);}} return NULL;}
+#define ZWV_EMPTY(TARGET) if ((TARGET) != NULL) {((ZT_U8*)(TARGET)->data.ptr)[((TARGET)->data.length = 0)] = ZTM_CHAR_NT;}
 void ZWV_Empty(void) {ZWV_EMPTY(rTarget);}
 #define ZWV_ADD(TARGET,CONDITION) \
     if (((TARGET) != NULL) && (iData != NULL)) {\
-        ZT_CHAR* lData = ((TARGET)->data.payload);\
+        ZT_CHAR* lData = ((TARGET)->data.ptr);\
         const ZT_CHAR* lAppend = iData;\
         ZT_SIZE lRead = -1;\
         ((TARGET)->data.length)--;\

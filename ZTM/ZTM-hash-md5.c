@@ -36,10 +36,10 @@ void ZTM_HashMD5_Transform(ZT_HASH128* iHash, const ZT_U8* iInputBlock) {
 	#define S43 15
 	#define S44 21
 	const ZT_U32* x = (const ZT_U32*)&iInputBlock[0];
-	ZT_U32 a = iHash->data[0];
-	ZT_U32 b = iHash->data[1];
-	ZT_U32 c = iHash->data[2];
-	ZT_U32 d = iHash->data[3];
+	ZT_U32 a = iHash->u32[0];
+	ZT_U32 b = iHash->u32[1];
+	ZT_U32 c = iHash->u32[2];
+	ZT_U32 d = iHash->u32[3];
 	ZTM_HashMD5_FF(&a, b, c, d, x[ 0], S11, 0xd76aa478); // 1
     ZTM_HashMD5_FF(&d, a, b, c, x[ 1], S12, 0xe8c7b756); // 2
     ZTM_HashMD5_FF(&c, d, a, b, x[ 2], S13, 0x242070db); // 3
@@ -104,10 +104,10 @@ void ZTM_HashMD5_Transform(ZT_HASH128* iHash, const ZT_U8* iInputBlock) {
     ZTM_HashMD5_II(&d, a, b, c, x[11], S42, 0xbd3af235); // 62
     ZTM_HashMD5_II(&c, d, a, b, x[ 2], S43, 0x2ad7d2bb); // 63
     ZTM_HashMD5_II(&b, c, d, a, x[ 9], S44, 0xeb86d391); // 64
-	iHash->data[0] += a;
-	iHash->data[1] += b;
-	iHash->data[2] += c;
-	iHash->data[3] += d;
+	iHash->u32[0] += a;
+	iHash->u32[1] += b;
+	iHash->u32[2] += c;
+	iHash->u32[3] += d;
 }
 void ZTM_HashMD5_Feed(ZT_HASH128* iHash, ZT_U32* iCounter, ZT_U8* iBuffer, const ZT_U8* iData, ZT_SIZE iLength) {
     ZT_SIZE lIndex = iCounter[0] / 8 % 64;
@@ -129,10 +129,10 @@ void ZTM_HashMD5_Init(ZT_HASH128* iHash, ZT_U32* iCounter) {
 	//for (unsigned int i = 0; i < 64 / 16; i++) {lCache.buffer[i] = 0x0;} // what is/was this for?
 	iCounter[0] = 0x0;
 	iCounter[1] = 0x0;
-	iHash->data[0] = 0x67452301;
-	iHash->data[1] = 0xefcdab89;
-	iHash->data[2] = 0x98badcfe;
-	iHash->data[3] = 0x10325476;
+	iHash->u32[0] = 0x67452301;
+	iHash->u32[1] = 0xefcdab89;
+	iHash->u32[2] = 0x98badcfe;
+	iHash->u32[3] = 0x10325476;
 }
 void ZTM_HashMD5_Finish(ZT_HASH128* iHash, ZT_U32* iCounter, ZT_U8* iBuffer) {
 	static const ZT_U8 lPadding[64] = {0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};

@@ -576,9 +576,9 @@ ZT_U8* ZTC8_ISO8601T(ZT_TIME iUnix) {
 }
 ZT_U8* ZTC8_RFC1123(ZT_TIME iUnixUTC) {
     ZT_U8* lRFC1123 = ZTM8_New(30);
-    ZT_DATE_EXTRA lDate;
-    ZTM_DateExtra(iUnixUTC, &lDate);
-	const ZT_U8* lDay = rZTC8__DAY[lDate.extra.weekday];
+    ZT_DATE lDate;
+    ZTM_Date(iUnixUTC, &lDate);
+	const ZT_U8* lDay = rZTC8__DAY[lDate.weekday];
 	const ZT_U8* lMonth = rZTC8__MONTH[lDate.month - 1];
     lRFC1123[0] = lDay[0];
     lRFC1123[1] = lDay[1];
@@ -632,7 +632,7 @@ ZT_U8* ZTC8_Bytes(const ZT_U8* iBytes, ZT_INDEX iLength, const ZT_U8* iDelimiter
 ZT_U8* ZTC8_Hash(const void* iHash, ZT_INDEX iBits, const ZT_U8* iDelimiter, ZT_INDEX iGrouping) {
     const ZT_HASH1024* lHash = iHash;
     ZT_INDEX lLength = ((iBits + 7) >> 3);
-	return ZTC8_Bytes(lHash->byte, lLength, iDelimiter, iGrouping);
+	return ZTC8_Bytes(lHash->u8, lLength, iDelimiter, iGrouping);
 }
 ZT_U8* ZTC8_Printable(const ZT_U8* iData, ZT_INDEX iLength, ZT_U8 iReplacement) {
 	if (iData != NULL) { // convention discarding null-check here, why?

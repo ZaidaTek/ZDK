@@ -109,7 +109,7 @@ ZIO_FILE* ZIO_New(const ZT_CHAR* iPath) {
     ZIO_FILE* lFile = ZTM8_New(sizeof(ZIO_FILE));
     lFile->handle = NULL;
     lFile->path = ZTC8_Copy(iPath);
-    lFile->data.payload = NULL;
+    lFile->data.ptr = NULL;
     lFile->data.length = 0;
     lFile->flag = 0x0;
     lFile->mode = 0x0;

@@ -106,22 +106,93 @@ typedef ZT_TYPE_U64 ZT_U64;
 #define ZT_FALSE ((ZT_BOOL)0x0)
 #define ZT_TOGGLE ((ZT_BLTG)~0x0)
 
-#if defined(ZTM_BUILD_EMBED) && (ZTM_BUILD_EMBED)
-	typedef union { // TODO unify both
+#define __ZTM_BUILD_BASE_DATE() \
+	ZT_U16 year;\
+	ZT_U8 month;\
+	ZT_U8 day;\
+	ZT_U8 weekday;\
+	ZT_U8 hour;\
+	ZT_U8 minute;\
+	ZT_U8 second
+typedef union { // TODO unify both
+	struct {
+		ZT_U8 byte[0];
+	};
+	struct {__ZTM_BUILD_BASE_DATE();};
+} ZT_DATE;
+#define __ZTM_BUILD_BASE_HASH_8(COUNT) \
+	ZT_U8 u8[(COUNT) >> 3]
+#define __ZTM_BUILD_BASE_HASH_16(COUNT) \
+	__ZTM_BUILD_BASE_HASH_8(COUNT);\
+	ZT_U16 u16[(COUNT) >> 4]
+#define __ZTM_BUILD_BASE_HASH_32(COUNT) \
+	__ZTM_BUILD_BASE_HASH_16(COUNT);\
+	ZT_U32 u32[(COUNT) >> 5]
+#define __ZTM_BUILD_BASE_HASH_64(COUNT) \
+	__ZTM_BUILD_BASE_HASH_32(COUNT);\
+	ZT_U64 u64[(COUNT) >> 6]
+typedef union {__ZTM_BUILD_BASE_HASH_8(8);} ZT_HASH8;
+typedef union {__ZTM_BUILD_BASE_HASH_16(16);} ZT_HASH16;
+typedef union {__ZTM_BUILD_BASE_HASH_32(32);} ZT_HASH32;
+#if !defined(ZTM_BUILD_EMBED) || !(ZTM_BUILD_EMBED)
+	typedef ZT_U8 ZT_CHAR;
+	typedef union {
 		struct {
-			ZT_U8 byte[0];
+			ZT_U8 byte[sizeof(ZT_DATE)];
+			ZT_U16 ordinal;
+			ZT_U8 week;
+			ZT_U8 reserve;
+			ZT_TIME epoch;
+			ZT_TIME zone;
 		};
+		struct {__ZTM_BUILD_BASE_DATE();};
+	} ZT_DATE_FULL;
+	typedef union {__ZTM_BUILD_BASE_HASH_64(64);} ZT_HASH64;
+	typedef union {__ZTM_BUILD_BASE_HASH_64(128);} ZT_HASH128;
+	typedef union {__ZTM_BUILD_BASE_HASH_64(256);} ZT_HASH256;
+	typedef union {__ZTM_BUILD_BASE_HASH_64(512);} ZT_HASH512;
+	typedef union {__ZTM_BUILD_BASE_HASH_64(1024);} ZT_HASH1024;
+	typedef struct {
+		ZT_SIZE length;
+		union {
+			ZT_U64* u64;
+			ZT_U32* u32;
+			ZT_U16* u16;
+			ZT_U8* u8;
+			void* ptr;
+		};
+	} ZT_DATA;
+	typedef struct {
+		void** items;
+		ZT_INDEX length;
+	} ZT_LIST;
+	typedef struct {
+		void** items;
+		ZT_INDEX length;
+		ZT_INDEX data;
+		ZT_INDEX user;
+	} ZT_QLIST;
+	typedef struct {
+		void* handle;
+		const ZT_CHAR* path;
+		ZT_SIZE length;
+		ZT_SIZE alloc;
+		ZT_U64 id;
+		ZT_INDEX owner;
+		ZT_INDEX group;
+		ZT_FLAG type;
+		ZT_FLAG perm;
+		ZT_FLAG flag;
+		ZT_FLAG attr;
 		struct {
-			ZT_U16 year;
-			ZT_U8 month;
-			ZT_U8 day;
-			ZT_U8 weekday;
-			ZT_U8 hour;
-			ZT_U8 minute;
-			ZT_U8 second;
-		};
-	} ZT_DATE;
-#else // ZTM_BUILD_EMBED
+			ZT_U64 meta_a;
+			ZT_U64 meta_b;
+			ZT_U64 meta_m;
+			ZT_U64 file_a;
+			ZT_U64 file_b;
+			ZT_U64 file_m;
+		} time;
+	} ZT_META_FILE;
 	typedef union {
 		struct {
 			ZT_I x;
@@ -194,117 +265,9 @@ typedef ZT_TYPE_U64 ZT_U64;
 			ZT_I h;
 		};
 	} ZT_2X2U, ZT_2X2I, ZT_4U, ZT_4I, ZT_URECT, ZT_RECT;
-
-	typedef struct {
-		ZT_U16 year;
-		ZT_U8 month;
-		ZT_U8 day;
-		ZT_U8 hour;
-		ZT_U8 minute;
-		ZT_U16 second;
-	} ZT_DATE;
-	typedef struct {
-		ZT_U16 year;
-		ZT_U8 month;
-		ZT_U8 day;
-		ZT_U8 hour;
-		ZT_U8 minute;
-		ZT_U16 second;
-		struct {
-			ZT_TIME timestamp;
-			ZT_TIME timezone;
-			ZT_U16 ordinal;
-			ZT_U8 week;
-			ZT_U8 weekday;
-		} extra;
-	} ZT_DATE_EXTRA;
-
-	typedef union {
-		ZT_U8 byte[4];
-		ZT_U16 word[2];
-		ZT_U32 data[1];
-	} ZT_HASH32;
-	typedef union {
-		ZT_U8 byte[8];
-		ZT_U16 word[4];
-		ZT_U32 data[2];
-		ZT_U64 quad[1];
-		//ZT_U64 dummy64; //???
-	} ZT_HASH64;
-	typedef union {
-		ZT_U8 byte[16];
-		ZT_U16 word[8];
-		ZT_U32 data[4];
-		ZT_U64 quad[2];
-	} ZT_HASH128;
-	typedef union {
-		ZT_U8 byte[32];
-		ZT_U16 word[16];
-		ZT_U32 data[8];
-		ZT_U64 quad[4];
-	} ZT_HASH256;
-	typedef union {
-		ZT_U8 byte[64];
-		ZT_U16 word[32];
-		ZT_U32 data[16];
-		ZT_U64 quad[8];
-	} ZT_HASH512;
-	typedef union {
-		ZT_U8 byte[128];
-		ZT_U16 word[64];
-		ZT_U32 data[32];
-		ZT_U64 quad[16];
-	} ZT_HASH1024;
-
-	typedef ZT_U8 ZT_CHAR;
-
-	typedef struct {
-		ZT_SIZE length;
-		union {
-			ZT_U64* quad;
-			ZT_U32* data;
-			ZT_U16* word;
-			ZT_U8* byte;
-			void* payload;
-		};
-	} ZT_DATA;// ZT_DATA_U8, ZT_DATA_U16, ZT_DATA_U32, ZT_DATA_U64;
-
 	typedef struct {
 		ZT_POINT block;
 		ZT_COLOR* pixels;
 	} ZT_SURFACE;
-
-	typedef struct {
-		void** items;
-		ZT_INDEX length;
-	} ZT_LIST;
-	typedef struct {
-		void** items;
-		ZT_INDEX length;
-		ZT_INDEX data;
-		ZT_INDEX user;
-	} ZT_QLIST;
-
-	typedef struct {
-		void* handle;
-		const ZT_CHAR* path;
-		ZT_SIZE length;
-		ZT_SIZE alloc;
-		ZT_U64 id;
-		ZT_INDEX owner;
-		ZT_INDEX group;
-		ZT_FLAG type;
-		ZT_FLAG perm;
-		ZT_FLAG flag;
-		ZT_FLAG attr;
-		struct {
-			ZT_U64 meta_a;
-			ZT_U64 meta_b;
-			ZT_U64 meta_m;
-			ZT_U64 file_a;
-			ZT_U64 file_b;
-			ZT_U64 file_m;
-		} time;
-	} ZT_META_FILE;
-#endif // ZTM_BUILD_EMBED
+#endif // !ZTM_BUILD_EMBED
 #endif // ZTM_SHARED_TYPE_H_INCLUDED
