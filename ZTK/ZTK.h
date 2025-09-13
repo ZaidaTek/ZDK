@@ -8,10 +8,11 @@
 // ZTK OPTIONS
 #define ZTK_OPENGL_ENABLE
 // ZTK MANDATORY
-#include "../ZTL/ZTL.h"
-#include "ZTK_Types.h"
-#include "ZTK_Define.h"
-#include "ZTK_Default.h"
+#include <ZTL.h>
+#include "ZTK-BUILD.h"
+#include "ZTK-TYPE.h"
+#include "ZTK-DEFINE.h"
+#include "ZTK-DEFAULT.h"
 
 #define ZTK_Sleep(LENGTH) ZTL_Sleep(LENGTH)
 #define ZTK_HostGetScreenWidth() ZTL_ScreenWidth()

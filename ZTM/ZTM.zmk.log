@@ -77,20 +77,19 @@
             ]
         }
     },
-    "zmake": "250906",
+    "zmake": "250912",
     "host": {
         "['date']": [
-            "2025-09-12T09:22:29 CEST"
+            "2025-09-13T22:21:13 CEST"
         ],
         "['zmake', '--version']": [
-            "zmake-v250906"
+            "zmake-v250912"
         ],
-        "['neofetch', '--stdout']": [
+        "['neofetch', '--stdout', '--disable', 'uptime']": [
             "andi@ztk-dt-andi ",
             "---------------- ",
             "OS: LMDE 6 (faye) x86_64 ",
             "Kernel: 6.12.38+deb12-rt-amd64 ",
-            "Uptime: 1 day, 13 hours, 2 mins ",
             "Packages: 3173 (dpkg), 51 (flatpak) ",
             "Shell: bash 5.2.15 ",
             "Resolution: 1920x1080 ",
@@ -102,7 +101,7 @@
             "Terminal: gnome-terminal ",
             "CPU: AMD Ryzen 7 5700X3D (16) @ 4.149GHz ",
             "GPU: AMD ATI Radeon RX 7700 XT / 7800 XT ",
-            "Memory: 2479MiB / 15918MiB "
+            "Memory: 2482MiB / 15918MiB "
         ],
         "['gcc', '--version']": [
             "gcc (Debian 12.2.0-14+deb12u1) 12.2.0",

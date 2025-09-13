@@ -136,16 +136,6 @@ ZT_FLAG ZTL_ShellOpen(const ZT_CHAR* iPath, ZT_FLAG iMode) {
 ZT_BOOL ZTL_DirectoryCreate(const ZT_CHAR* iPath) {
     return ZTL_ShellExec((const ZT_CHAR*)"mkdir -p \"%s\" > /dev/null 2>/dev/null", iPath) ? ZT_FALSE : ZT_TRUE;
 }
-/*
-ZT_BOOL ZTL_FileExists(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) != INVALID_FILE_ATTRIBUTES) ? ZT_TRUE : ZT_FALSE;}
-ZT_BOOL ZTL_FileIsReadOnly(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) & FILE_ATTRIBUTE_READONLY) ? ZT_TRUE : ZT_FALSE;}
-ZT_BOOL ZTL_FileIsHidden(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) & FILE_ATTRIBUTE_HIDDEN) ? ZT_TRUE : ZT_FALSE;}
-ZT_BOOL ZTL_FileIsSystem(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) & FILE_ATTRIBUTE_SYSTEM) ? ZT_TRUE : ZT_FALSE;}
-ZT_BOOL ZTL_FileIsDirectory(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) & FILE_ATTRIBUTE_DIRECTORY) ? ZT_TRUE : ZT_FALSE;}
-ZT_BOOL ZTL_FileIsArchive(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) & FILE_ATTRIBUTE_ARCHIVE) ? ZT_TRUE : ZT_FALSE;}
-ZT_BOOL ZTL_FileIsCompressed(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) & FILE_ATTRIBUTE_COMPRESSED) ? ZT_TRUE : ZT_FALSE;}
-ZT_BOOL ZTL_FileIsEncrypted(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) & FILE_ATTRIBUTE_ENCRYPTED) ? ZT_TRUE : ZT_FALSE;}
-*/
 void ZTL_NodeInfoTarget(const ZT_CHAR* iPath, ZT_META_FILE* oTarget) {
     ZTM8_Zero(oTarget, sizeof(ZT_META_FILE));
     static struct statx lBuffer;

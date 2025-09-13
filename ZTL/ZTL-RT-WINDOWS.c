@@ -117,31 +117,34 @@ ZT_BOOL ZTL_DirectoryCreate(const ZT_CHAR* iPath) {
     BOOL lCreated = CreateDirectory((LPCTSTR)iPath, NULL);
     return (lCreated ? ZT_TRUE : ((GetLastError() == ERROR_ALREADY_EXISTS) ? (ZT_TRUE + 1) : ZT_FALSE));
 }
-/*
-ZT_FLAG ZTL_FileFlags(const ZT_CHAR* iPath) {
-    ZT_FLAG lFlag = ZTL_FILE_NONE;
-    DWORD lFlag_W32 = GetFileAttributes((LPCTSTR)iPath);
-    if (lFlag_W32 != INVALID_FILE_ATTRIBUTES) {
-        lFlag |= ZTL_FILE_VALID;
-        if (lFlag_W32 & FILE_ATTRIBUTE_READONLY) {lFlag |= ZTL_FILE_READONLY;}
-        if (lFlag_W32 & FILE_ATTRIBUTE_HIDDEN) {lFlag |= ZTL_FILE_HIDDEN;}
-        if (lFlag_W32 & FILE_ATTRIBUTE_SYSTEM) {lFlag |= ZTL_FILE_SYSTEM;}
-        if (lFlag_W32 & FILE_ATTRIBUTE_DIRECTORY) {lFlag |= ZTL_FILE_DIRECTORY;}
-        if (lFlag_W32 & FILE_ATTRIBUTE_ARCHIVE) {lFlag |= ZTL_FILE_ARCHIVE;}
-        if (lFlag_W32 & FILE_ATTRIBUTE_COMPRESSED) {lFlag |= ZTL_FILE_COMPRESSED;}
-        if (lFlag_W32 & FILE_ATTRIBUTE_ENCRYPTED) {lFlag |= ZTL_FILE_ENCRYPTED;}
-    }
-    return lFlag;
-}
-ZT_BOOL ZTL_FileExists(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) != INVALID_FILE_ATTRIBUTES) ? ZT_TRUE : ZT_FALSE;}
-ZT_BOOL ZTL_FileIsReadOnly(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) & FILE_ATTRIBUTE_READONLY) ? ZT_TRUE : ZT_FALSE;}
-ZT_BOOL ZTL_FileIsHidden(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) & FILE_ATTRIBUTE_HIDDEN) ? ZT_TRUE : ZT_FALSE;}
-ZT_BOOL ZTL_FileIsSystem(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) & FILE_ATTRIBUTE_SYSTEM) ? ZT_TRUE : ZT_FALSE;}
-ZT_BOOL ZTL_FileIsDirectory(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) & FILE_ATTRIBUTE_DIRECTORY) ? ZT_TRUE : ZT_FALSE;}
-ZT_BOOL ZTL_FileIsArchive(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) & FILE_ATTRIBUTE_ARCHIVE) ? ZT_TRUE : ZT_FALSE;}
-ZT_BOOL ZTL_FileIsCompressed(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) & FILE_ATTRIBUTE_COMPRESSED) ? ZT_TRUE : ZT_FALSE;}
-ZT_BOOL ZTL_FileIsEncrypted(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) & FILE_ATTRIBUTE_ENCRYPTED) ? ZT_TRUE : ZT_FALSE;}
-*/
+
+
+// NOTE 25256 Following can be deleted, left here for brevity
+// NOTE 25256 NodeInfoTarget handles OS-dependent, everything else should be in ZTL.c
+// ZT_FLAG ZTL_FileFlags(const ZT_CHAR* iPath) {
+    // ZT_FLAG lFlag = ZTL_FILE_NONE;
+    // DWORD lFlag_W32 = GetFileAttributes((LPCTSTR)iPath);
+    // if (lFlag_W32 != INVALID_FILE_ATTRIBUTES) {
+        // lFlag |= ZTL_FILE_VALID;
+        // if (lFlag_W32 & FILE_ATTRIBUTE_READONLY) {lFlag |= ZTL_FILE_READONLY;}
+        // if (lFlag_W32 & FILE_ATTRIBUTE_HIDDEN) {lFlag |= ZTL_FILE_HIDDEN;}
+        // if (lFlag_W32 & FILE_ATTRIBUTE_SYSTEM) {lFlag |= ZTL_FILE_SYSTEM;}
+        // if (lFlag_W32 & FILE_ATTRIBUTE_DIRECTORY) {lFlag |= ZTL_FILE_DIRECTORY;}
+        // if (lFlag_W32 & FILE_ATTRIBUTE_ARCHIVE) {lFlag |= ZTL_FILE_ARCHIVE;}
+        // if (lFlag_W32 & FILE_ATTRIBUTE_COMPRESSED) {lFlag |= ZTL_FILE_COMPRESSED;}
+        // if (lFlag_W32 & FILE_ATTRIBUTE_ENCRYPTED) {lFlag |= ZTL_FILE_ENCRYPTED;}
+    // }
+    // return lFlag;
+// }
+// ZT_BOOL ZTL_FileExists(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) != INVALID_FILE_ATTRIBUTES) ? ZT_TRUE : ZT_FALSE;}
+// ZT_BOOL ZTL_FileIsReadOnly(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) & FILE_ATTRIBUTE_READONLY) ? ZT_TRUE : ZT_FALSE;}
+// ZT_BOOL ZTL_FileIsHidden(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) & FILE_ATTRIBUTE_HIDDEN) ? ZT_TRUE : ZT_FALSE;}
+// ZT_BOOL ZTL_FileIsSystem(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) & FILE_ATTRIBUTE_SYSTEM) ? ZT_TRUE : ZT_FALSE;}
+// ZT_BOOL ZTL_FileIsDirectory(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) & FILE_ATTRIBUTE_DIRECTORY) ? ZT_TRUE : ZT_FALSE;}
+// ZT_BOOL ZTL_FileIsArchive(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) & FILE_ATTRIBUTE_ARCHIVE) ? ZT_TRUE : ZT_FALSE;}
+// ZT_BOOL ZTL_FileIsCompressed(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) & FILE_ATTRIBUTE_COMPRESSED) ? ZT_TRUE : ZT_FALSE;}
+// ZT_BOOL ZTL_FileIsEncrypted(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) & FILE_ATTRIBUTE_ENCRYPTED) ? ZT_TRUE : ZT_FALSE;}
+
 void ZTL_NodeInfoTarget(const ZT_CHAR* iPath, ZT_META_FILE* oTarget) {
     ZTM8_Zero(oTarget, sizeof(ZT_META_FILE));
     DWORD lFlag_W32;

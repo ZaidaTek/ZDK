@@ -112,10 +112,20 @@ ZT_FLAG ZTL_ShellExec(const ZT_CHAR* iCommand, ...) {
     #undef lBUFFERSIZE
 }
 const ZT_META_FILE* ZTL_NodeInfo(const ZT_CHAR* iPath) {
-    static ZT_META_FILE lBuffer;
-    if (iPath != NULL) {ZTL_NodeInfoTarget(iPath, &lBuffer);}
-    return &lBuffer;
+    static ZT_META_FILE lBuffer; // OPTM if repeated same path?
+	ZTL_NodeInfoTarget(iPath, &lBuffer);
+	return (lBuffer.path != NULL) ? &lBuffer : NULL;
 }
+ZT_BOOL ZTL_NodeExists(const ZT_CHAR* iPath) {return (ZTL_NodeInfo(iPath) != NULL) ? ZT_TRUE : ZT_FALSE;}
+/*
+ZT_BOOL ZTL_FileIsReadOnly(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) & FILE_ATTRIBUTE_READONLY) ? ZT_TRUE : ZT_FALSE;}
+ZT_BOOL ZTL_FileIsHidden(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) & FILE_ATTRIBUTE_HIDDEN) ? ZT_TRUE : ZT_FALSE;}
+ZT_BOOL ZTL_FileIsSystem(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) & FILE_ATTRIBUTE_SYSTEM) ? ZT_TRUE : ZT_FALSE;}
+ZT_BOOL ZTL_FileIsDirectory(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) & FILE_ATTRIBUTE_DIRECTORY) ? ZT_TRUE : ZT_FALSE;}
+ZT_BOOL ZTL_FileIsArchive(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) & FILE_ATTRIBUTE_ARCHIVE) ? ZT_TRUE : ZT_FALSE;}
+ZT_BOOL ZTL_FileIsCompressed(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) & FILE_ATTRIBUTE_COMPRESSED) ? ZT_TRUE : ZT_FALSE;}
+ZT_BOOL ZTL_FileIsEncrypted(const ZT_CHAR* iPath) {return (GetFileAttributes((LPCTSTR)iPath) & FILE_ATTRIBUTE_ENCRYPTED) ? ZT_TRUE : ZT_FALSE;}
+*/
 ZT_I ZTL_ScreenWidth(void) {return ZTL_RuntimeScreenWidth();}
 ZT_I ZTL_ScreenHeight(void) {return ZTL_RuntimeScreenHeight();}
 void ZTL_ScreenSize(ZT_POINT* oSize) {ZTM_Point(oSize, ZTL_RuntimeScreenWidth(), ZTL_RuntimeScreenHeight());}

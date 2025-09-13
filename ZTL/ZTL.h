@@ -60,9 +60,13 @@ const ZT_META_FILE* ZTL_NodeInfo(const ZT_CHAR* iPath);
 ZT_BOOL ZTL_DirectoryCreate(const ZT_CHAR* iPath);
 #define ZTL_FileInfo(PATH) ZTL_NodeInfo(PATH)
 #define ZTL_FileInfoTarget(PATH,TGT) ZTL_NodeInfoTarget(PATH, TGT)
+// NOTE 25256 No variable-prefixing on pseudo-funcs? 
+// NOTE 25256 Not sure what I was(n't) thinking
+// NOTE 25256 --> keeping it consistent for now
+ZT_BOOL ZTL_NodeExists(const ZT_CHAR* iPath);
+#define ZTL_FileExists(PATH) ZTL_NodeExists(PATH)
 /*
 ZT_FLAG ZTL_FileFlags(const ZT_CHAR* iPath);
-ZT_BOOL ZTL_FileExists(const ZT_CHAR* iPath);
 ZT_BOOL ZTL_FileIsReadOnly(const ZT_CHAR* iPath);
 ZT_BOOL ZTL_FileIsHidden(const ZT_CHAR* iPath);
 ZT_BOOL ZTL_FileIsSystem(const ZT_CHAR* iPath);

@@ -9,7 +9,7 @@
 
 ZT_FLAG rZTGL__FLAG = ZTGL_FLAG_INIT;
 
-#ifdef ZTM__OS__WINDOWS
+#ifdef ZTK_BUILD_WINDOWS
 #include "../ZTW32/ZTW32__Runtime.h"
 #define ZTGL_RuntimeInit() ({\
     PIXELFORMATDESCRIPTOR lPFD;\
@@ -24,7 +24,7 @@ ZT_FLAG rZTGL__FLAG = ZTGL_FLAG_INIT;
 })
 #define ZTGL_RuntimeExit() wglDeleteContext(rZTGL_Host.runtime)
 #define ZTGL_RuntimePresent() SwapBuffers(rZTW32_Host.dc.main)
-#endif // ZTM__OS__WINDOWS
+#endif // ZTK_BUILD_WINDOWS
 
 void ZTGL_Init(void) {
     if (rZTGL__FLAG & ZTGL_FLAG_INIT) {
