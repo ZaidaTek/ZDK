@@ -2,18 +2,27 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZTX__RUNTIME_H_INCLUDED
-#define ZTX__RUNTIME_H_INCLUDED
+#ifndef ZTX_RT_H_INCLUDED
+#define ZTX_RT_H_INCLUDED
 
 #include "ZTX.h"
     #include <zlib.h>
     #include <png.h>
     #include <jpeglib.h>
     #include <jerror.h>
-
+#if defined(ZTL_BUILD_WINDOWS)
 #define ZTX_LIBRARY_ZLIB (const ZT_CHAR*)"zlib.dll"
 #define ZTX_LIBRARY_PNG (const ZT_CHAR*)"libpng.dll"
 #define ZTX_LIBRARY_JPG (const ZT_CHAR*)"libjpeg.dll"
+#elif defined(ZTL_BUILD_LINUX)
+#define ZTX_LIBRARY_ZLIB (const ZT_CHAR*)"libz.so.1"
+#define ZTX_LIBRARY_PNG (const ZT_CHAR*)"libpng16.so.16"
+#define ZTX_LIBRARY_JPG (const ZT_CHAR*)"libjpeg.so.62"
+#else
+#define ZTX_LIBRARY_ZLIB (const ZT_CHAR*)""
+#define ZTX_LIBRARY_PNG (const ZT_CHAR*)""
+#define ZTX_LIBRARY_JPG (const ZT_CHAR*)""
+#endif // ZTL_BUILD_OS
 
 #define ZTX_MODE_DEFLATE 0x0
 #define ZTX_MODE_INFLATE 0x1
@@ -82,8 +91,8 @@ typedef struct {
     } jpg;
 } ZTX_HOST;
 
-ZT_FLAG rZTX__INIT;
-ZTX_HOST rZTX_Host;
+extern ZT_FLAG rZTX__INIT;
+extern ZTX_HOST rZTX_Host;
 
 #ifdef __cplusplus
 extern "C" {
@@ -98,5 +107,4 @@ void ZTX_ExitJPG(void);
 }
 #endif // __cplusplus
 
-#endif //ZTX__RUNTIME_H_INCLUDED
-
+#endif // ZTX_RT_H_INCLUDED

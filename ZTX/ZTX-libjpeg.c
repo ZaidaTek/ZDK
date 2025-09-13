@@ -2,10 +2,10 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZTX_JPG_C_INCLUDED
-#define ZTX_JPG_C_INCLUDED
+#ifndef ZTX_LIBJPEG_C_INCLUDED
+#define ZTX_LIBJPEG_C_INCLUDED
 
-#include "ZTX__Runtime.h"
+#include "ZTX-RT.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <setjmp.h>
@@ -109,4 +109,4 @@ ZT_BOOL ZTX_SurfaceSaveToJPGFileQuality(const ZT_SURFACE* iSurface, const ZT_CHA
 	return ZT_FALSE;
 }
 
-#endif // ZTX_JPG_C_INCLUDED
+#endif // ZTX_LIBJPEG_C_INCLUDED

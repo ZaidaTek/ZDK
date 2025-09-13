@@ -1,0 +1,17 @@
+{
+    "target": "./libZTX.so",
+    "sources": [
+        "./ZTX-zlib.c",
+        "./ZTX-libjpeg.c",
+        "./ZTX-libpng.c",
+        "./ZTX-RT.c"
+    ],
+    "include": ["../ZTM", "../ZTL"],
+    "link": ["ZTM", "ZTL", "z", "png", "jpeg"],
+    "flag": {
+		"extra": {
+			"shared": ["-fPIC"],
+			"linker": ["-shared"]
+		}
+    }
+}

@@ -1,31 +1,41 @@
 {
-    "target": "/home/andi/code/c/ZDK/ZTL/libZTL.so",
+    "target": "/home/andi/code/c/ZDK/ZTX/libZTX.so",
     "sources": {
-        "/home/andi/code/c/ZDK/ZTL/ZTL-RT-LINUX.c": {
+        "/home/andi/code/c/ZDK/ZTX/ZTX-zlib.c": {
             "handle": [
                 "gcc"
             ]
         },
-        "/home/andi/code/c/ZDK/ZTL/ZTL-RT.c": {
+        "/home/andi/code/c/ZDK/ZTX/ZTX-libjpeg.c": {
             "handle": [
                 "gcc"
             ]
         },
-        "/home/andi/code/c/ZDK/ZTL/ZTL.c": {
+        "/home/andi/code/c/ZDK/ZTX/ZTX-libpng.c": {
+            "handle": [
+                "gcc"
+            ]
+        },
+        "/home/andi/code/c/ZDK/ZTX/ZTX-RT.c": {
             "handle": [
                 "gcc"
             ]
         }
     },
     "include": [
-        "/home/andi/code/c/ZDK/ZTM"
+        "/home/andi/code/c/ZDK/ZTM",
+        "/home/andi/code/c/ZDK/ZTL"
     ],
     "link": {
         "handle": [
             "gcc"
         ],
         "lib": [
-            "ZTM"
+            "ZTM",
+            "ZTL",
+            "z",
+            "png",
+            "jpeg"
         ]
     },
     "flag": {
@@ -41,7 +51,7 @@
     "zmake": "250912",
     "host": {
         "['date']": [
-            "2025-09-13T22:57:14 CEST"
+            "2025-09-13T22:57:16 CEST"
         ],
         "['zmake', '--version']": [
             "zmake-v250912"
@@ -62,7 +72,7 @@
             "Terminal: gnome-terminal ",
             "CPU: AMD Ryzen 7 5700X3D (16) @ 4.149GHz ",
             "GPU: AMD ATI Radeon RX 7700 XT / 7800 XT ",
-            "Memory: 2399MiB / 15918MiB "
+            "Memory: 2376MiB / 15918MiB "
         ],
         "['gcc', '--version']": [
             "gcc (Debian 12.2.0-14+deb12u1) 12.2.0",
@@ -90,10 +100,11 @@
                 "-Wall",
                 "-Wextra",
                 "-I/home/andi/code/c/ZDK/ZTM",
+                "-I/home/andi/code/c/ZDK/ZTL",
                 "-c",
-                "/home/andi/code/c/ZDK/ZTL/ZTL-RT-LINUX.c",
+                "/home/andi/code/c/ZDK/ZTX/ZTX-zlib.c",
                 "-o",
-                "/home/andi/code/c/ZDK/ZTL/ZTL-RT-LINUX.c.o"
+                "/home/andi/code/c/ZDK/ZTX/ZTX-zlib.c.o"
             ],
             [
                 "gcc",
@@ -106,10 +117,11 @@
                 "-Wall",
                 "-Wextra",
                 "-I/home/andi/code/c/ZDK/ZTM",
+                "-I/home/andi/code/c/ZDK/ZTL",
                 "-c",
-                "/home/andi/code/c/ZDK/ZTL/ZTL-RT.c",
+                "/home/andi/code/c/ZDK/ZTX/ZTX-libjpeg.c",
                 "-o",
-                "/home/andi/code/c/ZDK/ZTL/ZTL-RT.c.o"
+                "/home/andi/code/c/ZDK/ZTX/ZTX-libjpeg.c.o"
             ],
             [
                 "gcc",
@@ -122,48 +134,73 @@
                 "-Wall",
                 "-Wextra",
                 "-I/home/andi/code/c/ZDK/ZTM",
+                "-I/home/andi/code/c/ZDK/ZTL",
                 "-c",
-                "/home/andi/code/c/ZDK/ZTL/ZTL.c",
+                "/home/andi/code/c/ZDK/ZTX/ZTX-libpng.c",
                 "-o",
-                "/home/andi/code/c/ZDK/ZTL/ZTL.c.o"
+                "/home/andi/code/c/ZDK/ZTX/ZTX-libpng.c.o"
+            ],
+            [
+                "gcc",
+                "-O3",
+                "-flto",
+                "-fexpensive-optimizations",
+                "-fPIC",
+                "-Wfatal-errors",
+                "-Werror",
+                "-Wall",
+                "-Wextra",
+                "-I/home/andi/code/c/ZDK/ZTM",
+                "-I/home/andi/code/c/ZDK/ZTL",
+                "-c",
+                "/home/andi/code/c/ZDK/ZTX/ZTX-RT.c",
+                "-o",
+                "/home/andi/code/c/ZDK/ZTX/ZTX-RT.c.o"
             ]
         ],
         "link": [
             [
                 "gcc",
-                "/home/andi/code/c/ZDK/ZTL/ZTL-RT-LINUX.c.o",
-                "/home/andi/code/c/ZDK/ZTL/ZTL-RT.c.o",
-                "/home/andi/code/c/ZDK/ZTL/ZTL.c.o",
+                "/home/andi/code/c/ZDK/ZTX/ZTX-zlib.c.o",
+                "/home/andi/code/c/ZDK/ZTX/ZTX-libjpeg.c.o",
+                "/home/andi/code/c/ZDK/ZTX/ZTX-libpng.c.o",
+                "/home/andi/code/c/ZDK/ZTX/ZTX-RT.c.o",
                 "-o",
-                "/home/andi/code/c/ZDK/ZTL/libZTL.so",
+                "/home/andi/code/c/ZDK/ZTX/libZTX.so",
                 "-O3",
                 "-flto",
                 "-s",
                 "-fPIC",
                 "-shared",
                 "-L/home/andi/code/c/ZDK/ZTM",
-                "-lZTM"
+                "-L/home/andi/code/c/ZDK/ZTL",
+                "-lZTM",
+                "-lZTL",
+                "-lz",
+                "-lpng",
+                "-ljpeg"
             ]
         ],
         "clean": [
             [
                 "rm",
-                "/home/andi/code/c/ZDK/ZTL/ZTL-RT-LINUX.c.o",
-                "/home/andi/code/c/ZDK/ZTL/ZTL-RT.c.o",
-                "/home/andi/code/c/ZDK/ZTL/ZTL.c.o"
+                "/home/andi/code/c/ZDK/ZTX/ZTX-zlib.c.o",
+                "/home/andi/code/c/ZDK/ZTX/ZTX-libjpeg.c.o",
+                "/home/andi/code/c/ZDK/ZTX/ZTX-libpng.c.o",
+                "/home/andi/code/c/ZDK/ZTX/ZTX-RT.c.o"
             ]
         ],
         "finish": []
     },
     "sign": {
-        "['md5sum', '/home/andi/code/c/ZDK/ZTL/libZTL.so']": [
-            "b8f73e01b83b1f180d6a29a652712e9a"
+        "['md5sum', '/home/andi/code/c/ZDK/ZTX/libZTX.so']": [
+            "df2f73b7fd0073f523ad56ff84d85fa8"
         ],
-        "['sha1sum', '/home/andi/code/c/ZDK/ZTL/libZTL.so']": [
-            "ef1ed7b9d6853e7576e67c0dd9c378ddc18d59b6"
+        "['sha1sum', '/home/andi/code/c/ZDK/ZTX/libZTX.so']": [
+            "892e752779acf50ed7b11d6024a8cd074e6ab37d"
         ],
-        "['sha256sum', '/home/andi/code/c/ZDK/ZTL/libZTL.so']": [
-            "21ed7fea3f1ad20204eb41bf66d76fac109afb24173f45a4e538748877474992"
+        "['sha256sum', '/home/andi/code/c/ZDK/ZTX/libZTX.so']": [
+            "a0e9db2291de08f874e35b91426428de371ca73aeab447949e9e41ab4fc1eb13"
         ]
     }
 }

@@ -2,10 +2,10 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZTX_GZIP_C_INCLUDED
-#define ZTX_GZIP_C_INCLUDED
+#ifndef ZTX_ZLIB_C_INCLUDED
+#define ZTX_ZLIB_C_INCLUDED
 
-#include "ZTX__Runtime.h"
+#include "ZTX-RT.h"
 
 ZT_SIZE ZTX_GZIP_Main(const ZT_U8* iSource, ZT_U8* oTarget, ZT_SIZE iLength, ZT_FLAG iMode) {
     if (rZTX__INIT || !(rZTX_Host.flag & ZTX_GZIP)) {return 0;}
@@ -100,4 +100,4 @@ ZT_SIZE ZTX_DeflateSize_GZIP(const ZT_U8* iSource, ZT_SIZE iLength) {return ZTX_
 ZT_SIZE ZTX_DeflateSizeFromFile_GZIP(const ZT_CHAR* iPathSource) {return ZTX_GZIP_Main(iPathSource, NULL, -1, ZTX_MODE_DEFLATE | ZTX_MODE_SIZE | ZTX_MODE_FILE_READ);}
 ZT_SIZE ZTX_InflateSizeFromFile_GZIP(const ZT_CHAR* iPathSource) {return ZTX_GZIP_Main(iPathSource, NULL, -1, ZTX_MODE_INFLATE | ZTX_MODE_SIZE | ZTX_MODE_FILE_READ);}
 
-#endif //ZTX_GZIP_C_INCLUDED
+#endif // ZTX_ZLIB_C_INCLUDED

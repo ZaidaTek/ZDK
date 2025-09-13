@@ -5,10 +5,10 @@
 #ifndef ZTX_H_INCLUDED
 #define ZTX_H_INCLUDED
 
-#include "../ZTL/ZTL.h"
-#include "ZTX_GZIP.h"
-#include "ZTX_PNG.h"
-#include "ZTX_JPG.h"
+#include <ZTL.h>
+#include "ZTX-zlib.h"
+#include "ZTX-libpng.h"
+#include "ZTX-libjpeg.h"
 
 #define ZTX_GZIP 0x1
 #define ZTX_PNG 0x2
@@ -19,6 +19,7 @@ extern "C" {
 #endif // __cplusplus
 void ZTX_Init(ZT_FLAG iFlag);
 void ZTX_Exit(void);
+ZT_FLAG ZTX_State(void);
 #ifdef __cplusplus
 }
 #endif // __cplusplus

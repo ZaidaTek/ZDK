@@ -2,10 +2,10 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZTX_PNG_C_INCLUDED
-#define ZTX_PNG_C_INCLUDED
+#ifndef ZTX_LIBPNG_C_INCLUDED
+#define ZTX_LIBPNG_C_INCLUDED
 
-#include "ZTX__Runtime.h"
+#include "ZTX-RT.h"
 #include <stdio.h>
 
 ZT_SURFACE* ZTX_SurfaceNewFromPNGFile(const ZT_CHAR* iPath, ZT_FLAG iPalette) {
@@ -82,4 +82,4 @@ ZT_BOOL ZTX_SurfaceSaveToPNGFile(const ZT_SURFACE* iSurface, const ZT_CHAR* iPat
     return lWriteOK;
 }
 
-#endif //ZTZ_PNG_C_INCLUDED
+#endif // ZTX_LIBPNG_C_INCLUDED

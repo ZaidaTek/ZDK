@@ -2,8 +2,8 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZTX_GZIP_H_INCLUDED
-#define ZTX_GZIP_H_INCLUDED
+#ifndef ZTX_ZLIB_H_INCLUDED
+#define ZTX_ZLIB_H_INCLUDED
 
 #include "ZTX.h"
 
@@ -27,5 +27,4 @@ ZT_SIZE ZTX_InflateSizeFromFile_GZIP(const ZT_CHAR* iPath);
 }
 #endif // __cplusplus
 
-#endif //ZTX_GZIP_H_INCLUDED
-
+#endif // ZTX_ZLIB_H_INCLUDED

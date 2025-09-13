@@ -2,8 +2,8 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZTX_PNG_H_INCLUDED
-#define ZTX_PNG_H_INCLUDED
+#ifndef ZTX_LIBPNG_H_INCLUDED
+#define ZTX_LIBPNG_H_INCLUDED
 
 #include "ZTX.h"
 
@@ -16,4 +16,4 @@ ZT_BOOL ZTX_SurfaceSaveToPNGFile(const ZT_SURFACE* iSurface, const ZT_CHAR* iPat
 }
 #endif // __cplusplus
 
-#endif //ZTX_PNG_H_INCLUDED
+#endif // ZTX_LIBPNG_H_INCLUDED

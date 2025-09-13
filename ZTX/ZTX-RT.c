@@ -2,13 +2,13 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZTX__RUNTIME_C_INCLUDED
-#define ZTX__RUNTIME_C_INCLUDED
+#ifndef ZTX_RT_C_INCLUDED
+#define ZTX_RT_C_INCLUDED
 
-#include "ZTX__Runtime.h"
+#include "ZTX-RT.h"
 
 ZT_FLAG rZTX__INIT = 0x1;
-
+ZTX_HOST rZTX_Host;
 void ZTX_Init(ZT_FLAG iFlag) {
     ZTM8_Zero(&rZTX_Host, sizeof(rZTX_Host));
     if (iFlag & ZTX_GZIP) {ZTX_InitZlib();}
@@ -22,15 +22,18 @@ void ZTX_Exit(void) {
     if (rZTX_Host.flag & ZTX_JPG) {ZTX_ExitJPG();}
     rZTX__INIT = 0x1;
 }
+ZT_FLAG ZTX_State(void) {
+    return rZTX_Host.flag;
+}
 void ZTX_InitZlib(void) {
     if ((rZTX_Host.zlib.library = ZTL_LibraryLoad(ZTX_LIBRARY_ZLIB)) != NULL) {
         ZT_FLAG lLoaded = 0x1;
         lLoaded &= (rZTX_Host.zlib.f_inflateInit = ZTL_LibraryFunction(rZTX_Host.zlib.library, (const ZT_CHAR*)"inflateInit2_")) != NULL;
         lLoaded &= (rZTX_Host.zlib.f_deflateInit = ZTL_LibraryFunction(rZTX_Host.zlib.library, (const ZT_CHAR*)"deflateInit2_")) != NULL;
-        lLoaded &= (rZTX_Host.zlib.f_inflate = ZTL_LibraryFunction(rZTX_Host.zlib.library, (const ZT_CHAR*)"inflate")) != NULL;
-        lLoaded &= (rZTX_Host.zlib.f_deflate = ZTL_LibraryFunction(rZTX_Host.zlib.library, (const ZT_CHAR*)"deflate")) != NULL;
         lLoaded &= (rZTX_Host.zlib.f_inflateEnd = ZTL_LibraryFunction(rZTX_Host.zlib.library, (const ZT_CHAR*)"inflateEnd")) != NULL;
         lLoaded &= (rZTX_Host.zlib.f_deflateEnd = ZTL_LibraryFunction(rZTX_Host.zlib.library, (const ZT_CHAR*)"deflateEnd")) != NULL;
+        lLoaded &= (rZTX_Host.zlib.f_inflate = ZTL_LibraryFunction(rZTX_Host.zlib.library, (const ZT_CHAR*)"inflate")) != NULL;
+        lLoaded &= (rZTX_Host.zlib.f_deflate = ZTL_LibraryFunction(rZTX_Host.zlib.library, (const ZT_CHAR*)"deflate")) != NULL;
         if (lLoaded) {rZTX_Host.flag |= ZTX_GZIP;}
     }
 }
@@ -95,5 +98,4 @@ void ZTX_ExitJPG(void) {
     rZTX_Host.flag &= ~ZTX_JPG;
 }
 
-#endif //ZTX__RUNTIME_C_INCLUDED
-
+#endif // ZTX_RT_C_INCLUDED
