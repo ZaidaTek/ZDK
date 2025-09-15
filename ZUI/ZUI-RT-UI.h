@@ -2,10 +2,8 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZUI__UI_H_INCLUDED
-#define ZUI__UI_H_INCLUDED
-
-#include "ZUI__Runtime.h"
+#ifndef ZUI_RT_UI_H_INCLUDED
+#define ZUI_RT_UI_H_INCLUDED
 
 #ifdef __cplusplus
 extern "C" {
@@ -45,4 +43,4 @@ void ZUI_UIDraw(const rZUI_ELEMENT* iElement);
 }
 #endif // __cplusplus
 
-#endif // ZUI__UI_H_INCLUDED
+#endif // ZUI_RT_UI_H_INCLUDED

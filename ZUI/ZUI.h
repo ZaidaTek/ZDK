@@ -5,10 +5,10 @@
 #ifndef ZUI_H_INCLUDED
 #define ZUI_H_INCLUDED
 
-#include "../ZTK/ZTK.h"
+#include <ZTK.h>
 
-#include "ZUI__Defines.h"
-#include "ZUI__Defaults.h"
+#include "ZUI-DEFINE.h"
+#include "ZUI-DEFAULT.h"
 
 typedef struct {
     ZT_COLOR background;
@@ -18,10 +18,10 @@ typedef struct {
 
 typedef void ZUI_ELEMENT;
 
-#include "ZUI_Button.h"
-#include "ZUI_Box.h"
-#include "ZUI_Label.h"
-#include "ZUI_Counter.h"
+#include "ZUI-Button.h"
+#include "ZUI-Box.h"
+#include "ZUI-Label.h"
+#include "ZUI-Counter.h"
 
 #ifdef __cplusplus
 extern "C" {

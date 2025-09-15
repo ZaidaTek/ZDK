@@ -5,7 +5,7 @@
 #ifndef ZUI_BOX_C_INCLUDED
 #define ZUI_BOX_C_INCLUDED
 
-#include "ZUI__Runtime.h"
+#include "ZUI-RT.h"
 
 void ZUI_BoxColors(rZUI_ELEMENT* iBox, ZT_COLOR iFill, ZT_COLOR iBorder) {
 	ZUI_COLOR lColor;

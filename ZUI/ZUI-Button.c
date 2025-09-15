@@ -5,7 +5,7 @@
 #ifndef ZUI_BUTTON_C_INCLUDED
 #define ZUI_BUTTON_C_INCLUDED
 
-#include "ZUI__Runtime.h"
+#include "ZUI-RT.h"
 
 void ZUI_ButtonColors(rZUI_ELEMENT* iButton, ZT_BOOL iInvert) {
     ZUI_COLOR lColor;

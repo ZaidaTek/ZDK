@@ -2,10 +2,10 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZUI__ELEMENT_C_INCLUDED
-#define ZUI__ELEMENT_C_INCLUDED
+#ifndef ZUI_RT_ELEMENT_C_INCLUDED
+#define ZUI_RT_ELEMENT_C_INCLUDED
 
-#include "ZUI__Runtime.h"
+#include "ZUI-RT.h"
 
 ZT_FLAG ZUI_ElementFlagGetMask(ZT_FLAG iType) {
     switch(iType) {
@@ -348,4 +348,4 @@ rZUI_DATA* ZUI_ElementDataDecrement(rZUI_DATA* iData, ZT_INDEX iAmount) {
     return iData;
 }
 
-#endif // ZUI__ELEMENT_C_INCLUDED
+#endif // ZUI_RT_ELEMENT_C_INCLUDED

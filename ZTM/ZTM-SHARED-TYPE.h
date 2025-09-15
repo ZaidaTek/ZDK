@@ -304,4 +304,5 @@ typedef union {__ZTM_BUILD_BASE_HASH_32(32);} ZT_HASH32;
 		ZT_COLOR* pixels;
 	} ZT_SURFACE;
 #endif // !ZTM_BUILD_EMBED
+
 #endif // ZTM_SHARED_TYPE_H_INCLUDED

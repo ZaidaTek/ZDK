@@ -5,7 +5,7 @@
 #ifndef ZUI_LABEL_C_INCLUDED
 #define ZUI_LABEL_C_INCLUDED
 
-#include "ZUI__Runtime.h"
+#include "ZUI-RT.h"
 
 void ZUI_LabelColors(rZUI_ELEMENT* iLabel, ZT_COLOR iColor) {
     ZUI_COLOR lColor;

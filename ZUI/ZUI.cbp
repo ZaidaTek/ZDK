@@ -33,39 +33,38 @@
 			<Add option="-lZTM" />
 			<Add option="-lZTL" />
 			<Add option="-lZTK" />
-			<Add option="-lgdi32 -lmsimg32 -lopengl32 -lglu32" />
 		</Linker>
 		<Unit filename="ZUI.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="ZUI.h" />
-		<Unit filename="ZUI_Box.c">
+		<Unit filename="ZUI-Box.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZUI_Box.h" />
-		<Unit filename="ZUI_Button.c">
+		<Unit filename="ZUI-Box.h" />
+		<Unit filename="ZUI-Button.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZUI_Button.h" />
-		<Unit filename="ZUI_Counter.c">
+		<Unit filename="ZUI-Button.h" />
+		<Unit filename="ZUI-Counter.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZUI_Counter.h" />
-		<Unit filename="ZUI_Label.c">
+		<Unit filename="ZUI-Counter.h" />
+		<Unit filename="ZUI-Label.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZUI_Label.h" />
-		<Unit filename="ZUI__Defaults.h" />
-		<Unit filename="ZUI__Defines.h" />
-		<Unit filename="ZUI__Element.c">
+		<Unit filename="ZUI-Label.h" />
+		<Unit filename="ZUI-DEFAULT.h" />
+		<Unit filename="ZUI-DEFINE.h" />
+		<Unit filename="ZUI-RT-ELEMENT.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZUI__Element.h" />
-		<Unit filename="ZUI__Runtime.h" />
-		<Unit filename="ZUI__UI.c">
+		<Unit filename="ZUI-RT-ELEMENT.h" />
+		<Unit filename="ZUI-RT.h" />
+		<Unit filename="ZUI-RT-UI.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZUI__UI.h" />
+		<Unit filename="ZUI-RT-UI.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

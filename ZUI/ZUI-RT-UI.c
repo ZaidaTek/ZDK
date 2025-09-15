@@ -2,10 +2,10 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZUI__UI_C_INCLUDED
-#define ZUI__UI_C_INCLUDED
+#ifndef ZUI_RT_UI_C_INCLUDED
+#define ZUI_RT_UI_C_INCLUDED
 
-#include "ZUI__Runtime.h"
+#include "ZUI-RT.h"
 
 void ZUI_UINew(rZUI_ELEMENT* iElement, const void* iSource) {
     ZUI_UISourcesNew(iElement);
@@ -252,4 +252,4 @@ void ZUI_UIDraw(const rZUI_ELEMENT* iElement) {
     }
 }
 
-#endif // ZUI__UI_C_INCLUDED
+#endif // ZUI_RT_UI_C_INCLUDED

@@ -2,8 +2,8 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZUI__DEFINES_H_INCLUDED
-#define ZUI__DEFINES_H_INCLUDED
+#ifndef ZUI_DEFINES_H_INCLUDED
+#define ZUI_DEFINES_H_INCLUDED
 
 #define ZUI_BUFFER_ELEMENT 128
 #define ZUI_BUFFER_EVENTS 1024
@@ -85,4 +85,4 @@
 #define ZUI_ELEMENT_FLAG_COUNTER ZUI_ELEMENT_FLAG_NONINTERACTIVE
 #define ZUI_ELEMENT_FLAG_SWITCH ZUI_ELEMENT_FLAG_NONINTERACTIVE
 
-#endif // ZUI__DEFINES_H_INCLUDED
+#endif // ZUI_DEFINES_H_INCLUDED

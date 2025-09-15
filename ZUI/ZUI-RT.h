@@ -2,8 +2,8 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZUI__RUNTIME_H_INCLUDED
-#define ZUI__RUNTIME_H_INCLUDED
+#ifndef ZUI_RT_H_INCLUDED
+#define ZUI_RT_H_INCLUDED
 
 #include <ZTK-RT.h>
 #include "ZUI.h"
@@ -100,7 +100,7 @@ ZT_BOOL ZUI_HostRegister(rZUI_ELEMENT* iElement);
 rZUI_ELEMENT* ZUI_SwitchSize(rZUI_ELEMENT* iElement, const ZT_POINT* iSize);
 rZUI_ELEMENT* ZUI_CounterSize(rZUI_ELEMENT* iElement, const ZT_POINT* iSize);
 
-#include "ZUI__Element.h"
-#include "ZUI__UI.h"
+#include "ZUI-RT-ELEMENT.h"
+#include "ZUI-RT-UI.h"
 
-#endif // ZUI__RUNTIME_H_INCLUDED
+#endif // ZUI_RT_H_INCLUDED

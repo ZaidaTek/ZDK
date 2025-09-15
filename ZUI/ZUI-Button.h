@@ -5,8 +5,6 @@
 #ifndef ZUI_BUTTON_H_INCLUDED
 #define ZUI_BUTTON_H_INCLUDED
 
-#include "ZUI.h"
-
 typedef ZUI_ELEMENT ZUI_BUTTON;
 typedef ZUI_ELEMENT ZUI_SWITCH;
 

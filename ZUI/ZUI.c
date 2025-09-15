@@ -5,7 +5,7 @@
 #ifndef ZUI_C_INCLUDED
 #define ZUI_C_INCLUDED
 
-#include "ZUI__Runtime.h"
+#include "ZUI-RT.h"
 
 rZUI_HOST rZUI_RTime;
 

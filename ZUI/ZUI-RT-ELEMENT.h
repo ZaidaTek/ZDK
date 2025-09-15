@@ -2,10 +2,8 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZUI__ELEMENT_H_INCLUDED
-#define ZUI__ELEMENT_H_INCLUDED
-
-#include "ZUI__Runtime.h"
+#ifndef ZUI_RT_ELEMENT_H_INCLUDED
+#define ZUI_RT_ELEMENT_H_INCLUDED
 
 #ifdef __cplusplus
 extern "C" {
@@ -41,4 +39,4 @@ ZT_FLAG ZUI_ElementDataGetUnit(rZUI_DATA* iData);*/
 }
 #endif // __cplusplus
 
-#endif // ZUI__ELEMENT_H_INCLUDED
+#endif // ZUI_RT_ELEMENT_H_INCLUDED

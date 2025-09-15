@@ -5,7 +5,7 @@
 #ifndef ZUI_COUNTER_C_INCLUDED
 #define ZUI_COUNTER_C_INCLUDED
 
-#include "ZUI__Runtime.h"
+#include "ZUI-RT.h"
 
 typedef struct {
     ZT_FLAG SID;

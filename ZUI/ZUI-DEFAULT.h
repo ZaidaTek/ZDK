@@ -2,8 +2,8 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZUI__DEFAULTS_H_INCLUDED
-#define ZUI__DEFAULTS_H_INCLUDED
+#ifndef ZUI_DEFAULT_H_INCLUDED
+#define ZUI_DEFAULT_H_INCLUDED
 
 #define ZUI_DEFAULT_FLAG ZUI_FLAG_NONE
 
@@ -51,4 +51,4 @@
 #define ZUI_DEFAULT_CHARSET_PROPERTIES_LINEMARGIN 0
 #define ZUI_DEFAULT_CHARSET_PROPERTIES_STYLE JUICYGUI_CHARSET_STYLE_NORMAL
 */
-#endif // ZUI__DEFAULTS_H_INCLUDED
+#endif // ZUI_DEFAULT_H_INCLUDED
