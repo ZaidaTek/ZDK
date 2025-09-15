@@ -2,10 +2,10 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZT_SPRITE_C_INCLUDED
-#define ZT_SPRITE_C_INCLUDED
+#ifndef ZTK_SPRITE_C_INCLUDED
+#define ZTK_SPRITE_C_INCLUDED
 
-#include "ZTK__Runtime.h"
+#include "ZTK-RT.h"
 
 void ZTK_SpriteFree(ZT_SPRITE* iSprite) {
     rZT_SPRITE* lSprite = iSprite;
@@ -70,4 +70,4 @@ void ZTK_SpriteSize(const ZT_SPRITE* iSprite, ZT_POINT* oSize) {
     ZTM_Point(oSize, ((rZT_SPRITE*)iSprite)->block.x, ((rZT_SPRITE*)iSprite)->block.y);
 }
 
-#endif // ZT_SPRITE_C_INCLUDED
+#endif // ZTK_SPRITE_C_INCLUDED

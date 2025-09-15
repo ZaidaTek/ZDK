@@ -5,7 +5,7 @@
 #ifndef ZUI__RUNTIME_H_INCLUDED
 #define ZUI__RUNTIME_H_INCLUDED
 
-#include "../ZTK/ZTK__Runtime.h"
+#include <ZTK-RT.h>
 #include "ZUI.h"
 
 typedef struct {
@@ -93,7 +93,7 @@ typedef struct {
 	} color;
 } rZUI_HOST;
 
-rZUI_HOST rZUI_RTime;
+extern rZUI_HOST rZUI_RTime;
 
 ZT_BOOL ZUI_HostRegister(rZUI_ELEMENT* iElement);
 

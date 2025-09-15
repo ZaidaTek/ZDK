@@ -2,10 +2,8 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZT_FONT_H_INCLUDED
-#define ZT_FONT_H_INCLUDED
-
-#include "ZTK.h"
+#ifndef ZTK_FONT_H_INCLUDED
+#define ZTK_FONT_H_INCLUDED
 
 #define ZTK_FONT_STYLE_NORMAL ZTM_TEXT_STYLE_NORMAL
 #define ZTK_FONT_STYLE_BOLD ZTM_TEXT_STYLE_BOLD
@@ -35,5 +33,4 @@ void ZTK_FontStyle(ZT_FONT* iFont, ZT_FLAG iStyle);
 }
 #endif // __cplusplus
 
-#endif // ZT_FONT_H_INCLUDED
-
+#endif // ZTK_FONT_H_INCLUDED

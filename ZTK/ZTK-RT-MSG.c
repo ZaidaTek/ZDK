@@ -2,10 +2,10 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZTK__MSG_C_INCLUDED
-#define ZTK__MSG_C_INCLUDED
+#ifndef ZTK_MSG_C_INCLUDED
+#define ZTK_MSG_C_INCLUDED
 
-#include "ZTK__Runtime.h"
+#include "ZTK-RT.h"
 
 void ZTK_MSG_MouseMove(ZT_I iX, ZT_I iY) {
     rZTK_Host.buffer.flag |= ZTK_HID_MOUSE;
@@ -113,4 +113,4 @@ void ZTK_MSG_Char(ZT_CHAR iChar) {
     rZTK_Host.buffer.input.text = iChar;
 }
 
-#endif // ZTK__MSG_C_INCLUDED
+#endif // ZTK_MSG_C_INCLUDED

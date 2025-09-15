@@ -2,9 +2,10 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZTGL__RUNTIME_H_INCLUDED
-#define ZTGL__RUNTIME_H_INCLUDED
+#ifndef ZTGL_RT_H_INCLUDED
+#define ZTGL_RT_H_INCLUDED
 
+#include "../ZTK-RT.h"
 #include "ZTGL.h"
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -16,8 +17,8 @@ typedef struct {
     void* runtime;
 } rZTGL_HOST;
 
-ZT_FLAG rZTGL__FLAG;
-rZTGL_HOST rZTGL_Host;
+extern ZT_FLAG rZTGL__FLAG;
+extern rZTGL_HOST rZTGL_Host;
 
 #ifdef __cplusplus
 extern "C" {
@@ -26,5 +27,5 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif // __cplusplus
-#endif // ZTGL__RUNTIME_H_INCLUDED
 
+#endif // ZTGL_RT_H_INCLUDED

@@ -2,10 +2,8 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZTK__EVENT_H_INCLUDED
-#define ZTK__EVENT_H_INCLUDED
-
-#include "ZTK__Runtime.h"
+#ifndef ZTK_EVENT_H_INCLUDED
+#define ZTK_EVENT_H_INCLUDED
 
 #define ZTK_AID_Press(LAST,NEW) ((NEW) ? (ZTK_AID_PRESS | ((LAST) ? ZTK_AID_REPEAT : ZTK_AID_STRIKE)) : ((LAST) ? ZTK_AID_RELEASE : ZTK_AID_NONE))
 #define ZTK_AID_MoveH(LAST,NEW) (((LAST) != (NEW)) ? (((NEW) > (LAST)) ? ZTK_AID_MOVE_RIGHT : ZTK_AID_MOVE_LEFT) : ZTK_AID_NONE)
@@ -36,4 +34,4 @@ ZT_FLAG ZTK_EventCacheKeyboard(rZTK_KEYBOARD* iDevice, const rZTK_KEYBOARD* iCac
 }
 #endif // __cplusplus
 
-#endif // ZTK__EVENT_H_INCLUDED
+#endif // ZTK_EVENT_H_INCLUDED

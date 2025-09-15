@@ -88,9 +88,8 @@ ZT_SURFACE* ZTK_SurfaceFromFont(const ZT_CHAR* iText, ZT_FONT* iFont, ZT_FLAG* o
 }
 #endif // __cplusplus
 
-#include "ZT_Font.h"
-#include "ZT_Sprite.h"
-#include "ZTK_Printer.h"
-//#include "ZUI/ZUI.h"
+#include "ZTK-Font.h"
+#include "ZTK-Sprite.h"
+#include "ZTK-Printer.h"
 
-#endif //ZTK_H_INCLUDED
+#endif // ZTK_H_INCLUDED

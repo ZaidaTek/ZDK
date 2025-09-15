@@ -5,8 +5,8 @@
 #ifndef ZTK_DEFINE_H_INCLUDED
 #define ZTK_DEFINE_H_INCLUDED
 
-#include "ZTK__ID.h"
-#include "ZTK__Res.h"
+#include "ZTK-DEFINE-ID.h"
+#include "ZTK-DEFINE-RES.h"
 
 #define ZTK_RENDERER_NONE 0x0
 #define ZTK_RENDERER_SYSTEM 0x1

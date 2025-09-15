@@ -2,13 +2,13 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZTK__RES_H_INCLUDED
-#define ZTK__RES_H_INCLUDED
+#ifndef ZTK_RES_H_INCLUDED
+#define ZTK_RES_H_INCLUDED
 
-#ifdef RC_INVOKED
-#include "../ZTM/ZTM-BUILD.h"
-#endif
+// #ifdef RC_INVOKED // NOTE 25258: disabled this
+// #include "../ZTM/ZTM-BUILD.h"
+// #endif
 
 #define ZTK_ICON_INTEGRATED 101
 
-#endif // ZTK__RES_H_INCLUDED
+#endif // ZTK_RES_H_INCLUDED

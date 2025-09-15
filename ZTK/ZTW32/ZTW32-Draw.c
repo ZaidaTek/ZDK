@@ -5,7 +5,7 @@
 #ifndef ZTW32_DRAW_C_INCLUDED
 #define ZTW32_DRAW_C_INCLUDED
 
-#include "ZTW32__Runtime.h"
+#include "ZTW32-RT.h"
 
 void ZTW32_DrawFontLoad(void) {
     rZT_FONT* lFont;

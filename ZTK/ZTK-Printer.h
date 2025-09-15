@@ -5,8 +5,6 @@
 #ifndef ZTK_PRINTER_H_INCLUDED
 #define ZTK_PRINTER_H_INCLUDED
 
-#include "ZTK.h"
-
 //#define ZTK_PRINTER_FALLBACK_STDIO
 
 #define ZTK_PRINTER_TYPE_NONE 0x0

@@ -37,10 +37,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="ZTGL/ZTGL.h" />
-		<Unit filename="ZTGL/ZTGL__Runtime.c">
+		<Unit filename="ZTGL/ZTGL-RT.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZTGL/ZTGL__Runtime.h" />
+		<Unit filename="ZTGL/ZTGL-RT.h" />
 		<Unit filename="ZTK.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -48,46 +48,46 @@
 		<Unit filename="ZTK-BUILD.h" />
 		<Unit filename="ZTK-DEFAULT.h" />
 		<Unit filename="ZTK-DEFINE.h" />
-		<Unit filename="ZTK_Printer.c">
+		<Unit filename="ZTK-DEFINE-ID.h" />
+		<Unit filename="ZTK-DEFINE-RES.h" />
+		<Unit filename="ZTK-Printer.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZTK_Printer.h" />
+		<Unit filename="ZTK-Printer.h" />
 		<Unit filename="ZTK-TYPE.h" />
-		<Unit filename="ZTK__Event.c">
+		<Unit filename="ZTK-RT-EVENT.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZTK__Event.h" />
-		<Unit filename="ZTK__ID.h" />
-		<Unit filename="ZTK__MSG.c">
+		<Unit filename="ZTK-RT-EVENT.h" />
+		<Unit filename="ZTK-RT-MSG.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZTK__MSG.h" />
-		<Unit filename="ZTK__Res.h" />
-		<Unit filename="ZTK__Runtime.c">
+		<Unit filename="ZTK-RT-MSG.h" />
+		<Unit filename="ZTK-RT.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZTK__Runtime.h" />
-		<Unit filename="ZTK__RuntimeFont.h" />
-		<Unit filename="ZTK__RuntimePrinter.h" />
+		<Unit filename="ZTK-RT.h" />
+		<Unit filename="ZTK-RT-Font.h" />
+		<Unit filename="ZTK-RT-Printer.h" />
 		<Unit filename="ZTW32/ZTW32.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="ZTW32/ZTW32.h" />
-		<Unit filename="ZTW32/ZTW32_Draw.c">
+		<Unit filename="ZTW32/ZTW32-Draw.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZTW32/ZTW32__Debug.c">
+		<Unit filename="ZTW32/ZTW32-DEBUG.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZTW32/ZTW32__Runtime.h" />
-		<Unit filename="ZT_Font.c">
+		<Unit filename="ZTW32/ZTW32-RT.h" />
+		<Unit filename="ZTK-Font.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZT_Font.h" />
-		<Unit filename="ZT_Sprite.c">
+		<Unit filename="ZTK-Font.h" />
+		<Unit filename="ZTK-Sprite.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZT_Sprite.h" />
+		<Unit filename="ZTK-Sprite.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

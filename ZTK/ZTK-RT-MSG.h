@@ -2,10 +2,8 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZTK__MSG_H_INCLUDED
-#define ZTK__MSG_H_INCLUDED
-
-#include "ZTK__Runtime.h"
+#ifndef ZTK_MSG_H_INCLUDED
+#define ZTK_MSG_H_INCLUDED
 
 #ifdef __cplusplus
 extern "C" {
@@ -31,5 +29,4 @@ void ZTK_MSG_Char(ZT_CHAR iChar);
 }
 #endif // __cplusplus
 
-#endif // ZTK__MSG_H_INCLUDED
-
+#endif // ZTK_MSG_H_INCLUDED

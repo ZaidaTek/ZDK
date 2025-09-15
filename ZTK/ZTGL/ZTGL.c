@@ -5,7 +5,7 @@
 #ifndef ZTGL_C_INCLUDED
 #define ZTGL_C_INCLUDED
 
-#include "ZTGL__Runtime.h"
+#include "ZTGL-RT.h"
 
 void ZTGL_Size(void) {
     glMatrixMode(GL_PROJECTION);

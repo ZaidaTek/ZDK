@@ -5,7 +5,9 @@
 #ifndef ZTW32_C_INCLUDED
 #define ZTW32_C_INCLUDED
 
-#include "ZTW32__Runtime.h"
+#include "ZTW32-RT.h"
+
+rZTW32_HOST rZTW32_Host;
 
 ZT_FLAG ZTW32_Pump(void* iArg) {
     (void)iArg;

@@ -2,10 +2,8 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZT_SPRITE_H_INCLUDED
-#define ZT_SPRITE_H_INCLUDED
-
-#include "ZTK.h"
+#ifndef ZTK_SPRITE_H_INCLUDED
+#define ZTK_SPRITE_H_INCLUDED
 
 #define ZTK_SPRITE_TYPE_UNKNOWN 0x0
 #define ZTK_SPRITE_TYPE_PIXELS 0x1
@@ -28,4 +26,4 @@ void ZTK_SpriteSize(const ZT_SPRITE* iSprite, ZT_POINT* oSize);
 }
 #endif // __cplusplus
 
-#endif // ZT_SPRITE_H_INCLUDED
+#endif // ZTK_SPRITE_H_INCLUDED

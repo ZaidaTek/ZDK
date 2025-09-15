@@ -2,16 +2,17 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZT_FONT_C_INCLUDED
-#define ZT_FONT_C_INCLUDED
+#ifndef ZTK_FONT_C_INCLUDED
+#define ZTK_FONT_C_INCLUDED
 
-#include "ZTK__Runtime.h"
+#include "ZTK-RT.h"
 
-#define ZTK_FONTPROPERTY(FONT,PROPERTY,VALUE) rZT_FONT* lFont = ZTK_FONTGET(FONT); lFont->PROPERTY = (VALUE); ZTK_FontReload(lFont)
-void ZTK_FontColor(ZT_FONT* iFont, ZT_COLOR iColor) {ZTK_FONTPROPERTY(iFont, color, iColor);}
-void ZTK_FontColorBk(ZT_FONT* iFont, ZT_COLOR iColor) {ZTK_FONTPROPERTY(iFont, colorBk, iColor);}
-void ZTK_FontSize(ZT_FONT* iFont, ZT_INDEX iSize) {ZTK_FONTPROPERTY(iFont, height, iSize);}
-void ZTK_FontStyle(ZT_FONT* iFont, ZT_FLAG iStyle) {ZTK_FONTPROPERTY(iFont, style, iStyle);}
+#define mZTK_FONTPROPERTY(FONT,PROPERTY,VALUE) rZT_FONT* lFont = ZTK_FONTGET(FONT); lFont->PROPERTY = (VALUE); ZTK_FontReload(lFont)
+void ZTK_FontColor(ZT_FONT* iFont, ZT_COLOR iColor) {mZTK_FONTPROPERTY(iFont, color, iColor);}
+void ZTK_FontColorBk(ZT_FONT* iFont, ZT_COLOR iColor) {mZTK_FONTPROPERTY(iFont, colorBk, iColor);}
+void ZTK_FontSize(ZT_FONT* iFont, ZT_INDEX iSize) {mZTK_FONTPROPERTY(iFont, height, iSize);}
+void ZTK_FontStyle(ZT_FONT* iFont, ZT_FLAG iStyle) {mZTK_FONTPROPERTY(iFont, style, iStyle);}
+#undef mZTK_FONTPROPERTY
 ZT_FONT* ZTK_FontNew(const ZT_CHAR* iSource, const ZT_CHAR* iName, ZT_I iHeight, ZT_FLAG iStyle, ZT_COLOR iColor) {
     rZT_FONT* lFont = ZTM8_New(sizeof(rZT_FONT));
     lFont->flag = ZTK_FLAG_NONE;
@@ -86,5 +87,4 @@ void ZTK_FontFree(ZT_FONT* iFont) {
     ZTM8_Free(lFont->source);
     ZTM8_Free(lFont);
 }
-#endif // ZT_FONT_C_INCLUDED
-
+#endif // ZTK_FONT_C_INCLUDED

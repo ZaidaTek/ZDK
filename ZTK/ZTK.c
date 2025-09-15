@@ -5,7 +5,7 @@
 #ifndef ZTK_C_INCLUDED
 #define ZTK_C_INCLUDED
 
-#include "ZTK__Runtime.h"
+#include "ZTK-RT.h"
 
 // MAIN FUNCTIONS
 void ZTK_Quit(void) {ZTK_RuntimeQuit();}

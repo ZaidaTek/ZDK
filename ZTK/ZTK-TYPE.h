@@ -2,8 +2,8 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZTK_TYPES_H_INCLUDED
-#define ZTK_TYPES_H_INCLUDED
+#ifndef ZTK_TYPE_H_INCLUDED
+#define ZTK_TYPE_H_INCLUDED
 
 typedef union {
     struct {
@@ -30,4 +30,4 @@ typedef struct {
 typedef void ZT_SPRITE;
 typedef void ZT_FONT;
 
-#endif // ZTK_TYPES_H_INCLUDED
+#endif // ZTK_TYPE_H_INCLUDED

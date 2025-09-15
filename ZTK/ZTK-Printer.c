@@ -5,7 +5,7 @@
 #ifndef ZTK_PRINTER_C_INCLUDED
 #define ZTK_PRINTER_C_INCLUDED
 
-#include "ZTK__Runtime.h"
+#include "ZTK-RT.h"
 #include <stdio.h>
 #include <stdarg.h>
 

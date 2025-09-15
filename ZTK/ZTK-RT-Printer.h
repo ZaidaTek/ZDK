@@ -2,10 +2,8 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZTK__RUNTIMEPRINTER_H_INCLUDED
-#define ZTK__RUNTIMEPRINTER_H_INCLUDED
-
-#include "ZTK__Runtime.h"
+#ifndef ZTK_RT_PRINTER_H_INCLUDED
+#define ZTK_RT_PRINTER_H_INCLUDED
 
 #define ZTK_PRINTER_BUFFER 8192
 #define ZTK_PRINTER_FLAG_NONE ZTK_FLAG_NONE
@@ -29,7 +27,7 @@ typedef struct {
     } print;
 } rZTK_PRINTER_HOST;
 
-rZTK_PRINTER_HOST rZTK_PrinterHost;
+extern rZTK_PRINTER_HOST rZTK_PrinterHost;
 
 #ifdef __cplusplus
 extern "C" {
@@ -42,4 +40,4 @@ void ZTK_PrinterPipeFeed(rZTK_PRINTER* iUser);
 }
 #endif // __cplusplus
 
-#endif // ZTK__RUNTIMEPRINTER_H_INCLUDED
+#endif // ZTK_RT_PRINTER_H_INCLUDED

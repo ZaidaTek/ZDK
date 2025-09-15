@@ -2,9 +2,10 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZTW32__RUNTIME_H_INCLUDED
-#define ZTW32__RUNTIME_H_INCLUDED
+#ifndef ZTW32_RT_H_INCLUDED
+#define ZTW32_RT_H_INCLUDED
 
+#include "../ZTK-RT.h"
 #include "ZTW32.h"
 
 #define WIN32_LEAN_AND_MEAN // since 2020-12-31
@@ -46,7 +47,7 @@ typedef struct {
     } window;
 } rZTW32_HOST;
 
-rZTW32_HOST rZTW32_Host;
+extern rZTW32_HOST rZTW32_Host;
 
 #ifdef __cplusplus
 extern "C" {
@@ -61,4 +62,4 @@ void ZTW32_PrintMessage(ZT_INDEX iMessage);
 }
 #endif // __cplusplus
 
-#endif // ZTW32__RUNTIME_H_INCLUDED
+#endif // ZTW32_RT_H_INCLUDED

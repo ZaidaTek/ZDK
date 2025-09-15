@@ -2,10 +2,10 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZTK__EVENT_C_INCLUDED
-#define ZTK__EVENT_C_INCLUDED
+#ifndef ZTK_EVENT_C_INCLUDED
+#define ZTK_EVENT_C_INCLUDED
 
-#include "ZTK__Runtime.h"
+#include "ZTK-RT.h"
 
 /*ZT_FLAG ZTK_AID_Press(ZT_BOOL iLast, ZT_BOOL iNew) {return (iNew ? (ZTK_AID_PRESS | (iLast ? ZTK_AID_REPEAT : ZTK_AID_STRIKE)) : (iLast ? ZTK_AID_RELEASE : ZTK_AID_NONE));}
 ZT_FLAG ZTK_AID_MoveH(ZT_I iLast, ZT_I iNew) {return ((iLast != iNew) ? ((iNew > iLast) ? ZTK_AID_MOVE_RIGHT : ZTK_AID_MOVE_LEFT) : ZTK_AID_NONE);}
@@ -217,4 +217,4 @@ ZT_FLAG ZTK_EventCacheKeyboard(rZTK_KEYBOARD* iDevice, const rZTK_KEYBOARD* iCac
     return lA;
 }
 
-#endif // ZTK__EVENT_C_INCLUDED
+#endif // ZTK_EVENT_C_INCLUDED

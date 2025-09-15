@@ -7,6 +7,8 @@
 
 #include "ZUI__Runtime.h"
 
+rZUI_HOST rZUI_RTime;
+
 void ZUI_WorkaroundForSwitchUpdating(ZUI_ELEMENT* iElement) {
     rZUI_ELEMENT* lElement = iElement;
     if (lElement->type == ZUI_ELEMENT_TYPE_SWITCH) {

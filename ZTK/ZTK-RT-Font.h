@@ -2,10 +2,8 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZTK__RUNTIMEFONT_H_INCLUDED
-#define ZTK__RUNTIMEFONT_H_INCLUDED
-
-#include "ZTK__Runtime.h"
+#ifndef ZTK_RT_FONT_H_INCLUDED
+#define ZTK_RT_FONT_H_INCLUDED
 
 #define ZTK_CHARSET_MASK ((ZT_CHAR)~0x0)
 #define ZTK_CHARSET_LENGTH (((ZT_INDEX)ZTK_CHARSET_MASK) + 1)
@@ -29,4 +27,4 @@ void ZTK_FontLoad(rZT_FONT *iFont);
 }
 #endif // __cplusplus
 
-#endif //ZTK__RUNTIMEFONT_H_INCLUDED
+#endif // ZTK_RT_FONT_H_INCLUDED

@@ -2,15 +2,16 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZTGL__RUNTIME_C_INCLUDED
-#define ZTGL__RUNTIME_C_INCLUDED
+#ifndef ZTGL_RT_C_INCLUDED
+#define ZTGL_RT_C_INCLUDED
 
-#include "ZTGL__Runtime.h"
+#include "ZTGL-RT.h"
 
 ZT_FLAG rZTGL__FLAG = ZTGL_FLAG_INIT;
+rZTGL_HOST rZTGL_Host;
 
 #ifdef ZTK_BUILD_WINDOWS
-#include "../ZTW32/ZTW32__Runtime.h"
+#include "../ZTW32/ZTW32-RT.h"
 #define ZTGL_RuntimeInit() ({\
     PIXELFORMATDESCRIPTOR lPFD;\
     ZTM8_Zero(&lPFD, sizeof(lPFD));\
@@ -47,4 +48,4 @@ void ZTGL_Present(void) {
     ZTGL_RuntimePresent();
 }
 
-#endif // ZTGL__RUNTIME_C_INCLUDED
+#endif // ZTGL_RT_C_INCLUDED

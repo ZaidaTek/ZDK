@@ -5,7 +5,7 @@
 #ifndef ZTW32_H_INCLUDED
 #define ZTW32_H_INCLUDED
 
-#include "../ZTK__Runtime.h"
+// #include "../ZTK-RT.h"
 
 #ifdef __cplusplus
 extern "C" {

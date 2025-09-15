@@ -2,8 +2,8 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZTK__RUNTIME_H_INCLUDED
-#define ZTK__RUNTIME_H_INCLUDED
+#ifndef ZTK_RT_H_INCLUDED
+#define ZTK_RT_H_INCLUDED
 
 //#include <ZTL-RT.h>
 #include "ZTK.h"
@@ -133,7 +133,7 @@ typedef struct {
     } user;
 } rZTK_HOST;
 
-rZTK_HOST rZTK_Host;
+extern rZTK_HOST rZTK_Host;
 
 #ifdef ZTK_BUILD_WINDOWS
 // #if (ZTK_BUILD_WIDTH > 32) // TODO
@@ -211,14 +211,14 @@ rZT_FONT** ZTK_InternalFontSystem(void);
 }
 #endif // __cplusplus
 
-#include "ZTK__Event.h"
-#include "ZTK__MSG.h"
+#include "ZTK-RT-EVENT.h"
+#include "ZTK-RT-MSG.h"
 
-#include "ZTK__RuntimeFont.h"
-#include "ZTK__RuntimePrinter.h"
+#include "ZTK-RT-Font.h"
+#include "ZTK-RT-Printer.h"
 
 #ifdef ZTK_OPENGL_ENABLE
 #include "ZTGL/ZTGL.h"
 #endif // ZTK_OPENGL_ENABLE
 
-#endif // ZTK__RUNTIME_H_INCLUDED
+#endif // ZTK_RT_H_INCLUDED

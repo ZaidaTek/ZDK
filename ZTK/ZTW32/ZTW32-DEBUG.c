@@ -2,10 +2,10 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZTW32__DEBUG_C_INCLUDED
-#define ZTW32__DEBUG_C_INCLUDED
+#ifndef ZTW32_DEBUG_C_INCLUDED
+#define ZTW32_DEBUG_C_INCLUDED
 
-#include "ZTW32__Runtime.h"
+#include "ZTW32-RT.h"
 #include <stdio.h>
 
 void ZTW32_PrintMessage(ZT_INDEX iMessage) {
@@ -278,4 +278,4 @@ void ZTW32_PrintMessage(ZT_INDEX iMessage) {
 	if (lMessage != NULL) {printf("%s\n", lMessage);} else {printf("UNKNOWN: %x\n", iMessage);};
 }
 
-#endif // ZTW32__DEBUG_C_INCLUDED
+#endif // ZTW32_DEBUG_C_INCLUDED
