@@ -19,7 +19,6 @@
 			<Add option="-Wall" />
 			<Add option="-O3" />
 			<Add option="-flto" />
-			<Add option="-fexpensive-optimizations" />
 		</Compiler>
 		<Linker>
 			<Add option="-O3" />

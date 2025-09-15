@@ -19,7 +19,6 @@
 			<Add option="-Wall" />
 			<Add option="-O3" />
 			<Add option="-flto" />
-			<Add option="-fexpensive-optimizations" />
 			<Add directory="C:/__lib/zlib" />
 			<Add directory="C:/__lib/libpng" />
 			<Add directory="C:/__lib/libjpeg" />

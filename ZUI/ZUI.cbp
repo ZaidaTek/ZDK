@@ -19,7 +19,6 @@
 			<Add option="-Wall" />
 			<Add option="-O3" />
 			<Add option="-flto" />
-			<Add option="-fexpensive-optimizations" />
 			<Add directory="../ZTM" />
 			<Add directory="../ZTL" />
 			<Add directory="../ZTK" />
