@@ -5,10 +5,11 @@
 #ifndef ZTL_BUILD_H_INCLUDED
 #define ZTL_BUILD_H_INCLUDED
 
-#ifndef ZTM_BUILD_WIDTH
-	#define ZTL_BUILD_WIDTH 32
-#else // ZTM_BUILD_WIDTH
+#if defined(ZTM_BUILD_WIDTH)
 	#define ZTL_BUILD_WIDTH ZTM_BUILD_WIDTH
+#else // ZTM_BUILD_WIDTH
+	#define ZTL_BUILD_WIDTH 32
+	#warning "ZTL-BUILD-WARNING: 'ZTM_BUILD_WIDTH' is not defined"
 #endif // ZTM_BUILD_WIDTH
 
 #if defined(ZTM_BUILD_WINDOWS)

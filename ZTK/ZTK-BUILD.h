@@ -5,10 +5,11 @@
 #ifndef ZTK_BUILD_H_INCLUDED
 #define ZTK_BUILD_H_INCLUDED
 
-#ifndef ZTL_BUILD_WIDTH
-	#define ZTK_BUILD_WIDTH 32
-#else // ZTL_BUILD_WIDTH
+#if defined(ZTL_BUILD_WIDTH)
 	#define ZTK_BUILD_WIDTH ZTL_BUILD_WIDTH
+#else // ZTL_BUILD_WIDTH
+	#define ZTK_BUILD_WIDTH 32
+	#warning "ZTK-BUILD-WARNING: 'ZTL_BUILD_WIDTH' is not defined"
 #endif // ZTL_BUILD_WIDTH
 
 #if defined(ZTL_BUILD_WINDOWS)

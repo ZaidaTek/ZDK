@@ -26,6 +26,7 @@
 #else
 	#define ZTM_BUILD_WIDTH 32
 	#define ZTM_BUILD_UNKNOWN
+	#warning "ZTM-BUILD-WARNING: 'ZTM_BUILD_UNKNOWN' is defined"
 #endif // ZTM_BUILD_OS
 
 #endif // ZTM_SHARED_BUILD_H_INCLUDED
