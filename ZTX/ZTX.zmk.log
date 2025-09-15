@@ -48,13 +48,13 @@
             ]
         }
     },
-    "zmake": "250912",
+    "zmake": "250915",
     "host": {
         "['date']": [
-            "2025-09-13T22:57:16 CEST"
+            "2025-09-15T18:25:42 CEST"
         ],
         "['zmake', '--version']": [
-            "zmake-v250912"
+            "zmake-v250915"
         ],
         "['neofetch', '--stdout', '--disable', 'uptime']": [
             "andi@ztk-dt-andi ",
@@ -72,7 +72,7 @@
             "Terminal: gnome-terminal ",
             "CPU: AMD Ryzen 7 5700X3D (16) @ 4.149GHz ",
             "GPU: AMD ATI Radeon RX 7700 XT / 7800 XT ",
-            "Memory: 2376MiB / 15918MiB "
+            "Memory: 2084MiB / 15918MiB "
         ],
         "['gcc', '--version']": [
             "gcc (Debian 12.2.0-14+deb12u1) 12.2.0",
@@ -93,7 +93,6 @@
                 "gcc",
                 "-O3",
                 "-flto",
-                "-fexpensive-optimizations",
                 "-fPIC",
                 "-Wfatal-errors",
                 "-Werror",
@@ -110,7 +109,6 @@
                 "gcc",
                 "-O3",
                 "-flto",
-                "-fexpensive-optimizations",
                 "-fPIC",
                 "-Wfatal-errors",
                 "-Werror",
@@ -127,7 +125,6 @@
                 "gcc",
                 "-O3",
                 "-flto",
-                "-fexpensive-optimizations",
                 "-fPIC",
                 "-Wfatal-errors",
                 "-Werror",
@@ -144,7 +141,6 @@
                 "gcc",
                 "-O3",
                 "-flto",
-                "-fexpensive-optimizations",
                 "-fPIC",
                 "-Wfatal-errors",
                 "-Werror",

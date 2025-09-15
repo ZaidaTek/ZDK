@@ -7,105 +7,103 @@
 
 #ifndef ZTM_BUILD_WIDTH
 	#define ZTM_BUILD_WIDTH 32
+	#warning "ZTL-BUILD-WARNING: 'ZTM_BUILD_WIDTH' was not defined"
 #endif // ZTM_BUILD_WIDTH
 
-#define ZT_TYPE_FLT float
-#define ZT_TYPE_DBL double
-typedef ZT_TYPE_FLT ZT_FLT;
-typedef ZT_TYPE_DBL ZT_DBL;
 #if (ZTM_BUILD_WIDTH > 32) // 64-bit
-	#define ZT_TYPE_I8 char
-	#define ZT_TYPE_I16 short
-	#define ZT_TYPE_I32 int
-	#define ZT_TYPE_I64 long long
-	#define ZT_TYPE_U8 unsigned ZT_TYPE_I8
-	#define ZT_TYPE_U16 unsigned ZT_TYPE_I16
-	#define ZT_TYPE_U32 unsigned ZT_TYPE_I32
-	#define ZT_TYPE_U64 unsigned ZT_TYPE_I64
-	#define ZT_TYPE_BL ZT_TYPE_U32
+	#define mZT_TYPE_BIT8  char
+	#define mZT_TYPE_BIT16 short
+	#define mZT_TYPE_BIT32 int
+	#define mZT_TYPE_BIT64 long long
+	#define mZT_TYPE_FPFLT float
+	#define mZT_TYPE_FPDBL double
+	#define mZT_TYPE_BOOL  mZT_TYPE_BIT32
 #elif (ZTM_BUILD_WIDTH > 16) // 32-bit
-	#define ZT_TYPE_I8 char
-	#define ZT_TYPE_I16 short
-	#define ZT_TYPE_I32 int
-	#define ZT_TYPE_I64 long long
-	#define ZT_TYPE_U8 unsigned ZT_TYPE_I8
-	#define ZT_TYPE_U16 unsigned ZT_TYPE_I16
-	#define ZT_TYPE_U32 unsigned ZT_TYPE_I32
-	#define ZT_TYPE_U64 unsigned ZT_TYPE_I64
-	#define ZT_TYPE_BL ZT_TYPE_U32
+	#define mZT_TYPE_BIT8  char
+	#define mZT_TYPE_BIT16 short
+	#define mZT_TYPE_BIT32 int
+	#define mZT_TYPE_BIT64 long long
+	#define mZT_TYPE_FPFLT float
+	#define mZT_TYPE_FPDBL double
+	#define mZT_TYPE_BOOL  mZT_TYPE_BIT32
 #elif (ZTM_BUILD_WIDTH > 8) // 16-bit
-	#define ZT_TYPE_I8 char
-	#define ZT_TYPE_I16 int
-	#define ZT_TYPE_I32 long
-	#define ZT_TYPE_I64 long long
-	#define ZT_TYPE_U8 unsigned ZT_TYPE_I8
-	#define ZT_TYPE_U16 unsigned ZT_TYPE_I16
-	#define ZT_TYPE_U32 unsigned ZT_TYPE_I32
-	#define ZT_TYPE_U64 unsigned ZT_TYPE_I64 // ?
-	#define ZT_TYPE_BL ZT_TYPE_U16
+	#define mZT_TYPE_BIT8  char
+	#define mZT_TYPE_BIT16 int
+	#define mZT_TYPE_BIT32 long
+	#define mZT_TYPE_BIT64 long long
+	#define mZT_TYPE_FPFLT float
+	#define mZT_TYPE_FPDBL double
+	#define mZT_TYPE_BOOL  mZT_TYPE_BIT16
 #else // 8-bit
-	#define ZT_TYPE_I8 char
-	#define ZT_TYPE_I16 int
-	#define ZT_TYPE_I32 long
-	#define ZT_TYPE_I64 ZT_TYPE_I32
-	#define ZT_TYPE_U8 unsigned ZT_TYPE_I8
-	#define ZT_TYPE_U16 unsigned ZT_TYPE_I16
-	#define ZT_TYPE_U32 unsigned ZT_TYPE_I32
-	#define ZT_TYPE_U64 unsigned ZT_TYPE_I64 // ?
-	#define ZT_TYPE_BL ZT_TYPE_U8
+	#define mZT_TYPE_BIT8  char
+	#define mZT_TYPE_BIT16 int
+	#define mZT_TYPE_BIT32 long
+	#define mZT_TYPE_BIT64 long long // (?)
+	#define mZT_TYPE_FPFLT float
+	#define mZT_TYPE_FPDBL double
+	#define mZT_TYPE_BOOL  mZT_TYPE_BIT8
 #endif // ZTM_BUILD_WIDTH
-typedef ZT_TYPE_BL ZT_BOOL;
-typedef ZT_TYPE_BL ZT_BLTG;
-typedef ZT_TYPE_I8 ZT_I8;
-typedef ZT_TYPE_I16 ZT_I16;
-typedef ZT_TYPE_I32 ZT_I32;
-typedef ZT_TYPE_I64 ZT_I64;
-typedef ZT_TYPE_U8 ZT_U8;
-typedef ZT_TYPE_U16 ZT_U16;
-typedef ZT_TYPE_U32 ZT_U32;
-typedef ZT_TYPE_U64 ZT_U64;
+typedef unsigned mZT_TYPE_BIT8  ZT_U8;
+typedef unsigned mZT_TYPE_BIT16 ZT_U16;
+typedef unsigned mZT_TYPE_BIT32 ZT_U32;
+typedef unsigned mZT_TYPE_BIT64 ZT_U64;
+typedef   signed mZT_TYPE_BIT8  ZT_I8;
+typedef   signed mZT_TYPE_BIT16 ZT_I16;
+typedef   signed mZT_TYPE_BIT32 ZT_I32;
+typedef   signed mZT_TYPE_BIT64 ZT_I64;
+typedef          mZT_TYPE_FPFLT ZT_FLT;
+typedef          mZT_TYPE_FPDBL ZT_DBL;
+typedef unsigned mZT_TYPE_BOOL  ZT_BOOL;
+typedef unsigned mZT_TYPE_BOOL  ZT_BLTG;
+#undef mZT_TYPE_BIT8
+#undef mZT_TYPE_BIT16
+#undef mZT_TYPE_BIT32
+#undef mZT_TYPE_BIT64
+#undef mZT_TYPE_FPFLT
+#undef mZT_TYPE_FPDBL
+#undef mZT_TYPE_BOOL
 
 #if (ZTM_BUILD_WIDTH > 16) // 32-bit and above
-	typedef ZT_TYPE_U64 ZT_SIZE;
-	typedef ZT_TYPE_I32 ZT_I;
-	typedef ZT_TYPE_U32 ZT_U;
-	typedef ZT_TYPE_U32 ZT_TIME;
-	typedef ZT_TYPE_U32 ZT_COLOR;
-	typedef ZT_TYPE_U32 ZT_INDEX;
-	typedef ZT_TYPE_U32 ZT_FLAG;
-	typedef ZT_TYPE_U16 ZT_INDEX_HALF;
-	typedef ZT_TYPE_U16 ZT_FLAG_HALF;
-	typedef ZT_TYPE_U8 ZT_INDEX_QUARTER;
-	typedef ZT_TYPE_U8 ZT_FLAG_QUARTER;
+	typedef ZT_U32 ZT_U;
+	typedef ZT_I32 ZT_I;
+	typedef ZT_U64 ZT_SIZE;
+	typedef ZT_U32 ZT_TIME;
+	typedef ZT_U32 ZT_COLOR;
+	typedef ZT_U32 ZT_INDEX;
+	typedef ZT_U32 ZT_FLAG;
+	typedef ZT_U16 ZT_INDEX_HALF;
+	typedef ZT_U16 ZT_FLAG_HALF;
+	typedef ZT_U8  ZT_INDEX_QUARTER;
+	typedef ZT_U8  ZT_FLAG_QUARTER;
 #elif (ZTM_BUILD_WIDTH > 8) // 16-bit
-	typedef ZT_TYPE_U32 ZT_SIZE;
-	typedef ZT_TYPE_I16 ZT_I;
-	typedef ZT_TYPE_U16 ZT_U;
-	typedef ZT_TYPE_U32 ZT_TIME;
-	typedef ZT_TYPE_U16 ZT_COLOR;
-	typedef ZT_TYPE_U16 ZT_INDEX;
-	typedef ZT_TYPE_U16 ZT_FLAG;
-	typedef ZT_TYPE_U8 ZT_INDEX_HALF;
-	typedef ZT_TYPE_U8 ZT_FLAG_HALF;
-	typedef ZT_TYPE_U8 ZT_INDEX_QUARTER;
-	typedef ZT_TYPE_U8 ZT_FLAG_QUARTER;
+	typedef ZT_U16 ZT_U;
+	typedef ZT_I16 ZT_I;
+	typedef ZT_U32 ZT_SIZE;
+	typedef ZT_U32 ZT_TIME;
+	typedef ZT_U16 ZT_COLOR;
+	typedef ZT_U16 ZT_INDEX;
+	typedef ZT_U16 ZT_FLAG;
+	typedef ZT_U8  ZT_INDEX_HALF;
+	typedef ZT_U8  ZT_FLAG_HALF;
+	// typedef ZT_U8  ZT_INDEX_QUARTER;
+	// typedef ZT_U8  ZT_FLAG_QUARTER;
 #else // 8-bit
-	typedef ZT_TYPE_U32 ZT_SIZE;
-	typedef ZT_TYPE_I16 ZT_I;
-	typedef ZT_TYPE_U16 ZT_U;
-	typedef ZT_TYPE_U32 ZT_TIME;
-	typedef ZT_TYPE_U16 ZT_COLOR;
-	typedef ZT_TYPE_U8 ZT_INDEX;
-	typedef ZT_TYPE_U8 ZT_FLAG;
-	typedef ZT_TYPE_U8 ZT_INDEX_HALF;
-	typedef ZT_TYPE_U8 ZT_FLAG_HALF;
-	typedef ZT_TYPE_U8 ZT_INDEX_QUARTER;
-	typedef ZT_TYPE_U8 ZT_FLAG_QUARTER;
+	typedef ZT_U16 ZT_U;
+	typedef ZT_I16 ZT_I;
+	typedef ZT_U32 ZT_SIZE;
+	typedef ZT_U32 ZT_TIME;
+	typedef ZT_U16 ZT_COLOR;
+	typedef ZT_U8  ZT_INDEX;
+	typedef ZT_U8  ZT_FLAG;
+	// typedef ZT_U8  ZT_INDEX_HALF;
+	// typedef ZT_U8  ZT_FLAG_HALF;
+	// typedef ZT_U8  ZT_INDEX_QUARTER;
+	// typedef ZT_U8  ZT_FLAG_QUARTER;
 #endif // ZTM_BUILD_WIDTH
 
 #define ZT_TRUE ((ZT_BOOL)0x1)
 #define ZT_FALSE ((ZT_BOOL)0x0)
-#define ZT_TOGGLE ((ZT_BLTG)~0x0)
+#define ZT_TOGGLE ((ZT_BLTG)(~((ZT_BLTG)0x0)))
 
 #define __ZTM_BUILD_BASE_DATE() \
 	ZT_U16 year;\
@@ -115,7 +113,7 @@ typedef ZT_TYPE_U64 ZT_U64;
 	ZT_U8 hour;\
 	ZT_U8 minute;\
 	ZT_U8 second
-typedef union { // TODO unify both
+typedef union {
 	struct {
 		ZT_U8 byte[0];
 	};
@@ -203,7 +201,7 @@ typedef union {__ZTM_BUILD_BASE_HASH_32(32);} ZT_HASH32;
 		ZT_INDEX capacity;
 		ZT_INDEX data;
 		ZT_INDEX user;
-		void** qlist;
+		void** list;
 		void* item[0];
 	} ZT_QSLIST; // NOT IMPLEMENT
 	typedef struct {

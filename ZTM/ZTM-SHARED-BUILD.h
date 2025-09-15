@@ -6,7 +6,7 @@
 #define ZTM_SHARED_BUILD_H_INCLUDED
 
 #if defined(__WIN64) || defined(_WIN64) || defined(WIN64)
-	#define ZTM_BUILD_WIDTH 32 // deliberate
+	#define ZTM_BUILD_WIDTH 32 // (still) deliberate (even when building with x86-64)
 	#define ZTM_BUILD_WINDOWS 0x1
 #elif defined(__WIN32) || defined(_WIN32) || defined(WIN32)
 	#define ZTM_BUILD_WIDTH 32
@@ -24,7 +24,6 @@
 	#define ZTM_BUILD_WIDTH 8
 	#define ZTM_BUILD_AVR 0x1
 #else
-	#define ZTM_BUILD_WIDTH 32
 	#define ZTM_BUILD_UNKNOWN 0x1
 	#warning "ZTM-BUILD-WARNING: 'ZTM_BUILD_UNKNOWN' is defined"
 #endif // ZTM_BUILD_OS
