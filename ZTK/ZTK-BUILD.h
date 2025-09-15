@@ -12,11 +12,13 @@
 	#warning "ZTK-BUILD-WARNING: 'ZTL_BUILD_WIDTH' is not defined"
 #endif // ZTL_BUILD_WIDTH
 
-#if defined(ZTL_BUILD_WINDOWS)
+#if defined(ZTL_BUILD_WINDOWS) && (ZTL_BUILD_WINDOWS)
 	#define ZTK_BUILD_WINDOWS
-#elif defined(ZTL_BUILD_LINUX)
+#elif defined(ZTL_BUILD_APPLE) && (ZTL_BUILD_APPLE)
+	#define ZTK_BUILD_APPLE
+#elif defined(ZTL_BUILD_LINUX) && (ZTL_BUILD_LINUX)
 	#define ZTK_BUILD_LINUX
-#elif defined(ZTK_BUILD_AVR)
+#elif defined(ZTK_BUILD_AVR) && (ZTK_BUILD_AVR)
 	#define ZTK_BUILD_AVR
 #else
 	#define ZTK_BUILD_UNKNOWN

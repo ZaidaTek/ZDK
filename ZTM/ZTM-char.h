@@ -80,18 +80,18 @@
 #endif // ZTM_BUILD_APPLE
 */
 #define ZTM_CHAR_NL      		ZTM_CHAR_LF
-#ifdef ZTM_BUILD_WINDOWS
-#define ZTM_TEXT_NL				((const ZT_CHAR*)"\r\n")
-#else
-#define ZTM_TEXT_NL				((const ZT_CHAR*)"\n")
+#if defined(ZTM_BUILD_WINDOWS) && (ZTM_BUILD_WINDOWS)
+	#define ZTM_TEXT_NL			((const ZT_CHAR*)"\r\n")
+#else // ZTM_BUILD_WINDOWS
+	#define ZTM_TEXT_NL			((const ZT_CHAR*)"\n")
 #endif // ZTM_BUILD_WINDOWS
 // PATH DENOMINATOR
-#ifdef ZTM_BUILD_WINDOWS
-#define ZTM_CHAR_PATH			ZTM_CHAR_BACKSLASH
-#define ZTM_TEXT_PATH			((const ZT_CHAR*)"\\")
-#else
-#define ZTM_CHAR_PATH			ZTM_CHAR_SLASH
-#define ZTM_TEXT_PATH			((const ZT_CHAR*)"/")
+#if defined(ZTM_BUILD_WINDOWS) && (ZTM_BUILD_WINDOWS)
+	#define ZTM_CHAR_PATH		ZTM_CHAR_BACKSLASH
+	#define ZTM_TEXT_PATH		((const ZT_CHAR*)"\\")
+#else // ZTM_BUILD_WINDOWS
+	#define ZTM_CHAR_PATH		ZTM_CHAR_SLASH
+	#define ZTM_TEXT_PATH		((const ZT_CHAR*)"/")
 #endif // ZTM_BUILD_WINDOWS
 // DECIMAL MARK
 #define ZTM_CHAR_DECIMAL	 	ZTM_CHAR_DOT

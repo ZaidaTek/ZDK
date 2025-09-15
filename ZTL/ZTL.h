@@ -34,14 +34,14 @@ ZT_FLAG ZTL_ShellExec(const ZT_CHAR* iCommand, ...);
 ZT_CHAR* ZTL_ShellPipeInTarget(const ZT_CHAR* iCommand, ZT_CHAR* oTarget, ZT_SIZE iCapacity);
 #define ZTL_ShellPipeInNew(COMMAND) ZTL_ShellPipeInTarget((COMMAND), NULL, 0)
 ZT_FLAG ZTL_ShellOpen(const ZT_CHAR* iPath, ZT_FLAG iMode);
-#if defined(ZTL_BUILD_LINUX)
+#if defined(ZTL_BUILD_LINUX) && (ZTL_BUILD_LINUX)
 #define ZTL_Open(PATH) ZTL_ShellOpen(PATH, ZTL_EXECUTE_OPEN)
 #define ZTL_OpenDiscrete(PATH) ZTL_ShellOpen(PATH, ZTL_EXECUTE_OPEN | ZTL_EXECUTE_HIDE)
 #define ZTL_Edit(PATH) ZTL_ShellOpen(PATH, ZTL_EXECUTE_EDIT)
 #define ZTL_Print(PATH) ZTL_ShellOpen(PATH, ZTL_EXECUTE_PRINT)
 #define ZTL_Hyperlink(ADDRESS) ZTL_ShellOpen(ADDRESS, ZTL_EXECUTE_OPEN)
 #define ZTL_HyperlinkDiscrete(ADDRESS) ZTL_Hyperlink(ADDRESS, ZTL_EXECUTE_OPEN | ZTL_EXECUTE_HIDE)
-#else
+#else // ZTL_BUILD_OS
 #define ZTL_Open(PATH) ZTL_ShellOpen(PATH, ZTL_EXECUTE_OPEN)
 #define ZTL_OpenDiscrete(PATH) ZTL_ShellOpen(PATH, ZTL_EXECUTE_OPEN | ZTL_EXECUTE_HIDE)
 #define ZTL_Edit(PATH) ZTL_ShellOpen(PATH, ZTL_EXECUTE_EDIT)

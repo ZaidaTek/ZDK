@@ -35,7 +35,7 @@ typedef struct {
     ZT_FLAG ret;
 } rZT_THREAD;
 
-#if defined(ZTL_BUILD_WINDOWS)
+#if defined(ZTL_BUILD_WINDOWS) && (ZTL_BUILD_WINDOWS)
 #include <windows.h>
 #include <commdlg.h>
 #define ZTL_SERIAL_GRACE 3000
@@ -65,7 +65,7 @@ typedef OPENFILENAME rZT_SELECT;
     (RUNTIME)->lpstrInitialDir = (LPCTSTR)rZTL__SELECT_DIR;\
     (RUNTIME)->Flags = OFN_EXPLORER
 //#define ZTL_RuntimeSelectDialog() ({rZTL__SELECT_FLAG & ZTL_FLAG_SELECT_SAVE ? GetSaveFileName(rZTL__SELECT_RUNTIME) : GetOpenFileName(rZTL__SELECT_RUNTIME);})
-#elif defined(ZTL_BUILD_LINUX)
+#elif defined(ZTL_BUILD_LINUX) && (ZTL_BUILD_LINUX)
 #define _GNU_SOURCE
 #include <stdlib.h>
 #include <time.h>

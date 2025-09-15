@@ -7,25 +7,25 @@
 
 #if defined(__WIN64) || defined(_WIN64) || defined(WIN64)
 	#define ZTM_BUILD_WIDTH 32 // deliberate
-	#define ZTM_BUILD_WINDOWS
+	#define ZTM_BUILD_WINDOWS 0x1
 #elif defined(__WIN32) || defined(_WIN32) || defined(WIN32)
 	#define ZTM_BUILD_WIDTH 32
-	#define ZTM_BUILD_WINDOWS
+	#define ZTM_BUILD_WINDOWS 0x1
 #elif defined(__MACH__) || defined(__APPLE__)
 	#define ZTM_BUILD_WIDTH 32
 	#define ZTM_BUILD_APPLE
 #elif defined(__linux__)
 	#define ZTM_BUILD_WIDTH 32
-	#define ZTM_BUILD_LINUX
+	#define ZTM_BUILD_LINUX 0x1
 #elif defined(__AVR)
 	#ifndef ZTM_BUILD_EMBED
 		#define ZTM_BUILD_EMBED 0x1
 	#endif // ZTM_BUILD_EMBED
 	#define ZTM_BUILD_WIDTH 8
-	#define ZTM_BUILD_AVR
+	#define ZTM_BUILD_AVR 0x1
 #else
 	#define ZTM_BUILD_WIDTH 32
-	#define ZTM_BUILD_UNKNOWN
+	#define ZTM_BUILD_UNKNOWN 0x1
 	#warning "ZTM-BUILD-WARNING: 'ZTM_BUILD_UNKNOWN' is defined"
 #endif // ZTM_BUILD_OS
 

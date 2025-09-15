@@ -6,7 +6,7 @@
 #define ZTL_RT_WINDOWS_C_INCLUDED
 
 #include "ZTL-RT.h"
-#ifdef ZTL_BUILD_WINDOWS
+#if defined (ZTL_BUILD_WINDOWS) && (ZTL_BUILD_WINDOWS)
 void ZTL_LibraryFree(ZT_LIBRARY* iLibrary) {
     FreeLibrary((HMODULE)iLibrary);
 }
@@ -232,4 +232,5 @@ ZT_INDEX ZTL_RuntimeSelectDialog(void) {
     return rZTL__SELECT_COUNT;
 }
 #endif // ZTL_BUILD_WINDOWS
+
 #endif // ZTL_RT_WINDOWS_C_INCLUDED

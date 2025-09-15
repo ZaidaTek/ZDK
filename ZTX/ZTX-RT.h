@@ -10,18 +10,18 @@
     #include <png.h>
     #include <jpeglib.h>
     #include <jerror.h>
-#if defined(ZTL_BUILD_WINDOWS)
-#define ZTX_LIBRARY_ZLIB (const ZT_CHAR*)"zlib.dll"
-#define ZTX_LIBRARY_PNG (const ZT_CHAR*)"libpng.dll"
-#define ZTX_LIBRARY_JPG (const ZT_CHAR*)"libjpeg.dll"
-#elif defined(ZTL_BUILD_LINUX)
-#define ZTX_LIBRARY_ZLIB (const ZT_CHAR*)"libz.so.1"
-#define ZTX_LIBRARY_PNG (const ZT_CHAR*)"libpng16.so.16"
-#define ZTX_LIBRARY_JPG (const ZT_CHAR*)"libjpeg.so.62"
-#else
-#define ZTX_LIBRARY_ZLIB (const ZT_CHAR*)""
-#define ZTX_LIBRARY_PNG (const ZT_CHAR*)""
-#define ZTX_LIBRARY_JPG (const ZT_CHAR*)""
+#if defined(ZTL_BUILD_WINDOWS) && (ZTL_BUILD_WINDOWS)
+	#define ZTX_LIBRARY_ZLIB (const ZT_CHAR*)"zlib.dll"
+	#define ZTX_LIBRARY_PNG (const ZT_CHAR*)"libpng.dll"
+	#define ZTX_LIBRARY_JPG (const ZT_CHAR*)"libjpeg.dll"
+#elif defined(ZTL_BUILD_LINUX) && (ZTL_BUILD_LINUX)
+	#define ZTX_LIBRARY_ZLIB (const ZT_CHAR*)"libz.so.1"
+	#define ZTX_LIBRARY_PNG (const ZT_CHAR*)"libpng16.so.16"
+	#define ZTX_LIBRARY_JPG (const ZT_CHAR*)"libjpeg.so.62"
+#else // ZTL_BUILD_UNKNOWN
+	#define ZTX_LIBRARY_ZLIB (const ZT_CHAR*)""
+	#define ZTX_LIBRARY_PNG (const ZT_CHAR*)""
+	#define ZTX_LIBRARY_JPG (const ZT_CHAR*)""
 #endif // ZTL_BUILD_OS
 
 #define ZTX_MODE_DEFLATE 0x0

@@ -7,7 +7,7 @@
 
 #include "ZTL-RT.h"
 #include <stdio.h>
-#ifdef ZTL_BUILD_LINUX
+#if defined(ZTL_BUILD_LINUX) && (ZTL_BUILD_LINUX)
 void ZTL_LibraryFree(ZT_LIBRARY* iLibrary) {
     dlclose(iLibrary);
 }
@@ -232,4 +232,5 @@ ZT_INDEX ZTL_RuntimeSelectDialog() {
     #undef lFNC_APPEND
 }
 #endif // ZTL_BUILD_LINUX
+
 #endif // ZTL_RT_LINUX_C_INCLUDED
