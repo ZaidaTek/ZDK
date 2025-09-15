@@ -22,6 +22,7 @@
 	#define ZTL_BUILD_AVR
 #else
 	#define ZTL_BUILD_UNKNOWN
+	#warning "ZTL-BUILD-WARNING: 'ZTL_BUILD_UNKNOWN' is defined"
 #endif // ZTL_BUILD_OS
 
 #endif //ZTL_BUILD_H_INCLUDED

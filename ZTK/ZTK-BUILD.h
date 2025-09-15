@@ -16,8 +16,11 @@
 	#define ZTK_BUILD_WINDOWS
 #elif defined(ZTL_BUILD_LINUX)
 	#define ZTK_BUILD_LINUX
+#elif defined(ZTK_BUILD_AVR)
+	#define ZTK_BUILD_AVR
 #else
 	#define ZTK_BUILD_UNKNOWN
+	#warning "ZTK-BUILD-WARNING: 'ZTK_BUILD_UNKNOWN' is defined"
 #endif // ZTK_BUILD_OS
 
 #endif // ZTK_BUILD_H_INCLUDED
