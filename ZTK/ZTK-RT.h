@@ -36,6 +36,7 @@
 #define ZTK_DEFAULT_TIMER_RESOLUTION 1
 #define ZTK_DEFAULT_TIMER_PUMP 5
 #define ZTK_DEFAULT_INPUT_FLAG ZTK_FLAG_NONE
+// /#include "ZTK__Defines.h"
 
 typedef struct {
     void* data;
@@ -136,46 +137,51 @@ typedef struct {
 extern rZTK_HOST rZTK_Host;
 
 #ifdef ZTK_BUILD_WINDOWS
-// #if (ZTK_BUILD_WIDTH > 32) // TODO
-// #define ZTK_TYPE_COMPILED ZTK_TYPE_WIN64
-// #else
-#define ZTK_TYPE_COMPILED ZTK_TYPE_WIN32
-// #endif
-#define ZTK_PALETTE_SYSTEM ZTM_PALETTE_ARGB
-#define ZTK_PALETTE_OPENGL ZTM_PALETTE_ABGR // I guess? Note: Apparently, endianess plays a roll in this
-#define ZTK_PALETTE_BRUSH ZTM_PALETTE_ABGR
-#include "ZTW32/ZTW32.h"
-#define ZTK_RuntimeQuit() ZTW32_Quit()
-#define ZTK_RuntimeLoop() ZTW32_Loop()
-#define ZTK_RuntimeKeyReload(STATE_OUT) ZTW32_KeyLoad(STATE_OUT)
-#define ZTK_RuntimeLoad() ZTW32_New()
-#define ZTK_RuntimeFree() ZTW32_Free()
-#define ZTK_RuntimeRectLoad() ZTW32_RectLoad()
-#define ZTK_RuntimeRectApply() ZTW32_RectLoad(); ZTW32_RectApply()
-#define ZTK_RuntimeFontSourceFree(FONT) ZTW32_FontFreeSource(FONT)
-#define ZTK_RuntimeFontSourceLoad(FONT) ZTW32_FontLoadSource(FONT)
-#define ZTK_RuntimeFontRuntimeFree(FONT) ZTW32_FontFreeRuntime(FONT)
-#define ZTK_RuntimeFontRuntimeLoad(FONT) ZTW32_FontLoadRuntime(FONT)
-#define ZTK_RuntimeFontWindow() ZTW32_DrawFontLoad()
-#define ZTK_RuntimeOpen() ZTW32_Open()
-#define ZTK_RuntimeProcess() ZTW32_Process()
-#define ZTK_RuntimeDrawReload() ZTW32_DrawSize()
-#define ZTK_RuntimeDrawClear() ZTW32_DrawClear()
-#define ZTK_RuntimeDrawPresent() ZTW32_DrawPresent()
-#define ZTK_RuntimeDrawClearColor(COLOR) ZTW32_DrawClearColor(COLOR)
-#define ZTK_RuntimeDrawSurface(SURFACE,RECT) ZTW32_DrawSurface(SURFACE, RECT, ZTK_BLENDMODE_ALPHA)
-#define ZTK_RuntimeDrawSprite(SPRITE,RECT) ZTW32_DrawSprite(SPRITE, RECT, ZTK_BLENDMODE_ALPHA)
-#define ZTK_RuntimeDrawText(TEXT,RECT) ZTW32_DrawText(TEXT,RECT)
-#define ZTK_RuntimeGetDrawTextSize(TEXT,SIZE_OUT) ZTW32_DrawTextSize(TEXT, SIZE_OUT)
-#define ZTK_RuntimeSpriteFree(SPRITE) ZTW32_SpriteFree(SPRITE)
-#define ZTK_RuntimeSprite(SOURCE,BLOCK,PALLETE) ZTW32_Sprite(SOURCE,BLOCK,PALLETE)
-#define ZTK_RuntimeSurfaceFromFont(TEXT,FONT,PALETTE_OUT) ZTW32_SurfaceFromFont(TEXT, FONT, PALETTE_OUT)
-#define ZTK_RuntimeSizeFromFont(TEXT,FONT,SIZE_OUT) ZTW32_SizeFromFont(TEXT, FONT, SIZE_OUT)
+	#if (ZTK_BUILD_WIDTH > 32)
+		#define ZTK_TYPE_COMPILED ZTK_TYPE_WIN64
+	#else
+		#define ZTK_TYPE_COMPILED ZTK_TYPE_WIN32
+	#endif
+	#define ZTK_PALETTE_SYSTEM ZTM_PALETTE_ARGB
+	#define ZTK_PALETTE_OPENGL ZTM_PALETTE_ABGR // I guess? Note: Apparently, endianess plays a roll in this
+	#define ZTK_PALETTE_BRUSH ZTM_PALETTE_ABGR
+	
+	#include "ZTW32.h"
+	#define ZTK_RuntimeQuit() ZTW32_Quit()
+	#define ZTK_RuntimeLoop() ZTW32_Loop()
+	#define ZTK_RuntimeKeyReload(STATE_OUT) ZTW32_KeyLoad(STATE_OUT)
+	#define ZTK_RuntimeLoad() ZTW32_New()
+	#define ZTK_RuntimeFree() ZTW32_Free()
+	#define ZTK_RuntimeRectLoad() ZTW32_RectLoad()
+	#define ZTK_RuntimeRectApply() ZTW32_RectLoad(); ZTW32_RectApply()
+	#define ZTK_RuntimeFontSourceFree(FONT) ZTW32_FontFreeSource(FONT)
+	#define ZTK_RuntimeFontSourceLoad(FONT) ZTW32_FontLoadSource(FONT)
+	#define ZTK_RuntimeFontRuntimeFree(FONT) ZTW32_FontFreeRuntime(FONT)
+	#define ZTK_RuntimeFontRuntimeLoad(FONT) ZTW32_FontLoadRuntime(FONT)
+	#define ZTK_RuntimeFontWindow() ZTW32_DrawFontLoad()
+	#define ZTK_RuntimeOpen() ZTW32_Open()
+	#define ZTK_RuntimeProcess() ZTW32_Process()
+	#define ZTK_RuntimeDrawReload() ZTW32_DrawSize()
+	#define ZTK_RuntimeDrawClear() ZTW32_DrawClear()
+	#define ZTK_RuntimeDrawPresent() ZTW32_DrawPresent()
+	#define ZTK_RuntimeDrawClearColor(COLOR) ZTW32_DrawClearColor(COLOR)
+	#define ZTK_RuntimeDrawSurface(SURFACE,RECT) ZTW32_DrawSurface(SURFACE, RECT, ZTK_BLENDMODE_ALPHA)
+	#define ZTK_RuntimeDrawSprite(SPRITE,RECT) ZTW32_DrawSprite(SPRITE, RECT, ZTK_BLENDMODE_ALPHA)
+	#define ZTK_RuntimeDrawText(TEXT,RECT) ZTW32_DrawText(TEXT,RECT)
+	#define ZTK_RuntimeGetDrawTextSize(TEXT,SIZE_OUT) ZTW32_DrawTextSize(TEXT, SIZE_OUT)
+	#define ZTK_RuntimeSpriteFree(SPRITE) ZTW32_SpriteFree(SPRITE)
+	#define ZTK_RuntimeSprite(SOURCE,BLOCK,PALLETE) ZTW32_Sprite(SOURCE,BLOCK,PALLETE)
+	#define ZTK_RuntimeSurfaceFromFont(TEXT,FONT,PALETTE_OUT) ZTW32_SurfaceFromFont(TEXT, FONT, PALETTE_OUT)
+	#define ZTK_RuntimeSizeFromFont(TEXT,FONT,SIZE_OUT) ZTW32_SizeFromFont(TEXT, FONT, SIZE_OUT)
 #else
-#define ZTK_TYPE_COMPILED ZTK_TYPE_UNKNOWN
-#define ZTK_PALETTE_SYSTEM ZTM_PALETTE_RGBA
-#define ZTK_PALETTE_OPENGL ZTM_PALETTE_RGBA
-#define ZTK_PALETTE_BRUSH ZTM_PALETTE_RGBA
+	#if (ZTK_BUILD_WIDTH > 32)
+		#define ZTK_TYPE_COMPILED ZTK_TYPE_UNK64
+	#else
+		#define ZTK_TYPE_COMPILED ZTK_TYPE_UNK32
+	#endif
+	#define ZTK_PALETTE_SYSTEM ZTM_PALETTE_RGBA
+	#define ZTK_PALETTE_OPENGL ZTM_PALETTE_RGBA
+	#define ZTK_PALETTE_BRUSH ZTM_PALETTE_RGBA
 #endif // ZTK_BUILD_WINDOWS
 
 #ifdef __cplusplus
@@ -217,8 +223,8 @@ rZT_FONT** ZTK_InternalFontSystem(void);
 #include "ZTK-RT-Font.h"
 #include "ZTK-RT-Printer.h"
 
-#ifdef ZTK_OPENGL_ENABLE
-#include "ZTGL/ZTGL.h"
+#if defined(ZTK_OPENGL_ENABLE) && (ZTK_OPENGL_ENABLE)
+#include "ZTGL.h"
 #endif // ZTK_OPENGL_ENABLE
 
 #endif // ZTK_RT_H_INCLUDED

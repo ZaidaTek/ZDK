@@ -5,6 +5,8 @@
 #ifndef ZTK_DEFAULT_H_INCLUDED
 #define ZTK_DEFAULT_H_INCLUDED
 
+#define ZTK_DEFAULT_OPENGL_ENABLED 0x1
+
 #define ZTK_DEFAULT_TITLE "Default ZTK Engine Window Title"
 #define ZTK_DEFAULT_PALETTE_USER ZTM_PALETTE_RGBA
 #define ZTK_DEFAULT_BACKGROUND 0x000000ff
@@ -17,11 +19,11 @@
 #define ZTK_DEFAULT_FONT_COLOR 0xffffffff
 
 #ifdef ZTK_BUILD_WINDOWS
-#define ZTK_DEFAULT_FONT_SOURCE NULL
-#define ZTK_DEFAULT_FONT "MS Sans Serif"
+	#define ZTK_DEFAULT_FONT_SOURCE NULL
+	#define ZTK_DEFAULT_FONT "MS Sans Serif"
 #else
-#define ZTK_DEFAULT_FONT_SOURCE "OpenSans/OpenSans-Regular.ttf"
-#define ZTK_DEFAULT_FONT "Open Sans"
+	#define ZTK_DEFAULT_FONT_SOURCE "OpenSans/OpenSans-Regular.ttf"
+	#define ZTK_DEFAULT_FONT "Open Sans"
 #endif // ZTK_BUILD_WINDOWS
 
 #endif // ZTK_DEFAULT_H_INCLUDED

@@ -11,7 +11,7 @@ ZT_FLAG rZTGL__FLAG = ZTGL_FLAG_INIT;
 rZTGL_HOST rZTGL_Host;
 
 #ifdef ZTK_BUILD_WINDOWS
-#include "../ZTW32/ZTW32-RT.h"
+#include "ZTW32-RT.h"
 #define ZTGL_RuntimeInit() ({\
     PIXELFORMATDESCRIPTOR lPFD;\
     ZTM8_Zero(&lPFD, sizeof(lPFD));\

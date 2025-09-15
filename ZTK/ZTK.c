@@ -103,7 +103,7 @@ void ZTK_GetSizeFromFont(const ZT_CHAR* iText, ZT_FONT* iFont, ZT_POINT* oSize) 
 void ZTK_RendererInit(void) {
     switch (rZTK_Host.system.renderer) {
         case ZTK_RENDERER_SYSTEM: ZTK_RuntimeDrawReload(); return;
-        #ifdef ZTK_OPENGL_ENABLE
+        #if defined(ZTK_OPENGL_ENABLE) && (ZTK_OPENGL_ENABLE)
         case ZTK_RENDERER_OPENGL: ZTGL_Init(); ZTGL_Size(); return;
         #endif // ZTK_OPENGL_ENABLE
         default: return;
@@ -111,7 +111,7 @@ void ZTK_RendererInit(void) {
 }
 void ZTK_RendererExit(void) {
     switch (rZTK_Host.system.renderer) {
-        #ifdef ZTK_OPENGL_ENABLE
+        #if defined(ZTK_OPENGL_ENABLE) && (ZTK_OPENGL_ENABLE)
         case ZTK_RENDERER_OPENGL: ZTGL_Exit(); return;
         #endif // ZTK_OPENGL_ENABLE
         default: return;
@@ -122,7 +122,7 @@ void ZTK_Renderer(ZT_FLAG iType) {
     ZT_FLAG lPalette;
     switch (iType) {
         case ZTK_RENDERER_SYSTEM: lRenderer = ZTK_RENDERER_SYSTEM; lPalette = ZTK_PALETTE_SYSTEM; break;
-        #ifdef ZTK_OPENGL_ENABLE
+        #if defined(ZTK_OPENGL_ENABLE) && (ZTK_OPENGL_ENABLE)
         case ZTK_RENDERER_OPENGL: lRenderer = ZTK_RENDERER_OPENGL; lPalette = ZTK_PALETTE_OPENGL; break;
         #endif // ZTK_OPENGL_ENABLE
         default: lRenderer = ZTK_RENDERER_NONE; break;
@@ -157,7 +157,7 @@ void ZTK_BackgroundColor(ZT_COLOR iColor) {
     rZTK_Host.user.background = iColor;
     switch (rZTK_Host.system.renderer) {
         case ZTK_RENDERER_SYSTEM: ZTK_RuntimeDrawClearColor(iColor); return;
-        #ifdef ZTK_OPENGL_ENABLE
+        #if defined(ZTK_OPENGL_ENABLE) && (ZTK_OPENGL_ENABLE)
         case ZTK_RENDERER_OPENGL: ZTGL_ClearColor(iColor); return;
         #endif // ZTK_OPENGL_ENABLE
         default: return;
@@ -201,7 +201,7 @@ void ZTK_Open(void) {ZTK_RuntimeOpen();}
 void ZTK_DrawClear(void) {
     switch (rZTK_Host.system.renderer) {
         case ZTK_RENDERER_SYSTEM: ZTK_RuntimeDrawClear(); return;
-        #ifdef ZTK_OPENGL_ENABLE
+        #if defined(ZTK_OPENGL_ENABLE) && (ZTK_OPENGL_ENABLE)
         case ZTK_RENDERER_OPENGL: ZTGL_Clear(); return;
         #endif // ZTK_OPENGL_ENABLE
         default: return;
@@ -211,7 +211,7 @@ void ZTK_DrawSize(void) {
     ZTK_RuntimeRectLoad();
     switch (rZTK_Host.system.renderer) {
         case ZTK_RENDERER_SYSTEM: ZTK_RuntimeDrawReload(); return;
-        #ifdef ZTK_OPENGL_ENABLE
+        #if defined(ZTK_OPENGL_ENABLE) && (ZTK_OPENGL_ENABLE)
         case ZTK_RENDERER_OPENGL: ZTGL_Size(); return;
         #endif // ZTK_OPENGL_ENABLE
         default: return;
@@ -228,7 +228,7 @@ void ZTK_DrawBufferItem(rZTK_DRAW* iObject) {
                 default: break;
             }
             break;
-        #ifdef ZTK_OPENGL_ENABLE
+        #if defined(ZTK_OPENGL_ENABLE) && (ZTK_OPENGL_ENABLE)
         case ZTK_RENDERER_OPENGL:
             switch (iObject->type) {
                 case ZTK_DRAW_TYPE_SPRITE: ZTGL_DrawSprite(iObject->source, &(iObject->dest)); break;
@@ -268,7 +268,7 @@ void ZTK_DrawPresent(void) {
     }
     switch (rZTK_Host.system.renderer) {
         case ZTK_RENDERER_SYSTEM: ZTK_RuntimeDrawPresent(); return;
-        #ifdef ZTK_OPENGL_ENABLE
+        #if defined(ZTK_OPENGL_ENABLE) && (ZTK_OPENGL_ENABLE)
         case ZTK_RENDERER_OPENGL: ZTGL_Present(); return;
         #endif // ZTK_OPENGL_ENABLE
         default: return;

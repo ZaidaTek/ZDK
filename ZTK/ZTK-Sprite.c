@@ -10,7 +10,7 @@
 void ZTK_SpriteFree(ZT_SPRITE* iSprite) {
     rZT_SPRITE* lSprite = iSprite;
     switch (lSprite->type) {
-        #ifdef ZTK_OPENGL_ENABLE
+        #if defined(ZTK_OPENGL_ENABLE) && (ZTK_OPENGL_ENABLE)
         case ZTK_SPRITE_TYPE_GLTEX: ZTGL_SpriteTextureFree(lSprite); break;
         #endif // ZTK_OPENGL_ENABLE
         case ZTK_SPRITE_TYPE_GLPIXELS: ZTM32_Free(lSprite->data); break;
@@ -23,7 +23,7 @@ void ZTK_SpriteFree(ZT_SPRITE* iSprite) {
 ZT_SPRITE* ZTK_SpriteFromSurface(const ZT_SURFACE* iSurface, ZT_FLAG iPalette) {
     switch (rZTK_Host.system.renderer) {
         case ZTK_RENDERER_SYSTEM: return ZTK_RuntimeSprite(iSurface->pixels, &(iSurface->block), iPalette);
-        #ifdef ZTK_OPENGL_ENABLE
+        #if defined(ZTK_OPENGL_ENABLE) && (ZTK_OPENGL_ENABLE)
         case ZTK_RENDERER_OPENGL: return ZTGL_Sprite(iSurface->pixels, &(iSurface->block), iPalette);
         #endif // ZTK_OPENGL_ENABLE
         default: return NULL;

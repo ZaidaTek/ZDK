@@ -33,14 +33,14 @@
 			<Add option="-lZTL" />
 			<Add option="-lgdi32 -lmsimg32 -lopengl32 -lglu32" />
 		</Linker>
-		<Unit filename="ZTGL/ZTGL.c">
+		<Unit filename="ZTGL.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZTGL/ZTGL.h" />
-		<Unit filename="ZTGL/ZTGL-RT.c">
+		<Unit filename="ZTGL.h" />
+		<Unit filename="ZTGL-RT.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZTGL/ZTGL-RT.h" />
+		<Unit filename="ZTGL-RT.h" />
 		<Unit filename="ZTK.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -69,17 +69,17 @@
 		<Unit filename="ZTK-RT.h" />
 		<Unit filename="ZTK-RT-Font.h" />
 		<Unit filename="ZTK-RT-Printer.h" />
-		<Unit filename="ZTW32/ZTW32.c">
+		<Unit filename="ZTW32.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZTW32/ZTW32.h" />
-		<Unit filename="ZTW32/ZTW32-Draw.c">
+		<Unit filename="ZTW32.h" />
+		<Unit filename="ZTW32-Draw.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZTW32/ZTW32-DEBUG.c">
+		<Unit filename="ZTW32-DEBUG.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZTW32/ZTW32-RT.h" />
+		<Unit filename="ZTW32-RT.h" />
 		<Unit filename="ZTK-Font.c">
 			<Option compilerVar="CC" />
 		</Unit>

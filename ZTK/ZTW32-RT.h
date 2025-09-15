@@ -5,7 +5,7 @@
 #ifndef ZTW32_RT_H_INCLUDED
 #define ZTW32_RT_H_INCLUDED
 
-#include "../ZTK-RT.h"
+#include "ZTK-RT.h"
 #include "ZTW32.h"
 
 #define WIN32_LEAN_AND_MEAN // since 2020-12-31

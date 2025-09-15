@@ -5,7 +5,7 @@
 #ifndef ZTGL_RT_H_INCLUDED
 #define ZTGL_RT_H_INCLUDED
 
-#include "../ZTK-RT.h"
+#include "ZTK-RT.h"
 #include "ZTGL.h"
 #include <GL/gl.h>
 #include <GL/glu.h>

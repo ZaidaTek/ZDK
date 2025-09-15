@@ -5,8 +5,6 @@
 #ifndef ZTGL_H_INCLUDED
 #define ZTGL_H_INCLUDED
 
-// #include "../ZTK-RT.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif // __cplusplus
@@ -27,4 +25,5 @@ rZT_SPRITE* ZTGL_SpriteTexture(const ZT_COLOR* iPixels, const ZT_POINT* iBlock, 
 #ifdef __cplusplus
 }
 #endif // __cplusplus
+
 #endif // ZTGL_H_INCLUDED
