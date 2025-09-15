@@ -7,10 +7,10 @@
 
 typedef union {
     struct {
-        ZT_INDEX_HALF S;
-        ZT_INDEX_HALF H;
-        ZT_INDEX_HALF E;
-        ZT_FLAG_HALF A;
+        ZT_H_INDEX S;
+        ZT_H_INDEX H;
+        ZT_H_INDEX E;
+        ZT_H_FLAG A;
     };
     struct {
         ZT_FLAG device;
