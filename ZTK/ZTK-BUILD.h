@@ -13,15 +13,15 @@
 #endif // ZTL_BUILD_WIDTH
 
 #if defined(ZTL_BUILD_WINDOWS) && (ZTL_BUILD_WINDOWS)
-	#define ZTK_BUILD_WINDOWS
+	#define ZTK_BUILD_WINDOWS 0x1
 #elif defined(ZTL_BUILD_APPLE) && (ZTL_BUILD_APPLE)
-	#define ZTK_BUILD_APPLE
+	#define ZTK_BUILD_APPLE 0x1
 #elif defined(ZTL_BUILD_LINUX) && (ZTL_BUILD_LINUX)
-	#define ZTK_BUILD_LINUX
-#elif defined(ZTK_BUILD_AVR) && (ZTK_BUILD_AVR)
-	#define ZTK_BUILD_AVR
+	#define ZTK_BUILD_LINUX 0x1
+#elif defined(ZTL_BUILD_AVR) && (ZTL_BUILD_AVR)
+	#define ZTK_BUILD_AVR 0x1
 #else
-	#define ZTK_BUILD_UNKNOWN
+	#define ZTK_BUILD_UNKNOWN 0x1
 	#warning "ZTK-BUILD-WARNING: 'ZTK_BUILD_UNKNOWN' is defined"
 #endif // ZTK_BUILD_OS
 

@@ -18,10 +18,10 @@
 #define ZTK_DEFAULT_FONT_SIZE 18
 #define ZTK_DEFAULT_FONT_COLOR 0xffffffff
 
-#ifdef ZTK_BUILD_WINDOWS
+#if defined(ZTK_BUILD_WINDOWS) && (ZTK_BUILD_WINDOWS)
 	#define ZTK_DEFAULT_FONT_SOURCE NULL
 	#define ZTK_DEFAULT_FONT "MS Sans Serif"
-#else
+#else // ZTK_BUILD_WINDOWS
 	#define ZTK_DEFAULT_FONT_SOURCE "OpenSans/OpenSans-Regular.ttf"
 	#define ZTK_DEFAULT_FONT "Open Sans"
 #endif // ZTK_BUILD_WINDOWS

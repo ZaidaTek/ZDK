@@ -136,7 +136,7 @@ typedef struct {
 
 extern rZTK_HOST rZTK_Host;
 
-#ifdef ZTK_BUILD_WINDOWS
+#if defined(ZTK_BUILD_WINDOWS) && (ZTK_BUILD_WINDOWS)
 	#if (ZTK_BUILD_WIDTH > 32)
 		#define ZTK_TYPE_COMPILED ZTK_TYPE_WIN64
 	#else
@@ -173,7 +173,7 @@ extern rZTK_HOST rZTK_Host;
 	#define ZTK_RuntimeSprite(SOURCE,BLOCK,PALLETE) ZTW32_Sprite(SOURCE,BLOCK,PALLETE)
 	#define ZTK_RuntimeSurfaceFromFont(TEXT,FONT,PALETTE_OUT) ZTW32_SurfaceFromFont(TEXT, FONT, PALETTE_OUT)
 	#define ZTK_RuntimeSizeFromFont(TEXT,FONT,SIZE_OUT) ZTW32_SizeFromFont(TEXT, FONT, SIZE_OUT)
-#else
+#else // ZTK_BUILD_WINDOWS
 	#if (ZTK_BUILD_WIDTH > 32)
 		#define ZTK_TYPE_COMPILED ZTK_TYPE_UNK64
 	#else
