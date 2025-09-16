@@ -166,7 +166,7 @@ void ZTK_BackgroundColor(ZT_COLOR iColor) {
 
 // INTERNAL-ONLY FUNCTIONS
 void ZTK_TitleFree(void) {ZTM8_Free(rZTK_Host.user.title);}
-void ZTK_EventBufferFree(void) {ZTM8_Free(rZTK_Host.buffer.event->items); ZTM_QListFree(rZTK_Host.buffer.event);}
+void ZTK_EventBufferFree(void) {ZTM8_Free(rZTK_Host.buffer.event->items[0]); ZTM_QListFree(rZTK_Host.buffer.event);}
 void ZTK_EventBufferCreate(void) {
     rZTK_Host.system.flag.event = ZTK_DEFAULT_EVENT_FLAG;
     rZTK_Host.system.events.enabled = ZTK_DEFAULT_EVENT_ENABLED;
@@ -179,7 +179,7 @@ void ZTK_DrawBufferFree(void) {
         rZTK_DRAW* lItem = rZTK_Host.buffer.draw->items[i];
         if (lItem->type == ZTK_DRAW_TYPE_TEXTCOPY && lItem->source != NULL) {ZTM8_Free((ZT_CHAR*)lItem->source);};
     }
-    ZTM8_Free(rZTK_Host.buffer.draw->items);
+    ZTM8_Free(rZTK_Host.buffer.draw->items[0]);
     ZTM_QListFree(rZTK_Host.buffer.draw);
 }
 void ZTK_DrawBufferCreate(void) {

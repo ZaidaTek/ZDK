@@ -38,7 +38,7 @@ void ZUI_HostElementsCreate(ZT_INDEX iSize) {
     rZUI_RTime.element.length = lLength;
 }
 void ZUI_HostEventsFree(void) {
-    ZTM8_Free(rZUI_RTime.event.buffer->items);
+    ZTM8_Free(rZUI_RTime.event.buffer->items[0]);
     ZTM_QListFree(rZUI_RTime.event.buffer);
 }
 void ZUI_HostEventsCreate(ZT_INDEX iSize) {
