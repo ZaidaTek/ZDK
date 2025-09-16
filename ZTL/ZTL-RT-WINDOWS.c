@@ -111,7 +111,9 @@ ZT_FLAG ZTL_ShellOpen(const ZT_CHAR* iPath, ZT_FLAG iMode) {
         case ZTL_EXECUTE_PRINT: lType = "print"; break;
         default: lType = NULL; break;
     }
-    return (ZT_FLAG)ShellExecute(NULL, lType, (LPCTSTR)iPath, NULL, NULL, (iMode & ZTL_EXECUTE_HIDE) ? SW_SHOWMINNOACTIVE : SW_SHOW);
+	// NOTE ShellExecute returns HINSTANCE for 16-bit compatibility, but is not actual HINSTANCE
+	// NOTE It shall be cast to INT_PTR, which is an integer conforming sizeof(INT_PTR) == sizeof(void*)
+    return ((INT_PTR)ShellExecute(NULL, lType, (LPCTSTR)iPath, NULL, NULL, (iMode & ZTL_EXECUTE_HIDE) ? SW_SHOWMINNOACTIVE : SW_SHOW));
 }
 ZT_BOOL ZTL_DirectoryCreate(const ZT_CHAR* iPath) {
     BOOL lCreated = CreateDirectory((LPCTSTR)iPath, NULL);

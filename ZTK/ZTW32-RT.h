@@ -9,7 +9,7 @@
 #include "ZTW32.h"
 
 #define WIN32_LEAN_AND_MEAN // since 2020-12-31
-#define WINVER 0x0501 // so that AlphaBlend function is included
+// #define WINVER 0x0501 // so that AlphaBlend function is included // 25259 works without now? (newer gcc/includes?)
 #include <windows.h>
 
 #define ZTW32_DEFAULT_CLASS "ZTK-ZTW32"

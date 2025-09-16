@@ -163,8 +163,8 @@ void ZTK_BackgroundColor(ZT_COLOR iColor) {
         default: return;
     }
 }
-
 // INTERNAL-ONLY FUNCTIONS
+#include <stdio.h>
 void ZTK_TitleFree(void) {ZTM8_Free(rZTK_Host.user.title);}
 void ZTK_EventBufferFree(void) {ZTM8_Free(rZTK_Host.buffer.event->items[0]); ZTM_QListFree(rZTK_Host.buffer.event);}
 void ZTK_EventBufferCreate(void) {
@@ -187,7 +187,6 @@ void ZTK_DrawBufferCreate(void) {
     rZTK_Host.buffer.draw = ZTM_QListNew(ZTK_BUFFER_DRAW);
     ZTM8_NewArray(ZTK_BUFFER_DRAW, sizeof(rZTK_DRAW), 8, rZTK_Host.buffer.draw->items);
 }
-
 void ZTK_Free(void) {
     ZTK_FontFree(rZTK_Host.system.font);
     ZTK_RendererExit();

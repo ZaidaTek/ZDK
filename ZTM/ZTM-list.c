@@ -130,7 +130,7 @@ void ZTM_ListSort(ZT_LIST* iList, ZT_FLAG (*iComparator)(const void**, const voi
 // ZT_QLIST
 // INTERNAL-ONLY FUNCTIONS
 void ZTM_QListAdvanceData(ZT_QLIST* iQList) {++iQList->data; iQList->data %= iQList->length;}
-void ZTM_QListAdvanceUser(ZT_QLIST* iQList) {++iQList->user; iQList->user %= iQList->length;}
+void ZTM_QListAdvanceUser(ZT_QLIST* iQList) {++iQList->user; iQList->user %= iQList->length;} // TODO revert checks for zero length
 void ZTM_QListRevertData(ZT_QLIST* iQList) {if (iQList->data) {--iQList->data;} else {iQList->data = iQList->length ? (iQList->length - 1) : 0;}}
 void ZTM_QListRevertUser(ZT_QLIST* iQList) {if (iQList->user) {--iQList->user;} else {iQList->user = iQList->length ? (iQList->length - 1) : 0;}}
 // PUBLIC FUNCTIONS

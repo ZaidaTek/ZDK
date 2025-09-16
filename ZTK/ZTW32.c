@@ -165,8 +165,8 @@ void ZTW32_Command(ZT_FLAG iWParam) {
     }
 }
 void ZTW32_Loop(void) {SendMessageCallback(rZTW32_Host.window.handle, ZTW32_WM_USER, 0x0, 0x0, NULL, 0);}
-void ZTW32_ModeMain(void) {SetWindowLongPtr(rZTW32_Host.window.handle, GWL_WNDPROC, (LONG_PTR)&ZTW32_CallbackMain);}
-void ZTW32_ModeExit(void) {SetWindowLongPtr(rZTW32_Host.window.handle, GWL_WNDPROC, (LONG_PTR)&ZTW32_CallbackExit);}
+void ZTW32_ModeMain(void) {SetWindowLongPtr(rZTW32_Host.window.handle, GWLP_WNDPROC, (LONG_PTR)&ZTW32_CallbackMain);}
+void ZTW32_ModeExit(void) {SetWindowLongPtr(rZTW32_Host.window.handle, GWLP_WNDPROC, (LONG_PTR)&ZTW32_CallbackExit);}
 void ZTW32_Quit(void) {ZTK_MSG_Close(); ZTW32_ModeExit();}
 LRESULT CALLBACK ZTW32_CallbackInit(HWND iHwnd, UINT iMessage, WPARAM iWParam, LPARAM iLParam) {
     //ZTW32_PrintMessage(iMessage);
