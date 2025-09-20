@@ -2,17 +2,17 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZTW32_RT_H_INCLUDED
-#define ZTW32_RT_H_INCLUDED
+#ifndef ZTWIN_RT_H_INCLUDED
+#define ZTWIN_RT_H_INCLUDED
 
 #include "ZTK-RT.h"
-#include "ZTW32.h"
+#include "ZTWIN.h"
 
 #define WIN32_LEAN_AND_MEAN // since 2020-12-31
 // #define WINVER 0x0501 // so that AlphaBlend function is included // 25259 works without now? (newer gcc/includes?)
 #include <windows.h>
 
-#define ZTW32_DEFAULT_CLASS "ZTK-ZTW32"
+#define ZTW32_DEFAULT_CLASS "ZTK-ZTWIN"
 #define ZTW32_DEFAULT_CLASS_STYLE (CS_HREDRAW | CS_VREDRAW | CS_OWNDC)
 #define ZTW32_DEFAULT_WINDOW_STYLE (WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX | WS_THICKFRAME | WS_MAXIMIZEBOX)
 #define ZTW32_WM_USER 0x8001
@@ -52,14 +52,16 @@ extern rZTW32_HOST rZTW32_Host;
 #ifdef __cplusplus
 extern "C" {
 #endif // __cplusplus
-///ZTW32.c
+///ZTWIN.c
 LRESULT CALLBACK ZTW32_CallbackInit(HWND iHwnd, UINT iMessage, WPARAM iWParam, LPARAM iLParam);
 LRESULT CALLBACK ZTW32_CallbackMain(HWND iHwnd, UINT iMessage, WPARAM iWParam, LPARAM iLParam);
 LRESULT CALLBACK ZTW32_CallbackExit(HWND iHwnd, UINT iMessage, WPARAM iWParam, LPARAM iLParam);
-///ZTW32__Debug.c
-void ZTW32_PrintMessage(ZT_INDEX iMessage);
+///ZTWIN-DEBUG.c
+#if defined(ZTK_BUILD_DEBUG) && (ZTK_BUILD_DEBUG)
+void ZTWIN_DBG_Message(ZT_INDEX iMessage);
+#endif // ZTK_BUILD_DEBUG
 #ifdef __cplusplus
 }
 #endif // __cplusplus
 
-#endif // ZTW32_RT_H_INCLUDED
+#endif // ZTWIN_RT_H_INCLUDED

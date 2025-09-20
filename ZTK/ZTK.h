@@ -11,6 +11,9 @@
 #endif // ZTK_OPENGL_ENABLE
 // ZTK MANDATORY
 #include <ZTL.h>
+
+// #define ZTK_BUILD_DEBUG 0x1
+
 #include "ZTK-BUILD.h"
 #include "ZTK-TYPE.h"
 #include "ZTK-DEFINE.h"

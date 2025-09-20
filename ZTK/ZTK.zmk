@@ -1,0 +1,20 @@
+{
+    "target": "./libZTK.so",
+    "sources": [
+        "./ZTK-Sprite.c",
+        "./ZTK-Font.c",
+        "./ZTK-Printer.c",
+        "./ZTK-RT-EVENT.c",
+        "./ZTK-RT-MSG.c",
+        "./ZTK-RT.c",
+        "./ZTK.c"
+    ],
+    "include": ["../ZTM", "../ZTL"],
+    "link": ["ZTM", "ZTL"],
+    "flag": {
+		"extra": {
+			"shared": ["-fPIC"],
+			"linker": ["-shared"]
+		}
+    }
+}

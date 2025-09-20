@@ -17,10 +17,10 @@ void ZTK_MSG_MouseButton(ZT_FLAG iButton, ZT_FLAG iState){
     rZTK_Host.buffer.input.mouse.state &= (~iButton);
     if (iState) {rZTK_Host.buffer.input.mouse.state |= iButton;}
 }
-void ZTK_MSG_MouseState(ZT_FLAG iState) {
-    rZTK_Host.buffer.flag |= ZTK_HID_MOUSE;
-    rZTK_Host.buffer.input.mouse.state = iState;
-}
+// void ZTK_MSG_MouseState(ZT_FLAG iState) {
+    // rZTK_Host.buffer.flag |= ZTK_HID_MOUSE;
+    // rZTK_Host.buffer.input.mouse.state = iState;
+// }
 void ZTK_MSG_MouseWheel(ZT_I iIncrement) {
 	if (iIncrement) {
         rZTK_Host.buffer.flag |= ZTK_HID_MOUSE;

@@ -2,8 +2,8 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZTW32_H_INCLUDED
-#define ZTW32_H_INCLUDED
+#ifndef ZTWIN_H_INCLUDED
+#define ZTWIN_H_INCLUDED
 
 #ifdef __cplusplus
 extern "C" {
@@ -44,4 +44,4 @@ void ZTW32_SizeFromFont(const ZT_CHAR* iText, rZT_FONT* iFont, ZT_POINT* oSize);
 }
 #endif // __cplusplus
 
-#endif // ZTW32_H_INCLUDED
+#endif // ZTWIN_H_INCLUDED

@@ -2,10 +2,10 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZTW32_DRAW_C_INCLUDED
-#define ZTW32_DRAW_C_INCLUDED
+#ifndef ZTWIN_DRAW_C_INCLUDED
+#define ZTWIN_DRAW_C_INCLUDED
 
-#include "ZTW32-RT.h"
+#include "ZTWIN-RT.h"
 
 void ZTW32_DrawFontLoad(void) {
     rZT_FONT* lFont;
@@ -250,4 +250,4 @@ void ZTW32_SizeFromFont(const ZT_CHAR* iText, rZT_FONT* iFont, ZT_POINT* oSize) 
     oSize->y = lW32Rect.bottom;
 }
 
-#endif // ZTW32_DRAW_C_INCLUDED
+#endif // ZTWIN_DRAW_C_INCLUDED

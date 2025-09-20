@@ -10,7 +10,7 @@ extern "C" {
 #endif // __cplusplus
 void ZTK_MSG_MouseMove(ZT_I iX, ZT_I iY);
 void ZTK_MSG_MouseButton(ZT_FLAG iButton, ZT_FLAG iState);
-void ZTK_MSG_MouseState(ZT_FLAG iState);
+// void ZTK_MSG_MouseState(ZT_FLAG iState);
 void ZTK_MSG_MouseWheel(ZT_I iIncrement);
 void ZTK_MSG_Key(ZT_BOOL iDown, ZT_INDEX iKey);
 void ZTK_MSG_Move(ZT_I iX, ZT_I iY);

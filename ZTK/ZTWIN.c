@@ -2,10 +2,10 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZTW32_C_INCLUDED
-#define ZTW32_C_INCLUDED
+#ifndef ZTWIN_C_INCLUDED
+#define ZTWIN_C_INCLUDED
 
-#include "ZTW32-RT.h"
+#include "ZTWIN-RT.h"
 
 rZTW32_HOST rZTW32_Host;
 
@@ -130,7 +130,7 @@ ZT_INDEX ZTW32_Process(void) {
     }
 	return lMessages;
 }
-//void ZTW32_KeyLoad(ZT_U8* oTarget) {
+//void ZTW32_KeyLoad(ZT_U8* oTarget) {}
 void ZTW32_KeyLoad(ZT_U32* oTarget) {
     ZTM8_Zero(oTarget, ZTK_KEY_SIZE_LENGTH >> 3);
     for (ZT_INDEX i = 0x8; i < ZTK_KEY_SIZE_LENGTH; i++) { // offset to skip VK_MOUSE keys
@@ -148,14 +148,16 @@ void ZTW32_RectLoad(void) {
 #define ZTW32_MouseY(LPARAM) ((LPARAM >> 16))
 #define ZTW32_MouseWheel(WPARAM) ((ZT_I16)(WPARAM >> 16))
 #define ZTW32_MouseXButton(WPARAM) (((WPARAM >> 16) & XBUTTON2) ? ZTK_SID_MOUSE_X2BUTTON : ZTK_SID_MOUSE_X1BUTTON)
+/* // TODO can this be removed?
 #define ZTW32_MouseState(WPARAM) ({\
     ZT_FLAG rHOSTMOUSESTATE_s = (iWParam & MK_LBUTTON) ? ZTK_SID_MOUSE_LBUTTON : ZTK_SID_NONE;\
-    if (iWParam & MK_RBUTTON) {lState |= ZTK_SID_MOUSE_RBUTTON;}\
-    if (iWParam & MK_MBUTTON) {lState |= ZTK_SID_MOUSE_MBUTTON;}\
-    if (iWParam & MK_XBUTTON1) {lState |= ZTK_SID_MOUSE_X1BUTTON;}\
-    if (iWParam & MK_XBUTTON2) {lState |= ZTK_SID_MOUSE_X2BUTTON;}\
+    if (iWParam & MK_RBUTTON) {rHOSTMOUSESTATE_s |= ZTK_SID_MOUSE_RBUTTON;}\
+    if (iWParam & MK_MBUTTON) {rHOSTMOUSESTATE_s |= ZTK_SID_MOUSE_MBUTTON;}\
+    if (iWParam & MK_XBUTTON1) {rHOSTMOUSESTATE_s |= ZTK_SID_MOUSE_X1BUTTON;}\
+    if (iWParam & MK_XBUTTON2) {rHOSTMOUSESTATE_s |= ZTK_SID_MOUSE_X2BUTTON;}\
     rHOSTMOUSESTATE_s;\
 })
+*/
 void ZTW32_Command(ZT_FLAG iWParam) {
     switch (iWParam) {
         case SC_MINIMIZE: ZTK_MSG_Minimize(ZT_TRUE); break;
@@ -169,7 +171,9 @@ void ZTW32_ModeMain(void) {SetWindowLongPtr(rZTW32_Host.window.handle, GWLP_WNDP
 void ZTW32_ModeExit(void) {SetWindowLongPtr(rZTW32_Host.window.handle, GWLP_WNDPROC, (LONG_PTR)&ZTW32_CallbackExit);}
 void ZTW32_Quit(void) {ZTK_MSG_Close(); ZTW32_ModeExit();}
 LRESULT CALLBACK ZTW32_CallbackInit(HWND iHwnd, UINT iMessage, WPARAM iWParam, LPARAM iLParam) {
-    //ZTW32_PrintMessage(iMessage);
+	#if defined(ZTK_BUILD_DEBUG) && (ZTK_BUILD_DEBUG)
+	ZTWIN_DBG_Message(iMessage);
+	#endif // ZTK_BUILD_DEBUG
     if (!(rZTK_Host.buffer.state & ZTK_STATE_DEFINED)) {
         rZTK_Host.buffer.flag |= ZTK_HID_WINDOW;
         rZTK_Host.buffer.state |= ZTK_STATE_DEFINED;
@@ -190,7 +194,9 @@ LRESULT CALLBACK ZTW32_CallbackInit(HWND iHwnd, UINT iMessage, WPARAM iWParam, L
     return DefWindowProc(iHwnd, iMessage, iWParam, iLParam);
 }
 LRESULT CALLBACK ZTW32_CallbackExit(HWND iHwnd, UINT iMessage, WPARAM iWParam, LPARAM iLParam) {
-    //ZTW32_PrintMessage(iMessage);
+	#if defined(ZTK_BUILD_DEBUG) && (ZTK_BUILD_DEBUG)
+	ZTWIN_DBG_Message(iMessage);
+	#endif // ZTK_BUILD_DEBUG
     switch (iMessage) {
         case WM_ACTIVATE: ZTK_MSG_Activate(iWParam & 0x1); break;
         case WM_KILLFOCUS: ZTK_MSG_KeyFocus(ZT_FALSE); break;
@@ -203,7 +209,9 @@ LRESULT CALLBACK ZTW32_CallbackExit(HWND iHwnd, UINT iMessage, WPARAM iWParam, L
     return DefWindowProc(iHwnd, iMessage, iWParam, iLParam);
 }
 LRESULT CALLBACK ZTW32_CallbackMain(HWND iHwnd, UINT iMessage, WPARAM iWParam, LPARAM iLParam) {
-    //ZTW32_PrintMessage(iMessage);
+	#if defined(ZTK_BUILD_DEBUG) && (ZTK_BUILD_DEBUG)
+	ZTWIN_DBG_Message(iMessage);
+	#endif // ZTK_BUILD_DEBUG
     static ZT_BOOL lPumped = ZT_FALSE;
     static ZT_BOOL lDefault = ZT_TRUE;
     switch (iMessage) {
@@ -232,17 +240,14 @@ LRESULT CALLBACK ZTW32_CallbackMain(HWND iHwnd, UINT iMessage, WPARAM iWParam, L
         case WM_SYSKEYDOWN: if (!((rZTK_Host.system.events.pump & ZTK_HID_KEY) && (iLParam & 0x40000000))) {ZTK_MSG_Key(ZT_TRUE, iWParam & 0xff);} break;
         case WM_SYSKEYUP: ZTK_MSG_Key(ZT_FALSE, iWParam & 0xff); break;
         case WM_SYSCHAR: if (rZTK_Host.system.input.flag & ZTK_WINDOW_INPUT_CHAR) {ZTK_MSG_Char(iWParam & (~((ZT_CHAR)0x0)));} break;
-        //case WM_ENTERSIZEMOVE: ZTW32_TimerSizing(); break;
-        //case WM_EXITSIZEMOVE: ZTW32_TimerSizingStop(); break;
         //case WM_MOUSEACTIVATE: return ((iLParam & HTCLIENT) ? MA_ACTIVATEANDEAT : MA_ACTIVATE); // inhibit passing window activation click to event processing
         case WM_CLOSE: ZTW32_Quit(); lDefault = ZT_FALSE; break;
         default: break;
     }
     ZTK_Process();
-    //ZTK_User();
     (*rZTK_Host.loop)();
     if (lPumped) {lPumped = ZT_FALSE; ++rZTW32_Host.pump.received;}
     if (lDefault) {return DefWindowProc(iHwnd, iMessage, iWParam, iLParam);} else {lDefault = ZT_TRUE; return 0x0;}
 }
 
-#endif // ZTW32_C_INCLUDED
+#endif // ZTWIN_C_INCLUDED

@@ -2,13 +2,14 @@
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
-#ifndef ZTW32_DEBUG_C_INCLUDED
-#define ZTW32_DEBUG_C_INCLUDED
+#ifndef ZTWIN_DEBUG_C_INCLUDED
+#define ZTWIN_DEBUG_C_INCLUDED
 
-#include "ZTW32-RT.h"
+#include "ZTWIN-RT.h"
+
+#if defined(ZTK_BUILD_DEBUG) && (ZTK_BUILD_DEBUG)
 #include <stdio.h>
-
-void ZTW32_PrintMessage(ZT_INDEX iMessage) {
+void ZTWIN_DBG_Message(ZT_INDEX iMessage) {
     const char* lMessage = NULL;
 	switch (iMessage) {
 	    case ZTW32_WM_USER: lMessage = "WM_USER"; break;
@@ -210,72 +211,77 @@ void ZTW32_PrintMessage(ZT_INDEX iMessage) {
         case WM_XBUTTONDBLCLK: lMessage = ("WM_XBUTTONDBLCLK"); break;
         case WM_XBUTTONDOWN: lMessage = ("WM_XBUTTONDOWN"); break;
         case WM_XBUTTONUP: lMessage = ("WM_XBUTTONUP"); break;
-        ///unknown with WIN32_LEAN_AND_MEAN
-        //case WM_PSD_ENVSTAMPRECT: lMessage = ("WM_PSD_ENVSTAMPRECT"); break;
-        //case WM_PSD_GREEKTEXTRECT: lMessage = ("WM_PSD_GREEKTEXTRECT"); break;
-        //case WM_PSD_MARGINRECT: lMessage = ("WM_PSD_MARGINRECT"); break;
-        //case WM_PSD_MINMARGINRECT: lMessage = ("WM_PSD_MINMARGINRECT"); break;
-        //case WM_PSD_YAFULLPAGERECT: lMessage = ("WM_PSD_YAFULLPAGERECT"); break;
-        //case WM_CHOOSEFONT_GETLOGFONT: lMessage = ("WM_CHOOSEFONT_GETLOGFONT"); break;
-        //case WM_CHOOSEFONT_SETFLAGS: lMessage = ("WM_CHOOSEFONT_SETFLAGS"); break;
-        //case WM_CHOOSEFONT_SETLOGFONT: lMessage = ("WM_CHOOSEFONT_SETLOGFONT"); break;
-        //case WM_IME_CHAR: lMessage = ("WM_IME_CHAR"); break;
-        //case WM_IME_COMPOSITION: lMessage = ("WM_IME_COMPOSITION"); break;
-        //case WM_IME_COMPOSITIONFULL: lMessage = ("WM_IME_COMPOSITIONFULL"); break;
-        //case WM_IME_CONTROL: lMessage = ("WM_IME_CONTROL"); break;
-        //case WM_IME_ENDCOMPOSITION: lMessage = ("WM_IME_ENDCOMPOSITION"); break;
-        //case WM_IME_KEYDOWN: lMessage = ("WM_IME_KEYDOWN"); break;
-        //case WM_IME_KEYUP: lMessage = ("WM_IME_KEYUP"); break;
-        //case WM_IME_NOTIFY: lMessage = ("WM_IME_NOTIFY"); break;
-        //case WM_IME_REQUEST: lMessage = ("WM_IME_REQUEST"); break;
-        //case WM_IME_SELECT: lMessage = ("WM_IME_SELECT"); break;
-        //case WM_IME_SETCONTEXT: lMessage = ("WM_IME_SETCONTEXT"); break;
-        //case WM_IME_STARTCOMPOSITION: lMessage = ("WM_IME_STARTCOMPOSITION"); break;
-        ///unknown
-        //case WM_CAP_DRIVER_GET_NAMEW: lMessage = ("WM_CAP_DRIVER_GET_NAMEW"); break;
-        //case WM_CAP_DRIVER_GET_VERSIONW: lMessage = ("WM_CAP_DRIVER_GET_VERSIONW"); break;
-        //case WM_CAP_FILE_GET_CAPTURE_FILEW: lMessage = ("WM_CAP_FILE_GET_CAPTURE_FILEW"); break;
-        //case WM_CAP_FILE_SAVEASW: lMessage = ("WM_CAP_FILE_SAVEASW"); break;
-        //case WM_CAP_FILE_SAVEDIBW: lMessage = ("WM_CAP_FILE_SAVEDIBW"); break;
-        //case WM_CAP_FILE_SET_CAPTURE_FILEW: lMessage = ("WM_CAP_FILE_SET_CAPTURE_FILEW"); break;
-        //case WM_CAP_GET_MCI_DEVICEW: lMessage = ("WM_CAP_GET_MCI_DEVICEW"); break;
-        //case WM_CAP_PAL_OPENW: lMessage = ("WM_CAP_PAL_OPENW"); break;
-        //case WM_CAP_PAL_SAVEW: lMessage = ("WM_CAP_PAL_SAVEW"); break;
-        //case WM_CAP_SET_CALLBACK_ERRORW: lMessage = ("WM_CAP_SET_CALLBACK_ERRORW"); break;
-        //case WM_CAP_SET_CALLBACK_STATUSW: lMessage = ("WM_CAP_SET_CALLBACK_STATUSW"); break;
-        //case WM_CAP_SET_MCI_DEVICEW: lMessage = ("WM_CAP_SET_MCI_DEVICEW"); break;
-        //case WM_CAP_UNICODE_START: lMessage = ("WM_CAP_UNICODE_START"); break;
-        //case WM_CONVERTREQUEST: lMessage = ("WM_CONVERTREQUEST"); break;
-        //case WM_CONVERTRESULT: lMessage = ("WM_CONVERTRESULT"); break;
-        //case WM_COPYGLOBALDATA: lMessage = ("WM_COPYGLOBALDATA"); break;
-        //case WM_CPL_LAUNCH: lMessage = ("WM_CPL_LAUNCH"); break;
-        //case WM_CPL_LAUNCHED: lMessage = ("WM_CPL_LAUNCHED"); break;
-        //case WM_CTLCOLOR: lMessage = ("WM_CTLCOLOR"); break;
-        //case WM_CTLINIT: lMessage = ("WM_CTLINIT"); break;
-        //case WM_GLOBALRCCHANGE: lMessage = ("WM_GLOBALRCCHANGE"); break;
-        //case WM_HEDITCTL: lMessage = ("WM_HEDITCTL"); break;
-        //case WM_HOOKRCRESULT: lMessage = ("WM_HOOKRCRESULT"); break;
-        //case WM_IME_KEYLAST: lMessage = ("WM_IME_KEYLAST"); break;
-        //case WM_IME_REPORT: lMessage = ("WM_IME_REPORT"); break;
-        //case WM_INTERIM: lMessage = ("WM_INTERIM"); break;
-        //case WM_KEYFIRST: lMessage = ("WM_KEYFIRST"); break;
-        //case WM_KEYLAST: lMessage = ("WM_KEYLAST"); break;
-        //case WM_MOUSEFIRST: lMessage = ("WM_MOUSEFIRST"); break;
-        //case WM_MOUSELAST: lMessage = ("WM_MOUSELAST"); break;
-        //case WM_PENCTL: lMessage = ("WM_PENCTL"); break;
-        //case WM_PENEVENT: lMessage = ("WM_PENEVENT"); break;
-        //case WM_PENMISC: lMessage = ("WM_PENMISC"); break;
-        //case WM_PENMISCINFO: lMessage = ("WM_PENMISCINFO"); break;
-        //case WM_PSD_FULLPAGERECT: lMessage = ("WM_PSD_FULLPAGERECT"); break;
-        //case WM_PSD_PAGESETUPDLG: lMessage = ("WM_PSD_PAGESETUPDLG"); break;
-        //case WM_RASDIALEVENT: lMessage = ("WM_RASDIALEVENT"); break;
-        //case WM_RCRESULT: lMessage = ("WM_RCRESULT"); break;
-        //case WM_SKB: lMessage = ("WM_SKB"); break;
-        //case WM_SYSTIMER: lMessage = ("WM_SYSTIMER"); break;
-        //case WM_WNT_CONVERTREQUESTEX: lMessage = ("WM_WNT_CONVERTREQUESTEX"); break;
+		#ifndef WIN32_LEAN_AND_MEAN
+			case WM_PSD_ENVSTAMPRECT: lMessage = ("WM_PSD_ENVSTAMPRECT"); break;
+			case WM_PSD_GREEKTEXTRECT: lMessage = ("WM_PSD_GREEKTEXTRECT"); break;
+			case WM_PSD_MARGINRECT: lMessage = ("WM_PSD_MARGINRECT"); break;
+			case WM_PSD_MINMARGINRECT: lMessage = ("WM_PSD_MINMARGINRECT"); break;
+			case WM_PSD_YAFULLPAGERECT: lMessage = ("WM_PSD_YAFULLPAGERECT"); break;
+			case WM_CHOOSEFONT_GETLOGFONT: lMessage = ("WM_CHOOSEFONT_GETLOGFONT"); break;
+			case WM_CHOOSEFONT_SETFLAGS: lMessage = ("WM_CHOOSEFONT_SETFLAGS"); break;
+			case WM_CHOOSEFONT_SETLOGFONT: lMessage = ("WM_CHOOSEFONT_SETLOGFONT"); break;
+			case WM_IME_CHAR: lMessage = ("WM_IME_CHAR"); break;
+			case WM_IME_COMPOSITION: lMessage = ("WM_IME_COMPOSITION"); break;
+			case WM_IME_COMPOSITIONFULL: lMessage = ("WM_IME_COMPOSITIONFULL"); break;
+			case WM_IME_CONTROL: lMessage = ("WM_IME_CONTROL"); break;
+			case WM_IME_ENDCOMPOSITION: lMessage = ("WM_IME_ENDCOMPOSITION"); break;
+			case WM_IME_KEYDOWN: lMessage = ("WM_IME_KEYDOWN"); break;
+			case WM_IME_KEYUP: lMessage = ("WM_IME_KEYUP"); break;
+			case WM_IME_NOTIFY: lMessage = ("WM_IME_NOTIFY"); break;
+			case WM_IME_REQUEST: lMessage = ("WM_IME_REQUEST"); break;
+			case WM_IME_SELECT: lMessage = ("WM_IME_SELECT"); break;
+			case WM_IME_SETCONTEXT: lMessage = ("WM_IME_SETCONTEXT"); break;
+			case WM_IME_STARTCOMPOSITION: lMessage = ("WM_IME_STARTCOMPOSITION"); break;
+		#endif // WIN32_LEAN_AND_MEAN
+		// NOTE these must be simply first/last macro (of type), not strike/release events
+        // case WM_IME_KEYLAST: lMessage = ("WM_IME_KEYLAST"); break; // D25263 error duplicate case value
+        // case WM_KEYFIRST: lMessage = ("WM_KEYFIRST"); break; // same as WM_KEYDOWN 0x100
+        // case WM_KEYLAST: lMessage = ("WM_KEYLAST"); break; // same as WM_UNICHAR 0x109, only when _WIN32_WINNT >= 0x0501
+        // case WM_MOUSEFIRST: lMessage = ("WM_MOUSEFIRST"); break; // same as WM_MOUSEFIRST 0x200
+        // case WM_MOUSELAST: lMessage = ("WM_MOUSELAST"); break;  // same as WM_MOUSEHWHEEL 0x20e _WIN32_WINNT >= 0x0600
+
+		// NOTE D25263 with newer MinGW, these remain unknown (suspect either x64 or some other windows component)
+        // case WM_CAP_DRIVER_GET_NAMEW: lMessage = ("WM_CAP_DRIVER_GET_NAMEW"); break;
+        // case WM_CAP_DRIVER_GET_VERSIONW: lMessage = ("WM_CAP_DRIVER_GET_VERSIONW"); break;
+        // case WM_CAP_FILE_GET_CAPTURE_FILEW: lMessage = ("WM_CAP_FILE_GET_CAPTURE_FILEW"); break;
+        // case WM_CAP_FILE_SAVEASW: lMessage = ("WM_CAP_FILE_SAVEASW"); break;
+        // case WM_CAP_FILE_SAVEDIBW: lMessage = ("WM_CAP_FILE_SAVEDIBW"); break;
+        // case WM_CAP_FILE_SET_CAPTURE_FILEW: lMessage = ("WM_CAP_FILE_SET_CAPTURE_FILEW"); break;
+        // case WM_CAP_GET_MCI_DEVICEW: lMessage = ("WM_CAP_GET_MCI_DEVICEW"); break;
+        // case WM_CAP_PAL_OPENW: lMessage = ("WM_CAP_PAL_OPENW"); break;
+        // case WM_CAP_PAL_SAVEW: lMessage = ("WM_CAP_PAL_SAVEW"); break;
+        // case WM_CAP_SET_CALLBACK_ERRORW: lMessage = ("WM_CAP_SET_CALLBACK_ERRORW"); break;
+        // case WM_CAP_SET_CALLBACK_STATUSW: lMessage = ("WM_CAP_SET_CALLBACK_STATUSW"); break;
+        // case WM_CAP_SET_MCI_DEVICEW: lMessage = ("WM_CAP_SET_MCI_DEVICEW"); break;
+        // case WM_CAP_UNICODE_START: lMessage = ("WM_CAP_UNICODE_START"); break;
+        // case WM_CONVERTREQUEST: lMessage = ("WM_CONVERTREQUEST"); break;
+        // case WM_CONVERTRESULT: lMessage = ("WM_CONVERTRESULT"); break;
+        // case WM_IME_REPORT: lMessage = ("WM_IME_REPORT"); break;
+        // case WM_COPYGLOBALDATA: lMessage = ("WM_COPYGLOBALDATA"); break;
+        // case WM_CPL_LAUNCH: lMessage = ("WM_CPL_LAUNCH"); break;
+        // case WM_CPL_LAUNCHED: lMessage = ("WM_CPL_LAUNCHED"); break;
+        // case WM_CTLCOLOR: lMessage = ("WM_CTLCOLOR"); break;
+        // case WM_CTLINIT: lMessage = ("WM_CTLINIT"); break;
+        // case WM_GLOBALRCCHANGE: lMessage = ("WM_GLOBALRCCHANGE"); break;
+        // case WM_HEDITCTL: lMessage = ("WM_HEDITCTL"); break;
+        // case WM_HOOKRCRESULT: lMessage = ("WM_HOOKRCRESULT"); break;
+        // case WM_INTERIM: lMessage = ("WM_INTERIM"); break;
+        // case WM_PENCTL: lMessage = ("WM_PENCTL"); break;
+        // case WM_PENEVENT: lMessage = ("WM_PENEVENT"); break;
+        // case WM_PENMISC: lMessage = ("WM_PENMISC"); break;
+        // case WM_PENMISCINFO: lMessage = ("WM_PENMISCINFO"); break;
+        // case WM_PSD_FULLPAGERECT: lMessage = ("WM_PSD_FULLPAGERECT"); break;
+        // case WM_PSD_PAGESETUPDLG: lMessage = ("WM_PSD_PAGESETUPDLG"); break;
+        // case WM_RASDIALEVENT: lMessage = ("WM_RASDIALEVENT"); break;
+        // case WM_RCRESULT: lMessage = ("WM_RCRESULT"); break;
+        // case WM_SKB: lMessage = ("WM_SKB"); break;
+        // case WM_SYSTIMER: lMessage = ("WM_SYSTIMER"); break;
+        // case WM_WNT_CONVERTREQUESTEX: lMessage = ("WM_WNT_CONVERTREQUESTEX"); break;
 		default: break;
 	}
 	if (lMessage != NULL) {printf("%s\n", lMessage);} else {printf("UNKNOWN: %x\n", iMessage);};
 }
 
-#endif // ZTW32_DEBUG_C_INCLUDED
+#endif // ZTK_BUILD_DEBUG
+
+#endif // ZTWIN_DEBUG_C_INCLUDED

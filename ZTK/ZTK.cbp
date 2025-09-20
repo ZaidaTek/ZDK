@@ -68,17 +68,17 @@
 		<Unit filename="ZTK-RT.h" />
 		<Unit filename="ZTK-RT-Font.h" />
 		<Unit filename="ZTK-RT-Printer.h" />
-		<Unit filename="ZTW32.c">
+		<Unit filename="ZTWIN.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZTW32.h" />
-		<Unit filename="ZTW32-Draw.c">
+		<Unit filename="ZTWIN.h" />
+		<Unit filename="ZTWIN-Draw.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZTW32-DEBUG.c">
+		<Unit filename="ZTWIN-DEBUG.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ZTW32-RT.h" />
+		<Unit filename="ZTWIN-RT.h" />
 		<Unit filename="ZTK-Font.c">
 			<Option compilerVar="CC" />
 		</Unit>

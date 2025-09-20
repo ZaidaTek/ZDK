@@ -5,6 +5,11 @@
 #ifndef ZTK_BUILD_H_INCLUDED
 #define ZTK_BUILD_H_INCLUDED
 
+// TODO wrap all existing debuggish things under these #define guards
+#if !defined(ZTK_BUILD_DEBUG) && defined(ZTL_BUILD_DEBUG) && (ZTL_BUILD_DEBUG)
+	#define ZTK_BUILD_DEBUG 0x1
+#endif // ZTK_BUILD_DEBUG
+
 #if defined(ZTL_BUILD_WIDTH)
 	#define ZTK_BUILD_WIDTH ZTL_BUILD_WIDTH
 #else // ZTL_BUILD_WIDTH

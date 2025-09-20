@@ -137,6 +137,7 @@ typedef struct {
 extern rZTK_HOST rZTK_Host;
 
 #if defined(ZTK_BUILD_WINDOWS) && (ZTK_BUILD_WINDOWS)
+
 	#if (ZTK_BUILD_WIDTH > 32)
 		#define ZTK_TYPE_COMPILED ZTK_TYPE_WIN64
 	#else
@@ -146,7 +147,7 @@ extern rZTK_HOST rZTK_Host;
 	#define ZTK_PALETTE_OPENGL ZTM_PALETTE_ABGR // I guess? Note: Apparently, endianess plays a roll in this
 	#define ZTK_PALETTE_BRUSH ZTM_PALETTE_ABGR
 	
-	#include "ZTW32.h"
+	#include "ZTWIN.h"
 	#define ZTK_RuntimeQuit() ZTW32_Quit()
 	#define ZTK_RuntimeLoop() ZTW32_Loop()
 	#define ZTK_RuntimeKeyReload(STATE_OUT) ZTW32_KeyLoad(STATE_OUT)
@@ -173,7 +174,48 @@ extern rZTK_HOST rZTK_Host;
 	#define ZTK_RuntimeSprite(SOURCE,BLOCK,PALLETE) ZTW32_Sprite(SOURCE,BLOCK,PALLETE)
 	#define ZTK_RuntimeSurfaceFromFont(TEXT,FONT,PALETTE_OUT) ZTW32_SurfaceFromFont(TEXT, FONT, PALETTE_OUT)
 	#define ZTK_RuntimeSizeFromFont(TEXT,FONT,SIZE_OUT) ZTW32_SizeFromFont(TEXT, FONT, SIZE_OUT)
-#else // ZTK_BUILD_WINDOWS
+
+#elif defined(ZTK_BUILD_LINUX) && (ZTK_BUILD_LINUX)
+
+	#if (ZTK_BUILD_WIDTH > 32)
+		#define ZTK_TYPE_COMPILED ZTK_TYPE_LNX64
+	#else
+		#define ZTK_TYPE_COMPILED ZTK_TYPE_LNX32
+	#endif
+	#define ZTK_PALETTE_SYSTEM ZTM_PALETTE_RGBA
+	#define ZTK_PALETTE_OPENGL ZTM_PALETTE_RGBA
+	#define ZTK_PALETTE_BRUSH ZTM_PALETTE_RGBA
+	
+	#include "ZTLNX.h"
+	#define ZTK_RuntimeQuit() ZTLNX_Quit()
+	#define ZTK_RuntimeLoop() ZTLNX_Loop()
+	#define ZTK_RuntimeKeyReload(STATE_OUT) ZTLNX_KeyLoad(STATE_OUT)
+	#define ZTK_RuntimeLoad() ZTLNX_New()
+	#define ZTK_RuntimeFree() ZTLNX_Free()
+	#define ZTK_RuntimeRectLoad() ZTLNX_RectLoad()
+	#define ZTK_RuntimeRectApply() ZTLNX_RectLoad(); ZTLNX_RectApply()
+	#define ZTK_RuntimeFontSourceFree(FONT) ZTLNX_FontFreeSource(FONT)
+	#define ZTK_RuntimeFontSourceLoad(FONT) ZTLNX_FontLoadSource(FONT)
+	#define ZTK_RuntimeFontRuntimeFree(FONT) ZTLNX_FontFreeRuntime(FONT)
+	#define ZTK_RuntimeFontRuntimeLoad(FONT) ZTLNX_FontLoadRuntime(FONT)
+	#define ZTK_RuntimeFontWindow() ZTLNX_DrawFontLoad()
+	#define ZTK_RuntimeOpen() ZTLNX_Open()
+	#define ZTK_RuntimeProcess() ZTLNX_Process()
+	#define ZTK_RuntimeDrawReload() ZTLNX_DrawSize()
+	#define ZTK_RuntimeDrawClear() ZTLNX_DrawClear()
+	#define ZTK_RuntimeDrawPresent() ZTLNX_DrawPresent()
+	#define ZTK_RuntimeDrawClearColor(COLOR) ZTLNX_DrawClearColor(COLOR)
+	#define ZTK_RuntimeDrawSurface(SURFACE,RECT) ZTLNX_DrawSurface(SURFACE, RECT, ZTK_BLENDMODE_ALPHA)
+	#define ZTK_RuntimeDrawSprite(SPRITE,RECT) ZTLNX_DrawSprite(SPRITE, RECT, ZTK_BLENDMODE_ALPHA)
+	#define ZTK_RuntimeDrawText(TEXT,RECT) ZTLNX_DrawText(TEXT,RECT)
+	#define ZTK_RuntimeGetDrawTextSize(TEXT,SIZE_OUT) ZTLNX_DrawTextSize(TEXT, SIZE_OUT)
+	#define ZTK_RuntimeSpriteFree(SPRITE) ZTLNX_SpriteFree(SPRITE)
+	#define ZTK_RuntimeSprite(SOURCE,BLOCK,PALLETE) ZTLNX_Sprite(SOURCE,BLOCK,PALLETE)
+	#define ZTK_RuntimeSurfaceFromFont(TEXT,FONT,PALETTE_OUT) ZTLNX_SurfaceFromFont(TEXT, FONT, PALETTE_OUT)
+	#define ZTK_RuntimeSizeFromFont(TEXT,FONT,SIZE_OUT) ZTLNX_SizeFromFont(TEXT, FONT, SIZE_OUT)
+
+#else
+
 	#if (ZTK_BUILD_WIDTH > 32)
 		#define ZTK_TYPE_COMPILED ZTK_TYPE_UNK64
 	#else
@@ -182,7 +224,8 @@ extern rZTK_HOST rZTK_Host;
 	#define ZTK_PALETTE_SYSTEM ZTM_PALETTE_RGBA
 	#define ZTK_PALETTE_OPENGL ZTM_PALETTE_RGBA
 	#define ZTK_PALETTE_BRUSH ZTM_PALETTE_RGBA
-#endif // ZTK_BUILD_WINDOWS
+
+#endif // ZTK_BUILD_OS
 
 #ifdef __cplusplus
 extern "C" {

@@ -5,6 +5,11 @@
 #ifndef ZTL_BUILD_H_INCLUDED
 #define ZTL_BUILD_H_INCLUDED
 
+// TODO wrap all existing debuggish things under these #define guards
+#if !defined(ZTL_BUILD_DEBUG) && defined(ZTM_BUILD_DEBUG) && (ZTM_BUILD_DEBUG)
+	#define ZTL_BUILD_DEBUG 0x1
+#endif // ZTL_BUILD_DEBUG
+
 #if defined(ZTM_BUILD_WIDTH)
 	#define ZTL_BUILD_WIDTH ZTM_BUILD_WIDTH
 #else // ZTM_BUILD_WIDTH
