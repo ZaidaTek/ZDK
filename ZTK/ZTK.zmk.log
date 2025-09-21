@@ -1,12 +1,12 @@
 {
     "target": "/home/andi/code/c/ZDK/ZTK/libZTK.so",
     "sources": {
-        "/home/andi/code/c/ZDK/ZTK/ZTLNX-DEBUG.c": {
+        "/home/andi/code/c/ZDK/ZTK/ZTX11-DEBUG.c": {
             "handle": [
                 "gcc"
             ]
         },
-        "/home/andi/code/c/ZDK/ZTK/ZTLNX.c": {
+        "/home/andi/code/c/ZDK/ZTK/ZTX11.c": {
             "handle": [
                 "gcc"
             ]
@@ -76,7 +76,7 @@
     "zmake": "250917",
     "host": {
         "['date']": [
-            "2025-09-22T00:17:10 CEST"
+            "2025-09-22T00:34:51 CEST"
         ],
         "['zmake', '--version']": [
             "zmake-v250917"
@@ -97,7 +97,7 @@
             "Terminal: gnome-terminal ",
             "CPU: AMD Ryzen 7 5700X3D (16) @ 4.149GHz ",
             "GPU: AMD ATI Radeon RX 7700 XT / 7800 XT ",
-            "Memory: 2754MiB / 15918MiB "
+            "Memory: 2772MiB / 15918MiB "
         ],
         "['gcc', '--version']": [
             "gcc (Debian 12.2.0-14+deb12u1) 12.2.0",
@@ -128,9 +128,9 @@
                 "-I/home/andi/code/c/ZDK/ZTM",
                 "-I/home/andi/code/c/ZDK/ZTL",
                 "-c",
-                "/home/andi/code/c/ZDK/ZTK/ZTLNX-DEBUG.c",
+                "/home/andi/code/c/ZDK/ZTK/ZTX11-DEBUG.c",
                 "-o",
-                "/home/andi/code/c/ZDK/ZTK/ZTLNX-DEBUG.c.o"
+                "/home/andi/code/c/ZDK/ZTK/ZTX11-DEBUG.c.o"
             ],
             [
                 "gcc",
@@ -146,9 +146,9 @@
                 "-I/home/andi/code/c/ZDK/ZTM",
                 "-I/home/andi/code/c/ZDK/ZTL",
                 "-c",
-                "/home/andi/code/c/ZDK/ZTK/ZTLNX.c",
+                "/home/andi/code/c/ZDK/ZTK/ZTX11.c",
                 "-o",
-                "/home/andi/code/c/ZDK/ZTK/ZTLNX.c.o"
+                "/home/andi/code/c/ZDK/ZTK/ZTX11.c.o"
             ],
             [
                 "gcc",
@@ -280,8 +280,8 @@
         "link": [
             [
                 "gcc",
-                "/home/andi/code/c/ZDK/ZTK/ZTLNX-DEBUG.c.o",
-                "/home/andi/code/c/ZDK/ZTK/ZTLNX.c.o",
+                "/home/andi/code/c/ZDK/ZTK/ZTX11-DEBUG.c.o",
+                "/home/andi/code/c/ZDK/ZTK/ZTX11.c.o",
                 "/home/andi/code/c/ZDK/ZTK/ZTK-Sprite.c.o",
                 "/home/andi/code/c/ZDK/ZTK/ZTK-Font.c.o",
                 "/home/andi/code/c/ZDK/ZTK/ZTK-Printer.c.o",
@@ -308,8 +308,8 @@
         "clean": [
             [
                 "rm",
-                "/home/andi/code/c/ZDK/ZTK/ZTLNX-DEBUG.c.o",
-                "/home/andi/code/c/ZDK/ZTK/ZTLNX.c.o",
+                "/home/andi/code/c/ZDK/ZTK/ZTX11-DEBUG.c.o",
+                "/home/andi/code/c/ZDK/ZTK/ZTX11.c.o",
                 "/home/andi/code/c/ZDK/ZTK/ZTK-Sprite.c.o",
                 "/home/andi/code/c/ZDK/ZTK/ZTK-Font.c.o",
                 "/home/andi/code/c/ZDK/ZTK/ZTK-Printer.c.o",
@@ -323,13 +323,13 @@
     },
     "sign": {
         "['md5sum', '/home/andi/code/c/ZDK/ZTK/libZTK.so']": [
-            "1a92ea8b5cbda3abe05c4acde8588ae5"
+            "898eb2a66bbd6019cb1623f80aa5cd77"
         ],
         "['sha1sum', '/home/andi/code/c/ZDK/ZTK/libZTK.so']": [
-            "0f754fa5b1f6f8af3b9605afc7a411247ba92517"
+            "d5ab2af7235af34b6fd5b695a616a3010ae2a012"
         ],
         "['sha256sum', '/home/andi/code/c/ZDK/ZTK/libZTK.so']": [
-            "12a3e7919b0f01362868cfb07b58ee1fc1629ec390da07f572418ccaf17ce47a"
+            "60e0a4a94106f6f4d725537ff5ce3bda6ee81dd8678dfd4c84ba245b60c61067"
         ]
     }
 }

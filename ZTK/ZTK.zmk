@@ -1,8 +1,8 @@
 {
 	"target": "./libZTK.so",
 	"sources": [
-		"./ZTLNX-DEBUG.c",
-		"./ZTLNX.c",
+		"./ZTX11-DEBUG.c",
+		"./ZTX11.c",
 		"./ZTK-Sprite.c",
 		"./ZTK-Font.c",
 		"./ZTK-Printer.c",

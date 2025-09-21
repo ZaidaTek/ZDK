@@ -46,11 +46,9 @@ static const char* rZTX11__DBG_Events[] = {
 	"ClientMessage",
 	"MappingNotify"
 };
-
 void ZTX11_DBG_Event(const XEvent* iEvent) {
 	printf("%s\n", rZTX11__DBG_Events[iEvent->type]);
 }
-
 #endif // ZTK_BUILD_DEBUG
 
 #endif // ZTX11_DEBUG_C_INCLUDED
