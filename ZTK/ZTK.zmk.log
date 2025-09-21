@@ -1,0 +1,335 @@
+{
+    "target": "/home/andi/code/c/ZDK/ZTK/libZTK.so",
+    "sources": {
+        "/home/andi/code/c/ZDK/ZTK/ZTLNX-DEBUG.c": {
+            "handle": [
+                "gcc"
+            ]
+        },
+        "/home/andi/code/c/ZDK/ZTK/ZTLNX.c": {
+            "handle": [
+                "gcc"
+            ]
+        },
+        "/home/andi/code/c/ZDK/ZTK/ZTK-Sprite.c": {
+            "handle": [
+                "gcc"
+            ]
+        },
+        "/home/andi/code/c/ZDK/ZTK/ZTK-Font.c": {
+            "handle": [
+                "gcc"
+            ]
+        },
+        "/home/andi/code/c/ZDK/ZTK/ZTK-Printer.c": {
+            "handle": [
+                "gcc"
+            ]
+        },
+        "/home/andi/code/c/ZDK/ZTK/ZTK-RT-EVENT.c": {
+            "handle": [
+                "gcc"
+            ]
+        },
+        "/home/andi/code/c/ZDK/ZTK/ZTK-RT-MSG.c": {
+            "handle": [
+                "gcc"
+            ]
+        },
+        "/home/andi/code/c/ZDK/ZTK/ZTK-RT.c": {
+            "handle": [
+                "gcc"
+            ]
+        },
+        "/home/andi/code/c/ZDK/ZTK/ZTK.c": {
+            "handle": [
+                "gcc"
+            ]
+        }
+    },
+    "include": [
+        "/home/andi/code/c/ZDK/ZTM",
+        "/home/andi/code/c/ZDK/ZTL"
+    ],
+    "link": {
+        "handle": [
+            "gcc"
+        ],
+        "lib": [
+            "ZTM",
+            "ZTL",
+            "X11"
+        ]
+    },
+    "flag": {
+        "extra": {
+            "shared": [
+                "-fPIC",
+                "-DZTK_BUILD_OPENGL=0x0",
+                "-DZTK_BUILD_DEBUG=0x1"
+            ],
+            "linker": [
+                "-shared"
+            ]
+        }
+    },
+    "zmake": "250917",
+    "host": {
+        "['date']": [
+            "2025-09-22T00:17:10 CEST"
+        ],
+        "['zmake', '--version']": [
+            "zmake-v250917"
+        ],
+        "['neofetch', '--stdout', '--disable', 'uptime']": [
+            "andi@ztk-dt-andi ",
+            "---------------- ",
+            "OS: LMDE 6 (faye) x86_64 ",
+            "Kernel: 6.12.43+deb12-rt-amd64 ",
+            "Packages: 3170 (dpkg), 52 (flatpak) ",
+            "Shell: bash 5.2.15 ",
+            "Resolution: 1920x1080 ",
+            "DE: Cinnamon 6.4.8 ",
+            "WM: Mutter (Muffin) ",
+            "WM Theme: Mint-L-Dark-Sand (Mint-Y) ",
+            "Theme: Mint-L-Dark-Sand [GTK2/3] ",
+            "Icons: Mint-X-Yellow [GTK2/3] ",
+            "Terminal: gnome-terminal ",
+            "CPU: AMD Ryzen 7 5700X3D (16) @ 4.149GHz ",
+            "GPU: AMD ATI Radeon RX 7700 XT / 7800 XT ",
+            "Memory: 2754MiB / 15918MiB "
+        ],
+        "['gcc', '--version']": [
+            "gcc (Debian 12.2.0-14+deb12u1) 12.2.0",
+            "Copyright (C) 2022 Free Software Foundation, Inc.",
+            "This is free software; see the source for copying conditions.  There is NO",
+            "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."
+        ],
+        "['g++', '--version']": [
+            "g++ (Debian 12.2.0-14+deb12u1) 12.2.0",
+            "Copyright (C) 2022 Free Software Foundation, Inc.",
+            "This is free software; see the source for copying conditions.  There is NO",
+            "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."
+        ]
+    },
+    "commands": {
+        "compile": [
+            [
+                "gcc",
+                "-O3",
+                "-flto",
+                "-fPIC",
+                "-DZTK_BUILD_OPENGL=0x0",
+                "-DZTK_BUILD_DEBUG=0x1",
+                "-Wfatal-errors",
+                "-Werror",
+                "-Wall",
+                "-Wextra",
+                "-I/home/andi/code/c/ZDK/ZTM",
+                "-I/home/andi/code/c/ZDK/ZTL",
+                "-c",
+                "/home/andi/code/c/ZDK/ZTK/ZTLNX-DEBUG.c",
+                "-o",
+                "/home/andi/code/c/ZDK/ZTK/ZTLNX-DEBUG.c.o"
+            ],
+            [
+                "gcc",
+                "-O3",
+                "-flto",
+                "-fPIC",
+                "-DZTK_BUILD_OPENGL=0x0",
+                "-DZTK_BUILD_DEBUG=0x1",
+                "-Wfatal-errors",
+                "-Werror",
+                "-Wall",
+                "-Wextra",
+                "-I/home/andi/code/c/ZDK/ZTM",
+                "-I/home/andi/code/c/ZDK/ZTL",
+                "-c",
+                "/home/andi/code/c/ZDK/ZTK/ZTLNX.c",
+                "-o",
+                "/home/andi/code/c/ZDK/ZTK/ZTLNX.c.o"
+            ],
+            [
+                "gcc",
+                "-O3",
+                "-flto",
+                "-fPIC",
+                "-DZTK_BUILD_OPENGL=0x0",
+                "-DZTK_BUILD_DEBUG=0x1",
+                "-Wfatal-errors",
+                "-Werror",
+                "-Wall",
+                "-Wextra",
+                "-I/home/andi/code/c/ZDK/ZTM",
+                "-I/home/andi/code/c/ZDK/ZTL",
+                "-c",
+                "/home/andi/code/c/ZDK/ZTK/ZTK-Sprite.c",
+                "-o",
+                "/home/andi/code/c/ZDK/ZTK/ZTK-Sprite.c.o"
+            ],
+            [
+                "gcc",
+                "-O3",
+                "-flto",
+                "-fPIC",
+                "-DZTK_BUILD_OPENGL=0x0",
+                "-DZTK_BUILD_DEBUG=0x1",
+                "-Wfatal-errors",
+                "-Werror",
+                "-Wall",
+                "-Wextra",
+                "-I/home/andi/code/c/ZDK/ZTM",
+                "-I/home/andi/code/c/ZDK/ZTL",
+                "-c",
+                "/home/andi/code/c/ZDK/ZTK/ZTK-Font.c",
+                "-o",
+                "/home/andi/code/c/ZDK/ZTK/ZTK-Font.c.o"
+            ],
+            [
+                "gcc",
+                "-O3",
+                "-flto",
+                "-fPIC",
+                "-DZTK_BUILD_OPENGL=0x0",
+                "-DZTK_BUILD_DEBUG=0x1",
+                "-Wfatal-errors",
+                "-Werror",
+                "-Wall",
+                "-Wextra",
+                "-I/home/andi/code/c/ZDK/ZTM",
+                "-I/home/andi/code/c/ZDK/ZTL",
+                "-c",
+                "/home/andi/code/c/ZDK/ZTK/ZTK-Printer.c",
+                "-o",
+                "/home/andi/code/c/ZDK/ZTK/ZTK-Printer.c.o"
+            ],
+            [
+                "gcc",
+                "-O3",
+                "-flto",
+                "-fPIC",
+                "-DZTK_BUILD_OPENGL=0x0",
+                "-DZTK_BUILD_DEBUG=0x1",
+                "-Wfatal-errors",
+                "-Werror",
+                "-Wall",
+                "-Wextra",
+                "-I/home/andi/code/c/ZDK/ZTM",
+                "-I/home/andi/code/c/ZDK/ZTL",
+                "-c",
+                "/home/andi/code/c/ZDK/ZTK/ZTK-RT-EVENT.c",
+                "-o",
+                "/home/andi/code/c/ZDK/ZTK/ZTK-RT-EVENT.c.o"
+            ],
+            [
+                "gcc",
+                "-O3",
+                "-flto",
+                "-fPIC",
+                "-DZTK_BUILD_OPENGL=0x0",
+                "-DZTK_BUILD_DEBUG=0x1",
+                "-Wfatal-errors",
+                "-Werror",
+                "-Wall",
+                "-Wextra",
+                "-I/home/andi/code/c/ZDK/ZTM",
+                "-I/home/andi/code/c/ZDK/ZTL",
+                "-c",
+                "/home/andi/code/c/ZDK/ZTK/ZTK-RT-MSG.c",
+                "-o",
+                "/home/andi/code/c/ZDK/ZTK/ZTK-RT-MSG.c.o"
+            ],
+            [
+                "gcc",
+                "-O3",
+                "-flto",
+                "-fPIC",
+                "-DZTK_BUILD_OPENGL=0x0",
+                "-DZTK_BUILD_DEBUG=0x1",
+                "-Wfatal-errors",
+                "-Werror",
+                "-Wall",
+                "-Wextra",
+                "-I/home/andi/code/c/ZDK/ZTM",
+                "-I/home/andi/code/c/ZDK/ZTL",
+                "-c",
+                "/home/andi/code/c/ZDK/ZTK/ZTK-RT.c",
+                "-o",
+                "/home/andi/code/c/ZDK/ZTK/ZTK-RT.c.o"
+            ],
+            [
+                "gcc",
+                "-O3",
+                "-flto",
+                "-fPIC",
+                "-DZTK_BUILD_OPENGL=0x0",
+                "-DZTK_BUILD_DEBUG=0x1",
+                "-Wfatal-errors",
+                "-Werror",
+                "-Wall",
+                "-Wextra",
+                "-I/home/andi/code/c/ZDK/ZTM",
+                "-I/home/andi/code/c/ZDK/ZTL",
+                "-c",
+                "/home/andi/code/c/ZDK/ZTK/ZTK.c",
+                "-o",
+                "/home/andi/code/c/ZDK/ZTK/ZTK.c.o"
+            ]
+        ],
+        "link": [
+            [
+                "gcc",
+                "/home/andi/code/c/ZDK/ZTK/ZTLNX-DEBUG.c.o",
+                "/home/andi/code/c/ZDK/ZTK/ZTLNX.c.o",
+                "/home/andi/code/c/ZDK/ZTK/ZTK-Sprite.c.o",
+                "/home/andi/code/c/ZDK/ZTK/ZTK-Font.c.o",
+                "/home/andi/code/c/ZDK/ZTK/ZTK-Printer.c.o",
+                "/home/andi/code/c/ZDK/ZTK/ZTK-RT-EVENT.c.o",
+                "/home/andi/code/c/ZDK/ZTK/ZTK-RT-MSG.c.o",
+                "/home/andi/code/c/ZDK/ZTK/ZTK-RT.c.o",
+                "/home/andi/code/c/ZDK/ZTK/ZTK.c.o",
+                "-o",
+                "/home/andi/code/c/ZDK/ZTK/libZTK.so",
+                "-O3",
+                "-flto",
+                "-s",
+                "-fPIC",
+                "-DZTK_BUILD_OPENGL=0x0",
+                "-DZTK_BUILD_DEBUG=0x1",
+                "-shared",
+                "-L/home/andi/code/c/ZDK/ZTM",
+                "-L/home/andi/code/c/ZDK/ZTL",
+                "-lZTM",
+                "-lZTL",
+                "-lX11"
+            ]
+        ],
+        "clean": [
+            [
+                "rm",
+                "/home/andi/code/c/ZDK/ZTK/ZTLNX-DEBUG.c.o",
+                "/home/andi/code/c/ZDK/ZTK/ZTLNX.c.o",
+                "/home/andi/code/c/ZDK/ZTK/ZTK-Sprite.c.o",
+                "/home/andi/code/c/ZDK/ZTK/ZTK-Font.c.o",
+                "/home/andi/code/c/ZDK/ZTK/ZTK-Printer.c.o",
+                "/home/andi/code/c/ZDK/ZTK/ZTK-RT-EVENT.c.o",
+                "/home/andi/code/c/ZDK/ZTK/ZTK-RT-MSG.c.o",
+                "/home/andi/code/c/ZDK/ZTK/ZTK-RT.c.o",
+                "/home/andi/code/c/ZDK/ZTK/ZTK.c.o"
+            ]
+        ],
+        "finish": []
+    },
+    "sign": {
+        "['md5sum', '/home/andi/code/c/ZDK/ZTK/libZTK.so']": [
+            "1a92ea8b5cbda3abe05c4acde8588ae5"
+        ],
+        "['sha1sum', '/home/andi/code/c/ZDK/ZTK/libZTK.so']": [
+            "0f754fa5b1f6f8af3b9605afc7a411247ba92517"
+        ],
+        "['sha256sum', '/home/andi/code/c/ZDK/ZTK/libZTK.so']": [
+            "12a3e7919b0f01362868cfb07b58ee1fc1629ec390da07f572418ccaf17ce47a"
+        ]
+    }
+}

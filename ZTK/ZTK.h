@@ -5,15 +5,7 @@
 #ifndef ZTK_H_INCLUDED
 #define ZTK_H_INCLUDED
 
-// ZTK OPTIONS
-#ifndef ZTK_OPENGL_ENABLE
-#define ZTK_OPENGL_ENABLE ZTK_DEFAULT_OPENGL_ENABLED
-#endif // ZTK_OPENGL_ENABLE
-// ZTK MANDATORY
 #include <ZTL.h>
-
-// #define ZTK_BUILD_DEBUG 0x1
-
 #include "ZTK-BUILD.h"
 #include "ZTK-TYPE.h"
 #include "ZTK-DEFINE.h"

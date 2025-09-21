@@ -5,6 +5,12 @@
 #ifndef ZTM_SHARED_BUILD_H_INCLUDED
 #define ZTM_SHARED_BUILD_H_INCLUDED
 
+// #define ZTM_DEFAULT_BUILD_DEBUG 0x0
+
+#if !defined(ZTM_BUILD_DEBUG) && defined(ZTM_DEFAULT_BUILD_DEBUG)
+	#define ZTM_BUILD_DEBUG ZTM_DEFAULT_BUILD_DEBUG
+#endif // ZTM_BUILD_DEBUG
+
 #if   defined(__AVR)
 	#define ZTM_BUILD_WIDTH 8
 #elif defined(__x86_64__)

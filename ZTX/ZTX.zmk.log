@@ -51,7 +51,7 @@
     "zmake": "250917",
     "host": {
         "['date']": [
-            "2025-09-20T19:21:14 CEST"
+            "2025-09-22T00:17:09 CEST"
         ],
         "['zmake', '--version']": [
             "zmake-v250917"
@@ -72,7 +72,7 @@
             "Terminal: gnome-terminal ",
             "CPU: AMD Ryzen 7 5700X3D (16) @ 4.149GHz ",
             "GPU: AMD ATI Radeon RX 7700 XT / 7800 XT ",
-            "Memory: 2328MiB / 15918MiB "
+            "Memory: 2766MiB / 15918MiB "
         ],
         "['gcc', '--version']": [
             "gcc (Debian 12.2.0-14+deb12u1) 12.2.0",

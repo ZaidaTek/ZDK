@@ -1,20 +1,22 @@
 {
-    "target": "./libZTK.so",
-    "sources": [
-        "./ZTK-Sprite.c",
-        "./ZTK-Font.c",
-        "./ZTK-Printer.c",
-        "./ZTK-RT-EVENT.c",
-        "./ZTK-RT-MSG.c",
-        "./ZTK-RT.c",
-        "./ZTK.c"
-    ],
-    "include": ["../ZTM", "../ZTL"],
-    "link": ["ZTM", "ZTL"],
-    "flag": {
+	"target": "./libZTK.so",
+	"sources": [
+		"./ZTLNX-DEBUG.c",
+		"./ZTLNX.c",
+		"./ZTK-Sprite.c",
+		"./ZTK-Font.c",
+		"./ZTK-Printer.c",
+		"./ZTK-RT-EVENT.c",
+		"./ZTK-RT-MSG.c",
+		"./ZTK-RT.c",
+		"./ZTK.c"
+	],
+	"include": ["../ZTM", "../ZTL"],
+	"link": ["ZTM", "ZTL", "X11"],
+	"flag": {
 		"extra": {
-			"shared": ["-fPIC"],
+			"shared": ["-fPIC", "-DZTK_BUILD_OPENGL=0x0", "-DZTK_BUILD_DEBUG=0x1"],
 			"linker": ["-shared"]
 		}
-    }
+	}
 }

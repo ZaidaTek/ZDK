@@ -1,4 +1,4 @@
-/*** Copyright (C) 2019-2021 ZaidaTek and Andreas Riebesehl
+/*** Copyright (C) 2019-2025 ZaidaTek, Andreas Riebesehl
 **** This work is licensed under: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 **** For full license text, please visit: https://creativecommons.org/licenses/by-nd/4.0/legalcode
 ***/
@@ -42,12 +42,14 @@ void ZTLNX_RectApply(void) {
 }
 void ZTLNX_Open(void) {
     ZTLNX_RectApply();
-    ShowWindow(rZTLNX_Host.window.handle, SW_SHOW);
+	XMapWindow(rZTLNX_Host.display.handle, rZTLNX_Host.window.id);
+	XFlush(rZTLNX_Host.display.handle);
+    // ShowWindow(rZTLNX_Host.window.handle, SW_SHOW);
 }
 void ZTLNX_FontFreeSources(void) {
-    ZT_LIST* lList = rZTLNX_Host.window.fonts;
+    ZT_LIST* lList = rZTLNX_Host.res.fonts;
     for (ZT_INDEX i = 0; i < lList->length; i++) {
-        RemoveFontResourceEx((LPCTSTR)lList->items[i], FR_PRIVATE, 0x0);
+        // RemoveFontResourceEx((LPCTSTR)lList->items[i], FR_PRIVATE, 0x0);
         ZTM8_Free(lList->items[i]);
         lList->items[i] = NULL;
     }
@@ -58,34 +60,56 @@ void ZTLNX_FontFreeSource(rZT_FONT* iFont) {
 }
 void ZTLNX_FontLoadSource(rZT_FONT* iFont) {
     if (iFont->source != NULL) {
-        ZT_LIST* lList = rZTLNX_Host.window.fonts;
+        ZT_LIST* lList = rZTLNX_Host.res.fonts;
         for (ZT_INDEX i = 0; i < lList->length; i++) {if (ZTC8_Match(lList->items[i], iFont->source)) {return;}}
-        if (AddFontResourceEx((LPCTSTR)iFont->source, FR_PRIVATE, 0x0)) {ZTM_ListAppend(lList, ZTC8_Copy(iFont->source));}
+        // if (AddFontResourceEx((LPCTSTR)iFont->source, FR_PRIVATE, 0x0)) {ZTM_ListAppend(lList, ZTC8_Copy(iFont->source));}
+        if (0x1) {ZTM_ListAppend(lList, ZTC8_Copy(iFont->source));}
     }
 }
 void ZTLNX_FontFreeRuntime(rZT_FONT* iFont) {
-    DeleteObject((HFONT)iFont->runtime);
+	(void)iFont;
+    // DeleteObject((HFONT)iFont->runtime);
 }
 void ZTLNX_FontLoadRuntime(rZT_FONT* iFont) {
     //ZTLNX_FontFreeRuntime(iFont);
-    LOGFONT lFontStyle;
-    ZTM8_Zero(&lFontStyle, sizeof(LOGFONT));
-    lFontStyle.lfHeight = iFont->height;
-    lFontStyle.lfWeight = (iFont->style & ZTK_FONT_STYLE_BOLD) ? FW_BOLD : FW_NORMAL;
-    lFontStyle.lfItalic = (iFont->style & ZTK_FONT_STYLE_ITALIC) ? 0x1 : 0x0;
-    lFontStyle.lfUnderline = (iFont->style & ZTK_FONT_STYLE_UNDERLINE) ? 0x1 : 0x0;
-    lFontStyle.lfStrikeOut = (iFont->style & ZTK_FONT_STYLE_STRIKEOUT) ? 0x1 : 0x0;
-    lFontStyle.lfCharSet = ANSI_CHARSET;
-    lFontStyle.lfOutPrecision = OUT_DEFAULT_PRECIS;
-    lFontStyle.lfClipPrecision = CLIP_DEFAULT_PRECIS;
-    lFontStyle.lfQuality = NONANTIALIASED_QUALITY;
-    lFontStyle.lfPitchAndFamily = FF_DONTCARE | DEFAULT_PITCH;
-    ZTC8_CopyTargetLength(iFont->name, (ZT_CHAR*)lFontStyle.lfFaceName, LF_FACESIZE - 1); // does this copy NT if length exceeded?
-    lFontStyle.lfFaceName[LF_FACESIZE - 1] = 0x0;
-    iFont->runtime = CreateFontIndirect(&lFontStyle);
+    // LOGFONT lFontStyle;
+    // ZTM8_Zero(&lFontStyle, sizeof(LOGFONT));
+    // lFontStyle.lfHeight = iFont->height;
+    // lFontStyle.lfWeight = (iFont->style & ZTK_FONT_STYLE_BOLD) ? FW_BOLD : FW_NORMAL;
+    // lFontStyle.lfItalic = (iFont->style & ZTK_FONT_STYLE_ITALIC) ? 0x1 : 0x0;
+    // lFontStyle.lfUnderline = (iFont->style & ZTK_FONT_STYLE_UNDERLINE) ? 0x1 : 0x0;
+    // lFontStyle.lfStrikeOut = (iFont->style & ZTK_FONT_STYLE_STRIKEOUT) ? 0x1 : 0x0;
+    // lFontStyle.lfCharSet = ANSI_CHARSET;
+    // lFontStyle.lfOutPrecision = OUT_DEFAULT_PRECIS;
+    // lFontStyle.lfClipPrecision = CLIP_DEFAULT_PRECIS;
+    // lFontStyle.lfQuality = NONANTIALIASED_QUALITY;
+    // lFontStyle.lfPitchAndFamily = FF_DONTCARE | DEFAULT_PITCH;
+    // ZTC8_CopyTargetLength(iFont->name, (ZT_CHAR*)lFontStyle.lfFaceName, LF_FACESIZE - 1); // does this copy NT if length exceeded?
+    // lFontStyle.lfFaceName[LF_FACESIZE - 1] = 0x0;
+    // iFont->runtime = CreateFontIndirect(&lFontStyle);
+    iFont->runtime = NULL;
+}
+void ZTLNX_DrawExit(void) {
+    // DeleteDC(rZTW32_Host.dc.buffer);
+    // DeleteDC(rZTW32_Host.dc.pipe);
+    // DeleteDC(rZTW32_Host.dc.font);
+    // ReleaseDC(rZTW32_Host.window.handle, rZTW32_Host.dc.main);
+}
+void ZTLNX_DrawSize(void) {
+    // HBITMAP lSize = CreateCompatibleBitmap(rZTW32_Host.dc.main, rZTK_Host.rect.w, rZTK_Host.rect.h);
+    // SelectObject(rZTW32_Host.dc.buffer, lSize);
+    // DeleteObject(SelectObject(rZTW32_Host.dc.buffer, GetStockObject(DC_BRUSH)));
+    // ZTK_BackgroundColor(rZTK_Host.user.background); // can this be skipped, and put in init instead?
+    // ZTW32_DrawFontLoad(); // this too?
+}
+void ZTLNX_DrawInit(void) {
+    // rZTW32_Host.dc.main = GetDC(rZTW32_Host.window.handle);
+    // rZTW32_Host.dc.font = CreateCompatibleDC(rZTW32_Host.dc.main);
+    // rZTW32_Host.dc.pipe = CreateCompatibleDC(rZTW32_Host.dc.main);
+    // rZTW32_Host.dc.buffer = CreateCompatibleDC(rZTW32_Host.dc.main);
 }
 void ZTLNX_ResourceLoad(void) {
-    //rZTLNX_Host.window.fonts = ZTM_ListNew(0);
+    //rZTLNX_Host.res.fonts = ZTM_ListNew(0);
     ZTLNX_DrawInit();
     ZTLNX_DrawSize();
     //ZTLNX_PumpInit();
@@ -94,11 +118,11 @@ void ZTLNX_ResourceFree(void) {
     //ZTLNX_PumpExit();
     ZTLNX_DrawExit();
     //ZTLNX_FontFreeSources();
-    //ZTM_ListFree(rZTLNX_Host.window.fonts);
+    //ZTM_ListFree(rZTLNX_Host.res.fonts);
 }
 void ZTLNX_Register(void) {
     XSetWindowAttributes lWinAttr;
-    lWinAttr.event_mask = SubstructureRedirectMask | SubstructureNotifyMask | StructureNotifyMask | ExposureMask;
+    lWinAttr.event_mask = ZTLNX_X11_EVENT_MASK;
     lWinAttr.do_not_propagate_mask = 0;
     lWinAttr.background_pixel = 0x0;
 	rZTLNX_Host.window.id = XCreateWindow(
@@ -108,7 +132,10 @@ void ZTLNX_Register(void) {
         CWEventMask | NoEventMask | CWBackPixel, // .event_mask, .do_not_propagate_mask, .background_pixel
         &lWinAttr
     );
-	XStoreName(rZTK_Host.user.title);
+	XStoreName(rZTLNX_Host.display.handle, rZTLNX_Host.window.id, (const char*)rZTK_Host.user.title);
+    XSelectInput(rZTLNX_Host.display.handle, rZTLNX_Host.window.id, ZTLNX_X11_INPUT_MASK);
+	rZTLNX_Host.window.quit = XInternAtom(rZTLNX_Host.display.handle, "WM_DELETE_WINDOW", True);
+	XSetWMProtocols(rZTLNX_Host.display.handle, rZTLNX_Host.window.id, &rZTLNX_Host.window.quit, 1);
 	/*
     WNDCLASSEX lW32Container;
     ZTM8_Zero(&lW32Container, sizeof(lW32Container));
@@ -136,43 +163,56 @@ void ZTLNX_Register(void) {
 void ZTLNX_Free(void) {
     ZTLNX_ResourceFree();
     //DestroyWindow(rZTLNX_Host.window.handle);
-    XCloseDisplay(rZTLNX_Host.display);
-    rZTLNX_Host.display = NULL;
+    XUnmapWindow(rZTLNX_Host.display.handle, rZTLNX_Host.window.id);
+    XDestroyWindow(rZTLNX_Host.display.handle, rZTLNX_Host.window.id);
+    XCloseDisplay(rZTLNX_Host.display.handle);
+    rZTLNX_Host.display.handle = NULL;
 }
 void ZTLNX_New(void) {
-    ZTM8_Zero(&rZTLNX_Host, sizeof(rZTLNX_Host));
-    if ((rZTLNX_Host.display.handle = XOpenDisplay(NULL)) != NULL) {
-		if ((rZTLNX_Host.display.screen = XDefaultScreen(rZTLNX_Host.display.handle)) != NULL) {
-			ZTLNX_RectLoad();
-			ZTLNX_Register();
-			ZTLNX_ResourceLoad();
-			//if (rZTLNX_Host.window.id != NULL) {ZTLNX_ResourceLoad();}
-		}
+	ZTM8_Zero(&rZTLNX_Host, sizeof(rZTLNX_Host));
+	if ((rZTLNX_Host.display.handle = XOpenDisplay(NULL)) != NULL) {
+		// if (() != NULL) {}
+		rZTLNX_Host.display.screen = XDefaultScreen(rZTLNX_Host.display.handle);
+		ZTLNX_RectLoad();
+		ZTLNX_Register();
+		ZTLNX_ResourceLoad();
+		//if (rZTLNX_Host.window.id != NULL) {ZTLNX_ResourceLoad();}
 	}
 }
-ZT_INDEX ZTLNX_Poll(void) {return PeekMessage(&(rZTLNX_Host.window.message), NULL, 0, 0, PM_REMOVE);}
+// ZT_INDEX ZTLNX_Poll(void) {return PeekMessage(&(rZTLNX_Host.window.message), NULL, 0, 0, PM_REMOVE);}
+ZT_INDEX ZTLNX_Poll(void) { // TODO check/optimize Windows version
+	return XCheckWindowEvent(
+		rZTLNX_Host.display.handle,
+		rZTLNX_Host.window.id,
+		ZTLNX_X11_EVENT_MASK,
+		&rZTLNX_Host.window.event
+	) ? 1 + (ZT_INDEX)XQLength(rZTLNX_Host.display.handle): 0;
+}
+
 ZT_INDEX ZTLNX_Process(void) {
-    ZT_INDEX lMessages = 0;
-    while (ZTLNX_Poll()) {
-        ++lMessages;
-        TranslateMessage(&(rZTLNX_Host.window.message));
-        DispatchMessage(&(rZTLNX_Host.window.message));
-    }
+	ZT_INDEX lMessages = 0;
+	while (ZTLNX_Poll()) {
+		++lMessages;
+		ZTLNX_DBG_Event(&rZTLNX_Host.window.event);
+		// if (lEvent.type == ClientMessage && lEvent.xclient.data.l[0] == lQuit) {break;}
+	}
 	return lMessages;
 }
 //void ZTLNX_KeyLoad(ZT_U8* oTarget) {
 void ZTLNX_KeyLoad(ZT_U32* oTarget) {
-    ZTM8_Zero(oTarget, ZTK_KEY_SIZE_LENGTH >> 3);
-    for (ZT_INDEX i = 0x8; i < ZTK_KEY_SIZE_LENGTH; i++) { // offset to skip VK_MOUSE keys
-        ZT_FLAG lMask = (0x1 << (i % ZTK_KEY_SIZE_UNIT));
-        ZT_FLAG lIndex = (i >> ZTK_KEY_SIZE_SHIFT);
-        oTarget[lIndex] |= ((GetAsyncKeyState(i) & 0x8000) ? lMask : 0x0);
-    }
+	(void)oTarget;
+    // ZTM8_Zero(oTarget, ZTK_KEY_SIZE_LENGTH >> 3);
+    // for (ZT_INDEX i = 0x8; i < ZTK_KEY_SIZE_LENGTH; i++) { // offset to skip VK_MOUSE keys
+        // ZT_FLAG lMask = (0x1 << (i % ZTK_KEY_SIZE_UNIT));
+        // ZT_FLAG lIndex = (i >> ZTK_KEY_SIZE_SHIFT);
+        // oTarget[lIndex] |= ((GetAsyncKeyState(i) & 0x8000) ? lMask : 0x0);
+    // }
 }
-#define ZTLNX_MouseX(LPARAM) (LPARAM & 0xffff)
-#define ZTLNX_MouseY(LPARAM) ((LPARAM >> 16))
-#define ZTLNX_MouseWheel(WPARAM) ((ZT_I16)(WPARAM >> 16))
-#define ZTLNX_MouseXButton(WPARAM) (((WPARAM >> 16) & XBUTTON2) ? ZTK_SID_MOUSE_X2BUTTON : ZTK_SID_MOUSE_X1BUTTON)
+// #define ZTLNX_MouseX(LPARAM) (LPARAM & 0xffff)
+// #define ZTLNX_MouseY(LPARAM) ((LPARAM >> 16))
+// #define ZTLNX_MouseWheel(WPARAM) ((ZT_I16)(WPARAM >> 16))
+// #define ZTLNX_MouseXButton(WPARAM) (((WPARAM >> 16) & XBUTTON2) ? ZTK_SID_MOUSE_X2BUTTON : ZTK_SID_MOUSE_X1BUTTON)
+/*
 #define ZTLNX_MouseState(WPARAM) ({\
     ZT_FLAG rHOSTMOUSESTATE_s = (iWParam & MK_LBUTTON) ? ZTK_SID_MOUSE_LBUTTON : ZTK_SID_NONE;\
     if (iWParam & MK_RBUTTON) {lState |= ZTK_SID_MOUSE_RBUTTON;}\
@@ -181,18 +221,40 @@ void ZTLNX_KeyLoad(ZT_U32* oTarget) {
     if (iWParam & MK_XBUTTON2) {lState |= ZTK_SID_MOUSE_X2BUTTON;}\
     rHOSTMOUSESTATE_s;\
 })
-void ZTLNX_Command(ZT_FLAG iWParam) {
-    switch (iWParam) {
-        case SC_MINIMIZE: ZTK_MSG_Minimize(ZT_TRUE); break;
-        case SC_RESTORE: ZTK_MSG_Minimize(ZT_FALSE); break;
-        case SC_MAXIMIZE: ZTK_MSG_Minimize(ZT_FALSE); break;
-        default: break;
-    }
+*/
+// void ZTLNX_Command(ZT_FLAG iWParam) {
+    // switch (iWParam) {
+        // case SC_MINIMIZE: ZTK_MSG_Minimize(ZT_TRUE); break;
+        // case SC_RESTORE: ZTK_MSG_Minimize(ZT_FALSE); break;
+        // case SC_MAXIMIZE: ZTK_MSG_Minimize(ZT_FALSE); break;
+        // default: break;
+    // }
+// }
+void ZTLNX_Loop(void) {
+	// SendMessageCallback(rZTLNX_Host.window.handle, ZTLNX_WM_USER, 0x0, 0x0, NULL, 0);
+	XEvent lEvent = {
+		.xclient.type = ClientMessage,
+		.xclient.window = rZTLNX_Host.window.id,
+		.xclient.message_type = XInternAtom(rZTLNX_Host.display.handle, "WM_PROTOCOLS", True),
+		.xclient.format = 32,
+	};
+	XSendEvent(rZTLNX_Host.display.handle, rZTLNX_Host.window.id, False, NoEventMask, &lEvent);
 }
-void ZTLNX_Loop(void) {SendMessageCallback(rZTLNX_Host.window.handle, ZTLNX_WM_USER, 0x0, 0x0, NULL, 0);}
+void ZTLNX_Quit(void) {
+	// ZTK_MSG_Close(); ZTLNX_ModeExit();
+	XEvent lEvent = {
+		.xclient.type = ClientMessage,
+		.xclient.window = rZTLNX_Host.window.id,
+		.xclient.message_type = XInternAtom(rZTLNX_Host.display.handle, "WM_PROTOCOLS", True),
+		.xclient.format = 32,
+		.xclient.data.l[0] = XInternAtom(rZTLNX_Host.display.handle, "WM_DELETE_WINDOW", False),
+		.xclient.data.l[1] = CurrentTime,
+	};
+	XSendEvent(rZTLNX_Host.display.handle, rZTLNX_Host.window.id, False, NoEventMask, &lEvent);
+}
+/*
 void ZTLNX_ModeMain(void) {SetWindowLongPtr(rZTLNX_Host.window.handle, GWL_WNDPROC, (LONG_PTR)&ZTLNX_CallbackMain);}
 void ZTLNX_ModeExit(void) {SetWindowLongPtr(rZTLNX_Host.window.handle, GWL_WNDPROC, (LONG_PTR)&ZTLNX_CallbackExit);}
-void ZTLNX_Quit(void) {ZTK_MSG_Close(); ZTLNX_ModeExit();}
 LRESULT CALLBACK ZTLNX_CallbackInit(HWND iHwnd, UINT iMessage, WPARAM iWParam, LPARAM iLParam) {
     //ZTLNX_PrintMessage(iMessage);
     if (!(rZTK_Host.buffer.state & ZTK_STATE_DEFINED)) {
@@ -269,5 +331,5 @@ LRESULT CALLBACK ZTLNX_CallbackMain(HWND iHwnd, UINT iMessage, WPARAM iWParam, L
     if (lPumped) {lPumped = ZT_FALSE; ++rZTLNX_Host.pump.received;}
     if (lDefault) {return DefWindowProc(iHwnd, iMessage, iWParam, iLParam);} else {lDefault = ZT_TRUE; return 0x0;}
 }
-
+*/
 #endif // ZTLNX_C_INCLUDED

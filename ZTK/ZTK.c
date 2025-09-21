@@ -103,17 +103,17 @@ void ZTK_GetSizeFromFont(const ZT_CHAR* iText, ZT_FONT* iFont, ZT_POINT* oSize) 
 void ZTK_RendererInit(void) {
     switch (rZTK_Host.system.renderer) {
         case ZTK_RENDERER_SYSTEM: ZTK_RuntimeDrawReload(); return;
-        #if defined(ZTK_OPENGL_ENABLE) && (ZTK_OPENGL_ENABLE)
+        #if defined(ZTK_BUILD_OPENGL) && (ZTK_BUILD_OPENGL)
         case ZTK_RENDERER_OPENGL: ZTGL_Init(); ZTGL_Size(); return;
-        #endif // ZTK_OPENGL_ENABLE
+        #endif // ZTK_BUILD_OPENGL
         default: return;
     }
 }
 void ZTK_RendererExit(void) {
     switch (rZTK_Host.system.renderer) {
-        #if defined(ZTK_OPENGL_ENABLE) && (ZTK_OPENGL_ENABLE)
+        #if defined(ZTK_BUILD_OPENGL) && (ZTK_BUILD_OPENGL)
         case ZTK_RENDERER_OPENGL: ZTGL_Exit(); return;
-        #endif // ZTK_OPENGL_ENABLE
+        #endif // ZTK_BUILD_OPENGL
         default: return;
     }
 }
@@ -122,9 +122,9 @@ void ZTK_Renderer(ZT_FLAG iType) {
     ZT_FLAG lPalette;
     switch (iType) {
         case ZTK_RENDERER_SYSTEM: lRenderer = ZTK_RENDERER_SYSTEM; lPalette = ZTK_PALETTE_SYSTEM; break;
-        #if defined(ZTK_OPENGL_ENABLE) && (ZTK_OPENGL_ENABLE)
+        #if defined(ZTK_BUILD_OPENGL) && (ZTK_BUILD_OPENGL)
         case ZTK_RENDERER_OPENGL: lRenderer = ZTK_RENDERER_OPENGL; lPalette = ZTK_PALETTE_OPENGL; break;
-        #endif // ZTK_OPENGL_ENABLE
+        #endif // ZTK_BUILD_OPENGL
         default: lRenderer = ZTK_RENDERER_NONE; break;
     }
     if (lRenderer != ZTK_RENDERER_NONE) {
@@ -157,9 +157,9 @@ void ZTK_BackgroundColor(ZT_COLOR iColor) {
     rZTK_Host.user.background = iColor;
     switch (rZTK_Host.system.renderer) {
         case ZTK_RENDERER_SYSTEM: ZTK_RuntimeDrawClearColor(iColor); return;
-        #if defined(ZTK_OPENGL_ENABLE) && (ZTK_OPENGL_ENABLE)
+        #if defined(ZTK_BUILD_OPENGL) && (ZTK_BUILD_OPENGL)
         case ZTK_RENDERER_OPENGL: ZTGL_ClearColor(iColor); return;
-        #endif // ZTK_OPENGL_ENABLE
+        #endif // ZTK_BUILD_OPENGL
         default: return;
     }
 }
@@ -199,9 +199,9 @@ void ZTK_Open(void) {ZTK_RuntimeOpen();}
 void ZTK_DrawClear(void) {
     switch (rZTK_Host.system.renderer) {
         case ZTK_RENDERER_SYSTEM: ZTK_RuntimeDrawClear(); return;
-        #if defined(ZTK_OPENGL_ENABLE) && (ZTK_OPENGL_ENABLE)
+        #if defined(ZTK_BUILD_OPENGL) && (ZTK_BUILD_OPENGL)
         case ZTK_RENDERER_OPENGL: ZTGL_Clear(); return;
-        #endif // ZTK_OPENGL_ENABLE
+        #endif // ZTK_BUILD_OPENGL
         default: return;
     }
 }
@@ -209,9 +209,9 @@ void ZTK_DrawSize(void) {
     ZTK_RuntimeRectLoad();
     switch (rZTK_Host.system.renderer) {
         case ZTK_RENDERER_SYSTEM: ZTK_RuntimeDrawReload(); return;
-        #if defined(ZTK_OPENGL_ENABLE) && (ZTK_OPENGL_ENABLE)
+        #if defined(ZTK_BUILD_OPENGL) && (ZTK_BUILD_OPENGL)
         case ZTK_RENDERER_OPENGL: ZTGL_Size(); return;
-        #endif // ZTK_OPENGL_ENABLE
+        #endif // ZTK_BUILD_OPENGL
         default: return;
     }
 }
@@ -226,7 +226,7 @@ void ZTK_DrawBufferItem(rZTK_DRAW* iObject) {
                 default: break;
             }
             break;
-        #if defined(ZTK_OPENGL_ENABLE) && (ZTK_OPENGL_ENABLE)
+        #if defined(ZTK_BUILD_OPENGL) && (ZTK_BUILD_OPENGL)
         case ZTK_RENDERER_OPENGL:
             switch (iObject->type) {
                 case ZTK_DRAW_TYPE_SPRITE: ZTGL_DrawSprite(iObject->source, &(iObject->dest)); break;
@@ -236,7 +236,7 @@ void ZTK_DrawBufferItem(rZTK_DRAW* iObject) {
                 default: break;
             }
             break;
-        #endif // ZTK_OPENGL_ENABLE
+        #endif // ZTK_BUILD_OPENGL
         default: break;
     }
 }
@@ -266,9 +266,9 @@ void ZTK_DrawPresent(void) {
     }
     switch (rZTK_Host.system.renderer) {
         case ZTK_RENDERER_SYSTEM: ZTK_RuntimeDrawPresent(); return;
-        #if defined(ZTK_OPENGL_ENABLE) && (ZTK_OPENGL_ENABLE)
+        #if defined(ZTK_BUILD_OPENGL) && (ZTK_BUILD_OPENGL)
         case ZTK_RENDERER_OPENGL: ZTGL_Present(); return;
-        #endif // ZTK_OPENGL_ENABLE
+        #endif // ZTK_BUILD_OPENGL
         default: return;
     }
 }

@@ -266,8 +266,8 @@ rZT_FONT** ZTK_InternalFontSystem(void);
 #include "ZTK-RT-Font.h"
 #include "ZTK-RT-Printer.h"
 
-#if defined(ZTK_OPENGL_ENABLE) && (ZTK_OPENGL_ENABLE)
+#if defined(ZTK_BUILD_OPENGL) && (ZTK_BUILD_OPENGL)
 #include "ZTGL.h"
-#endif // ZTK_OPENGL_ENABLE
+#endif // ZTK_BUILD_OPENGL
 
 #endif // ZTK_RT_H_INCLUDED
