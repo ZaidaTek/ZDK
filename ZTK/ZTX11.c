@@ -4,8 +4,8 @@
 ***/
 #ifndef ZTX11_C_INCLUDED
 #define ZTX11_C_INCLUDED
-
 #include "ZTX11-RT.h"
+#if defined(ZTK_BUILD_X11) && (ZTK_BUILD_X11)
 
 rZTX11_HOST rZTX11_Host;
 
@@ -25,13 +25,6 @@ ZT_FLAG ZTX11_Pump(void* iArg) {
 void ZTX11_PumpExit(void) {ZTL_ThreadFree(rZTX11_Host.pump.runtime);}
 void ZTX11_PumpInit(void) {rZTX11_Host.pump.runtime = ZTL_ThreadNew(&ZTX11_Pump, NULL);}
 */
-void ZTX11_RectLoad(void) {
-	/*
-    rZTX11_Host.window.rect.right = (rZTX11_Host.window.rect.left = rZTK_Host.rect.x) + (rZTX11_Host.window.dimensions.right = rZTK_Host.rect.w);
-    rZTX11_Host.window.rect.bottom = (rZTX11_Host.window.rect.top = rZTK_Host.rect.y) + (rZTX11_Host.window.dimensions.bottom = rZTK_Host.rect.h);
-    rZTX11_Host.window.dimensions.top = (rZTX11_Host.window.dimensions.left = 0);
-	*/
-}
 void ZTX11_RectApply(void) {
     /*
 	RECT lRect = rZTX11_Host.window.rect;
@@ -40,10 +33,12 @@ void ZTX11_RectApply(void) {
     ZTX11_DrawSize();
 	*/
 }
+void ZTX11_DrawPresent(void) {
+	XFlush(rZTX11_Host.display.handle);
+}
 void ZTX11_Open(void) {
     ZTX11_RectApply();
 	XMapWindow(rZTX11_Host.display.handle, rZTX11_Host.window.id);
-	XFlush(rZTX11_Host.display.handle);
     // ShowWindow(rZTX11_Host.window.handle, SW_SHOW);
 }
 void ZTX11_FontFreeSources(void) {
@@ -122,7 +117,7 @@ void ZTX11_ResourceFree(void) {
 }
 void ZTX11_Register(void) {
     XSetWindowAttributes lWinAttr;
-    lWinAttr.event_mask = ZTX11_X11_EVENT_MASK;
+    lWinAttr.event_mask = ZTX11_EVENT_MASK;
     lWinAttr.do_not_propagate_mask = 0;
     lWinAttr.background_pixel = 0x0;
 	rZTX11_Host.window.id = XCreateWindow(
@@ -133,7 +128,7 @@ void ZTX11_Register(void) {
         &lWinAttr
     );
 	XStoreName(rZTX11_Host.display.handle, rZTX11_Host.window.id, (const char*)rZTK_Host.user.title);
-    XSelectInput(rZTX11_Host.display.handle, rZTX11_Host.window.id, ZTX11_X11_INPUT_MASK);
+    XSelectInput(rZTX11_Host.display.handle, rZTX11_Host.window.id, ZTX11_INPUT_MASK);
 	rZTX11_Host.window.quit = XInternAtom(rZTX11_Host.display.handle, "WM_DELETE_WINDOW", True);
 	XSetWMProtocols(rZTX11_Host.display.handle, rZTX11_Host.window.id, &rZTX11_Host.window.quit, 1);
 	/*
@@ -173,7 +168,6 @@ void ZTX11_New(void) {
 	if ((rZTX11_Host.display.handle = XOpenDisplay(NULL)) != NULL) {
 		// if (() != NULL) {}
 		rZTX11_Host.display.screen = XDefaultScreen(rZTX11_Host.display.handle);
-		ZTX11_RectLoad();
 		ZTX11_Register();
 		ZTX11_ResourceLoad();
 		//if (rZTX11_Host.window.id != NULL) {ZTX11_ResourceLoad();}
@@ -184,7 +178,7 @@ ZT_INDEX ZTX11_Poll(void) { // TODO check/optimize Windows version
 	return XCheckWindowEvent(
 		rZTX11_Host.display.handle,
 		rZTX11_Host.window.id,
-		ZTX11_X11_EVENT_MASK,
+		ZTX11_EVENT_MASK,
 		&rZTX11_Host.window.event
 	) ? 1 + (ZT_INDEX)XQLength(rZTX11_Host.display.handle): 0;
 }
@@ -332,4 +326,5 @@ LRESULT CALLBACK ZTX11_CallbackMain(HWND iHwnd, UINT iMessage, WPARAM iWParam, L
     if (lDefault) {return DefWindowProc(iHwnd, iMessage, iWParam, iLParam);} else {lDefault = ZT_TRUE; return 0x0;}
 }
 */
+#endif // ZTK_BUILD_X11
 #endif // ZTX11_C_INCLUDED

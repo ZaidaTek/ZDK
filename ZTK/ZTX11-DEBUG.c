@@ -4,10 +4,9 @@
 ***/
 #ifndef ZTX11_DEBUG_C_INCLUDED
 #define ZTX11_DEBUG_C_INCLUDED
-
 #include "ZTX11-RT.h"
-
 #if defined(ZTK_BUILD_DEBUG) && (ZTK_BUILD_DEBUG)
+#if defined(ZTK_BUILD_X11) && (ZTK_BUILD_X11)
 #include <stdio.h>
 static const char* rZTX11__DBG_Events[] = {
 	"",
@@ -49,6 +48,6 @@ static const char* rZTX11__DBG_Events[] = {
 void ZTX11_DBG_Event(const XEvent* iEvent) {
 	printf("%s\n", rZTX11__DBG_Events[iEvent->type]);
 }
+#endif // ZTK_BUILD_X11
 #endif // ZTK_BUILD_DEBUG
-
 #endif // ZTX11_DEBUG_C_INCLUDED

@@ -4,7 +4,7 @@
 ***/
 #ifndef ZTX11_H_INCLUDED
 #define ZTX11_H_INCLUDED
-
+#if defined(ZTK_BUILD_X11) && (ZTK_BUILD_X11)
 #ifdef __cplusplus
 extern "C" {
 #endif // __cplusplus
@@ -42,5 +42,5 @@ void ZTX11_SizeFromFont(const ZT_CHAR* iText, rZT_FONT* iFont, ZT_POINT* oSize);
 #ifdef __cplusplus
 }
 #endif // __cplusplus
-
+#endif // ZTK_BUILD_X11
 #endif // ZTX11_H_INCLUDED
