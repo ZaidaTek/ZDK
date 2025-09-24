@@ -11,7 +11,7 @@
 #include "ZUI-DEFAULT.h"
 
 typedef struct {
-    ZT_COLOR background;
+	ZT_COLOR background;
 	ZT_COLOR foreground;
 	ZT_COLOR border;
 } ZUI_COLOR;

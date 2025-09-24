@@ -19,8 +19,8 @@ typedef struct {
 	void* handle;
 	ZT_CHAR* path;
 	ZT_DATA data;
-    ZT_FLAG flag;
-    ZT_FLAG mode;
+	ZT_FLAG flag;
+	ZT_FLAG mode;
 } ZIO_FILE;
 */
 #ifdef __cplusplus

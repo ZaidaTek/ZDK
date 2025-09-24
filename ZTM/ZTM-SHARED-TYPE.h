@@ -11,50 +11,50 @@
 #endif // ZTM_BUILD_WIDTH
 
 #if (ZTM_BUILD_WIDTH > 32) // 64-bit
-	#define mZT_TYPE_BIT8  char
-	#define mZT_TYPE_BIT16 short
-	#define mZT_TYPE_BIT32 int
-	#define mZT_TYPE_BIT64 long long
-	#define mZT_TYPE_FPFLT float
-	#define mZT_TYPE_FPDBL double
-	#define mZT_TYPE_BOOL  mZT_TYPE_BIT32
+	#define mZT_TYPE_BIT8	char
+	#define mZT_TYPE_BIT16	short
+	#define mZT_TYPE_BIT32	int
+	#define mZT_TYPE_BIT64	long long
+	#define mZT_TYPE_FPFLT	float
+	#define mZT_TYPE_FPDBL	double
+	#define mZT_TYPE_BOOL	mZT_TYPE_BIT32
 #elif (ZTM_BUILD_WIDTH > 16) // 32-bit
-	#define mZT_TYPE_BIT8  char
-	#define mZT_TYPE_BIT16 short
-	#define mZT_TYPE_BIT32 int
-	#define mZT_TYPE_BIT64 long long
-	#define mZT_TYPE_FPFLT float
-	#define mZT_TYPE_FPDBL double
-	#define mZT_TYPE_BOOL  mZT_TYPE_BIT32
+	#define mZT_TYPE_BIT8	char
+	#define mZT_TYPE_BIT16	short
+	#define mZT_TYPE_BIT32	int
+	#define mZT_TYPE_BIT64	long long
+	#define mZT_TYPE_FPFLT	float
+	#define mZT_TYPE_FPDBL	double
+	#define mZT_TYPE_BOOL	mZT_TYPE_BIT32
 #elif (ZTM_BUILD_WIDTH > 8) // 16-bit
-	#define mZT_TYPE_BIT8  char
-	#define mZT_TYPE_BIT16 int
-	#define mZT_TYPE_BIT32 long
-	#define mZT_TYPE_BIT64 long long
-	#define mZT_TYPE_FPFLT float
-	#define mZT_TYPE_FPDBL double
-	#define mZT_TYPE_BOOL  mZT_TYPE_BIT16
+	#define mZT_TYPE_BIT8	char
+	#define mZT_TYPE_BIT16	int
+	#define mZT_TYPE_BIT32	long
+	#define mZT_TYPE_BIT64	long long
+	#define mZT_TYPE_FPFLT	float
+	#define mZT_TYPE_FPDBL	double
+	#define mZT_TYPE_BOOL	mZT_TYPE_BIT16
 #else // 8-bit
-	#define mZT_TYPE_BIT8  char
-	#define mZT_TYPE_BIT16 int
-	#define mZT_TYPE_BIT32 long
-	#define mZT_TYPE_BIT64 long long // (?)
-	#define mZT_TYPE_FPFLT float
-	#define mZT_TYPE_FPDBL double
-	#define mZT_TYPE_BOOL  mZT_TYPE_BIT8
+	#define mZT_TYPE_BIT8	char
+	#define mZT_TYPE_BIT16	int
+	#define mZT_TYPE_BIT32	long
+	#define mZT_TYPE_BIT64	long long // (?)
+	#define mZT_TYPE_FPFLT	float
+	#define mZT_TYPE_FPDBL	double
+	#define mZT_TYPE_BOOL	mZT_TYPE_BIT8
 #endif // ZTM_BUILD_WIDTH
-typedef unsigned mZT_TYPE_BIT8  ZT_U8;
-typedef unsigned mZT_TYPE_BIT16 ZT_U16;
-typedef unsigned mZT_TYPE_BIT32 ZT_U32;
-typedef unsigned mZT_TYPE_BIT64 ZT_U64;
-typedef   signed mZT_TYPE_BIT8  ZT_I8;
-typedef   signed mZT_TYPE_BIT16 ZT_I16;
-typedef   signed mZT_TYPE_BIT32 ZT_I32;
-typedef   signed mZT_TYPE_BIT64 ZT_I64;
-typedef          mZT_TYPE_FPFLT ZT_FLT;
-typedef          mZT_TYPE_FPDBL ZT_DBL;
-typedef unsigned mZT_TYPE_BOOL  ZT_BOOL;
-typedef unsigned mZT_TYPE_BOOL  ZT_BLTG;
+typedef	unsigned	mZT_TYPE_BIT8	ZT_U8;
+typedef	unsigned	mZT_TYPE_BIT16	ZT_U16;
+typedef	unsigned	mZT_TYPE_BIT32	ZT_U32;
+typedef	unsigned	mZT_TYPE_BIT64	ZT_U64;
+typedef	signed		mZT_TYPE_BIT8	ZT_I8;
+typedef	signed		mZT_TYPE_BIT16	ZT_I16;
+typedef	signed		mZT_TYPE_BIT32	ZT_I32;
+typedef	signed		mZT_TYPE_BIT64	ZT_I64;
+typedef				mZT_TYPE_FPFLT	ZT_FLT;
+typedef				mZT_TYPE_FPDBL	ZT_DBL;
+typedef	unsigned	mZT_TYPE_BOOL	ZT_BOOL;
+typedef	unsigned	mZT_TYPE_BOOL	ZT_BLTG;
 #if (ZTM_BUILD_WIDTH > 16) // 32-bit and above
 	#define mZT_TYPE_CTRLF	mZT_TYPE_BIT32
 	#define mZT_TYPE_CTRLH	mZT_TYPE_BIT16
@@ -80,17 +80,17 @@ typedef unsigned mZT_TYPE_BOOL  ZT_BLTG;
 	#define mZT_TYPE_TIME	mZT_TYPE_BIT32
 	#define mZT_TYPE_COLOR	mZT_TYPE_BIT16
 #endif // ZTM_BUILD_WIDTH
-typedef unsigned mZT_TYPE_CTRLF ZT_INDEX;
-typedef unsigned mZT_TYPE_CTRLF ZT_FLAG;
-typedef unsigned mZT_TYPE_CTRLH ZT_H_INDEX;
-typedef unsigned mZT_TYPE_CTRLH ZT_H_FLAG;
-typedef unsigned mZT_TYPE_CTRLQ ZT_Q_INDEX;
-typedef unsigned mZT_TYPE_CTRLQ ZT_Q_FLAG;
-typedef unsigned mZT_TYPE_INT ZT_U;
-typedef   signed mZT_TYPE_INT ZT_I;
-typedef unsigned mZT_TYPE_SIZE ZT_SIZE;
-typedef unsigned mZT_TYPE_TIME ZT_TIME;
-typedef unsigned mZT_TYPE_COLOR ZT_COLOR;
+typedef	unsigned	mZT_TYPE_CTRLF ZT_INDEX;
+typedef	unsigned	mZT_TYPE_CTRLF ZT_FLAG;
+typedef	unsigned	mZT_TYPE_CTRLH ZT_H_INDEX;
+typedef	unsigned	mZT_TYPE_CTRLH ZT_H_FLAG;
+typedef	unsigned	mZT_TYPE_CTRLQ ZT_Q_INDEX;
+typedef	unsigned	mZT_TYPE_CTRLQ ZT_Q_FLAG;
+typedef	unsigned	mZT_TYPE_INT ZT_U;
+typedef	signed		mZT_TYPE_INT ZT_I;
+typedef	unsigned	mZT_TYPE_SIZE ZT_SIZE;
+typedef	unsigned	mZT_TYPE_TIME ZT_TIME;
+typedef	unsigned	mZT_TYPE_COLOR ZT_COLOR;
 #undef mZT_TYPE_CTRLF
 #undef mZT_TYPE_CTRLH
 #undef mZT_TYPE_CTRLQ
@@ -140,6 +140,8 @@ typedef union {__ZTM_BUILD_BASE_HASH_16(16);} ZT_HASH16;
 typedef union {__ZTM_BUILD_BASE_HASH_32(32);} ZT_HASH32;
 #if !defined(ZTM_BUILD_EMBED) || !(ZTM_BUILD_EMBED)
 	typedef ZT_U8 ZT_CHAR;
+	#define ZT_TEXT(TEXT) ((const ZT_CHAR*)(TEXT))
+	#define ZT_EDIT(TEXT) ((ZT_CHAR*)(TEXT))
 	typedef union {
 		struct {
 			ZT_U8 byte[sizeof(ZT_DATE)];

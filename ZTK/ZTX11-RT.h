@@ -39,31 +39,31 @@ typedef struct {
 	} res;
 	/*
 	struct {
-        HDC buffer;
-        HDC pipe;
-        HDC main;
-        HDC font;
-    } dc;
+		HDC buffer;
+		HDC pipe;
+		HDC main;
+		HDC font;
+	} dc;
 	struct {
-	    ZT_THREAD* runtime;
-	    ZT_THREAD* dummyTHREAD; //alignment
-	    ZT_INDEX sent;
-	    ZT_INDEX received;
+		ZT_THREAD* runtime;
+		ZT_THREAD* dummyTHREAD; //alignment
+		ZT_INDEX sent;
+		ZT_INDEX received;
 	} pump;
 	HINSTANCE instance;
 	HINSTANCE dummyHINSTANCE; //alignment
 	struct {
-        HWND handle;
-        HWND dummyHWND; //alignment
-        RECT rect;
-        RECT dimensions;
-        MSG message;
-        MSG dummyMSG; //alignment
-        DWORD style;
-        DWORD dummyDWORD; //alignment
-        ZT_LIST* fonts;
-        ZT_LIST* dummyList;
-    } window;
+		HWND handle;
+		HWND dummyHWND; //alignment
+		RECT rect;
+		RECT dimensions;
+		MSG message;
+		MSG dummyMSG; //alignment
+		DWORD style;
+		DWORD dummyDWORD; //alignment
+		ZT_LIST* fonts;
+		ZT_LIST* dummyList;
+	} window;
 	*/
 } rZTX11_HOST;
 extern rZTX11_HOST rZTX11_Host;
@@ -83,6 +83,5 @@ void ZTX11_DBG_Event(const XEvent* iEvent);
 #ifdef __cplusplus
 }
 #endif // __cplusplus
-
 #endif // ZTK_BUILD_X11
 #endif // ZTX11_RT_H_INCLUDED

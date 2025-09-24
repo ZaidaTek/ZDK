@@ -39,17 +39,17 @@
 // /#include "ZTK__Defines.h"
 
 typedef struct {
-    void* data;
-    void* dummy; //alignment
-    ZT_POINT block;
-    ZT_FLAG type;
-    ZT_FLAG palette;
+	void* data;
+	void* dummy; //alignment
+	ZT_POINT block;
+	ZT_FLAG type;
+	ZT_FLAG palette;
 } rZT_SPRITE;
 typedef struct {
-    void* runtime;
-    void** charset;
-    void* source;
-    ZT_CHAR* name;
+	void* runtime;
+	void** charset;
+	void* source;
+	ZT_CHAR* name;
 	ZT_FLAG type;
 	ZT_FLAG flag;
 	ZT_FLAG style;
@@ -78,63 +78,62 @@ typedef struct {
 	rZTK_KEYBOARD keyboard;
 } rZTK_INPUT;
 typedef struct {
-    const void* source;
-    const void* dummy; //alignment
-    ZT_RECT dest;
-    ZT_FLAG flag;
-    ZT_FLAG type;
+	const void* source;
+	const void* dummy; //alignment
+	ZT_RECT dest;
+	ZT_FLAG flag;
+	ZT_FLAG type;
 } rZTK_DRAW;
 typedef struct {
-    void (*loop)(void);
-    //void* runtime;
-    void* dummy; //alignment
-    struct {
-        ZT_QLIST* event;
-        ZT_QLIST* draw;
-        rZTK_INPUT input;
-        ZT_RECT rect;
-        ZT_FLAG flag;
-        ZT_FLAG state;
-    } buffer;
-    ZT_RECT rect;
+	void (*loop)(void);
+	void* alignLoop;
 	struct {
-        struct {
-            ZT_TIME loop;
-            ZT_TIME event;
-            ZT_TIME repeat;
-            ZT_TIME dummy; // alignment
-        } last;
-        struct {
-            ZT_TIME resolution;
-            ZT_TIME event;
-        } timer;
-        struct {
-            ZT_FLAG draw;
-            ZT_FLAG event;
-        } flag;
-        struct {
-            ZT_FLAG enabled;
-            ZT_FLAG pump;
-        } events;
-        rZTK_INPUT input;
-        ZT_FLAG renderer;
-        ZT_FLAG palette;
-        ZT_FLAG state;
-        ZT_FLAG type;
-        ZT_FLAG style;
-        rZT_FONT* font;
-    } system;
+		ZT_QLIST* event;
+		ZT_QLIST* draw;
+		rZTK_INPUT input;
+		ZT_RECT rect;
+		ZT_FLAG flag;
+		ZT_FLAG state;
+	} buffer;
+	ZT_RECT rect;
 	struct {
-        ZT_FLAG options;
-        ZT_FLAG palette;
-        ZT_COLOR background;
-        ZT_CHAR* title;
-        ZT_CHAR* icon;
-        rZT_FONT* font;
-    } user;
-} rZTK_HOST;
+		struct {
+			ZT_TIME loop;
+			ZT_TIME event;
+			ZT_TIME repeat;
+			ZT_TIME dummy; // alignment
+		} last;
+		struct {
+			ZT_TIME resolution;
+			ZT_TIME event;
+		} timer;
+		struct {
+			ZT_FLAG draw;
+			ZT_FLAG event;
+		} flag;
+		struct {
+			ZT_FLAG enabled;
+			ZT_FLAG pump;
+		} events;
+		rZTK_INPUT input;
+		ZT_FLAG renderer;
+		ZT_FLAG palette;
+		ZT_FLAG state;
+		ZT_FLAG type;
+		ZT_FLAG style;
+		rZT_FONT* font;
+	} system;
+	struct {
+		ZT_FLAG options;
+		ZT_FLAG palette;
+		ZT_COLOR background;
+		ZT_CHAR* title;
+		ZT_CHAR* icon;
+		rZT_FONT* font;
+	} user;
+} rZTK_RUNTIME;
 
-extern rZTK_HOST rZTK_Host;
+extern rZTK_RUNTIME rZTK_Host;
 
 #if defined(ZTK_BUILD_WINDOWS) && (ZTK_BUILD_WINDOWS)
 
@@ -182,48 +181,26 @@ extern rZTK_HOST rZTK_Host;
 	#else
 		#define ZTK_TYPE_COMPILED ZTK_TYPE_LNX32
 	#endif
-	#define ZTK_PALETTE_SYSTEM ZTM_PALETTE_RGBA
-	#define ZTK_PALETTE_OPENGL ZTM_PALETTE_RGBA
-	#define ZTK_PALETTE_BRUSH ZTM_PALETTE_RGBA
+	#define ZTK_PALETTE_SYSTEM ZTM_PALETTE_ARGB
+	#define ZTK_PALETTE_OPENGL ZTM_PALETTE_ABGR
+	#define ZTK_PALETTE_BRUSH ZTM_PALETTE_ABGR
 	
-	#if defined(ZTK_BUILD_XCB) && (ZTK_BUILD_XCB)
-		#include "ZTXCB.h"
-		#define ZTK_RuntimeQuit() ZTXCB_Quit()
-		#define ZTK_RuntimeLoop() ZTXCB_Loop()
-		#define ZTK_RuntimeKeyReload(STATE_OUT) ZTXCB_KeyLoad(STATE_OUT)
-		#define ZTK_RuntimeLoad() ZTXCB_New()
-		#define ZTK_RuntimeFree() ZTXCB_Free()
-		#define ZTK_RuntimeRectLoad() ZTXCB_RectLoad()
-		#define ZTK_RuntimeRectApply() ZTXCB_RectLoad(); ZTXCB_RectApply()
-		#define ZTK_RuntimeFontSourceFree(FONT) ZTXCB_FontFreeSource(FONT)
-		#define ZTK_RuntimeFontSourceLoad(FONT) ZTXCB_FontLoadSource(FONT)
-		#define ZTK_RuntimeFontRuntimeFree(FONT) ZTXCB_FontFreeRuntime(FONT)
-		#define ZTK_RuntimeFontRuntimeLoad(FONT) ZTXCB_FontLoadRuntime(FONT)
-		#define ZTK_RuntimeFontWindow() ZTXCB_DrawFontLoad()
-		#define ZTK_RuntimeOpen() ZTXCB_Open()
-		#define ZTK_RuntimeProcess() ZTXCB_Process()
-		#define ZTK_RuntimeDrawReload() ZTXCB_DrawSize()
-		#define ZTK_RuntimeDrawClear() ZTXCB_DrawClear()
-		#define ZTK_RuntimeDrawPresent() ZTXCB_DrawPresent()
-		#define ZTK_RuntimeDrawClearColor(COLOR) ZTXCB_DrawClearColor(COLOR)
-		#define ZTK_RuntimeDrawSurface(SURFACE,RECT) ZTXCB_DrawSurface(SURFACE, RECT, ZTK_BLENDMODE_ALPHA)
-		#define ZTK_RuntimeDrawSprite(SPRITE,RECT) ZTXCB_DrawSprite(SPRITE, RECT, ZTK_BLENDMODE_ALPHA)
-		#define ZTK_RuntimeDrawText(TEXT,RECT) ZTXCB_DrawText(TEXT,RECT)
-		#define ZTK_RuntimeGetDrawTextSize(TEXT,SIZE_OUT) ZTXCB_DrawTextSize(TEXT, SIZE_OUT)
-		#define ZTK_RuntimeSpriteFree(SPRITE) ZTXCB_SpriteFree(SPRITE)
-		#define ZTK_RuntimeSprite(SOURCE,BLOCK,PALLETE) ZTXCB_Sprite(SOURCE,BLOCK,PALLETE)
-		#define ZTK_RuntimeSurfaceFromFont(TEXT,FONT,PALETTE_OUT) ZTXCB_SurfaceFromFont(TEXT, FONT, PALETTE_OUT)
-		#define ZTK_RuntimeSizeFromFont(TEXT,FONT,SIZE_OUT) ZTXCB_SizeFromFont(TEXT, FONT, SIZE_OUT)
-	#else // ZTK_BUILD_XCB
-		#define ZTK_BUILD_X11 0x1 // TODO into ZTK-BUILD.h
+	#if defined(ZTK_BUILD_X11) && (ZTK_BUILD_X11)
+		#if defined(ZTK_BUILD_DEBUG) && (ZTK_BUILD_DEBUG)
+			#warning "ZTK-BUILD-WARNING: 'ZTK_BUILD_X11' is incomplete"
+		#else // ZTK_BUILD_DEBUG
+			#error "ZTK-BUILD-ERROR: 'ZTK_BUILD_X11' is incomplete"
+		#endif // ZTK_BUILD_DEBUG
 		#include "ZTX11.h"
 		#define ZTK_RuntimeQuit() ZTX11_Quit()
 		#define ZTK_RuntimeLoop() ZTX11_Loop()
 		#define ZTK_RuntimeKeyReload(STATE_OUT) ZTX11_KeyLoad(STATE_OUT)
 		#define ZTK_RuntimeLoad() ZTX11_New()
 		#define ZTK_RuntimeFree() ZTX11_Free()
-		#define ZTK_RuntimeRectLoad() ZTX11_RectLoad()
-		#define ZTK_RuntimeRectApply() ZTX11_RectLoad(); ZTX11_RectApply()
+		// #define ZTK_RuntimeRectLoad() ZTX11_RectLoad()
+		// #define ZTK_RuntimeRectApply() ZTX11_RectLoad(); ZTX11_RectApply()
+		#define ZTK_RuntimeRectLoad() 
+		#define ZTK_RuntimeRectApply() ZTX11_RectApply()
 		#define ZTK_RuntimeFontSourceFree(FONT) ZTX11_FontFreeSource(FONT)
 		#define ZTK_RuntimeFontSourceLoad(FONT) ZTX11_FontLoadSource(FONT)
 		#define ZTK_RuntimeFontRuntimeFree(FONT) ZTX11_FontFreeRuntime(FONT)
@@ -243,7 +220,40 @@ extern rZTK_HOST rZTK_Host;
 		#define ZTK_RuntimeSprite(SOURCE,BLOCK,PALLETE) ZTX11_Sprite(SOURCE,BLOCK,PALLETE)
 		#define ZTK_RuntimeSurfaceFromFont(TEXT,FONT,PALETTE_OUT) ZTX11_SurfaceFromFont(TEXT, FONT, PALETTE_OUT)
 		#define ZTK_RuntimeSizeFromFont(TEXT,FONT,SIZE_OUT) ZTX11_SizeFromFont(TEXT, FONT, SIZE_OUT)
-	#endif // ZTK_BUILD_XCB
+	#else // ZTK_BUILD_X11
+		#ifndef ZTK_BUILD_XCB
+			#define ZTK_BUILD_XCB 0x1 // TODO into ZTK-BUILD.h
+		#endif // ZTK_BUILD_XCB
+		#include "ZTXCB.h"
+		#define ZTK_RuntimeQuit() ZTXCB_Quit()
+		#define ZTK_RuntimeLoop() ZTXCB_Loop()
+		#define ZTK_RuntimeKeyReload(STATE_OUT) ZTXCB_KeyLoad(STATE_OUT)
+		#define ZTK_RuntimeLoad() ZTXCB_New()
+		#define ZTK_RuntimeFree() ZTXCB_Free()
+		// #define ZTK_RuntimeRectLoad() ZTXCB_RectLoad() // NOTE RectLoad() redundant, as Xserver uses xywh, not ltrb
+		// #define ZTK_RuntimeRectApply() ZTXCB_RectLoad(); ZTXCB_RectApply()
+		#define ZTK_RuntimeRectLoad() 
+		#define ZTK_RuntimeRectApply() ZTXCB_RectApply()
+		#define ZTK_RuntimeFontSourceFree(FONT) ZTXCB_FontFreeSource(FONT)
+		#define ZTK_RuntimeFontSourceLoad(FONT) ZTXCB_FontLoadSource(FONT)
+		#define ZTK_RuntimeFontRuntimeFree(FONT) ZTXCB_FontFreeRuntime(FONT)
+		#define ZTK_RuntimeFontRuntimeLoad(FONT) ZTXCB_FontLoadRuntime(FONT)
+		#define ZTK_RuntimeFontWindow() ZTXCB_DrawFontLoad()
+		#define ZTK_RuntimeOpen() ZTXCB_Open()
+		#define ZTK_RuntimeProcess() ZTXCB_Process()
+		#define ZTK_RuntimeDrawReload() ZTXCB_DrawSize()
+		#define ZTK_RuntimeDrawClear() ZTXCB_DrawClear()
+		#define ZTK_RuntimeDrawPresent() ZTXCB_DrawPresent()
+		#define ZTK_RuntimeDrawClearColor(COLOR) ZTXCB_DrawClearColor(COLOR)
+		#define ZTK_RuntimeDrawSurface(SURFACE,RECT) ZTXCB_DrawSurface(SURFACE, RECT, ZTK_BLENDMODE_ALPHA)
+		#define ZTK_RuntimeDrawSprite(SPRITE,RECT) ZTXCB_DrawSprite(SPRITE, RECT, ZTK_BLENDMODE_ALPHA)
+		#define ZTK_RuntimeDrawText(TEXT,RECT) ZTXCB_DrawText(TEXT,RECT)
+		#define ZTK_RuntimeGetDrawTextSize(TEXT,SIZE_OUT) ZTXCB_DrawTextSize(TEXT, SIZE_OUT)
+		#define ZTK_RuntimeSpriteFree(SPRITE) ZTXCB_SpriteFree(SPRITE)
+		#define ZTK_RuntimeSprite(SOURCE,BLOCK,PALLETE) ZTXCB_Sprite(SOURCE,BLOCK,PALLETE)
+		#define ZTK_RuntimeSurfaceFromFont(TEXT,FONT,PALETTE_OUT) ZTXCB_SurfaceFromFont(TEXT, FONT, PALETTE_OUT)
+		#define ZTK_RuntimeSizeFromFont(TEXT,FONT,SIZE_OUT) ZTXCB_SizeFromFont(TEXT, FONT, SIZE_OUT)
+	#endif // ZTK_BUILD_X11
 
 #else
 

@@ -9,77 +9,77 @@
 #define ZTM_CHAR_MAP ZTM_CHAR_MAP_ANSI
 #define ZTM_TEXT_MAX_LENGTH 8192 // fallback-length for some functions if no length parameter is passed
 // CHAR MAPPING ANSI
-#define ZTM_CHAR_ANSI_NT 			0x00
-#define ZTM_CHAR_ANSI_CR 			0x0d
-#define ZTM_CHAR_ANSI_LF 			0x0a
-#define ZTM_CHAR_ANSI_SPACE 		0x20
-#define ZTM_CHAR_ANSI_QUOTES 		0x22
-#define ZTM_CHAR_ANSI_QUOTE 		0x27
-#define ZTM_CHAR_ANSI_COLON 		0x3a
-#define ZTM_CHAR_ANSI_COMMA 		0x2c
-#define ZTM_CHAR_ANSI_DOT 			0x2e
-#define ZTM_CHAR_ANSI_MINUS 		0x2d
+#define ZTM_CHAR_ANSI_NT			0x00
+#define ZTM_CHAR_ANSI_CR			0x0d
+#define ZTM_CHAR_ANSI_LF			0x0a
+#define ZTM_CHAR_ANSI_SPACE			0x20
+#define ZTM_CHAR_ANSI_QUOTES		0x22
+#define ZTM_CHAR_ANSI_QUOTE			0x27
+#define ZTM_CHAR_ANSI_COLON			0x3a
+#define ZTM_CHAR_ANSI_COMMA			0x2c
+#define ZTM_CHAR_ANSI_DOT			0x2e
+#define ZTM_CHAR_ANSI_MINUS			0x2d
 #define ZTM_CHAR_ANSI_UNDERSCORE	0x5f
-#define ZTM_CHAR_ANSI_SLASH 		0x2f
+#define ZTM_CHAR_ANSI_SLASH			0x2f
 #define ZTM_CHAR_ANSI_BACKSLASH		0x5c
-#define ZTM_CHAR_ANSI_0 			0x30
-#define ZTM_CHAR_ANSI_A 			0x41
-#define ZTM_CHAR_ANSI_a 			0x61
+#define ZTM_CHAR_ANSI_0				0x30
+#define ZTM_CHAR_ANSI_A				0x41
+#define ZTM_CHAR_ANSI_a				0x61
 #define ZTM_CHAR_ANSI_PRINT_MIN		0x20
 #define ZTM_CHAR_ANSI_PRINT_MAX		0x7E
 // CHAR MAPPING
 #if (ZTM_CHAR_MAP == ZTM_CHAR_MAP_ANSI)
-#define ZTM_CHAR_NT 			ZTM_CHAR_ANSI_NT
-#define ZTM_CHAR_CR 			ZTM_CHAR_ANSI_CR
-#define ZTM_CHAR_LF 			ZTM_CHAR_ANSI_LF
-#define ZTM_CHAR_SPACE 			ZTM_CHAR_ANSI_SPACE
-#define ZTM_CHAR_QUOTES 		ZTM_CHAR_ANSI_QUOTES
-#define ZTM_CHAR_QUOTE 			ZTM_CHAR_ANSI_QUOTE
-#define ZTM_CHAR_COLON 			ZTM_CHAR_ANSI_COLON
-#define ZTM_CHAR_COMMA 			ZTM_CHAR_ANSI_COMMA
-#define ZTM_CHAR_DOT 			ZTM_CHAR_ANSI_DOT
-#define ZTM_CHAR_MINUS 			ZTM_CHAR_ANSI_MINUS
+#define ZTM_CHAR_NT				ZTM_CHAR_ANSI_NT
+#define ZTM_CHAR_CR				ZTM_CHAR_ANSI_CR
+#define ZTM_CHAR_LF				ZTM_CHAR_ANSI_LF
+#define ZTM_CHAR_SPACE			ZTM_CHAR_ANSI_SPACE
+#define ZTM_CHAR_QUOTES			ZTM_CHAR_ANSI_QUOTES
+#define ZTM_CHAR_QUOTE			ZTM_CHAR_ANSI_QUOTE
+#define ZTM_CHAR_COLON			ZTM_CHAR_ANSI_COLON
+#define ZTM_CHAR_COMMA			ZTM_CHAR_ANSI_COMMA
+#define ZTM_CHAR_DOT			ZTM_CHAR_ANSI_DOT
+#define ZTM_CHAR_MINUS			ZTM_CHAR_ANSI_MINUS
 #define ZTM_CHAR_UNDERSCORE		ZTM_CHAR_ANSI_UNDERSCORE
-#define ZTM_CHAR_SLASH 			ZTM_CHAR_ANSI_SLASH
+#define ZTM_CHAR_SLASH			ZTM_CHAR_ANSI_SLASH
 #define ZTM_CHAR_BACKSLASH		ZTM_CHAR_ANSI_BACKSLASH
-#define ZTM_CHAR_0 				ZTM_CHAR_ANSI_0
-#define ZTM_CHAR_A 				ZTM_CHAR_ANSI_A
-#define ZTM_CHAR_a 				ZTM_CHAR_ANSI_a
+#define ZTM_CHAR_0				ZTM_CHAR_ANSI_0
+#define ZTM_CHAR_A				ZTM_CHAR_ANSI_A
+#define ZTM_CHAR_a				ZTM_CHAR_ANSI_a
 #define ZTM_CHAR_PRINT_MIN		ZTM_CHAR_ANSI_PRINT_MIN
 #define ZTM_CHAR_PRINT_MAX		ZTM_CHAR_ANSI_PRINT_MAX
 #endif // ZTM_CHAR_MAP
 // CHAR RELATIONAL MAPPING
 #define ZTM_CHAR_ZERO			ZTM_CHAR_0
-#define ZTM_CHAR_b 				(ZTM_CHAR_a + 1)
-#define ZTM_CHAR_x 				(ZTM_CHAR_a + 23) // YETI Uppercase hex-keys, as in 0XFFBBCCEF? Same for binary.
-#define ZTM_CHAR_B 				(ZTM_CHAR_A + 1)
-#define ZTM_CHAR_X 				(ZTM_CHAR_A + 23) // YETI Uppercase hex-keys, as in 0XFFBBCCEF? Same for binary.
-#define ZTM_CHAR_2 				(ZTM_CHAR_0 + 2)
-#define ZTM_CHAR_0L1 			(ZTM_CHAR_0 - 1)
-#define ZTM_CHAR_9P1 			(ZTM_CHAR_0 + 10)
-#define ZTM_CHAR_AL1 			(ZTM_CHAR_A - 1)
-#define ZTM_CHAR_aL1 			(ZTM_CHAR_a - 1)
-#define ZTM_CHAR_FP1 			(ZTM_CHAR_A + 6)
-#define ZTM_CHAR_fP1 			(ZTM_CHAR_a + 6)
-#define ZTM_CHAR_VP1 			(ZTM_CHAR_A + 22)
-#define ZTM_CHAR_vP1 			(ZTM_CHAR_a + 22)
-#define ZTM_CHAR_ZP1 			(ZTM_CHAR_A + 26)
-#define ZTM_CHAR_zP1 			(ZTM_CHAR_a + 26)
-#define ZTM_CHAR_HEX_AOFF 		(ZTM_CHAR_A - 10)
-#define ZTM_CHAR_HEX_aOFF 		(ZTM_CHAR_a - 10)
+#define ZTM_CHAR_b				(ZTM_CHAR_a + 1)
+#define ZTM_CHAR_x				(ZTM_CHAR_a + 23) // YETI Uppercase hex-keys, as in 0XFFBBCCEF? Same for binary.
+#define ZTM_CHAR_B				(ZTM_CHAR_A + 1)
+#define ZTM_CHAR_X				(ZTM_CHAR_A + 23) // YETI Uppercase hex-keys, as in 0XFFBBCCEF? Same for binary.
+#define ZTM_CHAR_2				(ZTM_CHAR_0 + 2)
+#define ZTM_CHAR_0L1			(ZTM_CHAR_0 - 1)
+#define ZTM_CHAR_9P1			(ZTM_CHAR_0 + 10)
+#define ZTM_CHAR_AL1			(ZTM_CHAR_A - 1)
+#define ZTM_CHAR_aL1			(ZTM_CHAR_a - 1)
+#define ZTM_CHAR_FP1			(ZTM_CHAR_A + 6)
+#define ZTM_CHAR_fP1			(ZTM_CHAR_a + 6)
+#define ZTM_CHAR_VP1			(ZTM_CHAR_A + 22)
+#define ZTM_CHAR_vP1			(ZTM_CHAR_a + 22)
+#define ZTM_CHAR_ZP1			(ZTM_CHAR_A + 26)
+#define ZTM_CHAR_zP1			(ZTM_CHAR_a + 26)
+#define ZTM_CHAR_HEX_AOFF		(ZTM_CHAR_A - 10)
+#define ZTM_CHAR_HEX_aOFF		(ZTM_CHAR_a - 10)
 // CHAR SYMBOLS
-#define ZTM_CHAR_ESCAPE 		ZTM_CHAR_BACKSLASH
-#define ZTM_CHAR_FILETYPE	 	ZTM_CHAR_DOT
+#define ZTM_CHAR_ESCAPE			ZTM_CHAR_BACKSLASH
+#define ZTM_CHAR_FILETYPE		ZTM_CHAR_DOT
 // NEWLINE SYMBOL & STRING
 /*
 #ifdef ZTM_BUILD_APPLE
-#define ZTM_CHAR_NL      		ZTM_CHAR_CR
+#define ZTM_CHAR_NL				ZTM_CHAR_CR
 #define ZTM_TEXT_NL				((const ZT_CHAR*)"\r")
 #else
-#define ZTM_CHAR_NL      		ZTM_CHAR_LF
+#define ZTM_CHAR_NL				ZTM_CHAR_LF
 #endif // ZTM_BUILD_APPLE
 */
-#define ZTM_CHAR_NL      		ZTM_CHAR_LF
+#define ZTM_CHAR_NL				ZTM_CHAR_LF
 #if defined(ZTM_BUILD_WINDOWS) && (ZTM_BUILD_WINDOWS)
 	#define ZTM_TEXT_NL			((const ZT_CHAR*)"\r\n")
 #else // ZTM_BUILD_WINDOWS
@@ -94,7 +94,7 @@
 	#define ZTM_TEXT_PATH		((const ZT_CHAR*)"/")
 #endif // ZTM_BUILD_WINDOWS
 // DECIMAL MARK
-#define ZTM_CHAR_DECIMAL	 	ZTM_CHAR_DOT
+#define ZTM_CHAR_DECIMAL		ZTM_CHAR_DOT
 
 #define ZTM_TEXT_TYPE_ASCII		0x0
 #define ZTM_TEXT_TYPE_UTF8		0x1
@@ -225,7 +225,7 @@ ZT_U8* ZTC8_Binary(ZT_U iInteger);
 })
 #define ZTC8_Match(HAYSTACK,NEEDLE) ({\
 	ZT_BOOL rMATCH_m = 0x1; ZT_INDEX rMATCH_i = -1;\
-    while (((const ZT_CHAR*)(NEEDLE))[++rMATCH_i] != ZTM_CHAR_NT) {if ((((const ZT_CHAR*)(HAYSTACK))[rMATCH_i] != ((const ZT_CHAR*)(NEEDLE))[rMATCH_i]) || (((const ZT_CHAR*)(HAYSTACK))[rMATCH_i] == ZTM_CHAR_NT)) {rMATCH_m = 0x0; break;}}\
+	while (((const ZT_CHAR*)(NEEDLE))[++rMATCH_i] != ZTM_CHAR_NT) {if ((((const ZT_CHAR*)(HAYSTACK))[rMATCH_i] != ((const ZT_CHAR*)(NEEDLE))[rMATCH_i]) || (((const ZT_CHAR*)(HAYSTACK))[rMATCH_i] == ZTM_CHAR_NT)) {rMATCH_m = 0x0; break;}}\
 	rMATCH_m;\
 })
 #define ZTC8_MatchExact(TEXT1,TEXT2) ({\
@@ -240,11 +240,11 @@ ZT_U8* ZTC8_Binary(ZT_U iInteger);
 })
 #define ZTC8_SeekCursorMax(HAYSTACK,NEEDLE,CURSOR_INOUT,MAX) ({\
 	ZT_FLAG rSEEKCURSORM_f = 0x0; ZT_INDEX rSEEKCURSORM_i = ((ZT_INDEX*)(CURSOR_INOUT) != (ZT_INDEX*)NULL) ? *((ZT_INDEX*)(CURSOR_INOUT)) : 0;\
-    while (ZTC8_CursorValidMax((HAYSTACK), rSEEKCURSORM_i, MAX)) {if (ZTC8_Match(&((const ZT_CHAR*)(HAYSTACK))[rSEEKCURSORM_i], ((const ZT_CHAR*)(NEEDLE)))) {\
-        if ((ZT_INDEX*)(CURSOR_INOUT) != (ZT_INDEX*)NULL) {*((ZT_INDEX*)(CURSOR_INOUT)) = rSEEKCURSORM_i;} rSEEKCURSORM_f = 0x1; break;}\
+	while (ZTC8_CursorValidMax((HAYSTACK), rSEEKCURSORM_i, MAX)) {if (ZTC8_Match(&((const ZT_CHAR*)(HAYSTACK))[rSEEKCURSORM_i], ((const ZT_CHAR*)(NEEDLE)))) {\
+		if ((ZT_INDEX*)(CURSOR_INOUT) != (ZT_INDEX*)NULL) {*((ZT_INDEX*)(CURSOR_INOUT)) = rSEEKCURSORM_i;} rSEEKCURSORM_f = 0x1; break;}\
 		++rSEEKCURSORM_i;\
 	}\
-    rSEEKCURSORM_f;\
+	rSEEKCURSORM_f;\
 })
 #define ZTC8_Escape(FLAG,CHAR) ({\
 	if (FLAG) {\

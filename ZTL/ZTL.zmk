@@ -1,16 +1,16 @@
 {
-    "target": "./libZTL.so",
-    "sources": [
-        "./ZTL-RT-LINUX.c",
-        "./ZTL-RT.c",
-        "./ZTL.c"
-    ],
-    "include": ["../ZTM"],
-    "link": ["ZTM"],
-    "flag": {
+	"target": "./libZTL.so",
+	"sources": [
+		"./ZTL-RT-LINUX.c",
+		"./ZTL-RT.c",
+		"./ZTL.c"
+	],
+	"include": ["../ZTM"],
+	"link": ["ZTM"],
+	"flag": {
 		"extra": {
 			"shared": ["-fPIC"],
 			"linker": ["-shared"]
 		}
-    }
+	}
 }

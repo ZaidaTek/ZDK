@@ -13,7 +13,7 @@ typedef struct {
 	ZT_FLAG type;
 	ZT_FLAG draw;
 	ZT_INDEX border;
-    rZT_FONT* font;
+	rZT_FONT* font;
 	const void** sources;
 	ZUI_COLOR* colors;
 	ZT_SPRITE** sprites;
@@ -48,48 +48,48 @@ typedef struct rZUI_ELEMENT {
 } rZUI_ELEMENT;
 
 typedef struct {
-    struct {
-        ZT_QLIST* buffer;
-        const ZT_EVENT* last;
-    } event;
-    struct {
-        ZT_LIST* registry;
-        const rZUI_ELEMENT* focus;
-        ZT_INDEX length;
-        ZT_INDEX dummy; //alignment
-    } element;
-    struct {
-        const ZT_RECT* rect;
-        const ZT_POINT* pos;
-        const ZT_POINT* size;
-        const ZT_I* x;
-        const ZT_I* y;
-        const ZT_I* w;
-        const ZT_I* h;
-        const ZT_TIME* tick;
-        const ZT_FLAG* paletteUser;
-        const ZT_FLAG* paletteSys;
-        const ZT_POINT* mousePos;
-        const ZT_FLAG* mouseState;
-        rZT_FONT** fontUser;
-        rZT_FONT** fontSys;
-    } system;
+	struct {
+		ZT_QLIST* buffer;
+		const ZT_EVENT* last;
+	} event;
+	struct {
+		ZT_LIST* registry;
+		const rZUI_ELEMENT* focus;
+		ZT_INDEX length;
+		ZT_INDEX dummy; //alignment
+	} element;
+	struct {
+		const ZT_RECT* rect;
+		const ZT_POINT* pos;
+		const ZT_POINT* size;
+		const ZT_I* x;
+		const ZT_I* y;
+		const ZT_I* w;
+		const ZT_I* h;
+		const ZT_TIME* tick;
+		const ZT_FLAG* paletteUser;
+		const ZT_FLAG* paletteSys;
+		const ZT_POINT* mousePos;
+		const ZT_FLAG* mouseState;
+		rZT_FONT** fontUser;
+		rZT_FONT** fontSys;
+	} system;
 	ZT_FLAG flag;
 	ZT_U32 seed;
 	struct {
-	    //ZT_TIME now;
-	    ZT_TIME modulator;
-	    ZT_TIME cursor;
+		//ZT_TIME now;
+		ZT_TIME modulator;
+		ZT_TIME cursor;
 	} timestamp;
 	struct {
-	    ZT_TIME modulator;
-	    ZT_TIME cursor;
+		ZT_TIME modulator;
+		ZT_TIME cursor;
 	} timeout;
 	struct {
-	    ZT_COLOR modulator0;
-	    ZT_COLOR modulator1;
-	    ZT_COLOR cursor;
-	    ZT_COLOR dummy; // alignment
+		ZT_COLOR modulator0;
+		ZT_COLOR modulator1;
+		ZT_COLOR cursor;
+		ZT_COLOR dummy; // alignment
 	} color;
 } rZUI_HOST;
 

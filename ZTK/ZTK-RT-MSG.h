@@ -15,6 +15,7 @@ void ZTK_MSG_MouseWheel(ZT_I iIncrement);
 void ZTK_MSG_Key(ZT_BOOL iDown, ZT_INDEX iKey);
 void ZTK_MSG_Move(ZT_I iX, ZT_I iY);
 void ZTK_MSG_Size(ZT_I iWidth, ZT_I iHeight);
+void ZTK_MSG_Rect(const ZT_RECT* iRect);
 void ZTK_MSG_NCCreate(void);
 void ZTK_MSG_Create(void);
 void ZTK_MSG_Close(void);

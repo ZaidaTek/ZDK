@@ -8,7 +8,7 @@
 #include "ZTGL-RT.h"
 
 ZT_FLAG rZTGL__FLAG = ZTGL_FLAG_INIT;
-rZTGL_HOST rZTGL_Host;
+rZTGL_RUNTIME rZTGL_Host;
 
 #if defined(ZTK_BUILD_WINDOWS) && (ZTK_BUILD_WINDOWS)
 	#include "ZTWIN-RT.h"
@@ -28,24 +28,24 @@ rZTGL_HOST rZTGL_Host;
 #endif // ZTK_BUILD_WINDOWS
 
 void ZTGL_Init(void) {
-    if (rZTGL__FLAG & ZTGL_FLAG_INIT) {
-        rZTGL__FLAG &= ~ZTGL_FLAG_INIT;
-        ZTM8_Zero(&rZTGL_Host, sizeof(rZTGL_Host));
-        ZTGL_RuntimeInit();
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        glClearColor(0.0, 0.0, 0.0, 0.0);
-        glEnable(GL_TEXTURE_2D);
-    }
+	if (rZTGL__FLAG & ZTGL_FLAG_INIT) {
+		rZTGL__FLAG &= ~ZTGL_FLAG_INIT;
+		ZTM8_Zero(&rZTGL_Host, sizeof(rZTGL_Host));
+		ZTGL_RuntimeInit();
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glClearColor(0.0, 0.0, 0.0, 0.0);
+		glEnable(GL_TEXTURE_2D);
+	}
 }
 void ZTGL_Exit(void) {
-    if (!(rZTGL__FLAG & ZTGL_FLAG_INIT)) {
-        ZTGL_RuntimeExit();
-        rZTGL__FLAG |= ZTGL_FLAG_INIT;
-    }
+	if (!(rZTGL__FLAG & ZTGL_FLAG_INIT)) {
+		ZTGL_RuntimeExit();
+		rZTGL__FLAG |= ZTGL_FLAG_INIT;
+	}
 }
 void ZTGL_Present(void) {
-    ZTGL_RuntimePresent();
+	ZTGL_RuntimePresent();
 }
 
 #endif // ZTGL_RT_C_INCLUDED

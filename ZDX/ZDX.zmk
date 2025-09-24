@@ -1,17 +1,17 @@
 {
-    "target": "./libZDX.so",
-    "sources": [
-        "./ZDX-data.c",
-        "./ZDX-diagram.c",
-        "./ZDX-interface.c",
-        "./ZDX.c"
-    ],
-    "include": ["../ZTM", "../ZTL"],
-    "link": ["ZTM", "ZTL"],
-    "flag": {
+	"target": "./libZDX.so",
+	"sources": [
+		"./ZDX-data.c",
+		"./ZDX-diagram.c",
+		"./ZDX-interface.c",
+		"./ZDX.c"
+	],
+	"include": ["../ZTM", "../ZTL"],
+	"link": ["ZTM", "ZTL"],
+	"flag": {
 		"extra": {
 			"shared": ["-fPIC"],
 			"linker": ["-shared"]
 		}
-    }
+	}
 }

@@ -19,20 +19,20 @@
 #define ZTL_BUFFER_PIPE 1024 // expose this, and make it OS-dependent?
 
 typedef struct {
-    ZT_U64 timestamp;
-    ZT_U64 delay;
-    ZT_INDEX length;
-    ZT_INDEX remainder;
-    ZT_INDEX counter;
-    ZT_INDEX bump;
+	ZT_U64 timestamp;
+	ZT_U64 delay;
+	ZT_INDEX length;
+	ZT_INDEX remainder;
+	ZT_INDEX counter;
+	ZT_INDEX bump;
 } rZT_TIMER;
 typedef struct {
-    void* runtime;
-    void* mutex;
-    ZT_FLAG(* exec)(void*);
-    void* args;
-    union {ZT_FLAG id; ZT_FLAG state;};
-    ZT_FLAG ret;
+	void* runtime;
+	void* mutex;
+	ZT_FLAG(* exec)(void*);
+	void* args;
+	union {ZT_FLAG id; ZT_FLAG state;};
+	ZT_FLAG ret;
 } rZT_THREAD;
 
 #if defined(ZTL_BUILD_WINDOWS) && (ZTL_BUILD_WINDOWS)
@@ -56,14 +56,14 @@ typedef OPENFILENAME rZT_SELECT;
 #define ZTL_RuntimeScreenWidth() GetSystemMetrics(SM_CXFULLSCREEN)
 #define ZTL_RuntimeScreenHeight() GetSystemMetrics(SM_CYFULLSCREEN)
 #define ZTL_RuntimeSelectInit(RUNTIME)\
-    ZTM8_Zero((RUNTIME), sizeof(rZT_SELECT));\
-    (RUNTIME)->lStructSize = sizeof(rZT_SELECT);\
-    (RUNTIME)->lpstrFilter = (LPCTSTR)rZTL__SELECT_TYPE;\
-    (RUNTIME)->nFilterIndex = 1;\
-    (RUNTIME)->lpstrFile = (LPTSTR)rZTL__SELECT_PATH;\
-    (RUNTIME)->nMaxFile = ZTL_BUFFER_PATH;\
-    (RUNTIME)->lpstrInitialDir = (LPCTSTR)rZTL__SELECT_DIR;\
-    (RUNTIME)->Flags = OFN_EXPLORER
+	ZTM8_Zero((RUNTIME), sizeof(rZT_SELECT));\
+	(RUNTIME)->lStructSize = sizeof(rZT_SELECT);\
+	(RUNTIME)->lpstrFilter = (LPCTSTR)rZTL__SELECT_TYPE;\
+	(RUNTIME)->nFilterIndex = 1;\
+	(RUNTIME)->lpstrFile = (LPTSTR)rZTL__SELECT_PATH;\
+	(RUNTIME)->nMaxFile = ZTL_BUFFER_PATH;\
+	(RUNTIME)->lpstrInitialDir = (LPCTSTR)rZTL__SELECT_DIR;\
+	(RUNTIME)->Flags = OFN_EXPLORER
 //#define ZTL_RuntimeSelectDialog() ({rZTL__SELECT_FLAG & ZTL_FLAG_SELECT_SAVE ? GetSaveFileName(rZTL__SELECT_RUNTIME) : GetOpenFileName(rZTL__SELECT_RUNTIME);})
 #elif defined(ZTL_BUILD_LINUX) && (ZTL_BUILD_LINUX)
 #define _GNU_SOURCE
@@ -81,61 +81,61 @@ typedef OPENFILENAME rZT_SELECT;
 typedef int rZT_SERIAL;
 typedef struct {const ZT_CHAR* title;} rZT_SELECT;
 #define ZTL_RuntimeThreadNew(THREAD,FUNCTION,ARGUMENT) \
-    static pthread_attr_t lAttr;\
-    void* lEntryPoint(void* iiThread) {\
-        rZT_THREAD* llThread = iiThread;\
-        pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);/*TODO FIXME PTHREAD_CANCEL_DEFERRED << shouldn't this be immediate again?*/\
-        pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);\
-        llThread->ret = (*(llThread->exec))(llThread->args);\
-        pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL);\
-        pthread_mutex_lock(llThread->mutex);\
-        llThread->state = ZTL_THREAD_FINISH;\
-        pthread_mutex_unlock(llThread->mutex);\
-        return NULL;\
-    }\
-    ((rZT_THREAD*)(THREAD))->state = ZTL_THREAD_RUNNING;\
-    ((rZT_THREAD*)(THREAD))->mutex = ZTM8_New(sizeof(pthread_mutex_t));\
-    pthread_mutex_init(((rZT_THREAD*)(THREAD))->mutex, NULL);\
-    pthread_attr_init(&lAttr);\
-    pthread_attr_setdetachstate(&lAttr, PTHREAD_CREATE_DETACHED);\
-    pthread_create((pthread_t*)&(((rZT_THREAD*)(THREAD))->runtime), &lAttr, &lEntryPoint, (THREAD));
+	static pthread_attr_t lAttr;\
+	void* lEntryPoint(void* iiThread) {\
+		rZT_THREAD* llThread = iiThread;\
+		pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);/*TODO FIXME PTHREAD_CANCEL_DEFERRED << shouldn't this be immediate again?*/\
+		pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);\
+		llThread->ret = (*(llThread->exec))(llThread->args);\
+		pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL);\
+		pthread_mutex_lock(llThread->mutex);\
+		llThread->state = ZTL_THREAD_FINISH;\
+		pthread_mutex_unlock(llThread->mutex);\
+		return NULL;\
+	}\
+	((rZT_THREAD*)(THREAD))->state = ZTL_THREAD_RUNNING;\
+	((rZT_THREAD*)(THREAD))->mutex = ZTM8_New(sizeof(pthread_mutex_t));\
+	pthread_mutex_init(((rZT_THREAD*)(THREAD))->mutex, NULL);\
+	pthread_attr_init(&lAttr);\
+	pthread_attr_setdetachstate(&lAttr, PTHREAD_CREATE_DETACHED);\
+	pthread_create((pthread_t*)&(((rZT_THREAD*)(THREAD))->runtime), &lAttr, &lEntryPoint, (THREAD));
 #define ZTL_RuntimeThreadWait(THREAD) ({\
-    ZT_BOOL mWait = ZT_TRUE;\
-    rZT_THREAD* mThread = (THREAD);\
-    if (!pthread_mutex_trylock(mThread->mutex)) {mWait = mThread->state != ZTL_THREAD_FINISH; pthread_mutex_unlock(mThread->mutex);}\
-    mWait;\
+	ZT_BOOL mWait = ZT_TRUE;\
+	rZT_THREAD* mThread = (THREAD);\
+	if (!pthread_mutex_trylock(mThread->mutex)) {mWait = mThread->state != ZTL_THREAD_FINISH; pthread_mutex_unlock(mThread->mutex);}\
+	mWait;\
 })
 #define ZTL_RuntimeThreadReturn(THREAD,ORETURN) *(ORETURN) = ((rZT_THREAD*)(THREAD))->ret
 #define ZTL_RuntimeThreadKill(THREAD,RETURN) pthread_cancel((pthread_t)((rZT_THREAD*)(THREAD))->runtime); ((rZT_THREAD*)(THREAD))->ret = (RETURN)
 #define ZTL_RuntimeThreadFree(THREAD) ZTM8_Free(((rZT_THREAD*)(THREAD))->mutex)
 #define ZTL_RuntimeSleep(LENGTH) \
-    static struct timespec lCache;\
-    static struct timespec lDummy;\
-    lCache.tv_sec = LENGTH / 1000;\
-    lCache.tv_nsec = (LENGTH % 1000) * 1000000;\
-    nanosleep(&lCache, &lDummy)
+	static struct timespec lCache;\
+	static struct timespec lDummy;\
+	lCache.tv_sec = LENGTH / 1000;\
+	lCache.tv_nsec = (LENGTH % 1000) * 1000000;\
+	nanosleep(&lCache, &lDummy)
 #define ZTL_RuntimeTickResolutionStart(RESOLUTION) // NOT NEEDED IN POSIX; DO NOTHING
 #define ZTL_RuntimeTickResolutionStop(RESOLUTION) // NOT NEEDED IN POSIX; DO NOTHING
 #define ZTL_RuntimeTick() ({\
-    static struct timespec mCACHE;\
-    clock_gettime(CLOCK_REALTIME, &mCACHE);\
-    ((ZT_U64)mCACHE.tv_sec * (ZT_U64)1000 + (ZT_U64)mCACHE.tv_nsec / (ZT_U64)1000000) & 0xffffffff;\
+	static struct timespec mCACHE;\
+	clock_gettime(CLOCK_REALTIME, &mCACHE);\
+	((ZT_U64)mCACHE.tv_sec * (ZT_U64)1000 + (ZT_U64)mCACHE.tv_nsec / (ZT_U64)1000000) & 0xffffffff;\
 })
 #define ZTL_RuntimeTickMicro() ({\
-    static struct timespec mCACHE;\
-    clock_gettime(CLOCK_REALTIME, &mCACHE);\
-    ((ZT_U64)mCACHE.tv_sec * (ZT_U64)1000000 + (ZT_U64)mCACHE.tv_nsec / (ZT_U64)1000) & 0xffffffff;\
+	static struct timespec mCACHE;\
+	clock_gettime(CLOCK_REALTIME, &mCACHE);\
+	((ZT_U64)mCACHE.tv_sec * (ZT_U64)1000000 + (ZT_U64)mCACHE.tv_nsec / (ZT_U64)1000) & 0xffffffff;\
 })
 #define ZTL_RuntimeClock(OCLOCK) ({\
-    static struct timespec mCACHE;\
-    clock_gettime(CLOCK_REALTIME, &mCACHE);\
-    *(OCLOCK) = (ZT_U64)mCACHE.tv_sec * (ZT_U64)1000000000 + (ZT_U64)mCACHE.tv_nsec;\
+	static struct timespec mCACHE;\
+	clock_gettime(CLOCK_REALTIME, &mCACHE);\
+	*(OCLOCK) = (ZT_U64)mCACHE.tv_sec * (ZT_U64)1000000000 + (ZT_U64)mCACHE.tv_nsec;\
 })
 #define ZTL_RuntimeClockRate(ORATE) ({\
-    static struct timespec mZTL_RUNTIMECLOCKRATE;\
-    clock_getres(CLOCK_REALTIME, &mZTL_RUNTIMECLOCKRATE);\
-    *(ORATE) = (ZT_U64)1000000000 / ((ZT_U64)mZTL_RUNTIMECLOCKRATE.tv_sec * (ZT_U64)1000000000 + (ZT_U64)mZTL_RUNTIMECLOCKRATE.tv_nsec);\
-    ZT_TRUE;\
+	static struct timespec mZTL_RUNTIMECLOCKRATE;\
+	clock_getres(CLOCK_REALTIME, &mZTL_RUNTIMECLOCKRATE);\
+	*(ORATE) = (ZT_U64)1000000000 / ((ZT_U64)mZTL_RUNTIMECLOCKRATE.tv_sec * (ZT_U64)1000000000 + (ZT_U64)mZTL_RUNTIMECLOCKRATE.tv_nsec);\
+	ZT_TRUE;\
 })
 #define ZTL_RuntimeShellExec(COMMAND) ((ZT_FLAG)system((const char*)(COMMAND)))
 #define ZTL_RuntimeScreenWidth() 0
@@ -155,16 +155,16 @@ typedef void rZT_SERIAL;
 void ZTL_SelectInit(void);
 ZT_INDEX ZTL_RuntimeSelectDialog(void);
 
-extern ZT_U64              rZTL__QPC_RATE;
-extern ZT_FLAG             rZTL__QPC_FLAG;
-extern ZT_TIME             rZTL__TICK_RES;
-extern ZT_FLAG             rZTL__SELECT_FLAG;
-extern ZT_INDEX            rZTL__SELECT_COUNT;
-extern rZT_SELECT          rZTL__SELECT_RUNTIME;
-extern rZT_THREAD*         rZTL__SELECT_THREAD;
-extern ZT_CHAR             rZTL__SELECT_PATH[ZTL_BUFFER_PATH];
-extern ZT_CHAR             rZTL__SELECT_DIR[ZTL_BUFFER_PATH];
-extern ZT_CHAR             rZTL__SELECT_FILE[ZTL_BUFFER_PATH];
-extern ZT_CHAR             rZTL__SELECT_TYPE[ZTL_BUFFER_PATH];
+extern ZT_U64		rZTL__QPC_RATE;
+extern ZT_FLAG		rZTL__QPC_FLAG;
+extern ZT_TIME		rZTL__TICK_RES;
+extern ZT_FLAG		rZTL__SELECT_FLAG;
+extern ZT_INDEX		rZTL__SELECT_COUNT;
+extern rZT_SELECT	rZTL__SELECT_RUNTIME;
+extern rZT_THREAD*	rZTL__SELECT_THREAD;
+extern ZT_CHAR		rZTL__SELECT_PATH[ZTL_BUFFER_PATH];
+extern ZT_CHAR		rZTL__SELECT_DIR[ZTL_BUFFER_PATH];
+extern ZT_CHAR		rZTL__SELECT_FILE[ZTL_BUFFER_PATH];
+extern ZT_CHAR		rZTL__SELECT_TYPE[ZTL_BUFFER_PATH];
 
 #endif // ZTL_RT_H_INCLUDED

@@ -7,7 +7,7 @@
 
 #include "ZTK-RT.h"
 
-rZTK_HOST rZTK_Host;
+rZTK_RUNTIME rZTK_Host;
 rZTK_PRINTER_HOST rZTK_PrinterHost;
 
 const ZT_RECT* ZTK_InternalRect(void) {return &rZTK_Host.rect;}

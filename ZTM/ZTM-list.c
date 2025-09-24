@@ -38,7 +38,7 @@ ZT_LIST* ZTM_ListNew(ZT_INDEX iLength) {
 	return ZTM_ListPointersCreate(lList);
 }
 ZT_LIST* ZTM_ListNewDuplicate(const ZT_LIST* iList) {
-    return ZTM_ListCopy(iList, ZTM_ListNew(iList->length));
+	return ZTM_ListCopy(iList, ZTM_ListNew(iList->length));
 }
 ZT_LIST* ZTM_ListLength(ZT_LIST* iList, ZT_INDEX iLength) {
 	iList->items = ZTM8_Resize(iList->items, (iList->length = iLength) * sizeof(void*));
@@ -70,24 +70,24 @@ ZT_LIST* ZTM_ListDeserialize(ZT_LIST* iList, const ZT_CHAR* iDelimiter, const ZT
 		ZTM_ListAppend(iList, ZTC8_CopyLength(&iString[lLine], lIndex - lLine));
 		lLine = lIndex;
 	}
-    return iList;
+	return iList;
 }
 void* ZTM_ListFirstValidItem(ZT_LIST* iList) {
-    if (iList->length) {for (ZT_INDEX i = 0; i < iList->length; i++) {if (iList->items[i] != NULL) {return iList->items[i];}}}
-    return NULL;
+	if (iList->length) {for (ZT_INDEX i = 0; i < iList->length; i++) {if (iList->items[i] != NULL) {return iList->items[i];}}}
+	return NULL;
 }
 void* ZTM_ListLastValidItem(ZT_LIST* iList) {
-    ZT_INDEX lLength; if ((lLength = iList->length)) {--lLength; for (ZT_INDEX i = 0; i < iList->length; i++) {if (iList->items[lLength - i] != NULL) {return iList->items[i];}}}
-    return NULL;
+	ZT_INDEX lLength; if ((lLength = iList->length)) {--lLength; for (ZT_INDEX i = 0; i < iList->length; i++) {if (iList->items[lLength - i] != NULL) {return iList->items[i];}}}
+	return NULL;
 }
 void* ZTM_ListItem(ZT_LIST* iList, ZT_INDEX iIndex) {
 	return iList->items[iIndex];
 }
 ZT_INDEX ZTM_ListCount(ZT_LIST* iList, void* iItem) {
-    ZT_INDEX lCount = 0;
+	ZT_INDEX lCount = 0;
 	ZT_INDEX lIndex = -1;
 	while (++lIndex < iList->length) {if (iList->items[lIndex] == iItem) {++lCount;}}
-    return lCount;
+	return lCount;
 }
 ZT_BOOL ZTM_ListContains(ZT_LIST* iList, void* iItem) {
 	ZT_INDEX lIndex = -1;
@@ -110,7 +110,7 @@ ZT_BOOL ZTM_ListFindVacant(ZT_LIST* iList, ZT_BOOL iBackwards, ZT_INDEX* oIndex)
 			}
 		}
 	}
-    return ZT_FALSE;
+	return ZT_FALSE;
 }
 ZT_BOOL ZTM_ListFind(ZT_LIST* iList, void* iItem, ZT_BOOL iBackwards, ZT_INDEX* oIndex) {
 	ZT_INDEX lCount = -1;
@@ -122,7 +122,7 @@ ZT_BOOL ZTM_ListFind(ZT_LIST* iList, void* iItem, ZT_BOOL iBackwards, ZT_INDEX* 
 			return ZT_TRUE;
 		}
 	}
-    return ZT_FALSE;
+	return ZT_FALSE;
 }
 void ZTM_ListSort(ZT_LIST* iList, ZT_FLAG (*iComparator)(const void**, const void**)) {
 	qsort(iList->items, iList->length, sizeof(*(iList->items)), (int (*)(const void*, const void*))iComparator);
@@ -151,25 +151,25 @@ ZT_INDEX ZTM_QListQueueItem(ZT_QLIST* iQList, void* iItem) {
 	return iQList->data;
 }
 ZT_INDEX ZTM_QListPoll(ZT_QLIST* iQList, void** oItems) {
-    ZT_INDEX lLength;
-    if ((lLength = ZTM_QListQueued(iQList))) {
-        if (oItems != NULL) {*oItems = (iQList->items)[iQList->user];}
-        ZTM_QListAdvanceUser(iQList);
-    }
-    return lLength;
+	ZT_INDEX lLength;
+	if ((lLength = ZTM_QListQueued(iQList))) {
+		if (oItems != NULL) {*oItems = (iQList->items)[iQList->user];}
+		ZTM_QListAdvanceUser(iQList);
+	}
+	return lLength;
 }
 ZT_INDEX ZTM_QListQueued(ZT_QLIST* iQList) {
-    return (iQList->data < iQList->user) ? ((iQList->length - iQList->user) + iQList->data) : (iQList->data - iQList->user);
+	return (iQList->data < iQList->user) ? ((iQList->length - iQList->user) + iQList->data) : (iQList->data - iQList->user);
 }
 ZT_INDEX ZTM_QListFlush(ZT_QLIST* iQList) {
 	ZT_INDEX lSkip = ZTM_QListQueued(iQList);
 	iQList->user = iQList->data;
-    return lSkip;
+	return lSkip;
 }
 void* ZTM_QListAdvanceItem(ZT_QLIST* iQList) {
 	void* lLast = iQList->items[iQList->data];
 	ZTM_QListAdvanceData(iQList);
-    return lLast;
+	return lLast;
 }
 
 #endif // ZTM_LIST_C_INCLUDED

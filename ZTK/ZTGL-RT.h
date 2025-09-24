@@ -14,11 +14,11 @@
 #define ZTGL_MIPMAP_LEVEL 0 // not yet implemented
 
 typedef struct {
-    void* runtime;
-} rZTGL_HOST;
+	void* runtime;
+} rZTGL_RUNTIME;
 
 extern ZT_FLAG rZTGL__FLAG;
-extern rZTGL_HOST rZTGL_Host;
+extern rZTGL_RUNTIME rZTGL_Host;
 
 #ifdef __cplusplus
 extern "C" {

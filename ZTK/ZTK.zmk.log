@@ -6,6 +6,11 @@
                 "gcc"
             ]
         },
+        "/home/andi/code/c/ZDK/ZTK/ZTXCB-Draw.c": {
+            "handle": [
+                "gcc"
+            ]
+        },
         "/home/andi/code/c/ZDK/ZTK/ZTXCB.c": {
             "handle": [
                 "gcc"
@@ -68,7 +73,6 @@
         "lib": [
             "ZTM",
             "ZTL",
-            "X11",
             "xcb"
         ]
     },
@@ -88,7 +92,7 @@
     "zmake": "250917",
     "host": {
         "['date']": [
-            "2025-09-22T21:52:24 CEST"
+            "2025-09-24T17:27:31 CEST"
         ],
         "['zmake', '--version']": [
             "zmake-v250917"
@@ -98,18 +102,18 @@
             "---------------- ",
             "OS: LMDE 6 (faye) x86_64 ",
             "Kernel: 6.12.43+deb12-rt-amd64 ",
-            "Packages: 3170 (dpkg), 52 (flatpak) ",
+            "Packages: 3170 (dpkg), 53 (flatpak) ",
             "Shell: bash 5.2.15 ",
             "Resolution: 1920x1080 ",
             "DE: Cinnamon 6.4.8 ",
             "WM: Mutter (Muffin) ",
-            "WM Theme: Mint-L-Dark-Sand (Mint-Y) ",
-            "Theme: Mint-L-Dark-Sand [GTK2/3] ",
-            "Icons: Mint-X-Yellow [GTK2/3] ",
+            "WM Theme: Mint-Y-Dark-Sand (Mint-Y) ",
+            "Theme: Mint-Y-Dark-Sand [GTK2/3] ",
+            "Icons: Mint-Y-Sand [GTK2/3] ",
             "Terminal: gnome-terminal ",
             "CPU: AMD Ryzen 7 5700X3D (16) @ 4.149GHz ",
             "GPU: AMD ATI Radeon RX 7700 XT / 7800 XT ",
-            "Memory: 3836MiB / 15918MiB "
+            "Memory: 2598MiB / 15918MiB "
         ],
         "['gcc', '--version']": [
             "gcc (Debian 12.2.0-14+deb12u1) 12.2.0",
@@ -144,6 +148,25 @@
                 "/home/andi/code/c/ZDK/ZTK/ZTXCB-DEBUG.c",
                 "-o",
                 "/home/andi/code/c/ZDK/ZTK/ZTXCB-DEBUG.c.o"
+            ],
+            [
+                "gcc",
+                "-O3",
+                "-flto",
+                "-fPIC",
+                "-DZTK_BUILD_OPENGL=0x0",
+                "-DZTK_BUILD_DEBUG=0x1",
+                "-DZTK_BUILD_XCB=0x1",
+                "-Wfatal-errors",
+                "-Werror",
+                "-Wall",
+                "-Wextra",
+                "-I/home/andi/code/c/ZDK/ZTM",
+                "-I/home/andi/code/c/ZDK/ZTL",
+                "-c",
+                "/home/andi/code/c/ZDK/ZTK/ZTXCB-Draw.c",
+                "-o",
+                "/home/andi/code/c/ZDK/ZTK/ZTXCB-Draw.c.o"
             ],
             [
                 "gcc",
@@ -340,6 +363,7 @@
             [
                 "gcc",
                 "/home/andi/code/c/ZDK/ZTK/ZTXCB-DEBUG.c.o",
+                "/home/andi/code/c/ZDK/ZTK/ZTXCB-Draw.c.o",
                 "/home/andi/code/c/ZDK/ZTK/ZTXCB.c.o",
                 "/home/andi/code/c/ZDK/ZTK/ZTX11-DEBUG.c.o",
                 "/home/andi/code/c/ZDK/ZTK/ZTX11.c.o",
@@ -364,7 +388,6 @@
                 "-L/home/andi/code/c/ZDK/ZTL",
                 "-lZTM",
                 "-lZTL",
-                "-lX11",
                 "-lxcb"
             ]
         ],
@@ -372,6 +395,7 @@
             [
                 "rm",
                 "/home/andi/code/c/ZDK/ZTK/ZTXCB-DEBUG.c.o",
+                "/home/andi/code/c/ZDK/ZTK/ZTXCB-Draw.c.o",
                 "/home/andi/code/c/ZDK/ZTK/ZTXCB.c.o",
                 "/home/andi/code/c/ZDK/ZTK/ZTX11-DEBUG.c.o",
                 "/home/andi/code/c/ZDK/ZTK/ZTX11.c.o",
@@ -388,13 +412,13 @@
     },
     "sign": {
         "['md5sum', '/home/andi/code/c/ZDK/ZTK/libZTK.so']": [
-            "c129ba17913b9da6ad92d7e0f102587a"
+            "ab3502142a6e6875395d453710f25dba"
         ],
         "['sha1sum', '/home/andi/code/c/ZDK/ZTK/libZTK.so']": [
-            "d3b7f1312f59c02acb6d1168af2fa7eb909c4d77"
+            "2fdc53fcc39e2c4ce71225ab7df1706e58c43326"
         ],
         "['sha256sum', '/home/andi/code/c/ZDK/ZTK/libZTK.so']": [
-            "5fccbb503505d7f1afdf465d5e48b03291b56d4070ad56d27a3e3c2f8addbe13"
+            "6cbf2b427ee938a06a11fc62bc3979a9b96c63a77815165ecff606d876d4a005"
         ]
     }
 }

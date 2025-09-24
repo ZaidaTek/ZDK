@@ -5,13 +5,14 @@
 #ifndef ZTM_SHARED_BUILD_H_INCLUDED
 #define ZTM_SHARED_BUILD_H_INCLUDED
 
-// #define ZTM_DEFAULT_BUILD_DEBUG 0x0
+// #define ZTM_DEFAULT_BUILD_DEBUG 0x1
+// #define ZTM_DEFAULT_COLOR_X11_EXTENDED 0x1
 
 #if !defined(ZTM_BUILD_DEBUG) && defined(ZTM_DEFAULT_BUILD_DEBUG)
 	#define ZTM_BUILD_DEBUG ZTM_DEFAULT_BUILD_DEBUG
 #endif // ZTM_BUILD_DEBUG
 
-#if   defined(__AVR)
+#if defined(__AVR)
 	#define ZTM_BUILD_WIDTH 8
 #elif defined(__x86_64__)
 	#define ZTM_BUILD_WIDTH 64
@@ -22,7 +23,7 @@
 	#warning "ZTM-BUILD-WARNING: 'ZTM_BUILD_WIDTH' defaulting to 32"
 #endif // ZTM_BUILD_WIDTH
 
-#if   defined(__AVR)
+#if defined(__AVR)
 	#define ZTM_BUILD_AVR 0x1
 	#ifndef ZTM_BUILD_EMBED
 		#define ZTM_BUILD_EMBED 0x1

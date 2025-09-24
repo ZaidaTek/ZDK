@@ -12,19 +12,19 @@
 #define ZTK_DEFAULT_PRINTER_FLAG (ZTK_PRINTER_FLAG_OVERFLOW)
 
 typedef struct {
-    rZT_FONT* font;
-    rZT_FONT* dummy; // alignment
-    ZT_POINT cursor;
-    ZT_RECT bounds;
+	rZT_FONT* font;
+	rZT_FONT* dummy; // alignment
+	ZT_POINT cursor;
+	ZT_RECT bounds;
 } rZTK_PRINTER;
 typedef struct {
-    ZT_FLAG flag;
-    ZT_FLAG type;
-    rZTK_PRINTER user;
-    struct {
-        ZT_RECT rect;
-        ZT_CHAR buffer[ZTK_PRINTER_BUFFER];
-    } print;
+	ZT_FLAG flag;
+	ZT_FLAG type;
+	rZTK_PRINTER user;
+	struct {
+		ZT_RECT rect;
+		ZT_CHAR buffer[ZTK_PRINTER_BUFFER];
+	} print;
 } rZTK_PRINTER_HOST;
 
 extern rZTK_PRINTER_HOST rZTK_PrinterHost;

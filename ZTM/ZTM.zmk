@@ -1,24 +1,24 @@
 {
-    "target": "./libZTM.so",
-    "sources": [
-        "./ZTMIO/ZTMIO.c",
-        "./ZTMKY/ZTMKY.c",
-        "./ZTMWV/ZTMWV.c",
-        "./ZTM-RT.c",
-        "./ZTM-list.c",
-        "./ZTM-time.c",
-        "./ZTM-pixel.c",
-        "./ZTM-surface.c",
-        "./ZTM-hash-md5.c",
-        "./ZTM-hash.c",
-        "./ZTM-color.c",
-        "./ZTM-char.c",
-        "./ZTM.c"
-    ],
-    "flag": {
+	"target": "./libZTM.so",
+	"sources": [
+		"./ZTMIO/ZTMIO.c",
+		"./ZTMKY/ZTMKY.c",
+		"./ZTMWV/ZTMWV.c",
+		"./ZTM-RT.c",
+		"./ZTM-list.c",
+		"./ZTM-time.c",
+		"./ZTM-pixel.c",
+		"./ZTM-surface.c",
+		"./ZTM-hash-md5.c",
+		"./ZTM-hash.c",
+		"./ZTM-color.c",
+		"./ZTM-char.c",
+		"./ZTM.c"
+	],
+	"flag": {
 		"extra": {
 			"shared": ["-fPIC"],
 			"linker": ["-shared"]
 		}
-    }
+	}
 }

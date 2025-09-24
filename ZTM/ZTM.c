@@ -44,114 +44,114 @@ ZT_U64 ZTM_Randomize_64(ZT_U64* ioSeed, ZT_U64 iModulo) {
 }
 ZT_FLAG ZTM_LSB(ZT_FLAG iFlag) {
 	// inb4 vectorizing all this and if else if sizeof(ZT_FLAG), etc.
-    ZT_FLAG lBit = iFlag ? 0x1u : 0x0u; // TODO test me
-    while (!(iFlag & lBit) && (lBit <<= 1));
-    return lBit;
+	ZT_FLAG lBit = iFlag ? 0x1u : 0x0u; // TODO test me
+	while (!(iFlag & lBit) && (lBit <<= 1));
+	return lBit;
 }
 ZT_FLAG ZTM_MSB(ZT_FLAG iFlag) {
-    ZT_FLAG lBit = iFlag ? ~((ZT_FLAG)~0x0u >> 1) : 0x0u;
-    while (!(iFlag & lBit) && (lBit >>= 1));
-    return lBit;
+	ZT_FLAG lBit = iFlag ? ~((ZT_FLAG)~0x0u >> 1) : 0x0u;
+	while (!(iFlag & lBit) && (lBit >>= 1));
+	return lBit;
 }
 ZT_FLAG ZTM_BitFillLeft(ZT_INDEX iCount) { //NOTE left *shift*, not origin
-    ///safe, but slow:
-    //ZT_FLAG lIndex = ~0x0;
-    //++iCount;
-    //while (--iCount && (lIndex <<= 1));
-    //return ~lIndex;
-    ///warning: signed and unsigned type in conditional expression [-Wsign-compare]: // D25229: seems to have disappeared with newer GCC?
-    return (iCount < (sizeof(ZT_FLAG) << 3)) ? ~(((ZT_FLAG)~0x0u) << iCount) : (ZT_FLAG)~0x0u;
-    ///no warnings with this(?):
-    //if (iCount < (sizeof(ZT_FLAG) << 3)) {return ~(((ZT_FLAG)~0x0) << iCount);} else {return ~0x0;}
+	///safe, but slow:
+	//ZT_FLAG lIndex = ~0x0;
+	//++iCount;
+	//while (--iCount && (lIndex <<= 1));
+	//return ~lIndex;
+	///warning: signed and unsigned type in conditional expression [-Wsign-compare]: // D25229: seems to have disappeared with newer GCC?
+	return (iCount < (sizeof(ZT_FLAG) << 3)) ? ~(((ZT_FLAG)~0x0u) << iCount) : (ZT_FLAG)~0x0u;
+	///no warnings with this(?):
+	//if (iCount < (sizeof(ZT_FLAG) << 3)) {return ~(((ZT_FLAG)~0x0) << iCount);} else {return ~0x0;}
 }
 ZT_FLAG ZTM_BitFillRight(ZT_INDEX iCount) {
-    ///safe, but slow:
-    //ZT_FLAG lIndex = ~0x0;
-    //++iCount;
-    //while (--iCount && (lIndex >>= 1));
-    //return ~lIndex;
-    ///warning: signed and unsigned type in conditional expression [-Wsign-compare]: // D25229: seems to have disappeared with newer GCC?
-    return (iCount < (sizeof(ZT_FLAG) << 3)) ? ~(((ZT_FLAG)~0x0u) >> iCount) : (ZT_FLAG)~0x0u;
-    ///no warnings with this(?):
-    //if (iCount < (sizeof(ZT_FLAG) << 3)) {return ~(((ZT_FLAG)~0x0) >> iCount);} else {return ~0x0;}
+	///safe, but slow:
+	//ZT_FLAG lIndex = ~0x0;
+	//++iCount;
+	//while (--iCount && (lIndex >>= 1));
+	//return ~lIndex;
+	///warning: signed and unsigned type in conditional expression [-Wsign-compare]: // D25229: seems to have disappeared with newer GCC?
+	return (iCount < (sizeof(ZT_FLAG) << 3)) ? ~(((ZT_FLAG)~0x0u) >> iCount) : (ZT_FLAG)~0x0u;
+	///no warnings with this(?):
+	//if (iCount < (sizeof(ZT_FLAG) << 3)) {return ~(((ZT_FLAG)~0x0) >> iCount);} else {return ~0x0;}
 }
 ZT_INDEX ZTM_BitCount(ZT_FLAG iFlag) {
-    ZT_INDEX lBits = 0;
-    do {if (iFlag & 0x1u) {++lBits;}} while (iFlag >>= 1);
-    return lBits;
+	ZT_INDEX lBits = 0;
+	do {if (iFlag & 0x1u) {++lBits;}} while (iFlag >>= 1);
+	return lBits;
 }
 ZT_INDEX ZTM_BitIndex(ZT_FLAG iFlag) {
-    ZT_INDEX lBitIndex = -1;
-    do {++lBitIndex; if (iFlag & 0x1u) {return lBitIndex;}} while (iFlag >>= 1);
-    return (sizeof(ZT_FLAG) << 3);
+	ZT_INDEX lBitIndex = -1;
+	do {++lBitIndex; if (iFlag & 0x1u) {return lBitIndex;}} while (iFlag >>= 1);
+	return (sizeof(ZT_FLAG) << 3);
 }
 ZT_INDEX ZTM_BitIndexIndex(ZT_FLAG iFlag, ZT_INDEX iIndex) {
-    ZT_INDEX lBitIndex = -1;
-    do {++lBitIndex; if (iFlag & 0x1u) {if (iIndex) {--iIndex;} else {return lBitIndex;}}} while (iFlag >>= 1);
-    return (sizeof(ZT_FLAG) << 3);
+	ZT_INDEX lBitIndex = -1;
+	do {++lBitIndex; if (iFlag & 0x1u) {if (iIndex) {--iIndex;} else {return lBitIndex;}}} while (iFlag >>= 1);
+	return (sizeof(ZT_FLAG) << 3);
 }
 ZT_INDEX ZTM_BitIndexFlag(ZT_FLAG iFlag, ZT_FLAG iBit) {
-    ZT_FLAG lMatch;
-    if ((lMatch = iFlag & iBit)) {
-        ZT_FLAG lBit = 0x1u;
-        ZT_INDEX lBitIndex = 0;
-        do {if (lMatch & lBit) {return lBitIndex;} else if (iFlag & lBit) {++lBitIndex;}} while (lBit <<= 1);
-    }
-    return (sizeof(ZT_FLAG) << 3);
+	ZT_FLAG lMatch;
+	if ((lMatch = iFlag & iBit)) {
+		ZT_FLAG lBit = 0x1u;
+		ZT_INDEX lBitIndex = 0;
+		do {if (lMatch & lBit) {return lBitIndex;} else if (iFlag & lBit) {++lBitIndex;}} while (lBit <<= 1);
+	}
+	return (sizeof(ZT_FLAG) << 3);
 }
 ZT_INDEX ZTM_BitFlagIndex(ZT_FLAG iFlag) {
-    ZT_INDEX lBitIndex = 0;
-    do {++lBitIndex; if (iFlag & 0x1u) {return lBitIndex;}} while (iFlag >>= 1);
-    return 0;
+	ZT_INDEX lBitIndex = 0;
+	do {++lBitIndex; if (iFlag & 0x1u) {return lBitIndex;}} while (iFlag >>= 1);
+	return 0;
 }
 ZT_FLAG ZTM_ByteOffset(ZT_FLAG iInput, ZT_FLAG iReference) {
-    ZT_FLAG lOffset = 0x0u;
-    ZT_FLAG lByte;
-    ZT_FLAG lReference;
-    ZT_FLAG lIndex = 0xffu;
-    do {lOffset |= ((lByte = iInput & lIndex) < (lReference = iReference & lIndex)) ? (lReference - lByte) : (lByte - lReference);} while (lIndex <<= 8);
-    return lOffset;
+	ZT_FLAG lOffset = 0x0u;
+	ZT_FLAG lByte;
+	ZT_FLAG lReference;
+	ZT_FLAG lIndex = 0xffu;
+	do {lOffset |= ((lByte = iInput & lIndex) < (lReference = iReference & lIndex)) ? (lReference - lByte) : (lByte - lReference);} while (lIndex <<= 8);
+	return lOffset;
 }
 ZT_INDEX ZTM_ByteSum(ZT_FLAG iFlag) {
-    ZT_INDEX lSum = 0;
-    do {lSum += iFlag & 0xffu;} while (iFlag >>= 8);
-    return lSum;
+	ZT_INDEX lSum = 0;
+	do {lSum += iFlag & 0xffu;} while (iFlag >>= 8);
+	return lSum;
 }
 ZT_FLAG ZTM_ByteMirror(ZT_FLAG iInput) {
-    ZT_FLAG lUpper = ~((ZT_FLAG)~0x0u >> 8);
-    ZT_FLAG lLower = 0xffu;
-    ZT_INDEX lCount = 0;
-    ZT_FLAG lMirror = 0x0;
-    do {
-        lMirror |= (iInput & lLower) << (((sizeof(ZT_FLAG) - 1) << 3) - (lCount << 4));
-        lMirror |= (iInput & lUpper) >> (((sizeof(ZT_FLAG) - 1) << 3) - (lCount << 4));
-        lLower <<= 8;
-        lUpper >>= 8;
-    } while (++lCount < (sizeof(ZT_FLAG) >> 1));
-    return lMirror;
+	ZT_FLAG lUpper = ~((ZT_FLAG)~0x0u >> 8);
+	ZT_FLAG lLower = 0xffu;
+	ZT_INDEX lCount = 0;
+	ZT_FLAG lMirror = 0x0;
+	do {
+		lMirror |= (iInput & lLower) << (((sizeof(ZT_FLAG) - 1) << 3) - (lCount << 4));
+		lMirror |= (iInput & lUpper) >> (((sizeof(ZT_FLAG) - 1) << 3) - (lCount << 4));
+		lLower <<= 8;
+		lUpper >>= 8;
+	} while (++lCount < (sizeof(ZT_FLAG) >> 1));
+	return lMirror;
 }
 // need to be tested
 #define ZTM_BYTECOMPARISON(SAMPLE,REFERENCE,OPERATION) \
-    ZT_FLAG lResults = 0x0;\
-    ZT_INDEX lByteMask;\
-    ZT_INDEX lIndexByte = -1;\
-    while ((lByteMask = ((ZT_FLAG)0xff << ((++lIndexByte) << 3)))) {\
-        lResults |= ((((SAMPLE & lByteMask) OPERATION (REFERENCE & lByteMask)) ? 0x01010101 : 0x0) & lByteMask);\
-    }\
-    return lResults
+	ZT_FLAG lResults = 0x0;\
+	ZT_INDEX lByteMask;\
+	ZT_INDEX lIndexByte = -1;\
+	while ((lByteMask = ((ZT_FLAG)0xff << ((++lIndexByte) << 3)))) {\
+		lResults |= ((((SAMPLE & lByteMask) OPERATION (REFERENCE & lByteMask)) ? 0x01010101 : 0x0) & lByteMask);\
+	}\
+	return lResults
 ZT_FLAG ZTM_ByteLess(ZT_FLAG iInput, ZT_FLAG iReference) {ZTM_BYTECOMPARISON(iInput, iReference, <);}
 ZT_FLAG ZTM_ByteLessEqual(ZT_FLAG iInput, ZT_FLAG iReference) {ZTM_BYTECOMPARISON(iInput, iReference, <=);}
 ZT_FLAG ZTM_ByteGreater(ZT_FLAG iInput, ZT_FLAG iReference) {ZTM_BYTECOMPARISON(iInput, iReference, >);}
 ZT_FLAG ZTM_ByteGreaterEqual(ZT_FLAG iInput, ZT_FLAG iReference) {ZTM_BYTECOMPARISON(iInput, iReference, >=);}
 // need to be tested
 #define ZTM_BYTEOPERATION(INPUT,OPERAND,OPERATION) \
-    ZT_INDEX lResult = 0x0;\
-    ZT_INDEX lIndexByte = -1;\
-    ZT_INDEX lIndexShift;\
-    while (((ZT_FLAG)0xff << (lIndexShift = ((++lIndexByte) << 3)))) {\
-        lResult |= (((((INPUT >> lIndexShift) & 0xff) OPERATION ((OPERAND >> lIndexShift) & 0xff)) % 0x100) << lIndexShift);\
-    }\
-    return lResult
+	ZT_INDEX lResult = 0x0;\
+	ZT_INDEX lIndexByte = -1;\
+	ZT_INDEX lIndexShift;\
+	while (((ZT_FLAG)0xff << (lIndexShift = ((++lIndexByte) << 3)))) {\
+		lResult |= (((((INPUT >> lIndexShift) & 0xff) OPERATION ((OPERAND >> lIndexShift) & 0xff)) % 0x100) << lIndexShift);\
+	}\
+	return lResult
 ZT_FLAG ZTM_ByteAdd(ZT_FLAG iInput, ZT_FLAG iOperand) {ZTM_BYTEOPERATION(iInput, iOperand, +);}
 ZT_FLAG ZTM_ByteSubtract(ZT_FLAG iInput, ZT_FLAG iOperand) {ZTM_BYTEOPERATION(iInput, iOperand, -);}
 ZT_FLAG ZTM_ByteMultiply(ZT_FLAG iInput, ZT_FLAG iOperand) {ZTM_BYTEOPERATION(iInput, iOperand, *);}
@@ -189,10 +189,10 @@ void ZTM_RectSizeIntoPointers(const ZT_RECT* iRect, ZT_I* oWidth, ZT_I* oHeight)
 ZT_I ZTM_RectArea(const ZT_RECT* iRect) {return (iRect->w * iRect->h);}
 #endif // ZTM_RECT_MACRO
 void ZTM_RectClipFromOriginToPoint(ZT_RECT* ioRect, const ZT_POINT* iSize) { // rect clip size?
-    if (ioRect->x < 0) {ioRect->w += ioRect->x; ioRect->x = 0;} else {if (ioRect->x > iSize->x) {ioRect->x = iSize->x;}}
-    if (ioRect->y < 0) {ioRect->y += ioRect->y; ioRect->y = 0;} else {if (ioRect->y > iSize->y) {ioRect->y = iSize->y;}}
-    if (iSize->x - ioRect->x < ioRect->w) {ioRect->w = iSize->x - ioRect->x;}
-    if (iSize->y - ioRect->y < ioRect->h) {ioRect->h = iSize->y - ioRect->y;}
+	if (ioRect->x < 0) {ioRect->w += ioRect->x; ioRect->x = 0;} else {if (ioRect->x > iSize->x) {ioRect->x = iSize->x;}}
+	if (ioRect->y < 0) {ioRect->y += ioRect->y; ioRect->y = 0;} else {if (ioRect->y > iSize->y) {ioRect->y = iSize->y;}}
+	if (iSize->x - ioRect->x < ioRect->w) {ioRect->w = iSize->x - ioRect->x;}
+	if (iSize->y - ioRect->y < ioRect->h) {ioRect->h = iSize->y - ioRect->y;}
 }
 ZT_BOOL ZTM_RectIntersect(const ZT_RECT* iRect0, const ZT_RECT* iRect1, ZT_RECT* oIntersection) {
 	ZT_I lL0 = iRect0->x;
@@ -252,9 +252,9 @@ void* ZTM8_NewArray(ZT_SIZE iCount, ZT_SIZE iElement, ZT_SIZE iPadding, void** o
 	return lMemory;
 }
 ZT_BOOL ZTM8_Match(const void* iSource, const void* iTarget, ZT_SIZE iLength) {
-    ZT_SIZE lIndex = -1;
-    while (++lIndex < iLength) {if (((const ZT_U8*)iTarget)[lIndex] != ((const ZT_U8*)iSource)[lIndex]) {return ZT_FALSE;}}
-    return ZT_TRUE;
+	ZT_SIZE lIndex = -1;
+	while (++lIndex < iLength) {if (((const ZT_U8*)iTarget)[lIndex] != ((const ZT_U8*)iSource)[lIndex]) {return ZT_FALSE;}}
+	return ZT_TRUE;
 }
 ZT_DATA* ZTM_DataNew(ZT_SIZE iLength) {
 	ZT_DATA* lData;
@@ -267,7 +267,7 @@ ZT_DATA* ZTM_DataNew(ZT_SIZE iLength) {
 			return lData;
 		}
 	}
-    return NULL;
+	return NULL;
 }
 ZT_DATA* ZTM_DataNewCopy(const ZT_U8* iData, ZT_SIZE iLength) {
 	if (iData != NULL) {
@@ -291,34 +291,34 @@ ZT_DATA* ZTM_DataNewWrap(ZT_U8* iData, ZT_SIZE iLength) {
 	return NULL;
 }
 void ZTM_DataFreePayloadSecure(ZT_DATA* iData) {
-    //if (iData != NULL) {
+	//if (iData != NULL) {
 		ZTM8_Zero(iData->ptr, iData->length);
-        ZTM_FreeNull(iData->ptr);
+		ZTM_FreeNull(iData->ptr);
 		iData->length = 0;
-    //}
+	//}
 }
 void ZTM_DataFreeSecure(ZT_DATA* iData) {
-    //if (iData != NULL) {
+	//if (iData != NULL) {
 		ZTM8_Zero(iData->ptr, iData->length);
-        ZTM8_Free(iData->ptr);
-        ZTM8_Free(iData);
-    //}
+		ZTM8_Free(iData->ptr);
+		ZTM8_Free(iData);
+	//}
 }
 void ZTM_DataFreePayload(ZT_DATA* iData) {
-    //if (iData != NULL) {
-        ZTM_FreeNull(iData->ptr);
+	//if (iData != NULL) {
+		ZTM_FreeNull(iData->ptr);
 		iData->length = 0;
-    //}
+	//}
 }
 void ZTM_DataFreeWrap(ZT_DATA* iData) {
-    //if (iData != NULL) {
-        ZTM8_Free(iData);
-    //}
+	//if (iData != NULL) {
+		ZTM8_Free(iData);
+	//}
 }
 void ZTM_DataFree(ZT_DATA* iData) {
-    //if (iData != NULL) {
-        ZTM8_Free(iData->ptr);
-        ZTM8_Free(iData);
-    //}
+	//if (iData != NULL) {
+		ZTM8_Free(iData->ptr);
+		ZTM8_Free(iData);
+	//}
 }
 #endif // ZTM_C_INCLUDED

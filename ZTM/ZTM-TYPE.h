@@ -4,7 +4,5 @@
 ***/
 #ifndef ZTM_TYPE_H_INCLUDED
 #define ZTM_TYPE_H_INCLUDED
-
 #include "ZTM-SHARED-TYPE.h"
-
 #endif // ZTM_TYPE_H_INCLUDED

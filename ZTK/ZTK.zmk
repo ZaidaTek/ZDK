@@ -2,6 +2,7 @@
 	"target": "./libZTK.so",
 	"sources": [
 		"./ZTXCB-DEBUG.c",
+		"./ZTXCB-Draw.c",
 		"./ZTXCB.c",
 		"./ZTX11-DEBUG.c",
 		"./ZTX11.c",
@@ -14,7 +15,7 @@
 		"./ZTK.c"
 	],
 	"include": ["../ZTM", "../ZTL"],
-	"link": ["ZTM", "ZTL", "X11", "xcb"],
+	"link": ["ZTM", "ZTL", "xcb"],
 	"flag": {
 		"extra": {
 			"shared": ["-fPIC", "-DZTK_BUILD_OPENGL=0x0", "-DZTK_BUILD_DEBUG=0x1", "-DZTK_BUILD_XCB=0x1"],

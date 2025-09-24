@@ -14,8 +14,8 @@ void ZTM_PixelsNegative(const ZT_COLOR* iSource, ZT_COLOR* oTarget, ZT_INDEX iLe
 	ZT_COLOR lMaskB = ZTM_ColorMaskB(iPalette);
 	ZT_INDEX i = -1;
 	while (++i < iLength) {
-	    ZT_COLOR lColor = iSource[i];
-        oTarget[i] = (lColor & lMaskA) | (lMaskR - (lColor & lMaskR)) | (lMaskG - (lColor & lMaskG)) | (lMaskB - (lColor & lMaskB));
+		ZT_COLOR lColor = iSource[i];
+		oTarget[i] = (lColor & lMaskA) | (lMaskR - (lColor & lMaskR)) | (lMaskG - (lColor & lMaskG)) | (lMaskB - (lColor & lMaskB));
 	}
 }
 void ZTM_PixelsOpacity(const ZT_COLOR* iSource, ZT_COLOR* oTarget, ZT_INDEX iLength, ZT_FLAG iPalette, ZT_INDEX iOpacity) {
@@ -157,72 +157,72 @@ void ZTM_PixelsConvert(const ZT_COLOR* iSource, ZT_COLOR* oTarget, ZT_INDEX iLen
 void ZTM_PixelsFlipHorizontal(const ZT_COLOR* iSource, ZT_COLOR* oTarget, const ZT_POINT* iDimensions) {
 	ZT_I y = -1;
 	if (oTarget != iSource) {
-        while (++y < iDimensions->y) {
-            ZT_I x = -1;
-            ZT_I lOffsetTarget = y * iDimensions->x;
-            ZT_I lOffsetSource = (y + 1) * iDimensions->x - 1;
-            while (++x < iDimensions->x) {oTarget[lOffsetTarget + x] = iSource[lOffsetSource - x];}
-        }
+		while (++y < iDimensions->y) {
+			ZT_I x = -1;
+			ZT_I lOffsetTarget = y * iDimensions->x;
+			ZT_I lOffsetSource = (y + 1) * iDimensions->x - 1;
+			while (++x < iDimensions->x) {oTarget[lOffsetTarget + x] = iSource[lOffsetSource - x];}
+		}
 	} else {
-	    ZT_I lHalfX = (iDimensions->x >> 1);
-	    while (++y < iDimensions->y) {
-            ZT_I x = -1;
-            ZT_I lOffsetTarget = y * iDimensions->x;
-            ZT_I lOffsetSource = (y + 1) * iDimensions->x - 1;
-            while (++x < lHalfX) {
-                ZT_COLOR lCache = oTarget[lOffsetTarget + x];
-                oTarget[lOffsetTarget + x] = oTarget[lOffsetSource - x];
-                oTarget[lOffsetSource - x] = lCache; ///is this maybe faster if read is in reverse, rather than write?
-            }
-        }
+		ZT_I lHalfX = (iDimensions->x >> 1);
+		while (++y < iDimensions->y) {
+			ZT_I x = -1;
+			ZT_I lOffsetTarget = y * iDimensions->x;
+			ZT_I lOffsetSource = (y + 1) * iDimensions->x - 1;
+			while (++x < lHalfX) {
+				ZT_COLOR lCache = oTarget[lOffsetTarget + x];
+				oTarget[lOffsetTarget + x] = oTarget[lOffsetSource - x];
+				oTarget[lOffsetSource - x] = lCache; ///is this maybe faster if read is in reverse, rather than write?
+			}
+		}
 	}
 }
 void ZTM_PixelsFlipVertical(const ZT_COLOR* iSource, ZT_COLOR* oTarget, const ZT_POINT* iDimensions) {
 	ZT_I y = -1;
 	if (oTarget != iSource) {
-        while (++y < iDimensions->y) {ZTM32_Copy(&iSource[iDimensions->x * y], &oTarget[iDimensions->x * (iDimensions->y - 1 - y)], iDimensions->x);}
+		while (++y < iDimensions->y) {ZTM32_Copy(&iSource[iDimensions->x * y], &oTarget[iDimensions->x * (iDimensions->y - 1 - y)], iDimensions->x);}
 	} else {
-	    ZT_COLOR* lCache = ZTM8_New(sizeof(ZT_COLOR) * iDimensions->x);
-	    while (++y < iDimensions->y) {
-            ZTM32_Copy(&oTarget[iDimensions->x * y], lCache, iDimensions->x);
-            ZTM32_Copy(&oTarget[iDimensions->x * (iDimensions->y - 1 - y)], &oTarget[iDimensions->x * y], iDimensions->x);
-            ZTM32_Copy(lCache, &oTarget[iDimensions->x * (iDimensions->y - 1 - y)], iDimensions->x);
-	    }
-	    ZTM8_Free(lCache);
+		ZT_COLOR* lCache = ZTM8_New(sizeof(ZT_COLOR) * iDimensions->x);
+		while (++y < iDimensions->y) {
+			ZTM32_Copy(&oTarget[iDimensions->x * y], lCache, iDimensions->x);
+			ZTM32_Copy(&oTarget[iDimensions->x * (iDimensions->y - 1 - y)], &oTarget[iDimensions->x * y], iDimensions->x);
+			ZTM32_Copy(lCache, &oTarget[iDimensions->x * (iDimensions->y - 1 - y)], iDimensions->x);
+		}
+		ZTM8_Free(lCache);
 	}
 }
 void ZTM_PixelsExtract(const ZT_COLOR* iSource, ZT_COLOR* oTarget, const ZT_POINT* iDimensionsSource, const ZT_RECT* iDimensionsTarget) {
-    for (ZT_I y = 0; y < iDimensionsTarget->h; y++) {
-        ZT_I lOffsetTarget = iDimensionsTarget->w * y;
-        ZT_I lOffsetSource = iDimensionsSource->x * (y + iDimensionsTarget->y) + iDimensionsTarget->x;
-        for (ZT_I x = 0; x < iDimensionsTarget->w; x++) {
-            oTarget[lOffsetTarget + x] = iSource[lOffsetSource + x];
-        }
-    }
+	for (ZT_I y = 0; y < iDimensionsTarget->h; y++) {
+		ZT_I lOffsetTarget = iDimensionsTarget->w * y;
+		ZT_I lOffsetSource = iDimensionsSource->x * (y + iDimensionsTarget->y) + iDimensionsTarget->x;
+		for (ZT_I x = 0; x < iDimensionsTarget->w; x++) {
+			oTarget[lOffsetTarget + x] = iSource[lOffsetSource + x];
+		}
+	}
 }
 void ZTM_PixelsScaleUp(const ZT_COLOR* iSource, ZT_COLOR* oTarget, const ZT_POINT* iDimensionsSource, ZT_INDEX iBitshiftLeft) {
-    ZT_POINT lSizeTarget;
-    lSizeTarget.x = iDimensionsSource->x << iBitshiftLeft;
-    lSizeTarget.y = iDimensionsSource->y << iBitshiftLeft;
-    for (ZT_I y = 0; y < lSizeTarget.y; y++) {
-        ZT_I lOffset = y * lSizeTarget.x;
-        ZT_I lOffsetSource = (y >> iBitshiftLeft) * iDimensionsSource->x;
-        for (ZT_I x = 0; x < lSizeTarget.x; x++) {
-            oTarget[lOffset + x] = iSource[lOffsetSource + (x >> iBitshiftLeft)];
-        }
-    }
+	ZT_POINT lSizeTarget;
+	lSizeTarget.x = iDimensionsSource->x << iBitshiftLeft;
+	lSizeTarget.y = iDimensionsSource->y << iBitshiftLeft;
+	for (ZT_I y = 0; y < lSizeTarget.y; y++) {
+		ZT_I lOffset = y * lSizeTarget.x;
+		ZT_I lOffsetSource = (y >> iBitshiftLeft) * iDimensionsSource->x;
+		for (ZT_I x = 0; x < lSizeTarget.x; x++) {
+			oTarget[lOffset + x] = iSource[lOffsetSource + (x >> iBitshiftLeft)];
+		}
+	}
 }
 void ZTM_PixelsScaleDown(const ZT_COLOR* iSource, ZT_COLOR* oTarget, const ZT_POINT* iDimensionsSource, ZT_INDEX iBitshiftRight) {
-    ZT_POINT lSizeTarget;
-    lSizeTarget.x = iDimensionsSource->x >> iBitshiftRight;
-    lSizeTarget.y = iDimensionsSource->y >> iBitshiftRight;
-    for (ZT_I y = 0; y < lSizeTarget.y; y++) {
-        ZT_I lOffset = y * lSizeTarget.x;
-        ZT_I lOffsetSource = (y << iBitshiftRight) * iDimensionsSource->x;
-        for (ZT_I x = 0; x < lSizeTarget.x; x++) {
-            oTarget[lOffset + x] = iSource[lOffsetSource + (x << iBitshiftRight)];
-        }
-    }
+	ZT_POINT lSizeTarget;
+	lSizeTarget.x = iDimensionsSource->x >> iBitshiftRight;
+	lSizeTarget.y = iDimensionsSource->y >> iBitshiftRight;
+	for (ZT_I y = 0; y < lSizeTarget.y; y++) {
+		ZT_I lOffset = y * lSizeTarget.x;
+		ZT_I lOffsetSource = (y << iBitshiftRight) * iDimensionsSource->x;
+		for (ZT_I x = 0; x < lSizeTarget.x; x++) {
+			oTarget[lOffset + x] = iSource[lOffsetSource + (x << iBitshiftRight)];
+		}
+	}
 }
 
 #endif // ZTM_PIXEL_C_INCLUDED

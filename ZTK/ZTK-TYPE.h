@@ -6,25 +6,25 @@
 #define ZTK_TYPE_H_INCLUDED
 
 typedef union {
-    struct {
-        ZT_H_INDEX S;
-        ZT_H_INDEX H;
-        ZT_H_INDEX E;
-        ZT_H_FLAG A;
-    };
-    struct {
-        ZT_FLAG device;
-        ZT_FLAG event;
-    };
+	struct {
+		ZT_H_INDEX S;
+		ZT_H_INDEX H;
+		ZT_H_INDEX E;
+		ZT_H_FLAG A;
+	};
+	struct {
+		ZT_FLAG device;
+		ZT_FLAG event;
+	};
 } ZT_ID;
 typedef struct {
-    ZT_ID id;
-    struct {
-        ZT_FLAG d0;
-        ZT_FLAG d1;
-        ZT_FLAG d2;
-        ZT_FLAG d3;
-    } data;
+	ZT_ID id;
+	struct {
+		ZT_FLAG d0;
+		ZT_FLAG d1;
+		ZT_FLAG d2;
+		ZT_FLAG d3;
+	} data;
 } ZT_EVENT;
 
 typedef void ZT_SPRITE;
