@@ -68,22 +68,20 @@
         }
     },
     "flag": {
-        "extra": {
-            "shared": [
-                "-fPIC"
-            ],
-            "linker": [
-                "-shared"
-            ]
-        }
+        "shared": [
+            "-fPIC"
+        ],
+        "linker": [
+            "-shared"
+        ]
     },
-    "zmake": "250917",
+    "zmake": "250925",
     "host": {
         "['date']": [
-            "2025-09-24T17:27:28 CEST"
+            "2025-09-25T01:15:21 CEST"
         ],
         "['zmake', '--version']": [
-            "zmake-v250917"
+            "zmake-v250925"
         ],
         "['neofetch', '--stdout', '--disable', 'uptime']": [
             "andi@ztk-dt-andi ",
@@ -101,7 +99,7 @@
             "Terminal: gnome-terminal ",
             "CPU: AMD Ryzen 7 5700X3D (16) @ 4.149GHz ",
             "GPU: AMD ATI Radeon RX 7700 XT / 7800 XT ",
-            "Memory: 2608MiB / 15918MiB "
+            "Memory: 2669MiB / 15918MiB "
         ],
         "['gcc', '--version']": [
             "gcc (Debian 12.2.0-14+deb12u1) 12.2.0",
@@ -129,10 +127,6 @@
                 "-O3",
                 "-flto",
                 "-fPIC",
-                "-Wfatal-errors",
-                "-Werror",
-                "-Wall",
-                "-Wextra",
                 "-c",
                 "/home/andi/code/c/ZDK/ZTM/ZTMIO/ZTMIO.c",
                 "-o",
@@ -143,10 +137,6 @@
                 "-O3",
                 "-flto",
                 "-fPIC",
-                "-Wfatal-errors",
-                "-Werror",
-                "-Wall",
-                "-Wextra",
                 "-c",
                 "/home/andi/code/c/ZDK/ZTM/ZTMKY/ZTMKY.c",
                 "-o",
@@ -157,10 +147,6 @@
                 "-O3",
                 "-flto",
                 "-fPIC",
-                "-Wfatal-errors",
-                "-Werror",
-                "-Wall",
-                "-Wextra",
                 "-c",
                 "/home/andi/code/c/ZDK/ZTM/ZTMWV/ZTMWV.c",
                 "-o",
@@ -171,10 +157,6 @@
                 "-O3",
                 "-flto",
                 "-fPIC",
-                "-Wfatal-errors",
-                "-Werror",
-                "-Wall",
-                "-Wextra",
                 "-c",
                 "/home/andi/code/c/ZDK/ZTM/ZTM-RT.c",
                 "-o",
@@ -185,10 +167,6 @@
                 "-O3",
                 "-flto",
                 "-fPIC",
-                "-Wfatal-errors",
-                "-Werror",
-                "-Wall",
-                "-Wextra",
                 "-c",
                 "/home/andi/code/c/ZDK/ZTM/ZTM-list.c",
                 "-o",
@@ -199,10 +177,6 @@
                 "-O3",
                 "-flto",
                 "-fPIC",
-                "-Wfatal-errors",
-                "-Werror",
-                "-Wall",
-                "-Wextra",
                 "-c",
                 "/home/andi/code/c/ZDK/ZTM/ZTM-time.c",
                 "-o",
@@ -213,10 +187,6 @@
                 "-O3",
                 "-flto",
                 "-fPIC",
-                "-Wfatal-errors",
-                "-Werror",
-                "-Wall",
-                "-Wextra",
                 "-c",
                 "/home/andi/code/c/ZDK/ZTM/ZTM-pixel.c",
                 "-o",
@@ -227,10 +197,6 @@
                 "-O3",
                 "-flto",
                 "-fPIC",
-                "-Wfatal-errors",
-                "-Werror",
-                "-Wall",
-                "-Wextra",
                 "-c",
                 "/home/andi/code/c/ZDK/ZTM/ZTM-surface.c",
                 "-o",
@@ -241,10 +207,6 @@
                 "-O3",
                 "-flto",
                 "-fPIC",
-                "-Wfatal-errors",
-                "-Werror",
-                "-Wall",
-                "-Wextra",
                 "-c",
                 "/home/andi/code/c/ZDK/ZTM/ZTM-hash-md5.c",
                 "-o",
@@ -255,10 +217,6 @@
                 "-O3",
                 "-flto",
                 "-fPIC",
-                "-Wfatal-errors",
-                "-Werror",
-                "-Wall",
-                "-Wextra",
                 "-c",
                 "/home/andi/code/c/ZDK/ZTM/ZTM-hash.c",
                 "-o",
@@ -269,10 +227,6 @@
                 "-O3",
                 "-flto",
                 "-fPIC",
-                "-Wfatal-errors",
-                "-Werror",
-                "-Wall",
-                "-Wextra",
                 "-c",
                 "/home/andi/code/c/ZDK/ZTM/ZTM-color.c",
                 "-o",
@@ -283,10 +237,6 @@
                 "-O3",
                 "-flto",
                 "-fPIC",
-                "-Wfatal-errors",
-                "-Werror",
-                "-Wall",
-                "-Wextra",
                 "-c",
                 "/home/andi/code/c/ZDK/ZTM/ZTM-char.c",
                 "-o",
@@ -297,10 +247,6 @@
                 "-O3",
                 "-flto",
                 "-fPIC",
-                "-Wfatal-errors",
-                "-Werror",
-                "-Wall",
-                "-Wextra",
                 "-c",
                 "/home/andi/code/c/ZDK/ZTM/ZTM.c",
                 "-o",
@@ -325,11 +271,11 @@
                 "/home/andi/code/c/ZDK/ZTM/ZTM.c.o",
                 "-o",
                 "/home/andi/code/c/ZDK/ZTM/libZTM.so",
+                "-fPIC",
                 "-O3",
                 "-flto",
-                "-s",
-                "-fPIC",
-                "-shared"
+                "-shared",
+                "-s"
             ]
         ],
         "clean": [

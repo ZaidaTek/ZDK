@@ -9,9 +9,7 @@
 	"include": ["../ZTM", "../ZTL"],
 	"link": ["ZTM", "ZTL"],
 	"flag": {
-		"extra": {
-			"shared": ["-fPIC"],
-			"linker": ["-shared"]
-		}
+		"shared": ["-fPIC"],
+		"linker": ["-shared"]
 	}
 }

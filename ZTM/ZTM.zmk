@@ -16,9 +16,7 @@
 		"./ZTM.c"
 	],
 	"flag": {
-		"extra": {
-			"shared": ["-fPIC"],
-			"linker": ["-shared"]
-		}
+		"shared": ["-fPIC"],
+		"linker": ["-shared"]
 	}
 }

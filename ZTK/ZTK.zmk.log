@@ -73,29 +73,27 @@
         "lib": [
             "ZTM",
             "ZTL",
-            "xcb"
+            "xcb",
+            "X11"
         ]
     },
     "flag": {
-        "extra": {
-            "shared": [
-                "-fPIC",
-                "-DZTK_BUILD_OPENGL=0x0",
-                "-DZTK_BUILD_DEBUG=0x1",
-                "-DZTK_BUILD_XCB=0x1"
-            ],
-            "linker": [
-                "-shared"
-            ]
-        }
+        "shared": [
+            "-fPIC",
+            "-DZTK_BUILD_OPENGL=0x0",
+            "-DZTK_BUILD_DEBUG=0x1"
+        ],
+        "linker": [
+            "-shared"
+        ]
     },
-    "zmake": "250917",
+    "zmake": "250925",
     "host": {
         "['date']": [
-            "2025-09-24T17:27:31 CEST"
+            "2025-09-25T01:15:24 CEST"
         ],
         "['zmake', '--version']": [
-            "zmake-v250917"
+            "zmake-v250925"
         ],
         "['neofetch', '--stdout', '--disable', 'uptime']": [
             "andi@ztk-dt-andi ",
@@ -113,7 +111,7 @@
             "Terminal: gnome-terminal ",
             "CPU: AMD Ryzen 7 5700X3D (16) @ 4.149GHz ",
             "GPU: AMD ATI Radeon RX 7700 XT / 7800 XT ",
-            "Memory: 2598MiB / 15918MiB "
+            "Memory: 2694MiB / 15918MiB "
         ],
         "['gcc', '--version']": [
             "gcc (Debian 12.2.0-14+deb12u1) 12.2.0",
@@ -137,11 +135,6 @@
                 "-fPIC",
                 "-DZTK_BUILD_OPENGL=0x0",
                 "-DZTK_BUILD_DEBUG=0x1",
-                "-DZTK_BUILD_XCB=0x1",
-                "-Wfatal-errors",
-                "-Werror",
-                "-Wall",
-                "-Wextra",
                 "-I/home/andi/code/c/ZDK/ZTM",
                 "-I/home/andi/code/c/ZDK/ZTL",
                 "-c",
@@ -156,11 +149,6 @@
                 "-fPIC",
                 "-DZTK_BUILD_OPENGL=0x0",
                 "-DZTK_BUILD_DEBUG=0x1",
-                "-DZTK_BUILD_XCB=0x1",
-                "-Wfatal-errors",
-                "-Werror",
-                "-Wall",
-                "-Wextra",
                 "-I/home/andi/code/c/ZDK/ZTM",
                 "-I/home/andi/code/c/ZDK/ZTL",
                 "-c",
@@ -175,11 +163,6 @@
                 "-fPIC",
                 "-DZTK_BUILD_OPENGL=0x0",
                 "-DZTK_BUILD_DEBUG=0x1",
-                "-DZTK_BUILD_XCB=0x1",
-                "-Wfatal-errors",
-                "-Werror",
-                "-Wall",
-                "-Wextra",
                 "-I/home/andi/code/c/ZDK/ZTM",
                 "-I/home/andi/code/c/ZDK/ZTL",
                 "-c",
@@ -194,11 +177,6 @@
                 "-fPIC",
                 "-DZTK_BUILD_OPENGL=0x0",
                 "-DZTK_BUILD_DEBUG=0x1",
-                "-DZTK_BUILD_XCB=0x1",
-                "-Wfatal-errors",
-                "-Werror",
-                "-Wall",
-                "-Wextra",
                 "-I/home/andi/code/c/ZDK/ZTM",
                 "-I/home/andi/code/c/ZDK/ZTL",
                 "-c",
@@ -213,11 +191,6 @@
                 "-fPIC",
                 "-DZTK_BUILD_OPENGL=0x0",
                 "-DZTK_BUILD_DEBUG=0x1",
-                "-DZTK_BUILD_XCB=0x1",
-                "-Wfatal-errors",
-                "-Werror",
-                "-Wall",
-                "-Wextra",
                 "-I/home/andi/code/c/ZDK/ZTM",
                 "-I/home/andi/code/c/ZDK/ZTL",
                 "-c",
@@ -232,11 +205,6 @@
                 "-fPIC",
                 "-DZTK_BUILD_OPENGL=0x0",
                 "-DZTK_BUILD_DEBUG=0x1",
-                "-DZTK_BUILD_XCB=0x1",
-                "-Wfatal-errors",
-                "-Werror",
-                "-Wall",
-                "-Wextra",
                 "-I/home/andi/code/c/ZDK/ZTM",
                 "-I/home/andi/code/c/ZDK/ZTL",
                 "-c",
@@ -251,11 +219,6 @@
                 "-fPIC",
                 "-DZTK_BUILD_OPENGL=0x0",
                 "-DZTK_BUILD_DEBUG=0x1",
-                "-DZTK_BUILD_XCB=0x1",
-                "-Wfatal-errors",
-                "-Werror",
-                "-Wall",
-                "-Wextra",
                 "-I/home/andi/code/c/ZDK/ZTM",
                 "-I/home/andi/code/c/ZDK/ZTL",
                 "-c",
@@ -270,11 +233,6 @@
                 "-fPIC",
                 "-DZTK_BUILD_OPENGL=0x0",
                 "-DZTK_BUILD_DEBUG=0x1",
-                "-DZTK_BUILD_XCB=0x1",
-                "-Wfatal-errors",
-                "-Werror",
-                "-Wall",
-                "-Wextra",
                 "-I/home/andi/code/c/ZDK/ZTM",
                 "-I/home/andi/code/c/ZDK/ZTL",
                 "-c",
@@ -289,11 +247,6 @@
                 "-fPIC",
                 "-DZTK_BUILD_OPENGL=0x0",
                 "-DZTK_BUILD_DEBUG=0x1",
-                "-DZTK_BUILD_XCB=0x1",
-                "-Wfatal-errors",
-                "-Werror",
-                "-Wall",
-                "-Wextra",
                 "-I/home/andi/code/c/ZDK/ZTM",
                 "-I/home/andi/code/c/ZDK/ZTL",
                 "-c",
@@ -308,11 +261,6 @@
                 "-fPIC",
                 "-DZTK_BUILD_OPENGL=0x0",
                 "-DZTK_BUILD_DEBUG=0x1",
-                "-DZTK_BUILD_XCB=0x1",
-                "-Wfatal-errors",
-                "-Werror",
-                "-Wall",
-                "-Wextra",
                 "-I/home/andi/code/c/ZDK/ZTM",
                 "-I/home/andi/code/c/ZDK/ZTL",
                 "-c",
@@ -327,11 +275,6 @@
                 "-fPIC",
                 "-DZTK_BUILD_OPENGL=0x0",
                 "-DZTK_BUILD_DEBUG=0x1",
-                "-DZTK_BUILD_XCB=0x1",
-                "-Wfatal-errors",
-                "-Werror",
-                "-Wall",
-                "-Wextra",
                 "-I/home/andi/code/c/ZDK/ZTM",
                 "-I/home/andi/code/c/ZDK/ZTL",
                 "-c",
@@ -346,11 +289,6 @@
                 "-fPIC",
                 "-DZTK_BUILD_OPENGL=0x0",
                 "-DZTK_BUILD_DEBUG=0x1",
-                "-DZTK_BUILD_XCB=0x1",
-                "-Wfatal-errors",
-                "-Werror",
-                "-Wall",
-                "-Wextra",
                 "-I/home/andi/code/c/ZDK/ZTM",
                 "-I/home/andi/code/c/ZDK/ZTL",
                 "-c",
@@ -376,19 +314,19 @@
                 "/home/andi/code/c/ZDK/ZTK/ZTK.c.o",
                 "-o",
                 "/home/andi/code/c/ZDK/ZTK/libZTK.so",
-                "-O3",
-                "-flto",
-                "-s",
                 "-fPIC",
                 "-DZTK_BUILD_OPENGL=0x0",
                 "-DZTK_BUILD_DEBUG=0x1",
-                "-DZTK_BUILD_XCB=0x1",
+                "-O3",
+                "-flto",
                 "-shared",
+                "-s",
                 "-L/home/andi/code/c/ZDK/ZTM",
                 "-L/home/andi/code/c/ZDK/ZTL",
                 "-lZTM",
                 "-lZTL",
-                "-lxcb"
+                "-lxcb",
+                "-lX11"
             ]
         ],
         "clean": [

@@ -15,11 +15,9 @@
 		"./ZTK.c"
 	],
 	"include": ["../ZTM", "../ZTL"],
-	"link": ["ZTM", "ZTL", "xcb"],
+	"link": ["ZTM", "ZTL", "xcb", "X11"],
 	"flag": {
-		"extra": {
-			"shared": ["-fPIC", "-DZTK_BUILD_OPENGL=0x0", "-DZTK_BUILD_DEBUG=0x1", "-DZTK_BUILD_XCB=0x1"],
-			"linker": ["-shared"]
-		}
+		"shared": ["-fPIC", "-DZTK_BUILD_OPENGL=0x0", "-DZTK_BUILD_DEBUG=0x1"],
+		"linker": ["-shared"]
 	}
 }
